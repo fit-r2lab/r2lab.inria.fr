@@ -1,0 +1,53 @@
+#livetable_container th, #livetable_container td {
+    text-align: center;
+}
+
+/* headers */
+#livetable_container th {
+    font-size: x-medium;
+    font-style: bold;
+}
+
+/* body - except for the id column */
+#livetable_container td:not(.badge) {
+/*    font-size: 20px; */
+    font-family: FontAwesome;
+    color: grey;
+}
+
+
+#livetable_container td.ok {
+    color: green;
+}
+#livetable_container td.ko {
+    color: #ababab;
+}
+#livetable_container td.error {
+    color: red;
+}
+
+#livetable_container td.os {
+/*    font-size:		20px;*/
+    color:		#000;
+    vertical-align:	middle;
+}
+
+
+#livetable_container td.os img {
+    height : 20px;
+}
+
+#livetable_container th.rxtx {
+    font-size: medium;
+}
+#livetable_container td.rxtx {
+    font-size: small;
+}
+
+.livetable_header tr.all {
+    background-color: #ccc;
+}
+
+.livetable_header tr:not(.all) {
+    background-color: #aca;
+}
