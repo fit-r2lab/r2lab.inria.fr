@@ -30,12 +30,16 @@ First of all, welcome to R2lab.
 
 For the time being, R2lab’s operations rely on 2 separate websites:
 
-* **Reservation Portal** at https://r2lab.inria.fr : is the one used for daily operations,
-like getting a reservation, and live monitoring of nodes status.
-Since 2017 April, you can also manage your ssh keys from this site.
+* **Reservation Portal** at
+[https://r2lab.inria.fr](https://r2lab.inria.fr) : is the one used for
+daily operations, like getting a reservation, and live monitoring of
+nodes status.  Since 2017 April, you can also manage your ssh keys
+from this site.
 
-* **Register Portal** at https://r2labapi.inria.fr : is the backend that manages accounts,
-so you will be requested to interact with this site only once, when requesting an account.
+* **Register Portal** at
+[https://r2labapi.inria.fr](https://r2labapi.inria.fr) : is the
+backend that manages accounts, so you will be requested to interact
+with this site only once, when requesting an account.
 
 Both sites share the same *email*/*password* credentials.
 
