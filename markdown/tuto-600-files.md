@@ -469,6 +469,7 @@ In this C series , we have seen:
 * and finally, still in C2bis, how to produce a graphical view of a
   `Scheduler` for documentation and/or troubleshooting.
 
+Let us move to [the next tutorial](/tuto-700-troubleshooting.md) for some guidelines and troubleshooting tips.
 </div>
 
 </div> <!-- end div contents -->

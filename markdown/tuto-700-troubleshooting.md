@@ -9,8 +9,8 @@ skip_header: True
 
 <ul class="nav nav-tabs">
   <li class="active"> <a href="#INTRO">INTRO</a> </li>
-  <li> <a href="#COMMON MISTAKES">COMMON_MISTAKES</a></li>
-  <li> <a href="#CODE UPDATE">CODE_UPDATE</a></li>
+  <li> <a href="#COMMON_MISTAKES">COMMON_MISTAKES</a></li>
+  <li> <a href="#CODE_UPDATE">CODE_UPDATE</a></li>
   <li> <a href="#VERBOSITY">VERBOSITY</a></li>
   << include r2lab/tutos-index.html >>
 </ul>
@@ -130,12 +130,13 @@ Alternatively, you can check the currently running versions by doing on your lap
     $ python3 -c 'from asynciojobs import version; print(version.version)'
     $ python3 -c 'from apssh import version; print(version.version)'
 
-and then compare them against the latest release numbers for these 2 libraries, that can be found :
+and then compare them against the latest release numbers for these 2
+libraries, that can be found :
 
 * either by searching `https://pypi.python.org`,
 * or in the respective documentation pages for
-[`asynciojobs`](http://nepi-ng.inria.fr/asynciojobs/) and
-[`apssh`](http://nepi-ng.inria.fr/apssh/).
+[asynciojobs](http://nepi-ng.inria.fr/asynciojobs/) and
+[apssh](http://nepi-ng.inria.fr/apssh/).
 
 ### `shell tools`
 
