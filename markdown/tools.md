@@ -14,7 +14,7 @@ Our offering in terms of software tools relies on 2 separate components :
   off) and to load and restore images on the nodes.
 
 You can find a hands-on tutorial and introduction to both tools in
-[the tutorials section](/tutos.md).
+[the tutorials section](/tutorial.md).
 
 ### `nepi-ng` : Network Experiment Programming Interface new generation
 
