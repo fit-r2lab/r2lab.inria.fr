@@ -2,36 +2,50 @@ title: Tools
 tab: platform
 ---
 
-### NEPI: Network Experiment Programming Interface
+Our offering in terms of software tools relies on 2 separate components :
 
-NEPI is a Python-based library to model and run network experiments on a variety of network evaluation platforms, including PlanetLab, OMF wireless testbeds, ns-3 simulators, and others. It allows to specify resources to use in an experiment, to define experiment workflow constraints and to automate deployment, resource control and result collection.
+* `nepi-ng` focuses on experiment orchestration that runs on your
+  laptop ; it allows you to describe the sequencing and dependencies
+  of the various steps of your experiment, including if desired for
+  loading images on the nodes when you start from scratch ;
 
-##### Features :
-- Automatic experiment deployment
-- Automatic result collection
-- Interactive experimentation
-- Hybrid experiments with multiple platforms
-- Free open source license (GPLv2)
+* `rhubarbe` is a low-level tool that is available on the R2lab
+  gateway, that helps inspect and change the node status (think: on or
+  off) and to load and restore images on the nodes.
 
-##### Installation:
-    $ sudo pip install nepi
+You can find a hands-on tutorial and introduction to both tools in
+[the tutorials section](/tutos.md).
 
-This will take care of the ipaddr and networkx dependencies.
+### `nepi-ng` : Network Experiment Programming Interface new generation
 
-##### Update:
-Within this framework, you can update to the latest stable version of NEPI by simply running:
+`nepi-ng` is a Python-based library to model and run network
+experiments on a variety of network evaluation testbeds. It allows to
+specify resources to use in an experiment, to define experiment
+workflow constraints and to automate deployment, resource control and
+result collection.
 
-    $ sudo pip install nepi --upgrade
+It only assumes `ssh` connectivity to the nodes to be controlled, so
+it is not specific to R2lab, and can be used in a variety of contexts;
+in particular it ensures optimal usage of ssh connections.
 
-##### Visualizing:
-If you also need functions related to matplotlib and pygraphviz, you can have the python code for these two tools installed using an explicit.
+It is available through a CreateCommon license CC BY-NC-ND.
 
-    $ sudo pip install matplotlib pygraphviz
+`nepi-ng` is in fact the addition of 2 python libraries named
+`asynciojobs` and `apssh`. You can find more details on their API and
+internals at the `nepi-ng`'s [entry-point
+website](https://nepi-ng.inria.fr).
 
-However, please be aware that for this command to succeed, you will need to have the corresponding C libraries installed first by another method ([see details](http://nepi.inria.fr/Install/WebHome)).
+### `rhubarbe` : a tool for low-level management of nodes
 
-##### Experiments with NEPI:
+Less sophisticated, but still quite useful on a daily basis,
+`rhubarbe` is a R2lab-specific tool for doing quick nodes management
+from the command line on the gateway. It can also be invoked through
+`nepi-ng` as part of your automated experiment, typically in order to
+check that you have a valid lease at this time, load images, wait for
+the nodes to show up, or switch off the testbed when you leave (but
+don't worry if you forget, it's taken care of).
 
-- [How to design an experiment using NEPi](http://nepi.inria.fr/Nepi/StepByStepExperiment)
-- [How to deploy an experiment using NEPi](http://nepi.inria.fr/Nepi/StepByStepExperiment)
-- [Ping example using NEPI](http://nepi.inria.fr/code/nepi/file/a94139d39d2e/examples/linux/ping.py)
+More details on `rhubarbe` can be found [on its github
+repository](https://github.com/parmentelat/rhubarbe).
+
+
