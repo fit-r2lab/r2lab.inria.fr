@@ -62,7 +62,7 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
 
 * State of the art motherboard
   * CPU Intel Core i7-2600 processor
-  * 4Gb RAM
+  * 8Gb RAM
   * 240 Gb SSD
 * 2 Wireless Interfaces, dedicated to experimentation, 3 antennas each&nbsp;:
   * one Atheros 802.11 93xx a/b/g/n
