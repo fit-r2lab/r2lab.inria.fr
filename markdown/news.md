@@ -5,6 +5,18 @@ skip_news: yes
 
 # Most recent first&nbsp;:
 
+****
+2018
+****
+
+### January 2018
+
+* the `demos/` subtree in the `r2lab` github repo was split and moved into [a separated repo named r2lab-demos](https://github.com/parmentelat/r2lab-demos)
+* a mybinder shell has been setup to host notebooks in one-click, like e.g. 
+  <a href="https://mybinder.org/v2/gh/parmentelat/r2lab-demos/master?filepath=radiomap%2Fradiomap.ipynb" target='_'>
+  our radiomap application <img src="https://mybinder.org/badge.svg">
+  </a>
+
 
 ****
 ## 2017
@@ -25,7 +37,7 @@ skip_news: yes
 
 ### August 2017
 
-* [the openair demo](https://github.com/parmentelat/r2lab/tree/public/demos/oai-skype) is given during the SIGCOMM-2017 demo session
+* [the openair demo](https://github.com/parmentelat/r2lab-demos/tree/master/oai-skype) is given during the SIGCOMM-2017 demo session
 
 ### July 2017
 
@@ -33,7 +45,7 @@ skip_news: yes
 
 ### April 2017
 
-* [the radiomap demo](https://github.com/parmentelat/r2lab/tree/public/demos/radiomap) gathers all-pairs communication conditions, see `visumap`  on how this can be visualized in a jupyter notebook
+* [the radiomap demo](https://github.com/parmentelat/r2lab-demos/tree/master/radiomap) gathers all-pairs communication conditions, see `visumap`  on how this can be visualized in a jupyter notebook
 
 
 ****
@@ -88,9 +100,8 @@ skip_news: yes
 * We have published 2 python libraries on pypi
   * [`asynciojobs`](https://github.com/parmentelat/asynciojobs)
   * [`apssh`](https://github.com/parmentelat/apssh), see also [this link](https://github.com/parmentelat/apssh/blob/master/README-jobs.md)
-* We have [our first workable script](https://github.com/parmentelat/r2lab/blob/master/demos/jobs-angle-measure/angle-measure.py) that uses this combination of tools for running an experiment on R2lab
-* You can compare with [the same experiment written with NEPI](https://github.com/parmentelat/r2lab/blob/master/demos/nepi-angle-measure/angle-measure.py)
-* This new paradigm runs several times faster than the initial version.
+* We have [our first workable script](https://github.com/parmentelat/r2lab-demos/blob/master/orion/angle-measure.py) that uses this combination of tools for running an experiment on R2lab
+* This new paradigm runs several times faster than the initial NEPI-based version.
 
 ### September 2
 

@@ -10,7 +10,7 @@ skip_header: True
 
 <ul class="nav nav-tabs">
   <li class="active"> <a href="#INTRO">INTRO</a> </li>
-  <li> <a href="#PHONE">PHONE</a></li>
+  <li> <a href="#PHONES">PHONES</a></li>
   <li> <a href="#OAI-IMAGES">OAI IMAGES</a></li>
   <li> <a href="#WRAPUP">WRAPUP</a></li>
 
@@ -35,11 +35,11 @@ These pieces are described in more detail in this section of the tutorial
 </div>
 
 <!------------ PHONE ------------>
-<div id="PHONE" class="tab-pane fade" markdown="1">
+<div id="PHONES" class="tab-pane fade" markdown="1">
 
 ### Phone setup
 
-Here's the setup regarding the commercial phone
+Here's the generic setup regarding the commercial phones available
 
 <img src="/assets/img/macphone.png"  width='500px'>
 
@@ -99,9 +99,10 @@ For this you will need the following information:
 * VNC endpoint : `faraday.inria.fr` on port 5900 - this port is forwarded to `macphone` on same port
 * login credentials in `macphone` : `tester` / `tester++` 
 
-### SIM card
+### SIM cards and other details
 * There is no reason why you would need this, but if only for the record:
-* the phone's SIM card PIN is `1234`
+* the Android phone's SIM card PIN is `1234`
+* the iphone's SIM card PIN is `0000`; its IMEI is `353315078943730`
 
 </div>
 
@@ -122,8 +123,8 @@ USRP attached. The former on the other hand can run on any node.
 
 For more details on how to run a 5G network inside the room, please
 take a look in the R2lab git repo at [the OpenAirInterface
-demo](https://github.com/parmentelat/r2lab/tree/public/demos/oai-skype)
-and in particular [the source code](https://github.com/parmentelat/r2lab/blob/public/demos/oai-skype/oai-scenario.py) for
+demo](https://github.com/parmentelat/r2lab-demos/tree/master/openair)
+and in particular [the source code](https://github.com/parmentelat/r2lab-demos/blob/master/openair/oai-scenario.py) for
 `oai-scenario.py`.
 
 This script leverages these 2 images in order to create a setup where
