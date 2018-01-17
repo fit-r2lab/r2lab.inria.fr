@@ -137,6 +137,7 @@ let livemap_geometry = {
 
     mapphone_specs : [
 	{id : 1, i : 0.5, j : 4.2 },
+	{id : 2, i : 8. , j : 0.5 },
     ],
 
     //////////////////// configuration
