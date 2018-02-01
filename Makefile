@@ -1,5 +1,5 @@
 # the script to apply git changes in production site r2lab.inria.fr
-# invoked every 10 minutes from cron through restart-website.sh
+# invoked every 10 minutes from cron through pull-and-restart.sh
 # which does make install
 
 PUBLISH-PATH = /var/www/r2lab.inria.fr
@@ -24,7 +24,7 @@ install: publish apache
 
 ########## force both infra boxes to use latest commit
 infra:
-	apssh -l root -t faraday.inria.fr -t r2lab.inria.fr /root/r2lab/infra/scripts/restart-website.sh
+	apssh -l root -t faraday.inria.fr -t r2lab.inria.fr /root/r2lab-embedded/services/pull-and-restart.sh
 
 .PHONY: infra
 
