@@ -88,13 +88,13 @@ class LiveColumnsNode {
     }
 
 
-    cell_sdr() {
+    cell_sdr(mention_duplexer) {
 	let alt_text = "";
 	alt_text += (this.gnuradio_release)
 	    ? `gnuradio_release = ${this.gnuradio_release}`
 	    : `no gnuradio installed`;
-	let text = this.usrp_type || 'none';
-        if (this.usrp_duplexer)
+	let text = this.usrp_type || '-';
+        if (mention_duplexer && this.usrp_duplexer)
             text += `/${this.usrp_duplexer}`;
 	text += ' ';
 	text += (this.usrp_on_off == 'on')

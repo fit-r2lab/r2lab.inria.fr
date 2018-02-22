@@ -66,7 +66,7 @@ class LiveTableNode extends LiveColumnsNode {
 	// on/off
 	this.cells_data[col++] = this.cell_on_off();
 	// usrp
-	this.cells_data[col++] = this.cell_sdr();
+	this.cells_data[col++] = this.cell_sdr(true);
 	// ping
 	this.cells_data[col++] =
 	    (this.control_ping == 'on')

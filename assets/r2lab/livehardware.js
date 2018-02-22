@@ -44,7 +44,7 @@ class LiveHardwareNode extends LiveColumnsNode{
 	// on-off
 	this.cells_data[col++] = this.cell_on_off();
 	// usrp-on-off
-	this.cells_data[col++] = this.cell_sdr();
+	this.cells_data[col++] = this.cell_sdr(false);
 	// duplexer details
 	this.cells_data[col++] = this.cell_duplexer();
 	// usrp antenna(s) images
