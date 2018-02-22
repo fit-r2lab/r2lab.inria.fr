@@ -66,7 +66,7 @@ class LiveTableNode extends LiveColumnsNode {
 	// on/off
 	this.cells_data[col++] = this.cell_on_off();
 	// usrp
-	this.cells_data[col++] = this.cell_usrp();
+	this.cells_data[col++] = this.cell_sdr();
 	// ping
 	this.cells_data[col++] =
 	    (this.control_ping == 'on')
@@ -122,7 +122,7 @@ class LiveTable extends LiveColumns{
 	header.append('th').html('node');
 	header.append('th').html('avail.');
 	header.append('th').html('on/off');
-	header.append('th').html('usrp');
+	header.append('th').html('sdr');
 	header.append('th').html('ping');
 	header.append('th').html('ssh');
 	header.append('th').html('last O.S.');

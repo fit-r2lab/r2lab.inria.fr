@@ -88,12 +88,14 @@ class LiveColumnsNode {
     }
 
 
-    cell_usrp() {
+    cell_sdr() {
 	let alt_text = "";
 	alt_text += (this.gnuradio_release)
 	    ? `gnuradio_release = ${this.gnuradio_release}`
 	    : `no gnuradio installed`;
 	let text = this.usrp_type || 'none';
+        if (this.usrp_duplexer)
+            text += `/${this.usrp_duplexer}`;
 	text += ' ';
 	text += (this.usrp_on_off == 'on')
 	    ? span_html('', 'fa fa-toggle-on')

@@ -90,8 +90,9 @@ In addition, you will find the following symbols close to some nodes
   tells you whether the node is usable or not. If not, this means you should not try to use that node for your experiment, as it may be physically powered off, or otherwise behave erratically.
 * The ***on/off*** column
   reports if the node is currently turned on or off.
-* The ***usrp*** column shows both
-  * the type of the USRP companion (or `none`),
+* The ***sdr*** column shows ([see also this page](hardware.md#gory-details))
+  * the type of the USRP or other SDR companion (or `none`),
+  * together with the attached duplexer if relevant,
   * and the status of the corresponding software switch.
 * The ***ping*** column
   says whether the node currently answers a single ping at the wired network interface or not.

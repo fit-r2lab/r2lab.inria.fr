@@ -38,7 +38,7 @@ tab: platform
       <p>
         Also you can load your operating system of choice on any node.
 	From that point you can ssh-access all nodes with administration privileges, and configure
-	the available resources - nodes, USRPs and phones - to create a rich experimental environment.
+	the available resources - nodes, SDRs and phones - to create a rich experimental environment.
        </p>
     </div>
     <div class="col-md-4">
@@ -89,6 +89,7 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
   <center>Icarus node standalone</center>
   </div>
   <div class="col-md-8 new_pad">
+
 ### USRP nodes
 
 Some nodes are equipped with USRP devices from <a href="http://www.ettus.com" target="_blank">ETTUS</a> to run SDR-based experiments such as spectrum analyzer or 4G/5G OpenAirInterface scenarios. All these devices can be remotely-controlled through the `ust`/`uon`/`uoff` utilities. 
@@ -99,10 +100,8 @@ Currently, our deployment features the following types of USRP devices :
   <a href="http://files.ettus.com/manual/page_usrp2.html" target="_blank">USRP 2</a>, and
   <a href="https://www.ettus.com/product/details/USRPPKG" target="_blank">USRP 1</a> (see detailed mapping in the table below).
 
-**NOTES**
+Make sure [to read the additional notes below](#gory-details) that cover some specifics of these devices.
 
- * nodes equipped with a **USRP n210** do **not have** a `data` Ethernet interface, as the hardware interface is wired into the USRP device.
- * when using a **USRP B210** board, a **duplexer band 7**<a href="/raw/docs/duplexer-band7-specifications.pdf" target="_blank">[specs]</a> <a href="/raw/docs/duplexer-band7.png" target="_blank">[pict]</a> may be needed for good experimental conditions if the board is used for both sending and receiving; this is the case because the distance between the RX and TX antenna SMA connectors on the USRP B210 board is such that the TX antenna generates too much interferences to the RX channel; the actual configuration of duplexers can be found in the table below.
   </div>
  </div>
 </div>
@@ -141,19 +140,78 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
     <div class="col-md-4">
       <br><br>
       <img src="/assets/img/macphone.png"  class='fit-width'>
-      <center>Commercial phone</center>
+      <center>How to control a commercial phone</center>
     </div>
     <div class="col-md-8 new_pad">
 ###Commercial 4G Phone
 
 A Nexus 5 phone is available right inside the chamber:
 
-* It is reachable through a Mac (that also sits in the room) that has its wireless card physically disabled, and that has a USB cable to the phone
-* The Mac can be reached from the gateway as `ssh tester@macphone` (or the <code>macphone</code> convenience shell shortcut)
-* Once logged in the Mac you can use convenience helpers to manage the phone (type <code>help</code> for details), or use <code>adb</code> manually.
-* The mac can also be managed using apple screen sharing tools (VNC-compliant), pointing directly at <code>faraday.inria.fr</code>
-* You will find more details about controlling the phone [in the tutorials section](/tuto-800-5g.md#PHONE).
+* It is reachable through a Mac (that also sits in the room) that has
+  its wireless card physically disabled, and that has a USB cable to
+  the phone
+* The Mac can be reached from the gateway as `ssh tester@macphone` (or
+  the <code>macphone</code> convenience shell shortcut)
+* Once logged in the Mac you can use convenience helpers to manage the
+  phone (type <code>help</code> for details), or use <code>adb</code>
+  manually.
+* The mac can also be managed using apple screen sharing tools
+  (VNC-compliant), pointing directly at <code>faraday.inria.fr</code>
+* You will find more details about controlling the phone [in the
+  tutorials section](/tuto-800-5g.md#PHONE).
+
+</div>
+  </div>
+</div>
+
+
+<div class="container" markdown="1">
+  <div class="row">
+    <div class="col-md-4 new_pad">
+###Important notes on SDR devices
+<a name='gory-details'></a>
+Please note the following specifics about the additional SDR devices:
+
+* the following table shows in the **usrp** columns the type of the
+  attached SDR, if present
+
+* the `n210` and `usrp2` models use an **Ethernet** connection to link
+  to the node. This means that on those nodes, the `data` wired
+  interface is **not available**, as the hardware interface is wired
+  into the USRP device.
+
     </div>
+ 
+    <div class="col-md-8">
+
+### Duplexers
+
+Some USRP devices, like the `b210`, have their Tx and Rx SMA
+connectors very close to one another. For that reason some have
+a device named a **duplexer band 7**<a
+href="/raw/docs/duplexer-band7-specifications.pdf"
+target="_blank">[specs]</a> <a href="/raw/docs/duplexer-band7.png"
+target="_blank">[pict]</a>.
+
+The settings used in our deployed duplexers match the frequencies used
+in our default configuration for OpenAirInterface. That is to say, it is assumed that
+
+* Downlink (eNB to UE) uses frequency 2.66 GHz (duplexers are set to the 2.62-2.69 GHz range)
+* Uplink (UE to eNB) uses frequency 2.54 GHz (duplexers are set to the 2.50-2.57 GHz range)
+
+In the **duplexer** column below, devices are
+tagged as either `none`, `for UE` or `for eNB`.
+
+With the above assumptions, these tags can be interpreted as follows:
+
+* `none`: no duplexer is attached
+
+* `for UE`: to transmits on the uplink and receive on the downlink;  
+  hence typically this setup can be used to scramble the uplink
+
+* `for eNB`: conversely, this node is fit to scramble the downlink
+
+   </div>
   </div>
 </div>
 
