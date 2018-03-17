@@ -4,7 +4,8 @@ from argparse import ArgumentParser
 
 from asynciojobs import Scheduler
 
-from apssh import SshNode, SshJob, Run
+from apssh import SshNode, SshJob
+from apssh import Run
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
@@ -29,6 +30,9 @@ faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
 # saying gateway = faraday means to tunnel ssh through the gateway
 node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
                 verbose = verbose_ssh)
+##########
+# create an orchestration scheduler
+scheduler = Scheduler()
 
 ##########
 check_lease = SshJob(
@@ -38,6 +42,7 @@ check_lease = SshJob(
     # will cause the scheduler to bail out immediately
     critical = True,
     command = Run("rhubarbe leases --check"),
+    scheduler = scheduler,
 )
 
 # the command we want to run in node1 is as simple as it gets
@@ -48,16 +53,18 @@ ping = SshJob(
     # let's be more specific about what to run
     # we will soon see other things we can do on an ssh connection
     command = Run('ping', '-c1',  'google.fr'),
+    scheduler = scheduler,
 )
 
 ##########
-# create an orchestration scheduler with these 2 jobs
-sched = Scheduler(check_lease, ping)
-
 # run the scheduler
-ok = sched.orchestrate()
+ok = scheduler.orchestrate()
+
 # give details if it failed
-ok or sched.debrief()
+ok or scheduler.debrief()
+
+# producing a dot file for illustration
+scheduler.export_as_dotfile("A4.dot")
 
 # return something useful to your OS
 exit(0 if ok else 1)

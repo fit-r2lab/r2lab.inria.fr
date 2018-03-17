@@ -18,12 +18,18 @@ faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
 ##########
+# create an orchestration scheduler
+scheduler = Scheduler()
+
+##########
 # the command we want to run in faraday is as simple as it gets
 ping = SshJob(
     # on what node do we want to run this:
     node = faraday,
     # what to run
     command = [ 'ping', '-c1',  'google.fr' ],
+    # add jobs in the scheduler as we create them
+    scheduler = scheduler,
 )
 
 ##########
@@ -33,10 +39,7 @@ ssh -i /dev/null {}@{} ping -c1 google.fr
 ---""".format(gateway_username, gateway_hostname))
 
 ##########
-# create an orchestration scheduler with this single job
-sched = Scheduler(ping)
-
 # run the scheduler
-ok = sched.orchestrate()
+ok = scheduler.orchestrate()
 
 print("orchestrate -", ok)

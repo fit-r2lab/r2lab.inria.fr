@@ -1,4 +1,4 @@
-title: nepi-ng - wireless
+title: nepi-ng - B - wireless
 tab: tutorial
 skip_header: True
 
@@ -32,7 +32,7 @@ previous series. In a nutshell, we expect you have a valid
 reservation, and the 2 nodes `fit01`and `fit02` are properly loaded with
 the default image, and turned on of course.
 
-Please [visit this page](http://r2lab.inria.fr/tuto-400-ping.md#INTRO)
+Please [visit this page](http://r2lab.inria.fr/tuto-400-A-ping.md#INTRO)
 to review how to reach that point, if necessary.
 
 ### Objectives
@@ -69,9 +69,11 @@ about. Let us [see them in action right away](javascript:open_tab('B1')).
 ### Objective
 
 We are going to run the exact same experiment [as in the previous run
-A5](tuto-400-ping.md#A5), that is to say a simple ping triggered on
+A5](tuto-400-A-ping.md#A5), that is to say a simple ping triggered on
 `fit01` towards `fit02`, but this time on one of the **wireless
 interfaces**.
+
+<center> <img src="/assets/img/B1.png" alt="b1" height="240px"></center>
 
 What changes then, as compared with our previous experiment, is that
 we cannot anymore simply run the predefined convenience command
@@ -108,7 +110,7 @@ IP connectivity to be established after the driver is configured.
 
 ### The code
 
-<< codeview B1 A5-ping.py B1-wireless.py >>
+<< codeview B1 B1-wireless.py previous=A5-ping.py graph=B1.png >>
 
 ### Sample output
 
@@ -165,7 +167,7 @@ In this new variant, we are going to illustrate a few convenient tricks:
 
 * we add a new option to the script so that one can choose, right on
   the command line, whether we want to use the intel or the atheros
-  WiFi card; this simply relies on the [standard `argparse`
+  WiFi card; this simply relies on the [standard argparse
   module](https://docs.python.org/3/library/argparse.html) that we
   have already used for other options, the only new thing being the
   use of the `choices` keyword, so that only the 2 supported driver
@@ -225,7 +227,7 @@ About that last point, note that other types of formatters are
 
 ### The code
 
-<< codeview B2 B1-wireless.py B2-wireless.py >>
+<< codeview B2 B2-wireless.py previous=B1-wireless.py graph=B2.png >>
 
 ### Sample output
 
@@ -328,7 +330,7 @@ and then you invoke `myscript.sh foo 1 2 "3 4"` you will get this ouput
 
 Make sure you download both files in the same location before trying to run the python script.
 
-<< codeview B3 B2-wireless.py B3-wireless.py >>
+<< codeview B3 B3-wireless.py previous=B2-wireless.py graph=B3.png >>
 
 << codeview B3SHELL B3-wireless.sh >>
 
@@ -371,19 +373,34 @@ cyclic task](javascript:open_tab('B4')) to this scenario.
 ### Objective
 
 In this final example in the series, we will just for fun add an
-infinite cyclic task in the scheduler. Here we will just write a TICK
+infinite cyclic task in the scheduler. Here we will simply write a TICK
 mark every second, but this technique is most useful for consuming
 events in a message queue, or any other similar approach.
 
-The trick is just to use plain `Job` class from `asynciojobs`, which
-expects a plain `asyncio` coroutine, that we implement as
-`infinite_clock()`. We just need to define the asociated job
+The trick is to use the plain `Job` class from `asynciojobs`, which
+expects a regular `asyncio` coroutine object, that we implement as
+`infinite_clock()`. We just need to define the associated job
 `clock_job` with `forever = True`, which tells the scheduler that this
-job never ends, so it's no use waiting for it to complete.
+job never ends, so that it knows that there is no point in waiting for
+it to complete.
+
+### More on graphical views
+
+Note in this example that, with respect to the graphical representation of
+schedulers:
+
+* each job needs a specific label to be displayed in such a graph - as
+  well as in `list()` and `debrief()` by the way
+
+* the system does its best to provide a meaningful label, but
+
+* you are always free to define your own label on a given job, like we
+  do here with the `infinite clock` job.
+
 
 ### The code
 
-<< codeview B4 B3-wireless.py B4-wireless.py >>
+<< codeview B4 B4-wireless.py previous=B3-wireless.py graph=B4.png>>
 
 ### Sample output
 
@@ -436,19 +453,19 @@ job never ends, so it's no use waiting for it to complete.
 
 We now know how to:
 
-* have local scripts, written either as plain shell scripts (using
-  `RunScript`) or embedded in python strings (using `RunString`),
-  executed remotely
+* have local scripts executed remotely; we have seen that we can either
+  * write them as plain shell scripts - using `RunScript`,
+  * or embed them right in python strings - using `RunString`;
 
 * obtain remote outputs using alternate formats, using
   e.g. `TimeColonFormatter`; see [this
-  page](http://nepi-ng.inria.fr/apssh/API.html#module-apssh.formatters)
+  page](http://apssh.readthedocs.io/en/latest/API.html#module-apssh.formatters)
   for more info on other available formatters.
 
 * run infinite jobs, that will get properly terminated when all the
-  finite jobs in the scenario oare done.
+  finite jobs in the scenario are done.
 
-In [the next series of tutorials](tuto-600-files.md), we will learn
+In [the next series of tutorials](tuto-600-C-files.md), we will learn
 more about transferring files back and forth.
 
 </div>

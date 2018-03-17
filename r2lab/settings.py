@@ -55,8 +55,10 @@ SECRET_KEY = '07k3$-3qn2zmpss0rrb#c0h-t#wqc#9&gx2eqr)oaydb5ruued'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'r2lab.inria.fr' ]
-
+ALLOWED_HOSTS = [
+    'r2lab.inria.fr',
+    'localhost',
+]
 
 # Application definition
 
@@ -170,7 +172,7 @@ STATICFILES_DIRS = [
 
 manifold_url = "https://portal.onelab.eu:7080/"
 
-# IMPORTANT NOTE. 
+# IMPORTANT NOTE.
 # not specifying either http: or https: here is the right thing to do
 # it means to use the same protocol as the one
 # used to reach the main service in the first place

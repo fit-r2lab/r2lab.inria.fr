@@ -4,8 +4,9 @@ from argparse import ArgumentParser
 
 from asynciojobs import Scheduler
 
-from apssh import SshNode, SshJob, Run
-from apssh import RunString, RunScript, TimeColonFormatter
+from apssh import SshNode, SshJob
+from apssh import Run, RunString, RunScript
+from apssh import TimeColonFormatter
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
@@ -40,6 +41,10 @@ node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
                 formatter = TimeColonFormatter())
 
 ##########
+# create an orchestration scheduler
+scheduler = Scheduler()
+
+##########
 check_lease = SshJob(
     # checking the lease is done on the gateway
     node = faraday,
@@ -47,6 +52,7 @@ check_lease = SshJob(
     # will cause the scheduler to bail out immediately
     critical = True,
     command = Run("rhubarbe leases --check"),
+    scheduler = scheduler,
 )
 
 # the shell script has gone into B3-wireless.sh
@@ -56,38 +62,48 @@ check_lease = SshJob(
 # setting up the wireless interface on both fit01 and fit02
 init_node_01 = SshJob(
     node = node1,
-    required = check_lease,
+    # RunString is replaced with RunScript
     command = RunScript(
-        "B3-wireless.sh", "init-ad-hoc-network",
-        wireless_driver, "foobar", 2412,
-#        verbose=True,
-    ))
+        # first argument is the local filename
+        # where to find the script to run remotely
+        "B3-wireless.sh",
+        # then its arguments
+        "init-ad-hoc-network", wireless_driver, "foobar", 2412,
+    ),
+    required = check_lease,
+    scheduler = scheduler,
+)
 init_node_02 = SshJob(
     node = node2,
-    required = check_lease,
     command = RunScript(
-        "B3-wireless.sh", "init-ad-hoc-network",
-        wireless_driver, "foobar", 2412))
+        "B3-wireless.sh",
+        "init-ad-hoc-network", wireless_driver, "foobar", 2412),
+    required = check_lease,
+    scheduler = scheduler,
+)
 
-# the command we want to run in faraday is as simple as it gets
+# the command we want to run in node1 is as simple as it gets
 ping = SshJob(
     node = node1,
     required = (init_node_01, init_node_02),
     command = RunScript(
         "B3-wireless.sh", "my-ping", '10.0.0.2', 20
 #        verbose=True,
-    ))
+    ),
+    scheduler = scheduler,
+)
 
 ##########
-# our orchestration scheduler has 4 jobs to run this time
-sched = Scheduler(check_lease, ping, init_node_01, init_node_02)
-
 # run the scheduler
-ok = sched.orchestrate()
+ok = scheduler.orchestrate()
+
 # give details if it failed
-ok or sched.debrief()
+ok or scheduler.debrief()
 
 success = ok and ping.result() == 0
+
+# producing a dot file for illustration
+scheduler.export_as_dotfile("B3.dot")
 
 # return something useful to your OS
 exit(0 if success else 1)

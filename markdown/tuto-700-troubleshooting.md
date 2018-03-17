@@ -44,13 +44,13 @@ This tuto is organized in several parts
 Before you start diving in the code, it is **always** a good idea to
 step back a little, and to check for the following common mistakes.
 
-This is especially true when you start with `nepi-ng` and `R2lab, and
+This is especially true when you start with `nepi-ng` and `R2lab`, and
 your scripts are not sophisiticated enough to do all these checks by
 themselves.
 
-Also these common sources of glitches occur frequently if you were
-working on your scenario, and then your time went up, you are now just
-back to the testbed.
+The following common sources of glitches happen frequently in
+situations where you were working on your scenario, and then your time
+went up. So you just come back to the testbed, you should check for the following:
 
 ### Do you have a valid reservation on the testbed ?
 
@@ -69,7 +69,7 @@ is known to your ssh agent - especially if you have recently logged out :
 
 ### Are the nodes up ? Do they run the expected image ?
 
-You can check all your nodes [directly in the `RUN`](run.md) page on the web
+You can check all your nodes directly [in the RUN page](run.md) on the web
 site, or with a session like this (when logged in `faraday`), assuming
 that you need nodes 4, 6 and from 10 to 13 inclusive :
 
@@ -100,6 +100,8 @@ that you need nodes 4, 6 and from 10 to 13 inclusive :
     fit11:2016-11-29@00:12 - built-on fit03 - from-image fedora-23-v10-wireless-names - by inria_r2lab.tutorial
     fit12:2016-11-29@00:12 - built-on fit03 - from-image fedora-23-v10-wireless-names - by inria_r2lab.tutorial
 
+
+Otherwise, check out [the next section on code updates.](javascript:open_tab('CODE_UPDATE')).
 </div>
 
 <!------------ CODE_UPDATE ------------>
@@ -153,6 +155,7 @@ whenever they source `/root/r2lab/infra/user-env/node.sh`, call
 `git-pull-r2lab` which will update the whole repository `/root/r2lab`
 from the latest version published on github.
 
+Otherwise, check out [the next section on verbosity in your scripts.](javascript:open_tab('VERBOSITY')).
 </div>
 
 <!------------ VERBOSITY ------------>
@@ -232,7 +235,7 @@ to see the meaning of the different symbols, but in a nutshell:
 
 ### Graphical view
 
-As we [have already seen in C2bis](tuto-600-files.md#C2bis), it is
+As we [have already seen in C2bis](tuto-600-C-files.md#C2bis), it is
 rather easy to produce a *png* file that depicts the jobs in a
 scheduler, together with their relationships.
 
@@ -242,7 +245,7 @@ scheduler, together with their relationships.
 
 You will need to install `graphviz` so that you can use the `dot`
 program in this fragment. Here's the example of output obtained in
-[C2bis](tuto-600-files.md#C2bis)
+[C2bis](tuto-600-C-files.md#C2bis)
 
 <center><img src="assets/img/C2bis-files.png" height="150px"></center>
 

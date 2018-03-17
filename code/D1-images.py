@@ -4,15 +4,13 @@ from argparse import ArgumentParser
 
 from asynciojobs import Scheduler
 
-from apssh import SshNode, SshJob
-from apssh import Run
+from apssh import SshNode, SshJob, Run
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
 gateway_username  = 'inria_r2lab.tutorial'
 verbose_ssh = False
 
-# this time we want to be able to specify username and verbose_ssh
 parser = ArgumentParser()
 parser.add_argument("-s", "--slice", default=gateway_username,
                     help="specify an alternate slicename, default={}"
@@ -28,35 +26,50 @@ verbose_ssh = args.verbose_ssh
 faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
-# saying gateway = faraday means to tunnel ssh through the gateway
 node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
                 verbose = verbose_ssh)
-##########
-# create an orchestration scheduler
-scheduler = Scheduler()
+node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
+                verbose = verbose_ssh)
 
 ##########
-# the command we want to run in node1 is as simple as it gets
-ping = SshJob(
-    node = node1,
-    # let's be more specific about what to run
-    # we will soon see other things we can do on an ssh connection
-    command = Run('ping', '-c1',  'google.fr'),
-    scheduler = scheduler,
+check_lease = SshJob(
+    # checking the lease is done on the gateway
+    node = faraday,
+    # this means that a failure in any of the commands
+    # will cause the scheduler to bail out immediately
+    critical = True,
+    command = Run("rhubarbe leases --check"),
 )
 
 ##########
-# how to run the same directly with ssh - for troubleshooting
-print("""--- for troubleshooting:
-ssh -i /dev/null {}@{} ssh root@fit01 ping -c1 google.fr
----""".format(gateway_username, gateway_hostname))
+# setting up the data interface on both fit01 and fit02
+init_node_01 = SshJob(node = node1, command = Run("turn-on-data"), required = check_lease)
+init_node_02 = SshJob(node = node2, command = Run("turn-on-data"), required = check_lease)
+
+# the command we want to run in node1 is as simple as it gets
+ping = SshJob(
+    node = node1,
+    # no need to wait for check_release, since both init_node jobs already do
+    required = (init_node_01, init_node_02),
+    # let's be more specific about what to run
+    # we will soon see other things we can do on an ssh connection
+    command = Run('ping', '-c1', '-I', 'data', 'data02'),
+)
 
 ##########
+# our orchestration scheduler has 4 jobs to run this time
+scheduler = Scheduler(check_lease, ping, init_node_01, init_node_02)
+
 # run the scheduler
 ok = scheduler.orchestrate()
-
 # give details if it failed
 ok or scheduler.debrief()
 
+# we say this is a success if the ping command succeeded
+# the result() of the SshJob is the value that the command
+# returns to the OS
+# so it's a success if this value is 0
+success = ok and ping.result() == 0
+
 # return something useful to your OS
-exit(0 if ok else 1)
+exit(0 if success else 1)

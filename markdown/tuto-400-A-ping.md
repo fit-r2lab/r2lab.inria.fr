@@ -1,4 +1,4 @@
-title: nepi-ng - the basics
+title: nepi-ng - A - the basics
 tab: tutorial
 skip_header: True
 
@@ -243,7 +243,7 @@ We now see a slightly different version of the same experiment, but
 
 ### The code
 
-<< codeview A2 A1-ping.py A2-ping.py >>
+<< codeview A2 A2-ping.py previous=A1-ping.py >>
 
 ### Sample output
 
@@ -287,9 +287,11 @@ This materializes the fact that we reach node `fit01` through the
 gateway. It also ensures that only one ssh connection gets established
 to the gateway, regardless of the number of nodes actually controlled.
 
+**Double check:** Remember that for this to work, you need to have a currently valid slice (and to use it with the `--slice` option if needed), and you need `fit01` to be up and running.
+
 ### The code
 
-<< codeview A3 A2-ping.py A3-ping.py >>
+<< codeview A3 A3-ping.py previous=A2-ping.py >>
 
 ### Sample output
 
@@ -360,9 +362,40 @@ the scheduler then bails out immediately.
   as `critical` we ensure that the overall scenario will fail
   immediately if we do not own the reservation at that time.
 
+
+### Graphical view
+
+Also in this sample, for the first time we use the `export_as_dotfile` on the
+`Scheduler` object in order to produce a graphical representation of the jobs
+`required` dependencies. In the rest of the tutorials, you will be able to
+visualize this in the `Graph` tab of the code section.
+
+##### How to produce a `png` file
+
+The code does not directly produce a `png` file. Simply producing a `dot` file
+allows to run the code even without the `graphviz` library being installed,
+which was deemed too big a requirement.
+
+You can produce a `png` file from a `dot` file with any program that supports
+[the dot
+format](https://en.wikipedia.org/wiki/DOT_(graph_description_language)). The
+images depicted in the `Graph` tabs are produced with the `dot` binary (that
+comes with the `graphviz` package).
+
+### Note on using notebooks
+
+Please note that from within a jupyter notebook, and provided that you fulfil
+the extra requirement of having  the `graphviz` python package installed, you
+can use `Scheduler.graph()` to create and display a `graphviz.Digraph` object
+natively. There is no need to create an intermediary `dot` file, see e.g. [this
+link in the asynciojobs
+documentation](http://asynciojobs.readthedocs.io/en/latest/README.html#visualization-in-a-notebook-scheduler-graph)
+for an example of that feature.
+
+
 ### The code
 
-<< codeview A4 A3-ping.py A4-ping.py >>
+<< codeview A4 A4-ping.py previous=A3-ping.py graph=A4.png >>
 
 ### Sample output
 
@@ -419,7 +452,7 @@ is how these 4 four interfaces are managed:
   * so it is your entire responsability to set them up.
 
 We will see how to manage the wireless interfaces [in the next
-tutorial](tuto-500-wireless.md).
+tutorial](tuto-500-B-wireless.md).
 
 But for now we will run ping from `fit01` to `fit02`, and using the `data` interface on each node, so we can see how to turn these on and off.
 
@@ -444,7 +477,7 @@ Here is what deserves to be outlined in the code below
 
 ### The code
 
-<< codeview A5 A4-ping.py A5-ping.py >>
+<< codeview A5 A5-ping.py previous=A4-ping.py graph=A5.png >>
 
 ### Sample output
 
@@ -492,10 +525,10 @@ write scripts that are
 
 ### Next
 
-In [the next tutorial](tuto-500-wireless.md), we will see how to deal
+In [the next tutorial](tuto-500-B-wireless.md), we will see how to deal
 with the more complex task of setting up a wireless network.
 
-In [the tutorial after that](tuto-600-files.md), we will address file
+In [the tutorial after that](tuto-600-C-files.md), we will address file
 transfers to and from `SshNode`s.
 
 </div>
