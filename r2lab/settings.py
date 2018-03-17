@@ -55,8 +55,10 @@ SECRET_KEY = '07k3$-3qn2zmpss0rrb#c0h-t#wqc#9&gx2eqr)oaydb5ruued'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'r2lab.inria.fr' ]
-
+ALLOWED_HOSTS = [
+    'r2lab.inria.fr,
+    'localhost',
+]
 
 # Application definition
 
