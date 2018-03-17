@@ -41,7 +41,7 @@ plcapi_settings = {
         'r2lab/plcapi.credentials',
     ],
     # xxx doublecheck this one
-    'nodename_match' : '37nodes',
+    'nodename_match' : 'faraday',
 }
 
 ####################
