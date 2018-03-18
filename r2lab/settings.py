@@ -12,6 +12,16 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os, os.path
 
+# import r2lab.sitesettings as sitesettings
+#
+# from .sitesettings import (
+#     SECRET_KEY,
+#     ALLOWED_HOSTS,
+#     DEBUG,
+# )
+#
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -56,7 +66,7 @@ SECRET_KEY = '07k3$-3qn2zmpss0rrb#c0h-t#wqc#9&gx2eqr)oaydb5ruued'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'r2lab.inria.fr,
+    'r2lab.inria.fr',
     'localhost',
 ]
 
