@@ -38,7 +38,7 @@ markdown_subdir = "markdown"
 code_subdir = "code"
 templates_subdir = "templates"
 include_paths = [ markdown_subdir, templates_subdir, code_subdir ]
-    
+
 # accept names in .html or .md or without extension
 def normalize(filename):
     """
@@ -54,7 +54,7 @@ metavar_re = re.compile("\A(?P<name>[\S_]+):\s*(?P<value>.*)\Z")
 def match_meta(line):
     """
     for parsing the header that defines metavariables
-    returns a tuple (name, value), or None 
+    returns a tuple (name, value), or None
     """
     # remove trailing newline
     match = metavar_re.match(line[:-1])
@@ -71,16 +71,16 @@ def parse(markdown_file):
     Supported tags
 
     << include file >>
-       -> raw include 
+       -> raw include
 
     << codediff uniqueid file1 file2 >>
-       -> a single visible <pre> (with 2 invisible ones) 
+       -> a single visible <pre> (with 2 invisible ones)
           that shows the differences between both files
           the uniqueid should indeed be unique
 
     << codeview uniqueid main [previous=filename] [graph=filename] [selected=plain|diff|graph] >>
-       -> a navpills <ul> with 
-          * a 'plain' option tab that shows the main file 
+       -> a navpills <ul> with
+          * a 'plain' option tab that shows the main file
             (this amounts to one <<include>>)
           * if previous is set, a 'diff' tab to show the differences between previous and main
             (this mounts to one <<codediff>>
@@ -157,10 +157,10 @@ def resolve_codediffs(markdown):
 
     file1 and file2 are mandatory
 
-    this features relies on 
+    this features relies on
       * diff.js from http://kpdecker.github.io/jsdiff/diff.js
       * related style
-      * our own wrapper r2lab-diff.js     
+      * our own wrapper r2lab-diff.js
     """
     end = 0
     resolved = ""
@@ -171,7 +171,7 @@ def resolve_codediffs(markdown):
         end = match.end()
     resolved = resolved + markdown[end:]
     return resolved
-                      
+
 
 
 re_codeview = re.compile(post_markdown(
@@ -184,15 +184,15 @@ def resolve_codeviews(markdown):
     with 2 components 'plain' and 'diff'
     except if file2 is ommitted, in which case only the 'plain' button shows up
 
-    in other words this essentially shows 
+    in other words this essentially shows
     the result of <<include>> and <<codediff>> in a togglable env
 
     """
     end = 0
     resolved = ""
-    allowed_tags = ['selected', 'graph', 'previous', 'lang']
-    kwds = {}
+    allowed_tags = ['selected', 'graph', 'previous', 'lang', 'previous_graph']
     for match in re_codeview.finditer(markdown):
+        kwds = {}
         id, main, tags = match.group('id'), match.group('main'), match.group('tags')
         for tagvalue in tags.split():
             match2 = re_codeview_tags.match(tagvalue)
@@ -246,21 +246,24 @@ def implement_codediff(id, f1, f2, lang='python'):
                 .format(id=id)
     # arm a callback for when the document is fully loaded
     # this callback with populate the <pre> tag with elements
-    # tagges either <code>, <ins> or <del> 
+    # tagges either <code>, <ins> or <del>
     result += '<script>$(function(){{r2lab_diff("{id}", "{lang}");}})</script>\n'\
                 .format(id=id, lang=lang)
-    
+
     return result
 
 
-def implement_codeview(id, main, *, previous=None, selected=None, graph=None, lang='python'):
+def implement_codeview(id, main, *,
+                       previous=None, selected=None,
+                       graph=None, previous_graph=None,
+                       lang='python'):
     """
     Arguments:
         main: is the filename that contains the code for that section
         previous: if set is the filename that contains the previous code, may be None
-       
+
         selected: = 'plain' | 'diff' | 'graph'
-          typically the selected tab is either 
+          typically the selected tab is either
             * plain code if previous is not provided
             * the diff pane if previous is provided
           setting selected='plain' allows to force with the plain code
@@ -273,7 +276,7 @@ def implement_codeview(id, main, *, previous=None, selected=None, graph=None, la
     """
 
     result = ""
-    sections = {'plain', 'diff', 'graph'}
+    sections = {'plain', 'diff', 'graph', 'previous_graph'}
 
     # for a section, the classes for the header and the body/content divs
     sections_classes = { section: ('', '') for section in sections}
@@ -284,27 +287,25 @@ def implement_codeview(id, main, *, previous=None, selected=None, graph=None, la
         selected = 'diff' if previous else 'plain'
     # this is how to tag the section that we start with
     sections_classes[selected] = ('active', 'in active')
-        
+
 
     ########## the headers (nav pills) for the various tabs
-    
+
     plain_header_class, plain_body_class = sections_classes['plain']
     diff_header_class, diff_body_class = sections_classes['diff']
     graph_header_class, graph_body_class = sections_classes['graph']
+    previous_graph_header_class, previous_graph_body_class = sections_classes['previous_graph']
 
     result += '<ul class="nav nav-pills">\n'
 
-    # the pill for the plain tab
-    result += f'<li class="{plain_header_class}"><a href="#view-{id}-plain" title="Display {main}">{main}</a></li>\n'
-
-    # the pill for the download tab
+    # pill for the right-hand-side download tab
     result += f'''<li class="navbar-right">
  <a class="default-click" href="/code/{main}" download target="_blank" title="Download {main}">
   <span class='fa fa-cloud-download'></span> {main}
  </a>
 </li>\n'''
 
-    # the pill for the graph contents
+    # pill for graphical view
     if graph:
         result += f'''<li class="{graph_header_class}">
  <a href="#view-{id}-graph" title="Display jobs graph for {main}">
@@ -312,19 +313,26 @@ def implement_codeview(id, main, *, previous=None, selected=None, graph=None, la
  </a>
 </li>'''
 
-    # the tab for diff contents
+    # pill for plain code tab
+    result += f'<li class="{plain_header_class}"><a href="#view-{id}-plain" title="Display {main}">{main}</a></li>\n'
+
+    # pill for diff contents
     if previous:
         result += f'''<li class="{diff_header_class}">
  <a href="#view-{id}-diff" title="Outline diffs from {previous} to {main}">{previous} ➾ {main}</a></li>\n'''
 
-        
+    # pill for the previous graph if provided
+    if previous_graph:
+        result += f'''<li class="{previous_graph_header_class}">
+ <a href="#view-{id}-previous-graph" title="Display graph for {previous}">Graph for {previous}</a></li>\n'''
+
     result += "</ul>"
 
 
     ########## the contents of the various tabs
 
     result += '<div class="tab-content" markdown="0">\n'
-    
+
     ### plain
     result += f'<div id="view-{id}-plain" class="tab-pane fade {plain_body_class}" markdown="0">'
     result += f'<pre>\n'
@@ -342,6 +350,12 @@ def implement_codeview(id, main, *, previous=None, selected=None, graph=None, la
     if previous:
         result += f'<div id="view-{id}-diff" class="tab-pane fade {diff_body_class}" markdown="0">'
         result += implement_codediff('diff-'+id, previous, main, lang=lang)
+        result += f'</div>'
+
+    ### graph
+    if previous_graph:
+        result += f'<div id="view-{id}-previous-graph" class="tab-pane fade {previous_graph_body_class}">'
+        result += f'<img src="/assets/code/{previous_graph}" style="max-width:100%;">'
         result += f'</div>'
 
     result += "</div><!-- pills targets-->"

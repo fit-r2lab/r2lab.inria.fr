@@ -32,7 +32,7 @@ previous series. In a nutshell, we expect you have a valid
 reservation, and the 2 nodes `fit01`and `fit02` are properly loaded with
 the default image, and turned on of course.
 
-Please [visit this page](http://r2lab.inria.fr/tuto-400-A-ping.md#INTRO)
+Please [visit this page](http://r2lab.inria.fr/tuto-040-A-ping.md#INTRO)
 to review how to reach that point, if necessary.
 
 ### Objectives
@@ -69,7 +69,7 @@ about. Let us [see them in action right away](javascript:open_tab('B1')).
 ### Objective
 
 We are going to run the exact same experiment [as in the previous run
-A5](tuto-400-A-ping.md#A5), that is to say a simple ping triggered on
+A5](tuto-040-A-ping.md#A5), that is to say a simple ping triggered on
 `fit01` towards `fit02`, but this time on one of the **wireless
 interfaces**.
 
@@ -465,7 +465,7 @@ We now know how to:
 * run infinite jobs, that will get properly terminated when all the
   finite jobs in the scenario are done.
 
-In [the next series of tutorials](tuto-600-C-files.md), we will learn
+In [the next series of tutorials](tuto-060-C-files.md), we will learn
 more about transferring files back and forth.
 
 </div>

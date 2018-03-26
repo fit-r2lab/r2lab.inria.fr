@@ -4,7 +4,8 @@ from argparse import ArgumentParser
 
 from asynciojobs import Scheduler
 
-from apssh import SshNode, SshJob, Run, RunString
+from apssh import SshNode, SshJob
+from apssh import Run, RunString
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
@@ -34,6 +35,10 @@ node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
                 verbose = verbose_ssh)
 
 ##########
+# create an orchestration scheduler
+scheduler = Scheduler()
+
+##########
 check_lease = SshJob(
     # checking the lease is done on the gateway
     node = faraday,
@@ -41,41 +46,52 @@ check_lease = SshJob(
     # will cause the scheduler to bail out immediately
     critical = True,
     command = Run("rhubarbe leases --check"),
+    scheduler = scheduler,
 )
 
-########## user required loading images
+########## has the user requested to load images
+# the job to wait before proceeding
+ready_requirement = check_lease
 if args.load:
     ready_requirement = SshJob(
         node = faraday,
         commands = [
-            RunString('xxx'),
+            Run('rhubarbe load -i ubuntu 1 2'),
+            Run('rhubarbe wait 1 2'),
         ],
         required = check_lease,
+        scheduler = scheduler,
     )
-else:
-    ready_requirement = check_lease
 
 ##########
 # setting up the data interface on both fit01 and fit02
-init_node_01 = SshJob(node = node1, command = Run("turn-on-data"), required = ready_requirement)
-init_node_02 = SshJob(node = node2, command = Run("turn-on-data"), required = ready_requirement)
+init_node_01 = SshJob(
+    node = node1,
+    command = Run("turn-on-data"),
+    required = ready_requirement,
+    scheduler = scheduler,
+)
+init_node_02 = SshJob(
+    node = node2,
+    command = Run("turn-on-data"),
+    required = ready_requirement,
+    scheduler = scheduler,
+)
 
 # the command we want to run in node1 is as simple as it gets
 ping = SshJob(
     node = node1,
-    # no need to wait for check_release, since both init_node jobs already do
     required = (init_node_01, init_node_02),
     # let's be more specific about what to run
     # we will soon see other things we can do on an ssh connection
     command = Run('ping', '-c1', '-I', 'data', 'data02'),
+    scheduler = scheduler,
 )
 
 ##########
-# our orchestration scheduler has 4 jobs to run this time
-scheduler = Scheduler(check_lease, ready_requirement, ping, init_node_01, init_node_02)
-
 scheduler.export_as_dotfile("D1.dot")
 exit(0)
+
 # run the scheduler
 ok = scheduler.orchestrate()
 # give details if it failed
@@ -87,8 +103,8 @@ ok or scheduler.debrief()
 # so it's a success if this value is 0
 success = ok and ping.result() == 0
 
+# producing a dot file for illustration
+scheduler.export_as_dotfile("D1.dot")
+
 # return something useful to your OS
 exit(0 if success else 1)
-
-# producing a dot file for illustration
-scheduler.export_as_dotfile("A1.dot")

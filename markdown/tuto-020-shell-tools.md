@@ -24,7 +24,7 @@ skip_header: True
 ### Logging in the gateway
 
 Once you have [obtained a slice account on R2LAB
-(faraday)](tuto-100-registration.md#main), you can reach the R2lab
+(faraday)](tuto-010-registration.md#main), you can reach the R2lab
 gateway using ssh
 
     $ ssh your_slicename@faraday.inria.fr

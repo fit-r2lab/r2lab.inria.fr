@@ -235,7 +235,7 @@ to see the meaning of the different symbols, but in a nutshell:
 
 ### Graphical view
 
-As we [have already seen in C2bis](tuto-600-C-files.md#C2bis), it is
+As we [have already seen in C2bis](tuto-060-C-files.md#C2bis), it is
 rather easy to produce a *png* file that depicts the jobs in a
 scheduler, together with their relationships.
 
@@ -245,7 +245,7 @@ scheduler, together with their relationships.
 
 You will need to install `graphviz` so that you can use the `dot`
 program in this fragment. Here's the example of output obtained in
-[C2bis](tuto-600-C-files.md#C2bis)
+[C2bis](tuto-060-C-files.md#C2bis)
 
 <center><img src="assets/img/C2bis-files.png" height="150px"></center>
 

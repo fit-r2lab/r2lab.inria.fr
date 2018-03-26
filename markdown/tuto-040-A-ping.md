@@ -82,13 +82,13 @@ ssh your_slicename@faraday.inria.fr
 ```
 *<h6>if by any chance your public key is not at its standard location, then place `-i` option in the command line and inform the path of it.</h6>*
 If this results in a `Permission denied` message, go [back to this
-page](tuto-100-registration.md#ACCESS) for troubleshooting your
+page](tuto-010-registration.md#ACCESS) for troubleshooting your
 access, before you can proceed.
 
 ***
 
 Once logged in faraday, type the following commands, which were
-explained [in the previous tutorial](tuto-200-shell-tools.md):
+explained [in the previous tutorial](tuto-020-shell-tools.md):
 
     # it's always a good idea to check you currently own the reservation
     rleases --check
@@ -452,7 +452,7 @@ is how these 4 four interfaces are managed:
   * so it is your entire responsability to set them up.
 
 We will see how to manage the wireless interfaces [in the next
-tutorial](tuto-500-B-wireless.md).
+tutorial](tuto-050-B-wireless.md).
 
 But for now we will run ping from `fit01` to `fit02`, and using the `data` interface on each node, so we can see how to turn these on and off.
 
@@ -525,10 +525,10 @@ write scripts that are
 
 ### Next
 
-In [the next tutorial](tuto-500-B-wireless.md), we will see how to deal
+In [the next tutorial](tuto-050-B-wireless.md), we will see how to deal
 with the more complex task of setting up a wireless network.
 
-In [the tutorial after that](tuto-600-C-files.md), we will address file
+In [the tutorial after that](tuto-060-C-files.md), we will address file
 transfers to and from `SshNode`s.
 
 </div>

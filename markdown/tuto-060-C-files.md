@@ -344,12 +344,15 @@ In this C series , we have seen:
 * how a single `SshJob` can trigger several commands, mixing `Run`,
   `RunString`, `Push` and `Pull` types of commands;
 
-* how to implement (in C3bis) a rustic service management feature, for house cleaning purposes;
+* how to implement (in C3bis) a rustic service management feature, for
+  housekeeping purposes;
 
 * and finally, still in C3bis, how to produce a graphical view of a
   `Scheduler` for documentation and/or troubleshooting.
 
-Let us move to [the next tutorial](/tuto-700-troubleshooting.md) for some guidelines and troubleshooting tips.
+In [the next tutorial](/tuto-070-D-prep.md) we will see how to simply provide a
+command-line option for loading images on nodes.
+
 </div>
 
 </div> <!-- end div contents -->
