@@ -244,7 +244,7 @@ At this point you should reach R2lab platform typing in your terminal:
 *<h6>if by any chance your public key is not at its standard location, and not known to your ssh agent, then place `-i` option in the command line to specify its path.</h6>*
 
 Once this command works for you, proceed to the next tutorial, where [we see in more details the available tools
-for manipulating the nodes](tuto-200-shell-tools.md).
+for manipulating the nodes](tuto-020-shell-tools.md).
 
 ### Problems?
 

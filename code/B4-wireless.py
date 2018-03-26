@@ -5,8 +5,9 @@ from argparse import ArgumentParser
 from asynciojobs import Scheduler
 from asynciojobs import Job
 
-from apssh import SshNode, SshJob, Run
-from apssh import RunString, RunScript, TimeColonFormatter
+from apssh import SshNode, SshJob
+from apssh import Run, RunString, RunScript
+from apssh import TimeColonFormatter
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
@@ -41,6 +42,10 @@ node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
                 formatter = TimeColonFormatter())
 
 ##########
+# create an orchestration scheduler
+scheduler = Scheduler()
+
+##########
 check_lease = SshJob(
     # checking the lease is done on the gateway
     node = faraday,
@@ -48,37 +53,43 @@ check_lease = SshJob(
     # will cause the scheduler to bail out immediately
     critical = True,
     command = Run("rhubarbe leases --check"),
+    scheduler = scheduler,
 )
 
 ##########
 # setting up the wireless interface on both fit01 and fit02
 init_node_01 = SshJob(
     node = node1,
-    required = check_lease,
     command = RunScript(
-        "B3-wireless.sh", "init-ad-hoc-network",
-        wireless_driver, "foobar", 2412,
-#        verbose=True,
-    ))
+        "B3-wireless.sh",
+        "init-ad-hoc-network", wireless_driver, "foobar", 2412,
+    ),
+    required = check_lease,
+    scheduler = scheduler,
+)
 init_node_02 = SshJob(
     node = node2,
-    required = check_lease,
     command = RunScript(
-        "B3-wireless.sh", "init-ad-hoc-network",
-        wireless_driver, "foobar", 2412))
+        "B3-wireless.sh",
+        "init-ad-hoc-network", wireless_driver, "foobar", 2412),
+    required = check_lease,
+    scheduler = scheduler,
+)
 
-# the command we want to run in faraday is as simple as it gets
+# the command we want to run in node1 is as simple as it gets
 ping = SshJob(
     node = node1,
     required = (init_node_01, init_node_02),
     command = RunScript(
         "B3-wireless.sh", "my-ping", '10.0.0.2', 20
 #        verbose=True,
-    ))
+    ),
+    scheduler = scheduler,
+)
 
 ########
 # for the fun of it, let's add a job that runs forever and writes
-# current time ever second
+# current time every second
 import time
 import asyncio
 
@@ -89,18 +100,25 @@ async def infinite_clock():
 
 # a forever job is not expected to end, instead
 # it gets killed when the rest of the flock is done with
-clock_job = Job(infinite_clock(), forever=True)
+clock_job = Job(
+    infinite_clock(),
+    forever=True,
+    scheduler = scheduler,
+    # for the illustrated graph
+    label = "infinite clock",
+)
 
 ##########
-# our orchestration scheduler has 4 jobs to run this time
-sched = Scheduler(check_lease, ping, init_node_01, init_node_02, clock_job)
-
 # run the scheduler
-ok = sched.orchestrate()
+ok = scheduler.orchestrate()
+
 # give details if it failed
-ok or sched.debrief()
+ok or scheduler.debrief()
 
 success = ok and ping.result() == 0
+
+# producing a dot file for illustration
+scheduler.export_as_dotfile("B4.dot")
 
 # return something useful to your OS
 exit(0 if success else 1)

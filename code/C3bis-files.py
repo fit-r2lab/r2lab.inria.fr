@@ -9,7 +9,7 @@ from argparse import ArgumentParser
 from asynciojobs import Scheduler, Sequence
 
 from apssh import SshNode, SshJob, LocalNode
-from apssh import Run, RunString, Push, Pull
+from apssh import Run, RunString, Push
 
 ##########
 
@@ -54,6 +54,46 @@ check_lease = SshJob(
     scheduler = scheduler,
 )
 
+#################### utility script to manage a receiver
+# in order to transfer RANDOM over a netcat session on the data network
+#
+receiver_manager_script = """#!/bin/bash
+source /etc/profile.d/nodes.sh
+
+function start() {
+    port=$1; shift
+    outfile=$1; shift
+    # r2lab-id returns a 2-digit string with the node number
+    ipaddr="data"$(r2lab-id)
+    echo "STARTING CAPTURE into $outfile"
+    # start netcat in listen mode
+    netcat -l $ipaddr $port > $outfile &
+    # bash's special $! returns pid of the last job sent in background
+    # preserve this pid in local file
+    echo $! > netcat.pid
+    echo netcat server running on $ipaddr:$port in pid $!
+}
+
+function stop() {
+    echo "STARTING CAPTURE into $outfile"
+    pid=$(cat netcat.pid)
+    # not necessary as netcat dies on its own when clent terminates
+    echo Would kill process $pid
+    rm netcat.pid
+}
+
+function monitor () {
+    while true; do
+        pid=$(pgrep netcat)
+        [ -n "$pid" ] && ps $pid || echo no netcat process
+# thanks to Ubuntu the shell's sleep can do fractions of seconds
+        sleep .2
+    done
+}
+# usual generic laucher
+"$@"
+"""
+
 ########## 1 step, generate a random data file of 1 M bytes
 
 create_random_job = SshJob(
@@ -93,20 +133,18 @@ turn_on_datas = [
     ) for node in nodes ]
 
 ########## next : run a sender on node1 and a receiver on node 2
-# in order to transfer RANDOM over a netcat session on the data network
-
-# a Sequence object is a container for jobs, they will have their
-# 'required' relationship organized along the sequence order
+# start the receiver - this of course returns immediately
+SshJob(
+    node = node2,
+    commands = [
+        RunString(receiver_manager_script, "start", netcat_port, "RANDOM",
+                  remote_name = "receiver-manager"),
+    ],
+    required = turn_on_datas,
+    scheduler = scheduler,
+)
 
 transfer_job = Sequence(
-
-    # start the receiver - this of course returns immediately
-    SshJob(
-        node = node2,
-        commands = [
-            Run("netcat", "-l", "data02", netcat_port, ">", "RANDOM", "&"),
-        ],
-    ),
 
     # start the sender
     SshJob(
@@ -118,46 +156,36 @@ transfer_job = Sequence(
             Run("sleep 1"),
             Run("netcat", "data02", netcat_port, "<", "RANDOM"),
             Run("echo SENDER DONE"),
-        ],
-    ),
+        ]),
 
+    # kill the receiver, and
     # check contents on the receiving end
     SshJob(
         node=node2,
+        # set a label for the various representations
+        # including the graphical one obtained with export_as_dotfile
+        label = "stop receiver",
         commands = [
+            RunString(receiver_manager_script, "stop",
+                      remote_name="receiver-manager"),
             Run("ls -l RANDOM"),
             Run("sha1sum RANDOM"),
-        ],
-    ),
-
-    ### these two apply to the Sequence
-    # required applies to the first job in the sequence
+        ]),
     required = turn_on_datas,
-    # scheduler applies to all jobs in the sequence
     scheduler = scheduler,
 )
 
-########## finally : let's complete the loop and
-########## retrieve RANDOM from node2 back on local laptop
-
-Sequence(
-    SshJob( node = node2,
-            commands = [
-                Run("echo the Pull command runs on $(hostname)"),
-                Pull(remotepaths = "RANDOM",
-                     localpath = "RANDOM.loopback"),
-            ]),
-    # make sure the file we receive at the end of the loop
-    # is identical to the original
-    SshJob( node = LocalNode(),
-            commands = [
-                Run("ls -l RANDOM.loopback", verbose=True),
-                # this is a python trick to concatenate 2 strings
-                Run("diff RANDOM RANDOM.loopback "
-                    "&& echo RANDOM.loopback identical to RANDOM"),
-            ]),
+SshJob(
+    node = node2,
+    # this job won't finish on its own
+    forever = True,
+    # see above
+    label = "infinite monitor",
+    commands = [
+        RunString(receiver_manager_script, "monitor",
+                  remote_name="receiver-manager"),
+    ],
     scheduler = scheduler,
-    required = transfer_job
 )
 
 ##########
@@ -168,7 +196,7 @@ ok = scheduler.orchestrate()
 ok or scheduler.debrief()
 
 # producing a dot file for illustration
-scheduler.export_as_dotfile("C3.dot")
+scheduler.export_as_dotfile("C3bis.dot")
 
 # return something useful to your OS
 exit(0 if ok else 1)

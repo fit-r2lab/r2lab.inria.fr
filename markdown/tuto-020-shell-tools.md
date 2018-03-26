@@ -24,12 +24,12 @@ skip_header: True
 ### Logging in the gateway
 
 Once you have [obtained a slice account on R2LAB
-(faraday)](tuto-100-registration.md#main), you can reach the R2lab
+(faraday)](tuto-010-registration.md#main), you can reach the R2lab
 gateway using ssh
 
     $ ssh your_slicename@faraday.inria.fr
 
-    *<h6>if by any chance your public key is not at its standard location, then place `-i` option in the command line and inform the path of it.</h6>*
+*<h6>If by any chance your public key is not at its standard location, then place `-i` option in the command line and inform the path of it.</h6>*
 ---
 
 ### Listing commands
@@ -86,14 +86,26 @@ Note also that this is in fact equivalent to
 
     rhubarbe leases
 
-[`rhubarbe`](https://github.com/parmentelat/rhubarbe) being the set of
-tools that help us run the testbed. Indeed many of the convenience
+`rhubarbe` [(see it on github)](https://github.com/parmentelat/rhubarbe)
+being the set of tools that help us run the testbed. Indeed many of the convenience
 functions starting with `r` in fact are aliases to a `rhubarbe`
 subcommand.
 
-One very frequently used command, that requires that you have a valid lease, is the one that turns off the nodes when you are done:
+### Switch off the testbed when you're done
+
+One very frequently used command, that requires that you have a valid
+lease - or at least that no lease is currently active - is the one
+that turns off the nodes when you are done:
 
     all-off
+
+which is an alias for either
+
+    rhubarbe bye
+
+or simply
+
+    rbye
 
 Please try to make sure to use it, especially when you have many nodes running.
 
@@ -261,10 +273,12 @@ We have (for now a single) commercial UE available right in the room. You can co
 
 ### `macphone`
 
-The phone is physically connected through USB to a MAC (also in the room) named `macphone`;
+As of this writing, there are 2 phones available inside the testbed.
+
+Each of them is physically connected through USB to a MAC (also in the room) named e.g. `macphone1`;
  you can reach that MAC from faraday by doing
 
-    macphone
+    macphone1
 
 From that point you can get a list of available commands, like always
 
@@ -281,11 +295,10 @@ Among other things, you'll want to check for the folloing commands
 
 You can also use VNC to share `macphone`'s screen with the following info
 
-    hostname : faraday.inria.fr
+    hostname : faraday-macphone1.inria.fr
     port numnber : 5900
     macphone's user id : tester
     password : tester++
-
 
 </div>
 

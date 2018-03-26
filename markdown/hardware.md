@@ -158,7 +158,7 @@ A Nexus 5 phone is available right inside the chamber:
 * The mac can also be managed using apple screen sharing tools
   (VNC-compliant), pointing directly at <code>faraday.inria.fr</code>
 * You will find more details about controlling the phone [in the
-  tutorials section](/tuto-800-5g.md#PHONE).
+  tutorials section](/tuto-130-5g.md#PHONE).
 
 </div>
   </div>

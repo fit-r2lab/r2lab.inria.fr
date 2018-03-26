@@ -4,8 +4,9 @@ from argparse import ArgumentParser
 
 from asynciojobs import Scheduler
 
-from apssh import SshNode, SshJob, Run
-from apssh import RunString, TimeColonFormatter
+from apssh import SshNode, SshJob
+from apssh import Run, RunString
+from apssh import TimeColonFormatter
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
@@ -40,6 +41,10 @@ node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
                 formatter = TimeColonFormatter())
 
 ##########
+# create an orchestration scheduler
+scheduler = Scheduler()
+
+##########
 check_lease = SshJob(
     # checking the lease is done on the gateway
     node = faraday,
@@ -47,6 +52,7 @@ check_lease = SshJob(
     # will cause the scheduler to bail out immediately
     critical = True,
     command = Run("rhubarbe leases --check"),
+    scheduler = scheduler,
 )
 
 ####################
@@ -70,8 +76,8 @@ netname=$1; shift
 freq=$1;   shift
 
 # load the r2lab utilities - code can be found here:
-# https://github.com/parmentelat/r2lab/blob/master/infra/user-env/nodes.sh
-source /root/r2lab/infra/user-env/nodes.sh
+# https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/nodes.sh
+source /etc/profile.d/nodes.sh
 
 # make sure to use the latest code on the node
 git-pull-r2lab
@@ -107,39 +113,45 @@ ip address add $ipaddr_mask dev $ifname
 # setting up the wireless interface on both fit01 and fit02
 init_node_01 = SshJob(
     node = node1,
-    required = check_lease,
     command = RunString(
         turn_on_wireless_script,
         wireless_driver, "foobar", 2412,
-        remote_name = "init-wireless",
 #        verbose=True,
-    ))
+    ),
+    required = check_lease,
+    scheduler = scheduler,
+)
 init_node_02 = SshJob(
     node = node2,
-    required = check_lease,
     command = RunString(
         turn_on_wireless_script,
-        wireless_driver, "foobar", 2412))
+        wireless_driver, "foobar", 2412),
+    required = check_lease,
+    scheduler = scheduler,
+)
 
-# the command we want to run in faraday is as simple as it gets
+# the command we want to run in node1 is as simple as it gets
 ping = SshJob(
     node = node1,
     required = (init_node_01, init_node_02),
     command = Run(
         'ping', '-c', '20', '10.0.0.2',
 #        verbose=True,
-    ))
+    ),
+    scheduler = scheduler,
+)
 
 ##########
-# our orchestration scheduler has 4 jobs to run this time
-sched = Scheduler(check_lease, ping, init_node_01, init_node_02)
-
 # run the scheduler
-ok = sched.orchestrate()
+ok = scheduler.orchestrate()
+
 # give details if it failed
-ok or sched.debrief()
+ok or scheduler.debrief()
 
 success = ok and ping.result() == 0
+
+# producing a dot file for illustration
+scheduler.export_as_dotfile("B2.dot")
 
 # return something useful to your OS
 exit(0 if success else 1)

@@ -21,8 +21,8 @@ function init-ad-hoc-network (){
     freq=$1;   shift
 
     # load the r2lab utilities - code can be found here:
-    # https://github.com/parmentelat/r2lab/blob/master/infra/user-env/nodes.sh
-    source /root/r2lab/infra/user-env/nodes.sh
+    # https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/nodes.sh
+    source /etc/profile.d/nodes.sh
 
     # make sure to use the latest code on the node
     git-pull-r2lab

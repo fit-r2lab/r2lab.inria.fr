@@ -5,8 +5,7 @@ from argparse import ArgumentParser
 from asynciojobs import Scheduler
 
 from apssh import SshNode, SshJob
-from apssh import Run, RunString, RunScript
-from apssh import TimeColonFormatter
+from apssh import Run, RunString
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
@@ -17,28 +16,23 @@ parser = ArgumentParser()
 parser.add_argument("-s", "--slice", default=gateway_username,
                     help="specify an alternate slicename, default={}"
                          .format(gateway_username))
+parser.add_argument("-l", "--load", default=False, action='store_true',
+                    help="load the ubuntu image on nodes before starting")
 parser.add_argument("-v", "--verbose-ssh", default=False, action='store_true',
                     help="run ssh in verbose mode")
-parser.add_argument("-d", "--driver", default='ath9k',
-                    choices = ['iwlwifi', 'ath9k'],
-                    help="specify which driver to use")
 args = parser.parse_args()
 
 gateway_username = args.slice
 verbose_ssh = args.verbose_ssh
-wireless_driver = args.driver
 
 ##########
 faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
-                  verbose = verbose_ssh,
-                  formatter = TimeColonFormatter())
+                  verbose = verbose_ssh)
 
 node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
-                verbose = verbose_ssh,
-                formatter = TimeColonFormatter())
+                verbose = verbose_ssh)
 node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
-                verbose = verbose_ssh,
-                formatter = TimeColonFormatter())
+                verbose = verbose_ssh)
 
 ##########
 # create an orchestration scheduler
@@ -55,30 +49,32 @@ check_lease = SshJob(
     scheduler = scheduler,
 )
 
-# the shell script has gone into B3-wireless.sh
-####################
+########## has the user requested to load images
+# the job to wait before proceeding
+ready_requirement = check_lease
+if args.load:
+    ready_requirement = SshJob(
+        node = faraday,
+        commands = [
+            Run('rhubarbe load -i ubuntu 1 2'),
+            Run('rhubarbe wait 1 2'),
+        ],
+        required = check_lease,
+        scheduler = scheduler,
+    )
 
 ##########
-# setting up the wireless interface on both fit01 and fit02
+# setting up the data interface on both fit01 and fit02
 init_node_01 = SshJob(
     node = node1,
-    # RunString is replaced with RunScript
-    command = RunScript(
-        # first argument is the local filename
-        # where to find the script to run remotely
-        "B3-wireless.sh",
-        # then its arguments
-        "init-ad-hoc-network", wireless_driver, "foobar", 2412,
-    ),
-    required = check_lease,
+    command = Run("turn-on-data"),
+    required = ready_requirement,
     scheduler = scheduler,
 )
 init_node_02 = SshJob(
     node = node2,
-    command = RunScript(
-        "B3-wireless.sh",
-        "init-ad-hoc-network", wireless_driver, "foobar", 2412),
-    required = check_lease,
+    command = Run("turn-on-data"),
+    required = ready_requirement,
     scheduler = scheduler,
 )
 
@@ -86,24 +82,29 @@ init_node_02 = SshJob(
 ping = SshJob(
     node = node1,
     required = (init_node_01, init_node_02),
-    command = RunScript(
-        "B3-wireless.sh", "my-ping", '10.0.0.2', 20
-#        verbose=True,
-    ),
+    # let's be more specific about what to run
+    # we will soon see other things we can do on an ssh connection
+    command = Run('ping', '-c1', '-I', 'data', 'data02'),
     scheduler = scheduler,
 )
 
 ##########
+scheduler.export_as_dotfile("D1.dot")
+exit(0)
+
 # run the scheduler
 ok = scheduler.orchestrate()
-
 # give details if it failed
 ok or scheduler.debrief()
 
+# we say this is a success if the ping command succeeded
+# the result() of the SshJob is the value that the command
+# returns to the OS
+# so it's a success if this value is 0
 success = ok and ping.result() == 0
 
 # producing a dot file for illustration
-scheduler.export_as_dotfile("B3.dot")
+scheduler.export_as_dotfile("D1.dot")
 
 # return something useful to your OS
 exit(0 if success else 1)

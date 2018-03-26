@@ -4,7 +4,8 @@ from argparse import ArgumentParser
 
 from asynciojobs import Scheduler
 
-from apssh import SshNode, SshJob, Run
+from apssh import SshNode, SshJob
+from apssh import Run
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
@@ -32,6 +33,10 @@ node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
                 verbose = verbose_ssh)
 
 ##########
+# create an orchestration scheduler
+scheduler = Scheduler()
+
+##########
 check_lease = SshJob(
     # checking the lease is done on the gateway
     node = faraday,
@@ -39,37 +44,51 @@ check_lease = SshJob(
     # will cause the scheduler to bail out immediately
     critical = True,
     command = Run("rhubarbe leases --check"),
+    scheduler = scheduler,
 )
 
 ##########
 # setting up the data interface on both fit01 and fit02
-init_node_01 = SshJob(node = node1, command = Run("turn-on-data"), required = check_lease)
-init_node_02 = SshJob(node = node2, command = Run("turn-on-data"), required = check_lease)
+init_node_01 = SshJob(
+    node = node1,
+    command = Run("turn-on-data"),
+    required = check_lease,
+    scheduler = scheduler,
+)
+init_node_02 = SshJob(
+    node = node2,
+    command = Run("turn-on-data"),
+    required = check_lease,
+    scheduler = scheduler,
+)
 
 # the command we want to run in node1 is as simple as it gets
 ping = SshJob(
     node = node1,
-    # no need to wait for check_release, since both init_node jobs already do
+    # wait for the 2 init jobs instead
+    # check_release is guaranteed to have completed anyway
     required = (init_node_01, init_node_02),
     # let's be more specific about what to run
     # we will soon see other things we can do on an ssh connection
     command = Run('ping', '-c1', '-I', 'data', 'data02'),
+    scheduler = scheduler,
 )
 
 ##########
-# our orchestration scheduler has 4 jobs to run this time
-sched = Scheduler(check_lease, ping, init_node_01, init_node_02)
-
 # run the scheduler
-ok = sched.orchestrate()
+ok = scheduler.orchestrate()
+
 # give details if it failed
-ok or sched.debrief()
+ok or scheduler.debrief()
 
 # we say this is a success if the ping command succeeded
 # the result() of the SshJob is the value that the command
 # returns to the OS
 # so it's a success if this value is 0
 success = ok and ping.result() == 0
+
+# producing a dot file for illustration
+scheduler.export_as_dotfile("A5.dot")
 
 # return something useful to your OS
 exit(0 if success else 1)

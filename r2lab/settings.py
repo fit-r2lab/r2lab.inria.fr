@@ -182,7 +182,7 @@ STATICFILES_DIRS = [
 
 manifold_url = "https://portal.onelab.eu:7080/"
 
-# IMPORTANT NOTE. 
+# IMPORTANT NOTE.
 # not specifying either http: or https: here is the right thing to do
 # it means to use the same protocol as the one
 # used to reach the main service in the first place
