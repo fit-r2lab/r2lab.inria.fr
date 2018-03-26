@@ -346,6 +346,24 @@ We will now see [in tab D3 how to pass target nodes on the command-line](javascr
 In this section, we will change the `D2` script so that the target nodes can be
 passed on the command line, instead of using the hardwired nodes 1 and 2.
 
+### The `r2lab` python library
+
+We take this opportunity to introduce the `r2lab` python library,
+that you need of course to install separately:
+
+    pip3 install r2lab
+
+This library is designed to be, and hopefully to stay, very small;
+in this example we just use convenience functions like `r2lab_hostname`
+that lets us compute the [hostname for one of the nodes from a variety of inputs](http://r2lab.readthedocs.io/en/latest/API.html#r2lab.utils.r2lab_hostname),
+that can be either `int` or `bytes` or `str`.
+
+This mostly is convenient to avoid ending up with hostname like `fit1`
+with a missing `0`, so as you can see it is very basic.
+
+
+A complete reference can be [found on readthedocs.io](http://r2lab.readthedocs.io).
+
 ### The code
 
 << codeview D3 D3-prep.py previous=D2-prep.py graph=D3.png >>
@@ -353,7 +371,7 @@ passed on the command line, instead of using the hardwired nodes 1 and 2.
 
 ### Sample output
 
-It is easy to select other nodes with the `-a` and `-b` option. 
+It is easy to select other nodes with the `-a` and `-b` option.
 
     tparment ~/git/r2lab.inria.fr/code (public *+=) $ python3 ./D3-prep.py -a 10 -b 20
     faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
