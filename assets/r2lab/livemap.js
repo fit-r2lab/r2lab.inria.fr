@@ -48,7 +48,7 @@ let livemap_options = {
     // with node radius circle
     usrp_delta_x : 2,
     usrp_delta_y : 3,
-    
+
 
     // see http://stackoverflow.com/questions/14984007/how-do-i-include-a-font-awesome-icon-in-my-svg
     // and http://stackoverflow.com/questions/12882885/how-to-add-nbsp-using-d3-js-selection-text-method/12883617#12883617
@@ -66,6 +66,15 @@ let livemap_options = {
 	chan_phones : 'info:phones',
 	chan_phones_request : 'request:phones',
     },
+
+    // override this with a list of group_colors
+    // like e.g.
+    //  "rgba(152, 193, 217, 0.5)",
+    // or
+    //  "#00E0DF80",
+    // to illustrate cyclically assigned nodes
+
+    group_colors : [],
 
     debug : false,
 }
@@ -205,7 +214,7 @@ function locate_by_id (list_objs, id) {
     console.log(`ERROR: livemap: locate_by_id: id= ${id} was not found`);
 }
 
-    
+
 // obj_info is a dict coming through socket.io in JSON
 // simply copy the fieds present in this dict in the local object
 // for further usage in animate_nodes_changes
@@ -253,7 +262,11 @@ let MapNode = function (node_spec) {
     this.x = coords[0];
     this.y = coords[1];
 
-    // status details are filled upon reception of news
+    if (livemap_options.group_colors.length > 0) {
+        let index = this.id % livemap_options.group_colors.length;
+        this.group_color = livemap_options.group_colors[index];
+        console.log(`node ${this.id} has color ${this.group_color}`);
+    }
 
     this.is_available = function() {
 	return this.available != 'ko';
@@ -545,6 +558,25 @@ function LiveMap() {
 	    .attr('filter', function(node){return node.node_status_filter();})
 	;
 
+        if (livemap_options.group_colors.length > 0) {
+            let size_x = livemap_options.space_x * .72;
+            let size_y = livemap_options.space_y * .64;
+            let offset_x = size_x / 2;
+            let offset_y = size_y / 2;
+            let group_squares = svg.selectAll('rect.node-group')
+                        .data(this.nodes, get_obj_id);
+            group_squares
+              .enter()
+                .append('rect')
+                .attr('class', 'node-group')
+                .attr('x', function(node){return node.x - offset_x;})
+                .attr('y', function(node){return node.y - offset_y;})
+                .attr('width', size_x)
+                .attr('height', size_y)
+                .attr('style', function(node) {return `fill:${node.group_color}`;})
+            ;
+        }
+
 	// labels show the nodes numbers
 	let labels = svg.selectAll('text')
 	    .data(this.nodes, get_obj_id);
@@ -725,7 +757,7 @@ function LiveMap() {
 
 // autoload
 // again, recording this unique instance in the_livemap
-// is for debugging convenience only 
+// is for debugging convenience only
 $(function() {
     the_livemap = new LiveMap();
     the_livemap.init();
