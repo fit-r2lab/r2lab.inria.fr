@@ -49,9 +49,10 @@ check_lease = SshJob(
     scheduler = scheduler,
 )
 
-########## has the user requested to load images
 # the job to wait before proceeding
 ready_requirement = check_lease
+# has the user requested to load images ?
+# if so, we just need to wait for 2 jobs to complete instead of 1
 if args.load:
     ready_requirement = [
         SshJob(
@@ -99,9 +100,6 @@ ping = SshJob(
 )
 
 ##########
-scheduler.export_as_dotfile("D2.dot")
-exit(0)
-
 # run the scheduler
 ok = scheduler.orchestrate()
 # give details if it failed
