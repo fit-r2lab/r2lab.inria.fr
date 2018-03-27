@@ -67,14 +67,8 @@ let livemap_options = {
 	chan_phones_request : 'request:phones',
     },
 
-    // override this with a list of group_colors
-    // like e.g.
-    //  "rgba(152, 193, 217, 0.5)",
-    // or
-    //  "#00E0DF80",
-    // to illustrate cyclically assigned nodes
-
-    group_colors : [],
+    // override this with a ColorMap object if desired
+    colormap : null,
 
     debug : false,
 }
@@ -262,10 +256,8 @@ let MapNode = function (node_spec) {
     this.x = coords[0];
     this.y = coords[1];
 
-    if (livemap_options.group_colors.length > 0) {
-        let index = this.id % livemap_options.group_colors.length;
-        this.group_color = livemap_options.group_colors[index];
-        console.log(`node ${this.id} has color ${this.group_color}`);
+    if (livemap_options.colormap) {
+        this.group_color = livemap_options.colormap.color(this.id);
     }
 
     this.is_available = function() {
@@ -558,7 +550,7 @@ function LiveMap() {
 	    .attr('filter', function(node){return node.node_status_filter();})
 	;
 
-        if (livemap_options.group_colors.length > 0) {
+        if (livemap_options.colormap) {
             let size_x = livemap_options.space_x * .72;
             let size_y = livemap_options.space_y * .64;
             let offset_x = size_x / 2;

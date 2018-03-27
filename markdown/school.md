@@ -2,14 +2,41 @@ title: G5K - FIT summer school
 tab: tutorial
 skip_header: yes
 
+# reservations - accounts - ssh keys
 
 
 # colored map
 
 <div id="livemap_container"></div>
+
+<div id="colortable_container"></div>
+
 <script type="text/javascript" src="/assets/r2lab/livemap.js"></script>
 <style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
+<script type="text/javascript" src="/assets/r2lab/colormap.js"></script>
+<style type="text/css"> @import url("/assets/r2lab/colormap.css"); </style>
 <script>
+
+    let colors = [
+        "#FF1F2080",
+        "#00E0DF80",
+        "#616F6F80",
+        "#FF5FC080",
+        "#0000A380",
+        "#00A40080",
+        "#FFBA3F80",
+    ];
+
+    let colormap = new ColorMap(37).handpick(colors,
+        [
+            [1,  7, 13, 19, 27, 33, 35, 37],
+            [2,  9, 11, 18, 23, 28 ,36],
+            [3, 10, 12, 16, 21, 29, 31],
+            [4,  6, 14, 20, 25, 26, 34],
+            [5, 8, 15, 17, 22, 24 ,30, 32],
+        ]
+        );
+
     // override livemap default settings
     Object.assign(livemap_options, {
       space_x : 72,
@@ -23,24 +50,11 @@ skip_header: yes
       margin_y : 20,
       padding_x : 35,
       padding_y : 35,
-      group_colors : [
-/*
-    "rgba(61, 90, 128, 0.5)",
-    "rgba(152, 193, 217, 0.5)",
-    "rgba(224, 251, 252, 0.5)",
-    "rgba(238, 108, 77, 0.5)",
-    "rgba(41, 50, 65, 0.5)",
-    "rgba(41, 50, 65, 0.5)",
-*/
-    "#FF1F2080",
-    "#00E0DF80",
-    "#616F6F80",
-    "#FF5FC080",
-    "#0000A380",
-    "#00A40080",
-    "#FFBA3F80",
-],
+      colormap : colormap,
 
 //    debug : true,
    });
+
+   $(function() { colormap.colortable(); });
+
 </script>

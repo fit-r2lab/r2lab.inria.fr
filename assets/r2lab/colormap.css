@@ -1,0 +1,9 @@
+
+div#colortable_container th {
+    padding : 10px;
+}
+
+div#colortable_container td {
+    text-align: center;
+    padding: 10px;
+}
