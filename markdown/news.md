@@ -1,4 +1,4 @@
-title: Latest news, infos and incidents...
+title: Latest news & infos...
 tab: news
 skip_news: yes
 ---
@@ -6,13 +6,50 @@ skip_news: yes
 # Most recent first&nbsp;:
 
 ****
-2018
+## 2018
 ****
+
+### April 2018
+
+* R2lab participates in the [1st joint Grid5000-FIT
+  school](http://www.silecs.net/1st-grid5000-fit-school/), triggered as the
+  first public milestone of the SILECS project.
+
+### March 2018
+
+* a second commercial phone - type Moto E - is available in the chamber
+
+### February 2018
+
+The code for the testbed has been split into the following git repos:
+
+* user-oriented
+
+  * all embedded code as [r2lab-embedded](https://github.com/fit-r2lab/r2lab-embedded)
+  * various demos and other running code as [r2lab-demos](https://github.com/fit-r2lab/r2lab-demos)
+  * the python library as [r2lab-python](https://github.com/fit-r2lab/r2lab-python) (and on [[readthedocs]](http://r2lab.readthedocs.io))
+
+* website-related
+
+  * the website as [r2lab.inria.fr](https://github.com/fit-r2lab/r2lab.inria.fr)
+  * website auxiliary files as [r2lab.inria.fr-raw](https://github.com/fit-r2lab/r2lab.inria.fr-raw)
+  * the websockets companion server as [r2lab-sidecar](https://github.com/fit-r2lab/r2lab-sidecar)
+
+* backend
+
+  * a collection of internal utilities as [r2lab-misc](https://github.com/fit-r2lab/r2lab-misc)
+
+As a reminder, the code for `nepi-ng` currently sits here:
+
+* `nepi-ng` : [[umbrella website]](https://nepi-ng.inria.fr)
+* `asynciojobs`: [[git]](https://github.com/parmentelat/asynciojobs) [[readthedocs]](http://asynciojobs.readthedocs.io/)
+* `apssh`: [[git]](https://github.com/parmentelat/apssh) [[readthedocs]](https://apssh.readthedocs.io/)
+
 
 ### January 2018
 
 * the `demos/` subtree in the `r2lab` github repo was split and moved into [a separated repo named r2lab-demos](https://github.com/parmentelat/r2lab-demos)
-* a mybinder shell has been setup to host notebooks in one-click, like e.g. 
+* a mybinder shell has been setup to host notebooks in one-click, like e.g.
   <a href="https://mybinder.org/v2/gh/parmentelat/r2lab-demos/master?filepath=radiomap%2Fradiomap.ipynb" target='_'>
   our radiomap application <img src="https://mybinder.org/badge.svg">
   </a>

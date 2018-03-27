@@ -60,7 +60,11 @@ div.title_tour {
 img.fit-width {
     max-width: 100%;
 }
-    
+
 img.onelab-header {
     margin-top: -10px;
+}
+
+ul>li>p {
+    margin-bottom: 2px;
 }

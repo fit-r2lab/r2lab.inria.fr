@@ -4,8 +4,30 @@ skip_header: yes
 
 # reservations - accounts - ssh keys
 
+* testbed is normally designed to be reserved **as a whole**
+
+  * so we will use a single slice named `inria_school`
+
+* register for an account at <https://r2labapi.inria.fr/db/persons/register.php>
+
+  * make sure to choose site `inria`
+
+* once this is OK, log into <https://r2lab.inria.fr/run.md> and
+
+  * upload your ssh key (click the `slices and keys)
+  * and check that you see the `inria_school` slice in the area marked `drag & drop to book`
+
+# rain check
+
+Using your ssh key, you should be able to enter the testbed gateway:
+
+```
+ssh inria_school@faraday.inria.fr
+```
 
 # colored map
+
+We need to split the nodes in several groups to implement some kind of light isolation.
 
 <div id="livemap_container"></div>
 
@@ -17,6 +39,14 @@ skip_header: yes
 <style type="text/css"> @import url("/assets/r2lab/colormap.css"); </style>
 <script>
 
+    let groups5 = [
+        [1,  7, 13, 19, 27, 33, 35, 37],
+        [2,  9, 11, 18, 23, 28 ,36],
+        [3, 10, 12, 16, 21, 29, 31],
+        [4,  6, 14, 20, 25, 26, 34],
+        [5, 8, 15, 17, 22, 24 ,30, 32],
+    ];
+
     let colors = [
         "#FF1F2080",
         "#00E0DF80",
@@ -27,15 +57,7 @@ skip_header: yes
         "#FFBA3F80",
     ];
 
-    let colormap = new ColorMap(37).handpick(colors,
-        [
-            [1,  7, 13, 19, 27, 33, 35, 37],
-            [2,  9, 11, 18, 23, 28 ,36],
-            [3, 10, 12, 16, 21, 29, 31],
-            [4,  6, 14, 20, 25, 26, 34],
-            [5, 8, 15, 17, 22, 24 ,30, 32],
-        ]
-        );
+    let colormap = new ColorMap(37).handpick(colors, groups5);
 
     // override livemap default settings
     Object.assign(livemap_options, {
