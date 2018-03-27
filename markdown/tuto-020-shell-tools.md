@@ -269,14 +269,23 @@ Images that may be of common interest usually needto be renamed; get in touch wi
 
 ## Phones
 
-We have (for now a single) commercial UE available right in the room. You can control it essentially through 2 ways
+For now we have two commercial phones available right in the room:
+
+<table style="font-size:Large; text-align:center; margin:10px">
+<thead><tr><th>Phone #</th><th>Model</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Nexus 5</td></tr>
+<tr><td>2</td><td>Moto E</td></tr>
+</tbody>
+</table>
+
+In order to use them as UE's in your experiment, you can control them essentially through 2 ways.
 
 ### `macphone`
 
-As of this writing, there are 2 phones available inside the testbed.
+Each of them is physically connected through USB to a MAC (also in the room) named `macphone1` for the first phone, and of course `macphone2` etc..
 
-Each of them is physically connected through USB to a MAC (also in the room) named e.g. `macphone1`;
- you can reach that MAC from faraday by doing
+You can reach the controlling MAC from faraday by typing
 
     macphone1
 
@@ -284,7 +293,7 @@ From that point you can get a list of available commands, like always
 
     help
 
-Among other things, you'll want to check for the folloing commands
+Among other things, you'll want to check for the following commands
 
     phone-status
     phone-off

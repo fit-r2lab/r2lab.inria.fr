@@ -59,51 +59,16 @@ You can check that this requirement is fulfilled by running
 
 ***
 
-# Installing requirement `asyncssh`
-
-`apssh` has a core dependency to a third-party library named
-[`asyncssh`](https://github.com/ronf/asyncssh); this in turn requires
-binary extensions, so here's our recommendation to install this
-library. Use `sudo` for running `pip3` unless you are working in a
-`virtualenv` or similar.
-
-### Ubuntu
-
-Tested on Ubuntu-16
-
-    sudo apt-get install libssl-dev
-    [sudo] pip3 install asyncssh
-
-
-### Fedora
-
-Here's a - possibly non-exhaustive - list of dependencies that help building
-`asyncssh`
-
-Tested on fedora-23
-
-    sudo dnf install redhat-rpm-config python3-cffi python3-devel openssl-devel
-    [sudo] pip3 install asyncssh
-
-### MacOS
-
-It is harder to describe the list of dependencies on the MAC, let us
-know if you run into any trouble when running simply the following
-
-     [sudo] pip3 install asyncssh
-
-***
-
 # Installing `asynciojobs` and `apssh`
 
 You need to install these libraries, the recommended way is through
 `pip3` like this - if you're not using `virtualenv` or ` anaconda`, you
-might need to run these commands under `sudo`&nbsp;:
+might need to run these commands under `sudo`:
 
-    [sudo] pip3 install asynciojobs
     [sudo] pip3 install apssh
 
-You can check the installed versions like this
+This should be sufficient as `asynciojobs` is required by `apssh`. You can check
+the installed versions like this
 
     $ python3 -c 'from asynciojobs import version; print(version.version)'
     0.4.3
@@ -112,9 +77,19 @@ You can check the installed versions like this
 
 Note that if you need to upgrade in the future, you will need to run
 
-    [sudo] pip3 install --upgrade asynciojobs apssh
+    [sudo] pip3 install --upgrade apssh
 
 and that will bring you the latest release published on `pypi.org`.
+
+# Optional - installing the `r2lab` python library
+
+It is recommended to also install the `rl2ab` python library,
+that we will briefly touch on in this tutorial
+[in the D series](tuto-070-D-prep.md#D3).
+The library is also required for running
+ [some of the demos](https://github.com/fit-r2lab/r2lab-demos):
+
+    [sudo] pip3 install r2lab
 
 </div>
 

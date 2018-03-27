@@ -60,7 +60,7 @@ If your script does not check for that, it's a good idea to double check.
 
 Try to enter the gateway with this simple command
 
-    ssh your_slicename@faaday.inria.fr
+    ssh your_slicename@faraday.inria.fr
 
 If this does not work, then double check that your onelab private key
 is known to your ssh agent - especially if you have recently logged out :
@@ -125,7 +125,7 @@ Please double check that you
 
 You can make sure that you run the latest version of `nepi-ng` by running
 
-    [sudo] pip3 install --upgrade asynciojobs apssh
+    [sudo] pip3 install --upgrade asynciojobs
 
 Alternatively, you can check the currently running versions by doing on your laptop
 
@@ -139,6 +139,12 @@ libraries, that can be found :
 * or in the respective documentation pages for
 [asynciojobs](http://nepi-ng.inria.fr/asynciojobs/) and
 [apssh](http://nepi-ng.inria.fr/apssh/).
+
+### `r2lab` python library
+
+Similarly, you may have to upgrade the python library
+
+    [sudo] pip3 install -U r2lab
 
 ### `shell tools`
 
