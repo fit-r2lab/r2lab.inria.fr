@@ -14,8 +14,14 @@ skip_header: yes
 
 * once this is OK, log into <https://r2lab.inria.fr/run.md> and
 
-  * upload your ssh key (click the `slices and keys)
+  * upload your ssh key (click the *slices and keys* area)
   * and check that you see the `inria_school` slice in the area marked `drag & drop to book`
+  * otherwise [send an e-mail](mailto:thierry.parmentelat@inria.fr) requesting to be made part of that slice
+  * log out and back in if necessary, until you can see that slice show up
+
+
+![website](raw/screenshots/school.png)
+
 
 # rain check
 
