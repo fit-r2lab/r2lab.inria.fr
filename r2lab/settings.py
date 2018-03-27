@@ -211,3 +211,5 @@ AUTHENTICATION_BACKENDS = (
     'plc.plcauthbackend.PlcAuthBackend',
     'mfauth.mfbackend.ManifoldBackend',
 )
+
+X_FRAME_OPTIONS = 'ALLOWALL'
