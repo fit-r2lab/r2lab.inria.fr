@@ -116,6 +116,9 @@ init_node_01 = SshJob(
     command = RunString(
         turn_on_wireless_script,
         wireless_driver, "foobar", 2412,
+        # setting a remote_name allows to
+        # improve the graphical rendering
+        remote_name = 'turn-on-wireless'
 #        verbose=True,
     ),
     required = check_lease,
@@ -125,7 +128,9 @@ init_node_02 = SshJob(
     node = node2,
     command = RunString(
         turn_on_wireless_script,
-        wireless_driver, "foobar", 2412),
+        wireless_driver, "foobar", 2412,
+        remote_name = 'turn-on-wireless'
+    ),
     required = check_lease,
     scheduler = scheduler,
 )
