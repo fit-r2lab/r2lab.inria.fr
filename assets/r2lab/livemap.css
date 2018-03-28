@@ -28,7 +28,6 @@ circle.unavailable {
 
 text.node-label {
     font-family:	consolas, monaco, times-new-roman;
-    font-size:		16;
     text-anchor:	middle;
     alignment-baseline:	middle;
 }

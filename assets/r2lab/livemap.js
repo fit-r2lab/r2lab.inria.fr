@@ -33,6 +33,8 @@ let livemap_options = {
     radius_warming : 6,
     radius_ko : 0,
 
+    font_size : 16,
+    phone_size : 20,
     //// static area
     // pillars - derived from the walls
     pillar_radius : 16,
@@ -577,6 +579,7 @@ function LiveMap() {
 	  .enter()
 	    .append('text')
 	    .attr('class', 'node-label')
+        .attr('font-size', livemap_options.font_size)
 	    .text(get_obj_id)
 	    .attr('x', function(node){return node.x;})
 	    .attr('y', function(node){return node.y;})
@@ -674,8 +677,8 @@ function LiveMap() {
 	let svg = d3.select('div#livemap_container svg');
 	let animation_duration = 750;
 
-	let w = 20;
-	let h = 20;
+	let w = livemap_options.phone_size;
+	let h = w;
 	let r = 2;
 	let squares = svg.selectAll('rect.phone-status')
 	    .data(this.phones, get_obj_id);

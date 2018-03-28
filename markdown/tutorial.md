@@ -111,7 +111,7 @@ tutorial pages.
 
 If you have any issue with this tutorial, or with using R2lab more
 generally, please contact us at
-[`fit-r2lab-users@inria.fr`](mailto:fit-r2lab-users@inria.fr)
+[fit-r2lab-users@inria.fr](mailto:fit-r2lab-users@inria.fr)
 
 You can subscribe to that `fit-r2lab-users` discussion list by sending
 an email to `sympa@inria.fr` with `subscribe fit-r2lab-users` in the
@@ -124,7 +124,7 @@ You can do this by
 ### Chat room
 
 We use the `#r2lab` channel on freenode; also once you are logged into
-the website, in the `RUN` page, you will find on top of the page a
+the website, in [the RUN page](/run.md), you will find on top of the page a
 button that will let you join this chat room in a single click.
 
 </div>

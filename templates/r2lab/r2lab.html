@@ -50,6 +50,7 @@
   {% include 'r2lab/sidecar-url.js' %}
  </head>
  <body>
+{% if not skip_menu %}
   <div class="header">
    <div class="container">
     <div class="row">
@@ -89,14 +90,15 @@
     </div>
    </div>
   </div>
+{% endif %}
 
 {% if not skip_header %}
   <div class="container-fluid personal" id="background">
    {% if not r2lab_context and widget_login_template %}{% include widget_login_template %}{% endif %}
   </div>
   {% if not skip_news %}
-  <br>
-  <br>
+  <br/>
+  <br/>
   <div class="container">
    <div class="alert alert-info text-center" role="alert">
     stay tuned about the last news, infos and incidents about R2lab, check out our <a href="news.md">news feed</a>
@@ -106,20 +108,23 @@
 {% endif %}
 
   <div class="container" id="main_container">
+   {% if not skip_title %}
    <div class="row">
     <div class="col-md-10 col-md-offset-1 fit">
      <h2><span class="blue bold">{{title}}</span></h2>
      {% if subtitle %} <p class="subtitle">{{subtitle}}</p>{% endif %}
     </div>
    </div>
+   {% endif %}
    <div class="row">
     <div class="col-md-12">
      {{ html_from_markdown }}
     </div>
    </div>
-   <br>
-   <br>
+   <br/>
+   <br/>
   </div>
+  {% if not skip_footer %}
   <div class="footer">
    <div class="container">
     <div class="col-md-12">
@@ -129,5 +134,6 @@
     </div>
    </div>
   </div>
+  {% endif %}
  </body>
 </html>
