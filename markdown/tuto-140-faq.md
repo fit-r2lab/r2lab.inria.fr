@@ -4,9 +4,11 @@ skip_header: True
 
 In no particular order...
 
+[TOC]
+
 ****
 
-### `nepi-ng` / `apssh` won't find my ssh key
+### `nepi-ng` or `apssh` won't find my ssh key
 
 The simplest answer is, make sure to add the relevant ssh key in your ssh agent.
 

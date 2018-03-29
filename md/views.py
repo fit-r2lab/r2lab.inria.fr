@@ -381,9 +381,13 @@ def markdown_page(request, markdown_file, extra_metavars={}):
         # and any other defined in header
         metavars, markdown = parse(markdown_file)
         # convert markdown
-        html = markdown_module.markdown(markdown, extras=['markdown-in-html'])
+        html = markdown_module.markdown(
+            markdown, extras=['markdown-in-html', 'toc', 'header-ids'])
+        toc = html.toc_html
         # handle our tags
         html = resolve_tags(html)
+        # handle [TOC] if present
+        html = html.replace('[TOC]', toc)
         # and mark safe to prevent further escaping
         metavars['html_from_markdown'] = mark_safe(html)
         # set default for the 'title' metavar if not specified in header
