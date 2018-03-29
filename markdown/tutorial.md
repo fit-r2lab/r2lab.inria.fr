@@ -90,17 +90,21 @@ tutorial pages.
 
 ### Other stuff
 
-#### [R2lab and OpenAirInterface](tuto-130-oai.md)
+#### [R2lab and OpenAirInterface](tuto-130-5g.md)
 
 * Some indications on the features present on R2lab to deploy experiments based on OpenAirInterface.
 
-#### [Video tutorials on YouTube](tuto-140-youtube.md)
+#### [FAQ](tuto-140-faq.md)
+
+#### [Video tutorials on YouTube](tuto-150-youtube.md)
 
   * [End-to-End Experiment](tuto-140-youtube.md#AOA) : Running a wireless
     experiment end-to-end.
   * [OAI 5G experiment](tuto-140-youtube.md#OAI) : Setting up an
     OpenAirInterface-based 5G infrastructure, and a tour in the
     chamber using Skype on a commercial NEXUS phone.
+
+#### [Using notebooks](tuto-16-notebooks.md)
 
 </div>
 
