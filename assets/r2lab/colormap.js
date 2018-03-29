@@ -29,7 +29,7 @@ let ColorMap = function(index_max) {
         }
         this.init();
         for (let i = 1; i <= this.index_max; i++) {
-             this.set(i, group_colors[i % width])
+             this.set(i, group_colors[(i-1) % width])
         }
         return this;
     }
@@ -46,7 +46,7 @@ let ColorMap = function(index_max) {
         this.init();
         for (let part_index = 0;
              part_index < partitions.length;
-              part_index++) {
+             part_index++) {
             let partition = partitions[part_index];
             for (let node_id of partition) {
                 this.set(node_id, group_colors[part_index]);
@@ -62,11 +62,6 @@ let ColorMap = function(index_max) {
 
     this.color = function(index) {
         return this.hash.get(index);
-    }
-
-    // hardwire some ways to group the nodes
-    this.groups5 = {
-        1: 0,
     }
 
     this.hostname = function(node_id) {

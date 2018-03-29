@@ -71,11 +71,11 @@ We need to split the nodes in several groups to implement some kind of light iso
     let colors = [
         "#FF1F2080",
         "#00E0DF80",
-        "#616F6F80",
         "#FF5FC080",
-        "#0000A380",
+        "#3030A380",
         "#00A40080",
         "#FFBA3F80",
+        "#616F6F80",
     ];
 
     // let colormap = new ColorMap(37).handpick(colors, groups6);
