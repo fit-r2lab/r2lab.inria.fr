@@ -31,6 +31,12 @@ Using your ssh key, you should be able to enter the testbed gateway:
 ssh inria_school@faraday.inria.fr
 ```
 
+*****
+*****
+The groups below will be defined on the spot
+*****
+*****
+
 # colored map
 
 We need to split the nodes in several groups to implement some kind of light isolation.
@@ -53,6 +59,15 @@ We need to split the nodes in several groups to implement some kind of light iso
         [5, 8, 15, 17, 22, 24 ,30, 32],
     ];
 
+    let groups6 = [
+        [1, 7, 15, 22, 29, 35],
+        [2, 8, 14, 16, 24, 26, 33],
+        [3, 9, 13, 20, 28, 37],
+        [4, 10, 12, 21, 27, 34],
+        [5, 11, 17, 23, 25, 32],
+        [6, 18, 19, 30, 31, 36],
+    ];
+
     let colors = [
         "#FF1F2080",
         "#00E0DF80",
@@ -63,7 +78,8 @@ We need to split the nodes in several groups to implement some kind of light iso
         "#FFBA3F80",
     ];
 
-    let colormap = new ColorMap(37).handpick(colors, groups5);
+    // let colormap = new ColorMap(37).handpick(colors, groups6);
+    let colormap = new ColorMap(37).cyclic(colors, 7);
 
     // override livemap default settings
     Object.assign(livemap_options, {
