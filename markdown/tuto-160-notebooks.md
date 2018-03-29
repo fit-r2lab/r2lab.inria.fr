@@ -73,17 +73,17 @@ calibration-oriented data, i.e. perceived power at node (a) when node
 
 You can find the source for this notebook:
 
-* [under github in the r2lab-demos area](https://parmentelat/r2lab-demos/radiomap).  This repo
+* [under github in the r2lab-demos area](https://github.com/fit-r2lab/r2lab-demos/tree/master/radiomap).  This repo
   contains all the needed code to collect your own data; because of the
   limitations exposed above, the repository also contains some
   gathered data, so that visualization can be done right away from mybinder as well
 
 
 * in mybinder here :
-  <a href="https://mybinder.org/v2/gh/parmentelat/r2lab-demos/master?filepath=radiomap%2Fradiomap.ipynb" target='_'>
+  <a href="https://mybinder.org/v2/gh/fit-r2lab/r2lab-demos/master?filepath=radiomap%2Fradiomap.ipynb" target='_'>
   radiomap <img src="https://mybinder.org/badge.svg">
   </a>
 
-</div> 
+</div>
 
 </div> <!-- end div contents -->

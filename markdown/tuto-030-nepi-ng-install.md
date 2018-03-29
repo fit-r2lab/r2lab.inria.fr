@@ -99,7 +99,7 @@ The library is also required for running
 ### ssh and ssh-agent
 
 `nepi-ng` **does not require** a native ssh client to be installed on
-your laptop, as it uses the great [`asyncssh`
+your laptop, as it uses the great [asyncssh
 library](https://github.com/ronf/asyncssh) instead. However, it is
 recommended to have one installed, if only for running an ssh agent,
 as using ssh repeatedly is almost impossible without an ssh-agent.

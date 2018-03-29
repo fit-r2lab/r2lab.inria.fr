@@ -24,7 +24,7 @@ skip_header: True
 # Contents
 
 All this contents is accessible through the **TUTORIALS INDEX**
-dropdown that appears on the upper right end of the navbar, in all the
+dropdown that appears on the upper right end of the navbar, in all
 tutorial pages.
 
 ### Infrastructure
@@ -41,11 +41,11 @@ tutorial pages.
 
 ### Examples of experimentation scripts with `nepi-ng`
 
-#### [nepi-ng: install](tuto-030-nepi-ng-install.md)
+#### [nepi-ng : install](tuto-030-nepi-ng-install.md)
 
 * How to install `nepi-ng` on your laptop
 
-#### [nepi-ng: the basics](tuto-040-A-ping.md) - a.k.a. the **A** series
+#### [nepi-ng : the basics](tuto-040-A-ping.md) - a.k.a. the **A** series
 
 * A couple examples to get started with the `nepi-ng` network tool:
 * [A1](tuto-040-A-ping.md#A1) : simplest way to run a simple ping from `faraday.inria.fr` to `google.fr`
@@ -77,7 +77,7 @@ tutorial pages.
 * [D1](tuto-070-D-prep.md#D1) : adding a command-line option to load images,
 * [D2](tuto-070-D-prep.md#D2) : turning off unused nodes while loading images.
 
-#### [nepi-ng troubleshooting guidelines](tuto-110-troubleshooting.md)
+#### [nepi-ng : troubleshooting guidelines](tuto-110-troubleshooting.md)
 
 * [COMMON_MISTAKES](tuto-110-troubleshooting.md#COMMON_MISTAKES) how to check for common mistakes
 * [CODE_UPDATE](tuto-110-troubleshooting.md#CODE_UPDATE) how to check your software environment
