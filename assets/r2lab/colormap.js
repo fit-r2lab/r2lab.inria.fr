@@ -73,7 +73,6 @@ let ColorMap = function(index_max) {
         let columns = this.colors.size;
         let div = $(`div#colortable_container`);
         div
-          .append(`<h1>details of the ${columns} groups</h1>`)
           .append(`<table><thead><tr><th>Group #</th><th>Nodes</th></thead>`
               + `<tbody></tbody></table>`)
         ;

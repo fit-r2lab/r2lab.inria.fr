@@ -12,21 +12,13 @@ skip_footer: yes
 <script>
     let ratio = 2/3;
     Object.assign(livemap_options, {
-      space_x : 80 * ratio,
-      space_y : 80 * ratio,
-      radius_unavailable : 21 * ratio,
-      radius_ok : 16 * ratio,
-      radius_pinging : 10 * ratio,
-      radius_warming : 4 * ratio,
-      radius_ko : 0 * ratio,
-      margin_x : 20,
-      margin_y : 20,
-      padding_x : 35 * ratio,
-      padding_y : 35 * ratio,
-      pillar_radius : 16*ratio,
-
-      font_size: 16 * ratio,
-      phone_size: 20 * ratio,
+        ratio : ratio,
+        // if we do set values from options in addition
+        // to a ratio, the actual value is multiplied
+        // by the ratio; here setting 6 means actually 4
+        // (we need some space for the wall depth)
+        margin_x : 6,
+        margin_y : 6,
    });
 
 </script>

@@ -17,15 +17,20 @@ let the_livemap;
 
 ////////// configurable
 let livemap_options = {
+
+    // just set this if you need scaling
+    ratio : 1.,
+    // don't touch this one
+    _scaled: false,
+
     // the space around the walls in the canvas
     margin_x : 50, margin_y : 50,
-
     // distance between nodes
     space_x : 80, space_y : 80,
-
     // distance between nodes and walls
     padding_x : 40, padding_y : 40,
-
+    // pillars - derived from the walls
+    pillar_radius : 16,
     // size for rendering nodes status
     radius_unavailable : 24,
     radius_ok : 18,
@@ -35,9 +40,6 @@ let livemap_options = {
 
     font_size : 16,
     phone_size : 20,
-    //// static area
-    // pillars - derived from the walls
-    pillar_radius : 16,
 
     // usrp thingy
     // full size for the usrp-icon; this is arbitrary but has the right width/height ratio
@@ -73,11 +75,36 @@ let livemap_options = {
     colormap : null,
 
     debug : false,
+
 }
 
 function livemap_debug(...args) {
     if (livemap_options.debug)
 	console.log(...args);
+}
+
+
+function scale_options() {
+    if (livemap_options._scaled)
+        return;
+    let ratio = livemap_options.ratio;
+    livemap_options.margin_x *= ratio;
+    livemap_options.margin_y *= ratio;
+    livemap_options.space_x *= ratio;
+    livemap_options.space_y *= ratio;
+    livemap_options.padding_x *= ratio;
+    livemap_options.padding_y *= ratio;
+    livemap_options.pillar_radius *= ratio,
+    livemap_options.radius_unavailable *= ratio,
+    livemap_options.radius_ok *= ratio,
+    livemap_options.radius_pinging *= ratio,
+    livemap_options.radius_warming *= ratio,
+    livemap_options.radius_ko *= ratio,
+
+    livemap_options.font_size *= ratio,
+    livemap_options.phone_size  *= ratio,
+
+    livemap_options._scaled = true;
 }
 
 // sidecar_url var is defined in template sidecar-url.js
@@ -457,9 +484,9 @@ function LiveMap() {
     });
 
     this.init = function() {
-	this.init_nodes();
-	this.init_phones();
-	this.init_sidecar_socket_io();
+	    this.init_nodes();
+        this.init_phones();
+        this.init_sidecar_socket_io();
     }
 
     //////////////////// nodes
@@ -754,6 +781,7 @@ function LiveMap() {
 // again, recording this unique instance in the_livemap
 // is for debugging convenience only
 $(function() {
+    scale_options();
     the_livemap = new LiveMap();
     the_livemap.init();
 })

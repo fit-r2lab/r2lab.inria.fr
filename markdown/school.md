@@ -2,11 +2,15 @@ title: G5K - FIT summer school
 tab: tutorial
 skip_header: yes
 
-# reservations - accounts - ssh keys
+# 1. Reservations - accounts - ssh keys
+
+## we will all use `inria_school`
 
 * testbed is normally designed to be reserved **as a whole**
 
   * so we will use a single slice named `inria_school`
+
+## how to get an account
 
 * register for an account at <https://r2labapi.inria.fr/db/persons/register.php>
 
@@ -23,7 +27,7 @@ skip_header: yes
 ![website](raw/screenshots/school.png)
 
 
-# rain check
+## rain check
 
 Using your ssh key, you should be able to enter the testbed gateway:
 
@@ -32,18 +36,53 @@ ssh inria_school@faraday.inria.fr
 ```
 
 *****
-*****
-The groups below will be defined on the spot
-*****
+
+# 2. Note on using notebooks
+
+**Important** note if you plan on using notebooks.
+
+With the recent rollout of tornado-5, as of end of march 2018, it is
+currently **not possible** to run anything relying on an `asyncio`
+event loop from a notebook if you have tornado v5 installed.
+
+### checking
+
+    pip3 freeze | grep tornado
+
+### fixing
+
+if the above command shows you a version *5.x*, then you can work around the problem by issuing
+
+    pip3 install tornado==4.5.3
+
+and then restart your python kernel.
+
+For more details on this issue, see <https://github.com/jupyter/notebook/issues/3397>
+
+### inserting livemap in a notebook
+
+    from IPython.display import IFrame
+    IFrame('https://r2lab.inria.fr/iframe.md', height=380, width='100%')
+
+
 *****
 
-# colored map
+# 3. Node groups
+
+This is needed because we all share the same slice.
+
+**Note.** The actual group nodes will be defined on the spot
+
+### colored map
 
 We need to split the nodes in several groups to implement some kind of light isolation.
 
-<div id="livemap_container"></div>
-
-<div id="colortable_container"></div>
+<div class="container">
+<div class="row">
+<div class="col-md-7" id="livemap_container"></div>
+<div class="col-md-5" id="colortable_container"></div>
+</div>
+</div>
 
 <script type="text/javascript" src="/assets/r2lab/livemap.js"></script>
 <style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
@@ -81,20 +120,14 @@ We need to split the nodes in several groups to implement some kind of light iso
     // let colormap = new ColorMap(37).handpick(colors, groups6);
     let colormap = new ColorMap(37).cyclic(colors, 7);
 
+    let ratio = .72;
+
     // override livemap default settings
     Object.assign(livemap_options, {
-      space_x : 72,
-      space_y : 87,
-      radius_unavailable : 21,
-      radius_ok : 16,
-      radius_pinging : 10,
-      radius_warming : 4,
-      radius_ko : 0,
-      margin_x : 5,
-      margin_y : 20,
-      padding_x : 35,
-      padding_y : 35,
-      colormap : colormap,
+        ratio : ratio,
+        margin_x : 10/ratio,
+        margin_y : 10/ratio,
+        colormap : colormap,
 
 //    debug : true,
    });
