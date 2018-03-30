@@ -2,6 +2,8 @@ title: G5K - FIT summer school
 tab: tutorial
 skip_header: yes
 
+[TOC]
+
 # 1. Reservations - accounts - ssh keys
 
 ## we will all use `inria_school`
