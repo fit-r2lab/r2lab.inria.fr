@@ -143,24 +143,24 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
       <center>How to control a commercial phone</center>
     </div>
     <div class="col-md-8 new_pad">
-###Commercial 4G Phone
+###Commercial 4G Phones
 
-A Nexus 5 phone is available right inside the chamber:
+The testbed offers a couple of commercial phones right inside the chamber:
 
-* It is reachable through a Mac (that also sits in the room) that has
+* Each phone is reachable through a Mac (that also sits in the room) that has
   its wireless card physically disabled, and that has a USB cable to
   the phone
-* The Mac can be reached from the gateway as `ssh tester@macphone` (or
-  the <code>macphone</code> convenience shell shortcut)
+* The Mac can be reached from the gateway as e.g. `ssh tester@macphone1` (or
+  the <code>macphone1</code> convenience shell shortcut)
 * Once logged in the Mac you can use convenience helpers to manage the
   phone (type <code>help</code> for details), or use <code>adb</code>
   manually.
 * The mac can also be managed using apple screen sharing tools
-  (VNC-compliant), pointing directly at <code>faraday.inria.fr</code>
+  (VNC-compliant), pointing directly at <code>faraday-macphone1.inria.fr</code>
 * You will find more details about controlling the phone [in the
   tutorials section](/tuto-130-5g.md#PHONE).
 
-</div>
+    </div>
   </div>
 </div>
 

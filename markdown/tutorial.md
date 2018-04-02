@@ -102,7 +102,7 @@ tutorial pages.
     experiment end-to-end.
   * [OAI 5G experiment](tuto-140-youtube.md#OAI) : Setting up an
     OpenAirInterface-based 5G infrastructure, and a tour in the
-    chamber using Skype on a commercial NEXUS phone.
+    chamber using Skype on a commercial android phone.
 
 #### [Using notebooks](tuto-16-notebooks.md)
 

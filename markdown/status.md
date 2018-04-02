@@ -56,7 +56,6 @@ In addition, you will find the following symbols close to some nodes
 * Phones in the testbed appear as either
   * <span class='fa fa-plane'></span> (meaning the phone is in airplane mode) 
   * <span class='fa fa-phone'></span> (meaning it's not in airplane mode) 
-* At this time we have a single Nexus 5 phone deployed in the testbed
 
 ***
 

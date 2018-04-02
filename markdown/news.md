@@ -164,7 +164,8 @@ As a reminder, the code for `nepi-ng` currently sits here:
 
 ### June 17
 
-* New tutorial video! Setting up an OpenAirInterface-based 5G infrastructure, and a tour in the chamber using Skype on a commercial NEXUS phone.
+* New tutorial video! Setting up an OpenAirInterface-based 5G infrastructure, 
+  and a tour in the chamber using Skype on a commercial NEXUS phone.
 * Check it out, [here](https://youtu.be/FpZo6uqTosQ)
 
 ### June 6
