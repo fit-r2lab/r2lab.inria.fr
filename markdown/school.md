@@ -117,10 +117,15 @@ We need to split the nodes in several groups to implement some kind of light iso
         "#00A40080",
         "#FFBA3F80",
         "#616F6F80",
+        "rgba(171, 152, 149, .5)",
+        "rgba(83, 45, 59, .5)",
+        "rgba(205, 102, 146, .5)",
+        "rgba(247, 202, 201, .5)",
+        "rgba(164, 158, 157, .5)",
     ];
 
     // let colormap = new ColorMap(37).handpick(colors, groups6);
-    let colormap = new ColorMap(37).cyclic(colors, 7);
+    let colormap = new ColorMap(37).cyclic(colors, 12);
 
     let ratio = .72;
 
