@@ -15,6 +15,8 @@ skip_news: yes
   school](http://www.silecs.net/1st-grid5000-fit-school/), triggered as the
   first public milestone of the SILECS project.
 
+* people interested in following the hands-on session on R2lab [should start here](/school.md).
+
 ### March 2018
 
 * a second commercial phone - type Moto E - is available in the chamber
@@ -164,7 +166,7 @@ As a reminder, the code for `nepi-ng` currently sits here:
 
 ### June 17
 
-* New tutorial video! Setting up an OpenAirInterface-based 5G infrastructure, 
+* New tutorial video! Setting up an OpenAirInterface-based 5G infrastructure,
   and a tour in the chamber using Skype on a commercial NEXUS phone.
 * Check it out, [here](https://youtu.be/FpZo6uqTosQ)
 

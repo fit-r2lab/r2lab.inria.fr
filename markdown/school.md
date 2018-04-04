@@ -4,19 +4,37 @@ skip_header: yes
 
 [TOC]
 
-# 1. Reservations - accounts - ssh keys
+# 1. Where to find resources
 
-## we will all use `inria_school`
+## slides
 
-* testbed is normally designed to be reserved **as a whole**
+Check out
 
-  * so we will use a single slice named `inria_school`
+* our demos github repo <https://github.com/fit-r2lab/r2lab-demos>
+* and [specifically in the school subdir](https://github.com/fit-r2lab/r2lab-demos/tree/master/school)
+
+
+## tutorials
+
+Also remember to use the R2lab website <https://r2lab.inria.fr>
+
+* in particular an extensive set of tutorials on [the TUTOS page](/tutorial.md)
+* in everyday life the most useful page is [the RUN page](/run.md)
+
+*****
+
+# 2. Reservations - accounts - ssh keys
 
 ## how to get an account
 
-* register for an account at <https://r2labapi.inria.fr/db/persons/register.php>
+* register for an account
 
+  * fill the form at <https://r2labapi.inria.fr/db/persons/register.php>
   * make sure to choose site `inria`
+  * also please make sure to use an institutional email address (e.g. avoid gmail.com)
+  * expect a first confirmation and click on the link
+
+* someone will validate your application
 
 * once this is OK, log into <https://r2lab.inria.fr/run.md> and
 
@@ -25,9 +43,13 @@ skip_header: yes
   * otherwise [send an e-mail](mailto:thierry.parmentelat@inria.fr) requesting to be made part of that slice
   * log out and back in if necessary, until you can see that slice show up
 
-
 ![website](raw/screenshots/school.png)
 
+## we will all use `inria_school`
+
+* testbed is normally designed to be reserved **as a whole**
+
+  * so we will use a single slice named `inria_school`
 
 ## rain check
 
@@ -39,13 +61,36 @@ ssh inria_school@faraday.inria.fr
 
 *****
 
-# 2. Note on using notebooks
+# 3. Notes on using notebooks or IPython
+
+## notebooks *vs* regular python
+
+We will use notebooks during the hands-on sessions, because this format allows
+for interactive python coding, together with online graphs, and nice layouts.
+
+This is ** not at all mandatory**,
+please use your usual python environment if you feel more comfortable with that.
+
+IPython is a quite decent alternative, again pick what you are most
+comfortable with, today's topic is the testbed and related tools,
+not your python environment.
+
+## jupyter classic *vs* jupyter lab
+
+We will use jupyter classic, primarily because the RISE nbextension (that allows
+to turn a notebook into a slideshow) is not yet supported under jupyterlab.
+
+We are also aware of some other limitations currently present under jupyterlab, so
+unless you know what you're doing it's probably best to stick with the classic
+notebook.
+
+## **Important** note about tornado v5
 
 **Important** note if you plan on using notebooks.
 
 With the recent rollout of tornado-5, as of end of march 2018, it is
 currently **not possible** to run anything relying on an `asyncio`
-event loop from a notebook if you have tornado v5 installed.
+event loop from a notebook **if you have tornado v5** installed.
 
 ### checking
 
@@ -61,21 +106,69 @@ and then restart your python kernel.
 
 For more details on this issue, see <https://github.com/jupyter/notebook/issues/3397>
 
-### inserting livemap in a notebook
+## inserting livemap in a notebook
+
+Copy this code in a cell
 
     from IPython.display import IFrame
     IFrame('https://r2lab.inria.fr/iframe.md', height=380, width='100%')
 
 
+# Known issues
+
+## livemap not animated
+
+Some pages in the website, like primarily [the RUN page](/run.md) show a
+live status of the testbed.
+During the first session, some participants could not see this animation,
+for them the testbed remains blank.
+
+This is due to the live traffic about the testbed being broadcast
+through socketio on port 999, that apparently is filtered for some participants.
+
+This is not critical for the tutorial session, so unless you can work around
+the filtering by enabling a VPN or swapping to another network, just live with that :)
+
+
+## python3 and pip3
+
+Some people also ran into trouble for installing `apssh` through pip3.
+
+### checking
+
+    $ type python3
+    python3 is /usr/local/bin/python3
+    $ type pip3
+    pip3 is /usr/local/bin/pip3
+
+
+If the 2 commands point at different locations, then chances are that `pip3`
+is installing stuff for some other python3 that the one that you are using.
+
+If everything goes well you should see this:
+
+    $ python3 -c 'import apssh; print(apssh.__version__)'
+    0.9.4
+
+
+
+
+*****
+*****
+*****
+*****
+*****
 *****
 
-# 3. Node groups
+This section probably won't be useful.
+
+Node groups
 
 This is needed because we all share the same slice.
 
 **Note.** The actual group nodes will be defined on the spot
 
-### colored map
+colored map
 
 We need to split the nodes in several groups to implement some kind of light isolation.
 
