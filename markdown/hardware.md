@@ -30,7 +30,7 @@ tab: platform
 	The testbed is reservable as a whole.
 	Once they have booked the testbed, registered users can ssh into `faraday.inria.fr`,
 	and from there control all the resources in the testbed.
-	You are thus in full control of all the radio traffic in the chamber. 
+	You are thus in full control of all the radio traffic in the chamber.
         </p>
     </div>
     <div class="col-md-4">
@@ -92,11 +92,11 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
 
 ### USRP nodes
 
-Some nodes are equipped with USRP devices from <a href="http://www.ettus.com" target="_blank">ETTUS</a> to run SDR-based experiments such as spectrum analyzer or 4G/5G OpenAirInterface scenarios. All these devices can be remotely-controlled through the `ust`/`uon`/`uoff` utilities. 
+Some nodes are equipped with USRP devices from <a href="http://www.ettus.com" target="_blank">ETTUS</a> to run SDR-based experiments such as spectrum analyzer or 4G/5G OpenAirInterface scenarios. All these devices can be remotely-controlled through the `ust`/`uon`/`uoff` utilities.
 
 Currently, our deployment features the following types of USRP devices :
   <a href="http://www.ettus.com/product/details/UB210-KIT" target="_blank">USRP B210</a>,
-  <a href="http://www.ettus.com/product/details/UN210-KIT" target="_blank">USRP N210</a>, 
+  <a href="http://www.ettus.com/product/details/UN210-KIT" target="_blank">USRP N210</a>,
   <a href="http://files.ettus.com/manual/page_usrp2.html" target="_blank">USRP 2</a>, and
   <a href="https://www.ettus.com/product/details/USRPPKG" target="_blank">USRP 1</a> (see detailed mapping in the table below).
 
@@ -181,7 +181,7 @@ Please note the following specifics about the additional SDR devices:
   into the USRP device.
 
     </div>
- 
+
     <div class="col-md-8">
 
 ### Duplexers
@@ -221,7 +221,9 @@ With the above assumptions, these tags can be interpreted as follows:
     <div class="col-md-12 new_pad">
       <h3>Nodes detailed information</h3>
       <p>Clicking in the header will focus on nodes that have a USRP device</p>
-      <table class="table table-condensed" id='livehardware_container'> </table>
+      <a name="details">
+       <table class="table table-condensed" id='livehardware_container'> </table>
+      </a>
       <script type="text/javascript" src="/assets/r2lab/livecolumns.js"></script>
       <script type="text/javascript" src="/assets/r2lab/livehardware.js"></script>
       <style type="text/css"> @import url("/assets/r2lab/livecolumns.css"); </style>
