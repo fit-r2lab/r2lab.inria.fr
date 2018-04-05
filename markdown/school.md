@@ -1,5 +1,5 @@
 title: G5K - FIT summer school
-tab: tutorial
+tab: news
 skip_header: yes
 
 [TOC]
