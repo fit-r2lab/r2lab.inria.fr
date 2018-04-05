@@ -137,36 +137,6 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
 
 <div class="container" markdown="1">
   <div class="row">
-    <div class="col-md-4">
-      <br><br>
-      <img src="/assets/img/macphone.png"  class='fit-width'>
-      <center>How to control a commercial phone</center>
-    </div>
-    <div class="col-md-8 new_pad">
-###Commercial 4G Phones
-
-The testbed offers a couple of commercial phones right inside the chamber:
-
-* Each phone is reachable through a Mac (that also sits in the room) that has
-  its wireless card physically disabled, and that has a USB cable to
-  the phone
-* The Mac can be reached from the gateway as e.g. `ssh tester@macphone1` (or
-  the <code>macphone1</code> convenience shell shortcut)
-* Once logged in the Mac you can use convenience helpers to manage the
-  phone (type <code>help</code> for details), or use <code>adb</code>
-  manually.
-* The mac can also be managed using apple screen sharing tools
-  (VNC-compliant), pointing directly at <code>faraday-macphone1.inria.fr</code>
-* You will find more details about controlling the phone [in the
-  tutorials section](/tuto-130-5g.md#PHONE).
-
-    </div>
-  </div>
-</div>
-
-
-<div class="container" markdown="1">
-  <div class="row">
     <div class="col-md-4 new_pad">
 ###Important notes on SDR devices
 <a name='gory-details'></a>
@@ -216,6 +186,36 @@ With the above assumptions, these tags can be interpreted as follows:
 </div>
 
 
+<div class="container" markdown="1">
+  <div class="row">
+    <div class="col-md-8 new_pad">
+###Commercial 4G Phones
+
+The testbed offers a couple of commercial phones right inside the chamber:
+
+* Each phone is reachable through a Mac (that also sits in the room) that has
+  its wireless card physically disabled, and that has a USB cable to
+  the phone
+* The Mac can be reached from the gateway as e.g. `ssh tester@macphone1` (or
+  the <code>macphone1</code> convenience shell shortcut)
+* Once logged in the Mac you can use convenience helpers to manage the
+  phone (type <code>help</code> for details), or use <code>adb</code>
+  manually.
+* The mac can also be managed using apple screen sharing tools
+  (VNC-compliant), pointing directly at <code>faraday-macphone1.inria.fr</code>
+* You will find more details about controlling the phone [in the
+  tutorials section](/tuto-130-5g.md#PHONE).
+
+    </div>
+    <div class="col-md-4">
+      <br><br>
+      <img src="/assets/img/macphone.png"  class='fit-width'>
+      <center>How to control a commercial phone</center>
+    </div>
+  </div>
+</div>
+
+
 <div class="container">
   <div class="row" markdown="1">
     <div class="col-md-12 new_pad">
@@ -248,11 +248,12 @@ With the above assumptions, these tags can be interpreted as follows:
 
 <div class="container">
   <div class="row" markdown="1">
-    <div class="col-md-8 new_pad">
-      <h3>Statistics on nodes health</h3>
+    <div class="col-md-12 new_pad">
+      <h3>Nodes health</h3>
       The testbed routinely runs a thorough raincheck procedure, to make sure that all is in order.
-      <br>
-      <a href="/stats.md">See the stats page for details</a>.
+      <br/>
+      Stay away from nodes that show up behind a big red circle, as this means that the node is not in good shape.
+      <!--<br/> <a href="/stats.md">See the stats page for details</a>.-->
     </div>
   </div>
 </div>
