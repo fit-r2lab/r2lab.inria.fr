@@ -221,9 +221,8 @@ With the above assumptions, these tags can be interpreted as follows:
     <div class="col-md-12 new_pad">
       <h3>Nodes detailed information</h3>
       <p>Clicking in the header will focus on nodes that have a USRP device</p>
-      <a name="details">
+      <a name="details"></a>
        <table class="table table-condensed" id='livehardware_container'> </table>
-      </a>
       <script type="text/javascript" src="/assets/r2lab/livecolumns.js"></script>
       <script type="text/javascript" src="/assets/r2lab/livehardware.js"></script>
       <style type="text/css"> @import url("/assets/r2lab/livecolumns.css"); </style>
