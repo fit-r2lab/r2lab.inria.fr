@@ -5,6 +5,8 @@
 
 /* logout button */
 a.button.logout { background-color: #f69a97; }
+/* no need to style the login button
+a.button.login { background-color: rgb(96, 192, 250); } */
 
 .numberCircle {
     -webkit-border-radius: 50%;
