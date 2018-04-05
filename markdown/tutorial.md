@@ -71,7 +71,7 @@ tutorial pages.
 * [C2bis](tuto-060-C-files.md#C3bis) : a variant on C2, that deals with a service that is started and stopped in sync with another job
 
 
-#### [nepi-ng : preparation](tuto-070-D-prep.md) - a.k.a. the **D** series; xxx to be completed
+#### [nepi-ng : preparation](tuto-070-D-prep.md) - a.k.a. the **D** series;
 
 * A set of examples that deal with preparing the testbed from a `nepi-ng` script, like
 * [D1](tuto-070-D-prep.md#D1) : adding a command-line option to load images,
