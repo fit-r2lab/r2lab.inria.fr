@@ -65,12 +65,12 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
   * 8Gb RAM
   * 240 Gb SSD
 * 2 Wireless Interfaces, dedicated to experimentation, 3 antennas each&nbsp;:
-  * one Atheros 802.11 93xx a/b/g/n
-  * and one Intel 5300
+  * one Atheros 802.11 93xx a/b/g/n - exposed as `atheros`
+  * and one Intel 5300 - exposed as `intel`
 * 3 wired interfaces used for&nbsp;:
-  * remote power and reset management,
-  * `control`, used by the testbed management framework for providing access - 192.168.3.`nn`, where `nn` is the node number
-  * `data`, dedicated to experimentation - 192.168.2.`nn`.
+  * remote power and reset management (not visible from linux)
+  * `control`, used by the testbed management framework for providing access - reachable from the gateway as e.g. `fit02` or `fit34`
+  * `data`, dedicated to experimentation - known as e.g. `data04` or `data12`
 
     </div>
     <div class="col-md-4">
