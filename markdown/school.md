@@ -32,7 +32,7 @@ Also remember to use the R2lab website <https://r2lab.inria.fr>
   * fill the form at <https://r2labapi.inria.fr/db/persons/register.php>
   * make sure to choose site `inria`
   * also please make sure to use an institutional email address (e.g. avoid gmail.com)
-  * expect a first confirmation and click on the link
+  * expect a first confirmation e-mail and click on the link
 
 * someone will validate your application
 
