@@ -71,7 +71,9 @@ init_node_02 = SshJob(
     node = node2,
     command = RunScript(
         "B3-wireless.sh",
-        "init-ad-hoc-network", wireless_driver, "foobar", 2412),
+        "init-ad-hoc-network", wireless_driver, "foobar", 2412,
+        label = "ditto",
+    ),
     required = check_lease,
     scheduler = scheduler,
 )
@@ -81,7 +83,7 @@ ping = SshJob(
     node = node1,
     required = (init_node_01, init_node_02),
     command = RunScript(
-        "B3-wireless.sh", "my-ping", '10.0.0.2', 20
+        "B3-wireless.sh", "my-ping", '10.0.0.2', 20,
 #        verbose=True,
     ),
     scheduler = scheduler,

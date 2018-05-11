@@ -14,6 +14,7 @@ skip_header: True
   <li> <a href="#B2">B2</a></li>
   <li> <a href="#B3">B3</a></li>
   <li> <a href="#B4">B4</a></li>
+  <li> <a href="#B5">B5</a></li>
   <li> <a href="#WRAPUP">WRAPUP</a></li>
 
   << include r2lab/tutos-index.html >>
@@ -362,7 +363,7 @@ Make sure you download both files in the same location before trying to run the 
 
 ### Next
 
-Let us conclude this series with [an example that adds a
+Let us proceed on this series with [an example that adds a
 cyclic task](javascript:open_tab('B4')) to this scenario.
 
 </div>
@@ -372,7 +373,7 @@ cyclic task](javascript:open_tab('B4')) to this scenario.
 
 ### Objective
 
-In this final example in the series, we will just for fun add an
+In this example, we will just for fun add an
 infinite cyclic task in the scheduler. Here we will simply write a TICK
 mark every second, but this technique is most useful for consuming
 events in a message queue, or any other similar approach.
@@ -446,6 +447,98 @@ schedulers:
     14-09-38:fit01:10.0.0.2 not reachable
     14-09-38:fit01:SUCCESS after 9s
 
+### Next
+
+In [the next example](javascript:open_tab('B5')),
+we will see a convenience class named `Watch`, that comes in
+handy in most experiments as it allows to keep track of elapsed time since the beginning of an experiment.
+
+</div>
+
+<!------------ B5 ------------>
+<div id="B5" class="tab-pane fade" markdown="1">
+
+### Objective
+
+In this final example in the series, we will take the chance to illustrate
+a convenience class named `Watch` from `asynciojobs`, that allows to keep
+track of elapsed time since some reference point in time, generally the
+beginning of the experiment.
+
+So here, we create a `Watch` instance, and use it when the clock is ticking,
+instead of showing plain wall clock time.
+
+### The code
+
+<< codeview B5 B5-wireless.py previous=B4-wireless.py graph=B5.png>>
+
+### Sample output
+
+    $ ./B5-wireless.py
+    000.000
+    --- TICK - 000.000
+    --- TICK - 001.002
+    12-12-05:faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+    12-12-05:fit02:========== Updating /root/r2lab-embedded for branch master
+    12-12-05:fit02:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
+    12-12-05:fit02:Fetching origin
+    12-12-05:fit01:========== Updating /root/r2lab-embedded for branch master
+    12-12-05:fit01:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
+    12-12-05:fit01:Fetching origin
+    --- TICK - 002.002
+    12-12-06:fit02:Already on 'master'
+    12-12-06:fit02:Your branch is up-to-date with 'origin/master'.
+    12-12-06:fit01:Already on 'master'
+    12-12-06:fit01:Your branch is up-to-date with 'origin/master'.
+    --- TICK - 003.003
+    12-12-07:fit02:From https://github.com/fit-r2lab/r2lab-embedded
+    12-12-07:fit02: * branch            master     -> FETCH_HEAD
+    12-12-07:fit02:Already up-to-date.
+    12-12-07:fit02:turn-off-wireless: driver iwlwifi not used
+    12-12-07:fit02:turn-off-wireless: shutting down device atheros
+    12-12-07:fit02:turn-off-wireless: removing driver ath9k
+    12-12-07:fit01:From https://github.com/fit-r2lab/r2lab-embedded
+    12-12-07:fit01: * branch            master     -> FETCH_HEAD
+    12-12-07:fit01:Already up-to-date.
+    12-12-07:fit01:turn-off-wireless: driver iwlwifi not used
+    12-12-07:fit01:turn-off-wireless: shutting down device atheros
+    12-12-07:fit01:turn-off-wireless: removing driver ath9k
+    12-12-07:fit02:Using id=02 and fitid=fit02 - from hostname
+    12-12-07:fit02:loading module ath9k
+    --- TICK - 004.006
+    12-12-08:fit01:Using id=01 and fitid=fit01 - from hostname
+    12-12-08:fit01:loading module ath9k
+    --- TICK - 005.010
+    --- TICK - 006.016
+    12-12-10:fit02:Using device atheros
+    12-12-10:fit02:configuring interface atheros
+    12-12-10:fit01:Using device atheros
+    12-12-10:fit01:configuring interface atheros
+    --- TICK - 007.019
+    12-12-11:fit01:10.0.0.2 not reachable
+    --- TICK - 008.020
+    12-12-12:fit01:10.0.0.2 not reachable
+    --- TICK - 009.021
+    12-12-13:fit01:10.0.0.2 not reachable
+    --- TICK - 010.026
+    12-12-14:fit01:10.0.0.2 not reachable
+    --- TICK - 011.030
+    12-12-15:fit01:10.0.0.2 not reachable
+    --- TICK - 012.030
+    12-12-16:fit01:10.0.0.2 not reachable
+    --- TICK - 013.032
+    12-12-17:fit01:10.0.0.2 not reachable
+    --- TICK - 014.034
+    12-12-18:fit01:10.0.0.2 not reachable
+    --- TICK - 015.035
+    12-12-19:fit01:10.0.0.2 not reachable
+    12-12-19:fit01:fit01 -> 10.0.0.2: SUCCESS after 9s
+
+
+### next
+
+It is now [time to wrap up this series](javascript:open_tab('WRAPUP')).
+
 </div>
 
 <!------------ WRAPUP ------------>
@@ -460,10 +553,13 @@ We now know how to:
 * obtain remote outputs using alternate formats, using
   e.g. `TimeColonFormatter`; see [this
   page](http://apssh.readthedocs.io/en/latest/API.html#module-apssh.formatters)
-  for more info on other available formatters.
+  for more info on other available formatters;
 
 * run infinite jobs, that will get properly terminated when all the
-  finite jobs in the scenario are done.
+  finite jobs in the scenario are done;
+
+* use the `Watch` class to keep track of elapsed time,
+  as opposed to displaying wall clock time.
 
 In [the next series of tutorials](tuto-060-C-files.md), we will learn
 more about transferring files back and forth.

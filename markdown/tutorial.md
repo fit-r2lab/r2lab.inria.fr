@@ -61,6 +61,7 @@ tutorial pages.
 * [B2](tuto-050-B-wireless.md#B2) : same scenario, simplified by using `r2lab-id`
 * [B3](tuto-050-B-wireless.md#B3) : same scenario, but extract all the shell code in a single external file
 * [B4](tuto-050-B-wireless.md#B4) : add an infinite loop that prints out TICK every second
+* [B5](tuto-050-B-wireless.md#B5) : same but using a Watch instance for showing elapsed time instead
 
 #### [nepi-ng : file exchange](tuto-060-C-files.md) - a.k.a. the **C** series; a full loop doing file transfers, i.e.:
 
@@ -68,7 +69,7 @@ tutorial pages.
 * [C1](tuto-060-C-files.md#C1) : a random file is produced locally, and pushed on one node,
 * [C2](tuto-060-C-files.md#C2) : then transferred to a second node using netcat over the wired network,
 * [C3](tuto-060-C-files.md#C3) : and retrieved back on the local laptop where it is compared with the original;
-* [C2bis](tuto-060-C-files.md#C3bis) : a variant on C2, that deals with a service that is started and stopped in sync with another job
+* [C3bis](tuto-060-C-files.md#C3bis) : a variant on C2, that deals with a service that is started and stopped in sync with another job.
 
 
 #### [nepi-ng : preparation](tuto-070-D-prep.md) - a.k.a. the **D** series;
