@@ -1,0 +1,57 @@
+12-35-47:fit01:Already on 'master'
+12-35-47:fit02:Already on 'master'
+12-35-48:fit01:From https://github.com/fit-r2lab/r2lab-embedded
+12-35-48:fit01: * branch            master     -> FETCH_HEAD
+12-35-48:fit02:From https://github.com/fit-r2lab/r2lab-embedded
+12-35-48:fit02: * branch            master     -> FETCH_HEAD
+12-35-48:fit01:turn-off-wireless: driver iwlwifi not used
+12-35-48:fit01:turn-off-wireless: shutting down device atheros
+12-35-48:fit02:turn-off-wireless: driver iwlwifi not used
+12-35-48:fit02:turn-off-wireless: shutting down device atheros
+12-35-48:fit01:turn-off-wireless: removing driver ath9k
+12-35-48:fit02:turn-off-wireless: removing driver ath9k
+12-35-48:fit02:Using id=02 and fitid=fit02 - from hostname
+12-35-48:fit01:Using id=01 and fitid=fit01 - from hostname
+12-35-50:fit02:Using device atheros
+12-35-50:fit01:Using device atheros
+000.000  
+--- TICK - 000.000
+--- TICK - 001.005
+12-35-46:faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+12-35-46:fit01:========== Updating /root/r2lab-embedded for branch master
+12-35-46:fit01:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
+12-35-46:fit01:Fetching origin
+12-35-46:fit02:========== Updating /root/r2lab-embedded for branch master
+12-35-46:fit02:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
+12-35-46:fit02:Fetching origin
+--- TICK - 002.008
+12-35-47:fit01:Your branch is up-to-date with 'origin/master'.
+12-35-47:fit02:Your branch is up-to-date with 'origin/master'.
+--- TICK - 003.011
+12-35-48:fit01:Already up-to-date.
+12-35-48:fit02:Already up-to-date.
+12-35-48:fit02:loading module ath9k
+12-35-48:fit01:loading module ath9k
+--- TICK - 004.016
+--- TICK - 005.017
+12-35-50:fit02:configuring interface atheros
+12-35-50:fit01:configuring interface atheros
+--- TICK - 006.018
+12-35-51:fit01:10.0.0.2 not reachable
+--- TICK - 007.020
+12-35-52:fit01:10.0.0.2 not reachable
+--- TICK - 008.020
+12-35-53:fit01:10.0.0.2 not reachable
+--- TICK - 009.025
+12-35-54:fit01:10.0.0.2 not reachable
+--- TICK - 010.027
+12-35-55:fit01:10.0.0.2 not reachable
+--- TICK - 011.029
+12-35-56:fit01:10.0.0.2 not reachable
+--- TICK - 012.030
+12-35-57:fit01:10.0.0.2 not reachable
+--- TICK - 013.034
+12-35-58:fit01:10.0.0.2 not reachable
+--- TICK - 014.035
+12-35-59:fit01:10.0.0.2 not reachable
+12-35-59:fit01:fit01 -> 10.0.0.2: SUCCESS after 9s

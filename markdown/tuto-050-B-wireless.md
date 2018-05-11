@@ -474,68 +474,9 @@ instead of showing plain wall clock time.
 
 ### Sample output
 
-    $ ./B5-wireless.py
-    000.000
-    --- TICK - 000.000
-    --- TICK - 001.002
-    12-12-05:faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
-    12-12-05:fit02:========== Updating /root/r2lab-embedded for branch master
-    12-12-05:fit02:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
-    12-12-05:fit02:Fetching origin
-    12-12-05:fit01:========== Updating /root/r2lab-embedded for branch master
-    12-12-05:fit01:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
-    12-12-05:fit01:Fetching origin
-    --- TICK - 002.002
-    12-12-06:fit02:Already on 'master'
-    12-12-06:fit02:Your branch is up-to-date with 'origin/master'.
-    12-12-06:fit01:Already on 'master'
-    12-12-06:fit01:Your branch is up-to-date with 'origin/master'.
-    --- TICK - 003.003
-    12-12-07:fit02:From https://github.com/fit-r2lab/r2lab-embedded
-    12-12-07:fit02: * branch            master     -> FETCH_HEAD
-    12-12-07:fit02:Already up-to-date.
-    12-12-07:fit02:turn-off-wireless: driver iwlwifi not used
-    12-12-07:fit02:turn-off-wireless: shutting down device atheros
-    12-12-07:fit02:turn-off-wireless: removing driver ath9k
-    12-12-07:fit01:From https://github.com/fit-r2lab/r2lab-embedded
-    12-12-07:fit01: * branch            master     -> FETCH_HEAD
-    12-12-07:fit01:Already up-to-date.
-    12-12-07:fit01:turn-off-wireless: driver iwlwifi not used
-    12-12-07:fit01:turn-off-wireless: shutting down device atheros
-    12-12-07:fit01:turn-off-wireless: removing driver ath9k
-    12-12-07:fit02:Using id=02 and fitid=fit02 - from hostname
-    12-12-07:fit02:loading module ath9k
-    --- TICK - 004.006
-    12-12-08:fit01:Using id=01 and fitid=fit01 - from hostname
-    12-12-08:fit01:loading module ath9k
-    --- TICK - 005.010
-    --- TICK - 006.016
-    12-12-10:fit02:Using device atheros
-    12-12-10:fit02:configuring interface atheros
-    12-12-10:fit01:Using device atheros
-    12-12-10:fit01:configuring interface atheros
-    --- TICK - 007.019
-    12-12-11:fit01:10.0.0.2 not reachable
-    --- TICK - 008.020
-    12-12-12:fit01:10.0.0.2 not reachable
-    --- TICK - 009.021
-    12-12-13:fit01:10.0.0.2 not reachable
-    --- TICK - 010.026
-    12-12-14:fit01:10.0.0.2 not reachable
-    --- TICK - 011.030
-    12-12-15:fit01:10.0.0.2 not reachable
-    --- TICK - 012.030
-    12-12-16:fit01:10.0.0.2 not reachable
-    --- TICK - 013.032
-    12-12-17:fit01:10.0.0.2 not reachable
-    --- TICK - 014.034
-    12-12-18:fit01:10.0.0.2 not reachable
-    --- TICK - 015.035
-    12-12-19:fit01:10.0.0.2 not reachable
-    12-12-19:fit01:fit01 -> 10.0.0.2: SUCCESS after 9s
+<< togglable_output B5out B5.out "$ python3 ./B5-wireless.py">>
 
-
-### next
+### Next
 
 It is now [time to wrap up this series](javascript:open_tab('WRAPUP')).
 

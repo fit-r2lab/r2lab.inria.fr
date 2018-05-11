@@ -44,9 +44,10 @@ looks a little scary / time-consuming
 # and code in the "code/" subdir
 # xxx should be configurable
 MARKDOWN_SUBDIR = "markdown"
-CODE_SUBDIR = "code"
-TEMPLATES_SUBDIR = "templates"
-INCLUDE_PATHS = [MARKDOWN_SUBDIR, TEMPLATES_SUBDIR, CODE_SUBDIR]
+INCLUDE_PATHS = [MARKDOWN_SUBDIR,
+                 "templates",
+                 "code",
+                 "assets/code"]
 
 METAVAR_RE = re.compile(r"\A(?P<name>[\S_]+):\s*(?P<value>.*)\Z")
 
@@ -81,6 +82,9 @@ def parse(markdown_file):
 
     << include file >>
        -> raw include
+
+    <<togglable_output file header>>
+       -> raw include inside a collapsible
 
     << codediff uniqueid file1 file2 >>
        -> a single visible <pre> (with 2 invisible ones)
@@ -129,6 +133,7 @@ def resolve_tags(incoming):
 #    print("XXXXXXXXXXXXXXXXXXXX IN ", incoming)
     incoming = resolve_includes(incoming)
     incoming = resolve_codediffs(incoming)
+    incoming = resolve_togglables(incoming)
     incoming = resolve_codeviews(incoming)
 #    print("XXXXXXXXXXXXXXXXXXXX OUT ", incoming)
     return incoming
@@ -192,6 +197,32 @@ def resolve_codediffs(markdown):
         file1, file2 = match.group('file1'), match.group('file2')
         resolved = resolved + markdown[end:match.start()]
         resolved += implement_codediff(viewid, file1, file2)
+        end = match.end()
+    resolved = resolved + markdown[end:]
+    return resolved
+
+
+def resolve_togglables(markdown):
+    """
+    search for << togglable_output viewid file "possibly multiword header" >>
+
+      file is mandatory
+
+      header must be enclosed inside double quotes
+
+    rendered using bootstrap panels; requires togglable.css
+    """
+    re_togglable = re.compile(post_markdown(
+        r'<<\s*togglable_output\s+(?P<viewid>\S+)'
+        r'\s+(?P<file>\S+)(\s+"(?P<header>[^"]*)")\s*>>\s*\n'))
+    end = 0
+    resolved = ""
+    for match in re_togglable.finditer(markdown):
+        viewid = match.group('viewid')
+        file, header = match.group('file'), match.group('header')
+        resolved = resolved + markdown[end:match.start()]
+        # always start non expanded for now
+        resolved += implement_togglable(viewid, file, header, False)
         end = match.end()
     resolved = resolved + markdown[end:]
     return resolved
@@ -274,6 +305,48 @@ def implement_codediff(viewid, file1, file2, lang='python'):
 
     return result
 
+
+def implement_togglable(viewid, file, header, start_expanded):
+    """
+    implements togglables
+
+    for now this is hardwired to start in collapsed mode
+    """
+    if start_expanded:
+        class_a = ""
+        class_div = " in"
+    else:
+        class_a = " collapsed"
+        class_div = ""
+    result = ''
+    result += f'''
+<div class="container">
+  <div class="panel-group" id="togglable-{viewid}">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#togglable-{viewid}"
+            href="#{viewid}-togglable-contents" class="panel-label togglable{class_a}">
+'''
+    result += f'<code title="click to hide / show the output area">{header}</code>'
+    result += f'''
+            </a>
+        </h4>
+      </div><!--/.panel-heading -->
+      <div id="{viewid}-togglable-contents" class="panel-collapse collapse{class_div}">
+        <div class="panel-body">
+          <pre><code>
+'''
+    result += implement_include(file, "togglable_output")
+    result += f'''
+          </code></pre>
+        </div><!--/.panel-body -->
+      </div><!--/.panel-collapse -->
+    </div><!-- /.panel -->
+  </div><!-- /.panel-group -->
+</div><!-- /.container -->
+'''
+    return result
 
 def implement_codeview(viewid, main, *,                 # pylint: disable=r0914
                        previous=None, selected=None,
@@ -392,7 +465,6 @@ style="max-width:100%;">'''
     return result
 
 
-####################
 @csrf_protect
 def markdown_page(request, markdown_file, extra_metavars=None):
     """
@@ -437,7 +509,7 @@ def markdown_page(request, markdown_file, extra_metavars=None):
         return render(request, 'r2lab/r2lab.html', metavars)
     except Exception as exc:                            # pylint: disable=w0703
         error_message = f"<h1>Oops - cannot render markdown file" \
-                        f"{markdown_file}</h1>"
+                        f" {markdown_file}</h1>"
         if isinstance(exc, FileNotFoundError):
             # turned off following an advice from inria's security cell
             # error_message += str(exc)

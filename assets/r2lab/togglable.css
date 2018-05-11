@@ -1,0 +1,16 @@
+a.togglable {
+    margin-left: 25px;
+    text-decoration: none;
+}
+a.togglable::before {
+    font-family: fontAwesome;
+    position: absolute;
+    color: #aaa;
+    font-size: 20px;
+    left: 40px;
+}
+a.togglable::before {
+    content: "\f068";
+}
+a.collapsed.togglable::before {
+    content: "\f067";
