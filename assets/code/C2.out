@@ -1,0 +1,10 @@
+faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+LOCALNODE:-rw-r--r--  1 tparment  staff  1024 May 12 11:01 RANDOM
+LOCALNODE:ffb614df2dc006d4bd568bc6e0efa8454e72a04a  RANDOM
+fit01:-rw-r--r-- 1 root root 1024 May 12 11:02 RANDOM
+fit01:ffb614df2dc006d4bd568bc6e0efa8454e72a04a  RANDOM
+fit01:data
+fit02:data
+fit01:SENDER DONE
+fit02:-rw-r--r-- 1 root root 1024 May 12 11:02 RANDOM
+fit02:ffb614df2dc006d4bd568bc6e0efa8454e72a04a  RANDOM

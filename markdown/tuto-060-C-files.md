@@ -104,12 +104,7 @@ This is what the code below carries out; the things to outline in this code are
 
 ### Sample output
 
-    $ python3 C1-files.py
-    faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial OK
-    LOCALNODE:-rw-r--r--  1 parmentelat  staff  1048576 Nov 30 21:32 RANDOM
-    LOCALNODE:3f147d42ed40df83819de3ab2093de352a1c5c6b  RANDOM
-    fit01:-rw-r--r-- 1 root root 1048576 Nov 30 21:32 RANDOM
-    fit01:3f147d42ed40df83819de3ab2093de352a1c5c6b  RANDOM
+<< togglableoutput C1out C1.out "$ python3 C1-files.py" >>
 
 ### Next
 
@@ -183,19 +178,7 @@ scheduler.
 
 ### Sample output
 
-    $ python3 C2-files.py
-    faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial OK
-    LOCALNODE:-rw-r--r--  1 parmentelat  staff  1024 Dec  2 12:13 RANDOM
-    LOCALNODE:384500c5f756f72720c2fed631191dae7edaf0bd  RANDOM
-    fit01:-rw-r--r-- 1 root root 1024 Dec  2 12:13 RANDOM
-    fit01:384500c5f756f72720c2fed631191dae7edaf0bd  RANDOM
-    fit01:turn-on-data: data network on interface data
-    fit02:turn-on-data: data network on interface data
-    fit02:data
-    fit01:data
-    fit01:SENDER DONE
-    fit02:-rw-r--r-- 1 root root 1024 Dec  2 12:13 RANDOM
-    fit02:384500c5f756f72720c2fed631191dae7edaf0bd  RANDOM
+<< togglableoutput C2out C2.out "$ python3 C2-files.py" >>
 
 ### Next
 
@@ -226,20 +209,7 @@ node as part of a `SshJob`.
 
 ### Sample output
 
-    $ python3 C3-files.py
-    faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial OK
-    LOCALNODE:-rw-r--r--  1 parmentelat  staff  1024 Dec  2 12:17 RANDOM
-    LOCALNODE:ad8ccdea8fc4fefb3f5aa2d23920aae84cb23fb8  RANDOM
-    fit01:-rw-r--r-- 1 root root 1024 Dec  2 12:17 RANDOM
-    fit01:ad8ccdea8fc4fefb3f5aa2d23920aae84cb23fb8  RANDOM
-    fit01:data
-    fit02:data
-    fit01:SENDER DONE
-    fit02:-rw-r--r-- 1 root root 1024 Dec  2 12:17 RANDOM
-    fit02:ad8ccdea8fc4fefb3f5aa2d23920aae84cb23fb8  RANDOM
-    fit02:the Pull command runs on fit02
-    LOCALNODE:-rw-r--r--  1 parmentelat  staff  1024 Dec  2 12:17 RANDOM.loopback
-    LOCALNODE:RANDOM.loopback identical to RANDOM
+<< togglableoutput C3out C3.out "$ python3 C3-files.py" >>
 
 ### Next
 
@@ -288,42 +258,7 @@ You can still see the difference with `C2-files.py`, but let us start with the p
 
 ### Sample output
 
-    $ python3 C3bis-files.py
-    faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial OK
-    LOCALNODE:-rw-r--r--  1 parmentelat  staff  1024 Dec  2 14:13 RANDOM
-    LOCALNODE:950dd7f38a2691dd172cc09a00a3fe1da24cb413  RANDOM
-    fit01:-rw-r--r-- 1 root root 1024 Dec  2 14:13 RANDOM
-    fit02:no netcat process
-    fit01:950dd7f38a2691dd172cc09a00a3fe1da24cb413  RANDOM
-    fit02:no netcat process
-    fit02:data
-    fit01:data
-    fit02:no netcat process
-    fit02:no netcat process
-    fit02:no netcat process
-    fit02:Using id=02 and fitid=fit02 - from hostname
-    fit02:STARTING CAPTURE into RANDOM
-    fit02:netcat server running on data02:10000 in pid 28186
-    fit02:  PID TTY      STAT   TIME COMMAND
-    fit02:28186 ?        S      0:00 netcat -l data02 10000
-    fit02:  PID TTY      STAT   TIME COMMAND
-    fit02:28186 ?        S      0:00 netcat -l data02 10000
-    fit02:  PID TTY      STAT   TIME COMMAND
-    fit02:28186 ?        S      0:00 netcat -l data02 10000
-    fit02:  PID TTY      STAT   TIME COMMAND
-    fit02:28186 ?        S      0:00 netcat -l data02 10000
-    fit02:no netcat process
-    fit02:no netcat process
-    fit01:SENDER DONE
-    fit02:no netcat process
-    fit02:no netcat process
-    fit02:STARTING CAPTURE into
-    fit02:Would kill process 28186
-    fit02:no netcat process
-    fit02:-rw-r--r-- 1 root root 1024 Dec  2 14:13 RANDOM
-    fit02:no netcat process
-    fit02:950dd7f38a2691dd172cc09a00a3fe1da24cb413  RANDOM
-    fit02:no netcat process
+<< togglableoutput C3bisout C3bis.out "$ python3 C3bis-files.py" >>
 
 ### Next
 We can now [conclude this section](javascript:open_tab('WRAPUP'))

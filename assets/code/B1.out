@@ -1,0 +1,88 @@
+fit02:From https://github.com/fit-r2lab/r2lab-embedded
+fit02:   e496bfd..b8050d8  master     -> origin/master
+fit02: * [new branch]      oai-5g-latest -> origin/oai-5g-latest
+fit02: * [new branch]      using-library -> origin/using-library
+fit01:From https://github.com/fit-r2lab/r2lab-embedded
+fit01:   e496bfd..b8050d8  master     -> origin/master
+fit01: * [new branch]      oai-5g-latest -> origin/oai-5g-latest
+fit01: * [new branch]      using-library -> origin/using-library
+fit02:Already on 'master'
+fit01:Already on 'master'
+fit02:From https://github.com/fit-r2lab/r2lab-embedded
+fit02: * branch            master     -> FETCH_HEAD
+fit02:turn-off-wireless: shutting down device intel
+fit02:turn-off-wireless: removing driver iwlwifi
+fit01:From https://github.com/fit-r2lab/r2lab-embedded
+fit01: * branch            master     -> FETCH_HEAD
+fit01:turn-off-wireless: shutting down device intel
+fit01:turn-off-wireless: removing driver iwlwifi
+fit02:turn-off-wireless: shutting down device atheros
+fit02:turn-off-wireless: removing driver ath9k
+fit01:turn-off-wireless: shutting down device atheros
+fit01:turn-off-wireless: removing driver ath9k
+faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+fit02:========== Updating /root/r2lab-embedded for branch master
+fit02:HEAD is now at e496bfd bugs fixed
+fit02:Fetching origin
+fit01:========== Updating /root/r2lab-embedded for branch master
+fit01:HEAD is now at e496bfd bugs fixed
+fit01:Fetching origin
+fit02:Your branch is behind 'origin/master' by 29 commits, and can be fast-forwarded.
+fit02:  (use "git pull" to update your local branch)
+fit01:Your branch is behind 'origin/master' by 29 commits, and can be fast-forwarded.
+fit01:  (use "git pull" to update your local branch)
+fit02:Updating e496bfd..b8050d8
+fit02:Fast-forward
+fit02: backgrounds/moto-e-4g.jpg | Bin 0 -> 102057 bytes
+fit02: imaging/all-images.sh     |  15 ++++-
+fit02: nightly/nightly.py        |  22 +++++---
+fit02: shell/faraday.sh          |   6 +-
+fit02: shell/imaging.sh          |   5 +-
+fit02: shell/nodes.sh            |   4 +-
+fit02: shell/oai-common.sh       |  18 ++++++
+fit02: shell/oai-enb.sh          | 138 ++++++++++++++++++++++++++++++----------------
+fit02: shell/oai-gw.sh           |   5 +-
+fit02: 9 files changed, 145 insertions(+), 68 deletions(-)
+fit02: create mode 100644 backgrounds/moto-e-4g.jpg
+fit01:Updating e496bfd..b8050d8
+fit01:Fast-forward
+fit01: backgrounds/moto-e-4g.jpg | Bin 0 -> 102057 bytes
+fit01: imaging/all-images.sh     |  15 ++++-
+fit01: nightly/nightly.py        |  22 +++++---
+fit01: shell/faraday.sh          |   6 +-
+fit01: shell/imaging.sh          |   5 +-
+fit01: shell/nodes.sh            |   4 +-
+fit01: shell/oai-common.sh       |  18 ++++++
+fit01: shell/oai-enb.sh          | 138 ++++++++++++++++++++++++++++++----------------
+fit01: shell/oai-gw.sh           |   5 +-
+fit01: 9 files changed, 145 insertions(+), 68 deletions(-)
+fit01: create mode 100644 backgrounds/moto-e-4g.jpg
+fit02:loading module ath9k
+fit01:loading module ath9k
+fit02:configuring interface atheros
+fit01:configuring interface atheros
+fit01:PING 10.0.0.2 (10.0.0.2) from 10.0.0.1 atheros: 56(84) bytes of data.
+fit01:From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=2 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=3 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=4 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=5 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=6 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=7 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=8 Destination Host Unreachable
+fit01:From 10.0.0.1 icmp_seq=9 Destination Host Unreachable
+fit01:64 bytes from 10.0.0.2: icmp_seq=10 ttl=64 time=4.55 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=11 ttl=64 time=2.53 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=12 ttl=64 time=2.47 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=13 ttl=64 time=2.54 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=14 ttl=64 time=2.52 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=15 ttl=64 time=2.52 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=16 ttl=64 time=2.46 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=17 ttl=64 time=2.52 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=18 ttl=64 time=1.69 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=19 ttl=64 time=1.73 ms
+fit01:64 bytes from 10.0.0.2: icmp_seq=20 ttl=64 time=1.73 ms
+fit01:
+fit01:--- 10.0.0.2 ping statistics ---
+fit01:20 packets transmitted, 11 received, +9 errors, 45% packet loss, time 19063ms
+fit01:rtt min/avg/max/mdev = 1.696/2.483/4.555/0.742 ms, pipe 3

@@ -1,0 +1,15 @@
+LOCALNODE:Run: -> ls -l RANDOM.loopback
+LOCALNODE:Run: 0 <- ls -l RANDOM.loopback
+faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+LOCALNODE:-rw-r--r--  1 tparment  staff  1024 May 12 11:02 RANDOM
+LOCALNODE:00b15964267b11eb8df3e3bd3addb50512b9e81d  RANDOM
+fit01:-rw-r--r-- 1 root root 1024 May 12 11:02 RANDOM
+fit01:00b15964267b11eb8df3e3bd3addb50512b9e81d  RANDOM
+fit01:data
+fit02:data
+fit01:SENDER DONE
+fit02:-rw-r--r-- 1 root root 1024 May 12 11:02 RANDOM
+fit02:00b15964267b11eb8df3e3bd3addb50512b9e81d  RANDOM
+fit02:the Pull command runs on fit02
+LOCALNODE:-rw-r--r--  1 tparment  staff  1024 May 12 11:02 RANDOM.loopback
+LOCALNODE:RANDOM.loopback identical to RANDOM

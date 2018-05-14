@@ -1,0 +1,7 @@
+faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+fit01:PING google.fr (216.58.205.163) 56(84) bytes of data.
+fit01:64 bytes from mil04s28-in-f163.1e100.net (216.58.205.163): icmp_seq=1 ttl=53 time=9.77 ms
+fit01:
+fit01:--- google.fr ping statistics ---
+fit01:1 packets transmitted, 1 received, 0% packet loss, time 0ms
+fit01:rtt min/avg/max/mdev = 9.777/9.777/9.777/0.000 ms

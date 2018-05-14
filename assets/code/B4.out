@@ -1,0 +1,56 @@
+11-01-39:fit01:Already on 'master'
+11-01-39:fit02:Already on 'master'
+11-01-39:fit01:From https://github.com/fit-r2lab/r2lab-embedded
+11-01-39:fit01: * branch            master     -> FETCH_HEAD
+11-01-39:fit01:turn-off-wireless: driver iwlwifi not used
+11-01-39:fit01:turn-off-wireless: shutting down device atheros
+11-01-40:fit01:turn-off-wireless: removing driver ath9k
+11-01-40:fit02:From https://github.com/fit-r2lab/r2lab-embedded
+11-01-40:fit02: * branch            master     -> FETCH_HEAD
+11-01-40:fit02:turn-off-wireless: driver iwlwifi not used
+11-01-40:fit02:turn-off-wireless: shutting down device atheros
+11-01-40:fit02:turn-off-wireless: removing driver ath9k
+11-01-40:fit01:Using id=01 and fitid=fit01 - from hostname
+11-01-40:fit02:Using id=02 and fitid=fit02 - from hostname
+11-01-42:fit01:Using device atheros
+11-01-42:fit02:Using device atheros
+--- TICK - 11:01:35
+--- TICK - 11:01:36
+--- TICK - 11:01:37
+11-01-37:faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+--- TICK - 11:01:38
+11-01-38:fit02:========== Updating /root/r2lab-embedded for branch master
+11-01-38:fit02:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
+11-01-38:fit02:Fetching origin
+11-01-38:fit01:========== Updating /root/r2lab-embedded for branch master
+11-01-38:fit01:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
+11-01-38:fit01:Fetching origin
+--- TICK - 11:01:39
+11-01-39:fit01:Your branch is up-to-date with 'origin/master'.
+11-01-39:fit02:Your branch is up-to-date with 'origin/master'.
+11-01-39:fit01:Already up-to-date.
+11-01-40:fit02:Already up-to-date.
+--- TICK - 11:01:40
+11-01-40:fit01:loading module ath9k
+11-01-40:fit02:loading module ath9k
+--- TICK - 11:01:41
+--- TICK - 11:01:42
+11-01-42:fit01:configuring interface atheros
+11-01-42:fit02:configuring interface atheros
+--- TICK - 11:01:43
+11-01-44:fit01:10.0.0.2 not reachable
+--- TICK - 11:01:44
+11-01-45:fit01:10.0.0.2 not reachable
+--- TICK - 11:01:45
+11-01-46:fit01:10.0.0.2 not reachable
+--- TICK - 11:01:46
+11-01-47:fit01:10.0.0.2 not reachable
+--- TICK - 11:01:47
+11-01-48:fit01:10.0.0.2 not reachable
+--- TICK - 11:01:48
+11-01-49:fit01:10.0.0.2 not reachable
+--- TICK - 11:01:49
+11-01-50:fit01:10.0.0.2 not reachable
+--- TICK - 11:01:50
+11-01-51:fit01:10.0.0.2 not reachable
+11-01-51:fit01:fit01 -> 10.0.0.2: SUCCESS after 8s

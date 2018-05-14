@@ -1,0 +1,41 @@
+fit02:Using id=02 and fitid=fit02 - from hostname
+faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+LOCALNODE:-rw-r--r--  1 tparment  staff  1024 May 12 11:02 RANDOM
+LOCALNODE:d6eb748eb3230ff1e2ecf241f3fcf1be513c80b4  RANDOM
+fit02:no netcat process
+fit02:no netcat process
+fit02:no netcat process
+fit02:no netcat process
+fit01:-rw-r--r-- 1 root root 1024 May 12 11:02 RANDOM
+fit02:no netcat process
+fit01:d6eb748eb3230ff1e2ecf241f3fcf1be513c80b4  RANDOM
+fit02:no netcat process
+fit01:data
+fit02:data
+fit02:no netcat process
+fit02:no netcat process
+fit02:no netcat process
+fit02:no netcat process
+fit02:STARTING CAPTURE into RANDOM
+fit02:netcat server running on data02:10000 in pid 12675
+fit02:  PID TTY      STAT   TIME COMMAND
+fit02:12675 ?        S      0:00 netcat -l data02 10000
+fit02:  PID TTY      STAT   TIME COMMAND
+fit02:12675 ?        S      0:00 netcat -l data02 10000
+fit02:  PID TTY      STAT   TIME COMMAND
+fit02:12675 ?        S      0:00 netcat -l data02 10000
+fit02:  PID TTY      STAT   TIME COMMAND
+fit02:12675 ?        S      0:00 netcat -l data02 10000
+fit02:  PID TTY      STAT   TIME COMMAND
+fit02:12675 ?        S      0:00 netcat -l data02 10000
+fit02:no netcat process
+fit01:SENDER DONE
+fit02:no netcat process
+fit02:no netcat process
+fit02:no netcat process
+fit02:STARTING CAPTURE into 
+fit02:Would kill process 12675
+fit02:no netcat process
+fit02:-rw-r--r-- 1 root root 1024 May 12 11:02 RANDOM
+fit02:no netcat process
+fit02:d6eb748eb3230ff1e2ecf241f3fcf1be513c80b4  RANDOM

@@ -68,7 +68,7 @@ if args.load:
         SshJob(
             node = faraday,
             commands = [
-                Run('rhubarbe load -i ubuntu', hostamea, hostnameb),
+                Run('rhubarbe load -i ubuntu', hostnamea, hostnameb),
                 Run('rhubarbe wait', hostnamea, hostnameb),
                 ],
             required = check_lease,

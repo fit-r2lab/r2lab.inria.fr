@@ -196,22 +196,11 @@ You should be able to run this script as-is, except for the slice name
 that you will need to change manually in the code downloaded from the
 link just below the picture above.
 
-    $ python3 A1-ping.py
-    --- for troubleshooting:
-    ssh -i /dev/null your_slicename@faraday.inria.fr ping -c1 google.fr
-    ---
-    your_slicename@faraday.inria.fr:========== Connected (direct)
-    your_slicename@faraday.inria.fr:========== Authorization OK with user your_slicename
-    faraday.inria.fr:========== Session started for ping -c1 google.fr
-    faraday.inria.fr:PING google.fr (216.58.209.227) 56(84) bytes of data.
-    faraday.inria.fr:64 bytes from par10s29-in-f3.1e100.net (216.58.209.227): icmp_seq=1 ttl=52 time=14.2 ms
-    faraday.inria.fr:
-    faraday.inria.fr:--- google.fr ping statistics ---
-    faraday.inria.fr:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    faraday.inria.fr:rtt min/avg/max/mdev = 14.299/14.299/14.299/0.000 ms
-    faraday.inria.fr:========== Session ended for ping -c1 google.fr
-    your_slicename@faraday.inria.fr:========== Connection lost None
-    orchestrate - True
+Click the '+' sign to expand this tab and see the actual output
+ produced by the script. Click again to collapse it back.
+
+ << togglableoutput A1out A1.out "$ python3 A1-ping.py" >>
+
 
 ### Next
 
@@ -252,19 +241,11 @@ will notice the disappearance of the verbose messages that gave
 details on the establishment of ssh connections and sessions, that you
 can now turn back on by adding `-v` or `--verbose` to the options
 
-    $ python3 A2-ping.py -s your_slicename
-    --- for troubleshooting:
-    ssh -i /dev/null your_slicename@faraday.inria.fr ping -c1 google.fr
-    ---
-    faraday.inria.fr:PING google.fr (216.58.209.227) 56(84) bytes of data.
-    faraday.inria.fr:64 bytes from par10s29-in-f3.1e100.net (216.58.209.227): icmp_seq=1 ttl=52 time=14.2 ms
-    faraday.inria.fr:
-    faraday.inria.fr:--- google.fr ping statistics ---
-    faraday.inria.fr:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    faraday.inria.fr:rtt min/avg/max/mdev = 14.262/14.262/14.262/0.000 ms
+<< togglableoutput A2out A2.out "$ python3 A2-ping.py -s inria_radiomap" >>
 
 ### Next
-In [the next tutorial in tab A3](javascript:open_tab('A3')) we will see how to run commands in a node rather than on the gateway.
+In [the next tutorial in tab A3](javascript:open_tab('A3')) we will see how to
+run commands in a node rather than on the gateway.
 
 </div>
 
@@ -295,23 +276,7 @@ to the gateway, regardless of the number of nodes actually controlled.
 
 ### Sample output
 
-    $ python3 A3-ping.py -v
-    --- for troubleshooting:
-    ssh -i /dev/null your_slicename@faraday.inria.fr ssh root@fit01 ping -c1 google.fr
-    ---
-    your_slicename@faraday.inria.fr:========== Connected (direct)
-    your_slicename@faraday.inria.fr:========== Authorization OK with user your_slicename
-    root@fit01:========== Connected (tunnelled)
-    root@fit01:========== Authorization OK with user root
-    fit01:========== Session started for ping -c1 google.fr
-    fit01:PING google.fr (216.58.209.227) 56(84) bytes of data.
-    fit01:64 bytes from par10s29-in-f3.1e100.net (216.58.209.227): icmp_seq=1 ttl=51 time=14.6 ms
-    fit01:
-    fit01:--- google.fr ping statistics ---
-    fit01:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    fit01:rtt min/avg/max/mdev = 14.657/14.657/14.657/0.000 ms
-    fit01:========== Session ended for ping -c1 google.fr
-    root@fit01:========== Connection lost None
+<< togglableoutput A3out A3.out "python3 A3-ping.py -v" >>
 
 ### Next
 
@@ -399,14 +364,7 @@ for an example of that feature.
 
 ### Sample output
 
-    $ python3 A4-ping.py -s your_slicename
-    faraday.inria.fr:Checking current reservation for your_slicename OK
-    fit01:PING google.fr (216.58.209.227) 56(84) bytes of data.
-    fit01:64 bytes from par10s29-in-f3.1e100.net (216.58.209.227): icmp_seq=1 ttl=51 time=14.5 ms
-    fit01:
-    fit01:--- google.fr ping statistics ---
-    fit01:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    fit01:rtt min/avg/max/mdev = 14.593/14.593/14.593/0.000 ms
+<< togglableoutput A4out A4.out "$ python3 A4-ping.py" >>
 
 Or, when using a slice that is valid but that does not have the reservation right now:
 
@@ -481,19 +439,7 @@ Here is what deserves to be outlined in the code below
 
 ### Sample output
 
-    $ A5-ping.py -s your_slicename && echo OK
-    faraday.inria.fr:Checking current reservation for your_slicename OK
-    fit02:Turning on data network on interface data
-    fit01:Turning on data network on interface data
-    fit01:data
-    fit02:data
-    fit01:PING data02 (192.168.2.2) from 192.168.2.1 data: 56(84) bytes of data.
-    fit01:64 bytes from data02 (192.168.2.2): icmp_seq=1 ttl=64 time=0.244 ms
-    fit01:
-    fit01:--- data02 ping statistics ---
-    fit01:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    fit01:rtt min/avg/max/mdev = 0.244/0.244/0.244/0.000 ms
-    OK
+<< togglableoutput A5out A5.out "$ python3 A5-ping.py" >>
 
 ### Next
 

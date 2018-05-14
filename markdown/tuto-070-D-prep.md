@@ -159,7 +159,8 @@ For this step, we start back from the last code in the A section - namely
 
 ### The code
 
-Every time we will see a piece of code, you can download the raw code with the right-most button.
+Every time we will see a piece of code, you can download the raw code
+with the right-most button.
 
 << codeview D1 D1-prep.py previous=A5-ping.py graph=D1.png >>
 
@@ -167,51 +168,12 @@ Every time we will see a piece of code, you can download the raw code with the r
 
 Here's the output of the script when run with the `-l` option.
 
-    $ python3 D1-prep.py -l
-    faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
-    faraday.inria.fr:Found binary frisbeed as /usr/sbin/frisbeed
-    faraday.inria.fr:Found binary nc as /bin/nc
-    faraday.inria.fr:12:51:00 - +000s: Selection: fit01 fit02
-    faraday.inria.fr:12:51:00 - +000s: Loading image /var/lib/rhubarbe-images/ubuntu.ndz
-    faraday.inria.fr:12:51:00 - +000s: AUTH: checking for a valid lease
-    faraday.inria.fr:12:51:00 - +000s: AUTH: access granted
-    faraday.inria.fr:12:51:00 - +000s: fit01 reboot = Sending message 'reset' to CMC reboot01
-    faraday.inria.fr:12:51:00 - +000s: fit02 reboot = Sending message 'reset' to CMC reboot02
-    faraday.inria.fr:12:51:02 - +002s: fit01 reboot = idling for 15s
-    faraday.inria.fr:12:51:02 - +002s: fit02 reboot = idling for 15s
-    faraday.inria.fr:12:51:18 - +018s: started <frisbeed@234.5.6.1:10001 on ubuntu.ndz at 500 Mibps>
-    faraday.inria.fr:12:51:18 - +018s: fit01 frisbee_status = trying to telnet..
-    faraday.inria.fr:12:51:18 - +018s: fit02 frisbee_status = trying to telnet..
-    faraday.inria.fr:12:51:20 - +020s: fit01 frisbee_status = timed out..
-    faraday.inria.fr:12:51:20 - +020s: fit01 frisbee_status = backing off for 3.25s
-    <snip>
-    faraday.inria.fr:12:51:35 - +035s: fit02 frisbee_status = trying to telnet..
-    faraday.inria.fr:12:51:35 - +035s: fit02 frisbee_status = starting frisbee client
-    faraday.inria.fr:12:51:57 - +057s: fit01 Uploading successful
-    faraday.inria.fr:12:51:57 - +057s: fit01 reboot = Sending message 'reset' to CMC reboot01
-    |###################################################|100% |26.35s|Time: 0:00:260s|ETA:  --:--:--
-    faraday.inria.fr:12:51:59 - +058s: fit02 Uploading successful
-    faraday.inria.fr:12:51:59 - +058s: fit02 reboot = Sending message 'reset' to CMC reboot02
-    faraday.inria.fr:12:52:01 - +061s: stopped <frisbeed@234.5.6.1:10001 on ubuntu.ndz at 500 Mibps>
-    faraday.inria.fr:<Node fit01>:ssh OK
-    faraday.inria.fr:<Node fit02>:ssh OK
-    fit02:turn-on-data: data network on interface data
-    fit01:turn-on-data: data network on interface data
-    fit02:data
-    fit01:data
-    fit01:PING data02 (192.168.2.2) from 192.168.2.1 data: 56(84) bytes of data.
-    fit01:64 bytes from data02 (192.168.2.2): icmp_seq=1 ttl=64 time=0.461 ms
-    fit01:
-    fit01:--- data02 ping statistics ---
-    fit01:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    fit01:rtt min/avg/max/mdev = 0.461/0.461/0.461/0.000 ms
-    Connection failed to root@fit02 : Connection lost
-    Connection failed to root@fit01 : Connection lost
-    (Over)wrote D1.dot
+<< togglableoutput D1out D1.out "$ python3 D1-prep.py -l" >>
 
 ### Next
 
-We will now see [in tab D2 how to also make sure all the rest of the testbed is turned off](javascript:open_tab('D2')).
+We will now see [in tab D2 how to also make sure all the rest of the testbed
+is turned off](javascript:open_tab('D2')).
 
 </div>
 
@@ -260,77 +222,7 @@ new dependency graph.
 
 No great news here, just observe how all the other nodes, and the phones, get turned off while the 2 target nodes are being imaged.
 
-    $ python3 D2-prep.py -l
-
-    tparment ~/git/r2lab.inria.fr/code (public *+=) $ python3 ./D2-prep.py -l
-    faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
-    faraday.inria.fr:Found binary frisbeed as /usr/sbin/frisbeed
-    faraday.inria.fr:Found binary nc as /bin/nc
-    faraday.inria.fr:reboot26:ok
-    faraday.inria.fr:reboot21:ok
-    <snip>
-    faraday.inria.fr:reboot14:ok
-    faraday.inria.fr:reboot07:ok
-    faraday.inria.fr:12:55:06 - +000s: Selection: fit01 fit02
-    faraday.inria.fr:12:55:06 - +000s: Loading image /var/lib/rhubarbe-images/ubuntu.ndz
-    faraday.inria.fr:12:55:06 - +000s: AUTH: checking for a valid lease
-    faraday.inria.fr:12:55:06 - +000s: AUTH: access granted
-    faraday.inria.fr:12:55:06 - +000s: fit02 reboot = Sending message 'reset' to CMC reboot02
-    faraday.inria.fr:12:55:07 - +000s: fit01 reboot = Sending message 'reset' to CMC reboot01
-    faraday.inria.fr:reboot16:ok
-    faraday.inria.fr:reboot23:ok
-    faraday.inria.fr:reboot19:ok
-    faraday.inria.fr:reboot30:already off
-    faraday.inria.fr:reboot32:already off
-    faraday.inria.fr:reboot31:already off
-    faraday.inria.fr:reboot10:ok
-    faraday.inria.fr:reboot20:ok
-    faraday.inria.fr:reboot35:already off
-    faraday.inria.fr:reboot22:already off
-    <snip>
-    faraday.inria.fr:reboot29:already off
-    faraday.inria.fr:reboot12:already off
-    faraday.inria.fr:reboot11:ok
-    faraday.inria.fr:12:55:09 - +002s: fit01 reboot = idling for 15s
-    faraday.inria.fr:12:55:09 - +002s: fit02 reboot = idling for 15s
-    faraday.inria.fr:reboot25:already off
-    faraday.inria.fr:reboot21:already off
-    faraday.inria.fr:reboot07:already off
-    faraday.inria.fr:ssh -i /home/faraday/r2lab-embedded/mac-ssh-keys/macphone tester@macphone1 phone-off
-    faraday.inria.fr:Turning OFF phone : turning on airplane mode
-    faraday.inria.fr:Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
-    faraday.inria.fr:Broadcast completed: result=0
-    faraday.inria.fr:ssh -i /home/faraday/r2lab-embedded/mac-ssh-keys/macphone tester@macphone2 phone-off
-    faraday.inria.fr:Turning OFF phone : turning on airplane mode
-    faraday.inria.fr:Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
-    faraday.inria.fr:Broadcast completed: result=0
-    faraday.inria.fr:12:55:25 - +018s: started <frisbeed@234.5.6.1:10001 on ubuntu.ndz at 500 Mibps>
-    faraday.inria.fr:12:55:25 - +018s: fit01 frisbee_status = trying to telnet..
-    faraday.inria.fr:12:55:25 - +018s: fit02 frisbee_status = trying to telnet..
-    <snip>
-    faraday.inria.fr:12:55:42 - +035s: fit02 frisbee_status = trying to telnet..
-    faraday.inria.fr:12:55:42 - +035s: fit02 frisbee_status = starting frisbee client
-    faraday.inria.fr:12:56:03 - +056s: fit01 Uploading successful
-    faraday.inria.fr:12:56:03 - +056s: fit01 reboot = Sending message 'reset' to CMC reboot01
-    |###################################################|100% |24.73s|Time: 0:00:240s|ETA:  --:--:--
-    faraday.inria.fr:12:56:04 - +058s: fit02 Uploading successful
-    faraday.inria.fr:12:56:04 - +058s: fit02 reboot = Sending message 'reset' to CMC reboot02
-    faraday.inria.fr:12:56:07 - +060s: stopped <frisbeed@234.5.6.1:10001 on ubuntu.ndz at 500 Mibps>
-    faraday.inria.fr:<Node fit01>:ssh OK
-    faraday.inria.fr:<Node fit02>:ssh OK
-    fit02:turn-on-data: data network on interface data
-    fit01:turn-on-data: data network on interface data
-    fit01:data
-    fit02:data
-    fit01:PING data02 (192.168.2.2) from 192.168.2.1 data: 56(84) bytes of data.
-    fit01:64 bytes from data02 (192.168.2.2): icmp_seq=1 ttl=64 time=0.489 ms
-    fit01:
-    fit01:--- data02 ping statistics ---
-    fit01:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    fit01:rtt min/avg/max/mdev = 0.489/0.489/0.489/0.000 ms
-    Connection failed to root@fit02 : Connection lost
-    Connection failed to root@fit01 : Connection lost
-    (Over)wrote D2.dot
+<< togglableoutput D2out D2.out "$ python3 D2-prep.py -l" >>
 
 ### Next
 
@@ -373,21 +265,7 @@ A complete reference can be [found on readthedocs.io](http://r2lab.readthedocs.i
 
 It is easy to select other nodes with the `-a` and `-b` option.
 
-    tparment ~/git/r2lab.inria.fr/code (public *+=) $ python3 ./D3-prep.py -a 10 -b 20
-    faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
-    fit20:turn-on-data: data network on interface data
-    fit10:turn-on-data: data network on interface data
-    fit20:data
-    fit10:data
-    fit10:PING data20 (192.168.2.20) from 192.168.2.10 data: 56(84) bytes of data.
-    fit10:64 bytes from data20 (192.168.2.20): icmp_seq=1 ttl=64 time=0.457 ms
-    fit10:
-    fit10:--- data20 ping statistics ---
-    fit10:1 packets transmitted, 1 received, 0% packet loss, time 0ms
-    fit10:rtt min/avg/max/mdev = 0.457/0.457/0.457/0.000 ms
-    Connection failed to root@fit20 : Connection lost
-    Connection failed to root@fit10 : Connection lost
-    (Over)wrote D3.dot
+<< togglableoutput D3out D3.out "$ python3 D3-prep.py -a 10 -b 20" >>
 
 ### Next
 

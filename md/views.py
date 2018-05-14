@@ -83,7 +83,7 @@ def parse(markdown_file):
     << include file >>
        -> raw include
 
-    <<togglable_output file header>>
+    <<togglableoutput file header>>
        -> raw include inside a collapsible
 
     << codediff uniqueid file1 file2 >>
@@ -204,7 +204,7 @@ def resolve_codediffs(markdown):
 
 def resolve_togglables(markdown):
     """
-    search for << togglable_output viewid file "possibly multiword header" >>
+    search for << togglableoutput viewid file "possibly multiword header" >>
 
       file is mandatory
 
@@ -213,7 +213,7 @@ def resolve_togglables(markdown):
     rendered using bootstrap panels; requires togglable.css
     """
     re_togglable = re.compile(post_markdown(
-        r'<<\s*togglable_output\s+(?P<viewid>\S+)'
+        r'<<\s*togglableoutput\s+(?P<viewid>\S+)'
         r'\s+(?P<file>\S+)(\s+"(?P<header>[^"]*)")\s*>>\s*\n'))
     end = 0
     resolved = ""
@@ -337,7 +337,7 @@ def implement_togglable(viewid, file, header, start_expanded):
         <div class="panel-body">
           <pre><code>
 '''
-    result += implement_include(file, "togglable_output")
+    result += implement_include(file, "togglableoutput")
     result += f'''
           </code></pre>
         </div><!--/.panel-body -->

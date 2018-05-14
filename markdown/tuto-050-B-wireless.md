@@ -115,43 +115,7 @@ IP connectivity to be established after the driver is configured.
 
 ### Sample output
 
-    $ python3 B1-wireless.py
-    faraday.inria.fr:Checking current reservation for your_slicename OK
-    fit02:turn-off-wireless: driver iwlwifi not used
-    fit02:turn-off-wireless: shutting down device atheros
-    fit01:turn-off-wireless: driver iwlwifi not used
-    fit01:turn-off-wireless: shutting down device atheros
-    fit02:turn-off-wireless: removing driver ath9k
-    fit01:turn-off-wireless: removing driver ath9k
-    fit02:loading module ath9k
-    fit01:loading module ath9k
-    fit02:configuring interface atheros
-    fit01:configuring interface atheros
-    fit01:PING 10.0.0.2 (10.0.0.2) from 10.0.0.1 atheros: 56(84) bytes of data.
-    fit01:From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=2 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=3 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=4 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=5 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=6 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=7 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=8 Destination Host Unreachable
-    fit01:From 10.0.0.1 icmp_seq=9 Destination Host Unreachable
-    fit01:64 bytes from 10.0.0.2: icmp_seq=10 ttl=64 time=4.71 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=11 ttl=64 time=2.32 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=12 ttl=64 time=2.33 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=13 ttl=64 time=2.35 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=14 ttl=64 time=2.31 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=15 ttl=64 time=2.31 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=16 ttl=64 time=2.35 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=17 ttl=64 time=1.77 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=18 ttl=64 time=1.45 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=19 ttl=64 time=1.42 ms
-    fit01:64 bytes from 10.0.0.2: icmp_seq=20 ttl=64 time=1.43 ms
-    fit01:
-    fit01:--- 10.0.0.2 ping statistics ---
-    fit01:20 packets transmitted, 11 received, +9 errors, 45% packet loss, time 19062ms
-    fit01:rtt min/avg/max/mdev = 1.421/2.253/4.714/0.871 ms, pipe 3
+<< togglableoutput B1out B1.out "$ python3 B1-wireless.py" >>
 
 ### Next
 
@@ -232,47 +196,7 @@ About that last point, note that other types of formatters are
 
 ### Sample output
 
-    $ python3 B2-wireless.py
-    16-56-38:faraday.inria.fr:Checking current reservation for inria_inria.r2lab.tutorial OK
-    16-56-39:fit02:Using id=02 and fitid=fit02 - from hostname
-    16-56-39:fit02:turn-off-wireless: driver iwlwifi not used
-    16-56-39:fit01:Using id=01 and fitid=fit01 - from hostname
-    16-56-39:fit02:turn-off-wireless: shutting down device atheros
-    16-56-39:fit01:turn-off-wireless: driver iwlwifi not used
-    16-56-39:fit01:turn-off-wireless: shutting down device atheros
-    16-56-39:fit02:turn-off-wireless: removing driver ath9k
-    16-56-39:fit01:turn-off-wireless: removing driver ath9k
-    16-56-39:fit02:loading module ath9k
-    16-56-39:fit01:loading module ath9k
-    16-56-41:fit02:Using device atheros
-    16-56-41:fit02:configuring interface atheros
-    16-56-41:fit01:Using device atheros
-    16-56-41:fit01:configuring interface atheros
-    16-56-44:fit01:PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
-    16-56-44:fit01:From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
-    16-56-44:fit01:From 10.0.0.1 icmp_seq=2 Destination Host Unreachable
-    16-56-44:fit01:From 10.0.0.1 icmp_seq=3 Destination Host Unreachable
-    16-56-47:fit01:From 10.0.0.1 icmp_seq=4 Destination Host Unreachable
-    16-56-47:fit01:From 10.0.0.1 icmp_seq=5 Destination Host Unreachable
-    16-56-47:fit01:From 10.0.0.1 icmp_seq=6 Destination Host Unreachable
-    16-56-50:fit01:From 10.0.0.1 icmp_seq=7 Destination Host Unreachable
-    16-56-50:fit01:From 10.0.0.1 icmp_seq=8 Destination Host Unreachable
-    16-56-50:fit01:From 10.0.0.1 icmp_seq=9 Destination Host Unreachable
-    16-56-50:fit01:64 bytes from 10.0.0.2: icmp_seq=10 ttl=64 time=4.45 ms
-    16-56-51:fit01:64 bytes from 10.0.0.2: icmp_seq=11 ttl=64 time=2.12 ms
-    16-56-53:fit01:64 bytes from 10.0.0.2: icmp_seq=12 ttl=64 time=2.12 ms
-    16-56-53:fit01:64 bytes from 10.0.0.2: icmp_seq=13 ttl=64 time=2.13 ms
-    16-56-54:fit01:64 bytes from 10.0.0.2: icmp_seq=14 ttl=64 time=2.10 ms
-    16-56-55:fit01:64 bytes from 10.0.0.2: icmp_seq=15 ttl=64 time=2.44 ms
-    16-56-56:fit01:64 bytes from 10.0.0.2: icmp_seq=16 ttl=64 time=2.13 ms
-    16-56-57:fit01:64 bytes from 10.0.0.2: icmp_seq=17 ttl=64 time=1.49 ms
-    16-56-58:fit01:64 bytes from 10.0.0.2: icmp_seq=18 ttl=64 time=1.59 ms
-    16-56-59:fit01:64 bytes from 10.0.0.2: icmp_seq=19 ttl=64 time=1.48 ms
-    16-57-00:fit01:64 bytes from 10.0.0.2: icmp_seq=20 ttl=64 time=1.56 ms
-    16-57-00:fit01:
-    16-57-00:fit01:--- 10.0.0.2 ping statistics ---
-    16-57-00:fit01:20 packets transmitted, 11 received, +9 errors, 45% packet loss, time 19060ms
-    16-57-00:fit01:rtt min/avg/max/mdev = 1.489/2.152/4.455/0.795 ms, pipe 3
+<< togglableoutput B2out B2.out "$ python3 B2-wireless.py" >>
 
 ### Next
 
@@ -337,29 +261,7 @@ Make sure you download both files in the same location before trying to run the 
 
 ### Sample output
 
-    $ python3 B3-wireless.py
-    14-08-35:faraday.inria.fr:Checking current reservation for inria_inria.r2lab.tutorial OK
-    14-08-36:fit02:turn-off-wireless: driver iwlwifi not used
-    14-08-36:fit02:turn-off-wireless: shutting down device atheros
-    14-08-36:fit01:turn-off-wireless: driver iwlwifi not used
-    14-08-36:fit01:turn-off-wireless: shutting down device atheros
-    14-08-36:fit01:turn-off-wireless: removing driver ath9k
-    14-08-36:fit02:turn-off-wireless: removing driver ath9k
-    14-08-36:fit01:loading module ath9k
-    14-08-36:fit02:loading module ath9k
-    14-08-38:fit01:Using device atheros
-    14-08-38:fit01:configuring interface atheros
-    14-08-38:fit02:Using device atheros
-    14-08-38:fit02:configuring interface atheros
-    14-08-40:fit01:10.0.0.2 not reachable
-    14-08-41:fit01:10.0.0.2 not reachable
-    14-08-42:fit01:10.0.0.2 not reachable
-    14-08-43:fit01:10.0.0.2 not reachable
-    14-08-44:fit01:10.0.0.2 not reachable
-    14-08-45:fit01:10.0.0.2 not reachable
-    14-08-46:fit01:10.0.0.2 not reachable
-    14-08-47:fit01:10.0.0.2 not reachable
-    14-08-47:fit01:fit01 -> 10.0.0.2: SUCCESS after 8s
+<< togglableoutput B3out B3.out "$ python3 B3-wireless.py" >>
 
 ### Next
 
@@ -405,47 +307,7 @@ schedulers:
 
 ### Sample output
 
-    $ python3 B4-wireless.py
-    --- TICK - 14:09:21
-    --- TICK - 14:09:22
-    --- TICK - 14:09:23
-    14-09-24:faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial OK
-    --- TICK - 14:09:24
-    14-09-25:fit02:turn-off-wireless: driver iwlwifi not used
-    14-09-25:fit02:turn-off-wireless: shutting down device atheros
-    14-09-25:fit01:turn-off-wireless: driver iwlwifi not used
-    14-09-25:fit01:turn-off-wireless: shutting down device atheros
-    14-09-25:fit02:turn-off-wireless: removing driver ath9k
-    14-09-25:fit01:turn-off-wireless: removing driver ath9k
-    14-09-25:fit02:loading module ath9k
-    --- TICK - 14:09:25
-    14-09-26:fit01:loading module ath9k
-    --- TICK - 14:09:26
-    --- TICK - 14:09:28
-    14-09-28:fit02:Using device atheros
-    14-09-28:fit02:configuring interface atheros
-    14-09-28:fit01:Using device atheros
-    14-09-28:fit01:configuring interface atheros
-    --- TICK - 14:09:29
-    --- TICK - 14:09:30
-    14-09-30:fit01:10.0.0.2 not reachable
-    --- TICK - 14:09:31
-    14-09-31:fit01:10.0.0.2 not reachable
-    --- TICK - 14:09:32
-    14-09-32:fit01:10.0.0.2 not reachable
-    14-09-32:fit01:10.0.0.2 not reachable
-    --- TICK - 14:09:33
-    14-09-33:fit01:10.0.0.2 not reachable
-    --- TICK - 14:09:34
-    --- TICK - 14:09:35
-    14-09-35:fit01:10.0.0.2 not reachable
-    --- TICK - 14:09:36
-    14-09-36:fit01:10.0.0.2 not reachable
-    --- TICK - 14:09:37
-    14-09-37:fit01:10.0.0.2 not reachable
-    --- TICK - 14:09:38
-    14-09-38:fit01:10.0.0.2 not reachable
-    14-09-38:fit01:SUCCESS after 9s
+<< togglableoutput B4out B4.out "$ python3 B4-wireless.py" >>
 
 ### Next
 
@@ -470,11 +332,11 @@ instead of showing plain wall clock time.
 
 ### The code
 
-<< codeview B5 B5-wireless.py previous=B4-wireless.py graph=B5.png>>
+<< codeview B5 B5-wireless.py previous=B4-wireless.py graph=B5.png >>
 
 ### Sample output
 
-<< togglable_output B5out B5.out "$ python3 ./B5-wireless.py">>
+<< togglableoutput B5out B5.out "$ python3 ./B5-wireless.py">>
 
 ### Next
 
