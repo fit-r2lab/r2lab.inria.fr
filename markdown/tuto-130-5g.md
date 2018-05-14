@@ -84,7 +84,7 @@ You can also of course use `adb`, and thus eventually enter the phone itself
     macphone:~ tester$ adb devices
     List of devices attached
     062337da0051af9f	device
-    
+
     macphone:~ tester$ adb shell
     shell@hammerhead:/ $
 
@@ -97,7 +97,7 @@ Another way to control the phone is through VNC, or equivalently the *Screen Sha
 For this you will need the following information:
 
 * VNC endpoint : `faraday.inria.fr` on port 5900 - this port is forwarded to `macphone` on same port
-* login credentials in `macphone` : `tester` / `tester++` 
+* login credentials in `macphone` : `tester` / `tester++`
 
 ### SIM cards and other details
 * There is no reason why you would need this, but if only for the record:
@@ -140,10 +140,10 @@ python script's size reasonable. Of course you do not have to use these convenie
 
 For the sake of completeness, the convenience tools available on these 2 images are defined here:
 
-* `nodes.sh` is what all regular nodes already have [(source code)](https://github.com/parmentelat/r2lab/blob/public/infra/user-env/nodes.sh) 
-* `oai-common.sh` is relevant on both images [(source code)](https://github.com/parmentelat/r2lab/blob/public/infra/user-env/oai-common.sh) 
-* `oai-gw.sh` is exposed in the `oai-gw` image [(source code)](https://github.com/parmentelat/r2lab/blob/public/infra/user-env/oai-enb.sh) 
-* `oai-enb.sh` is exposed in the `oai-enb` image [(source code)](https://github.com/parmentelat/r2lab/blob/public/infra/user-env/oai-epc.sh) 
+* `nodes.sh` is what all regular nodes already have [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/nodes.sh)
+* `oai-common.sh` is relevant on both images [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/oai-common.sh)
+* `oai-gw.sh` is exposed in the `oai-gw` image [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/oai-enb.sh)
+* `oai-enb.sh` is exposed in the `oai-enb` image [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/oai-epc.sh) 
 
 There is room for quite some improvement in these tools; if of interest, feel free to discuss this topic [on the users mailing list](mailto:fit-r2lab-users@inria.fr).
 

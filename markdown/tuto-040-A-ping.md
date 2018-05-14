@@ -424,7 +424,7 @@ Here is what deserves to be outlined in the code below
   on any node;
 
 * take a look [at the source code for similar utilities
-  here](https://github.com/parmentelat/r2lab/blob/master/infra/user-env/nodes.sh)
+  here](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/nodes.sh)
 
 * also notice how we can very easily make sure to run our ping once
   **BOTH** nodes have configured their data interface, by just using 2

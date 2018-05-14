@@ -54,7 +54,8 @@ went up. So you just come back to the testbed, you should check for the followin
 
 ### Do you have a valid reservation on the testbed ?
 
-If your script does not check for that, it's a good idea to double check.
+If your script does not check for that, it's a good idea to double check
+on e.g. <https://r2lab.inria.fr/book.md>.
 
 ### Can you reach `faraday` via ssh ?
 
@@ -62,7 +63,7 @@ Try to enter the gateway with this simple command
 
     ssh your_slicename@faraday.inria.fr
 
-If this does not work, then double check that your onelab private key
+If this does not work, then double check that your private ssh key
 is known to your ssh agent - especially if you have recently logged out :
 
     ssh-add -l
@@ -125,20 +126,20 @@ Please double check that you
 
 You can make sure that you run the latest version of `nepi-ng` by running
 
-    [sudo] pip3 install --upgrade asynciojobs
+    [sudo] pip3 install --upgrade apssh
 
 Alternatively, you can check the currently running versions by doing on your laptop
 
-    $ python3 -c 'from asynciojobs import version; print(version.version)'
-    $ python3 -c 'from apssh import version; print(version.version)'
+    $ python3 -c 'from asynciojobs import version; print(version.__version__)'
+    $ python3 -c 'from apssh import version; print(version.__version__)'
 
 and then compare them against the latest release numbers for these 2
 libraries, that can be found :
 
 * either by searching `https://pypi.python.org`,
 * or in the respective documentation pages for
-[asynciojobs](http://nepi-ng.inria.fr/asynciojobs/) and
-[apssh](http://nepi-ng.inria.fr/apssh/).
+[asynciojobs](http://asynciojobs.readthedocs.io/) and
+[apssh](http://apssh.readthedocs.io/).
 
 ### `r2lab` python library
 
@@ -157,8 +158,8 @@ or similar tools - that you use depends on **the date where your image
 was created**.
 
 This is why it is always a good idea to have your shell scripts,
-whenever they source `/root/r2lab/infra/user-env/node.sh`, call
-`git-pull-r2lab` which will update the whole repository `/root/r2lab`
+whenever they source `/root/r2lab-embedded/shell/node.sh`, call
+`git-pull-r2lab` which will update the whole repository `/root/r2lab-embedded`
 from the latest version published on github.
 
 Otherwise, check out [the next section on verbosity in your scripts.](javascript:open_tab('VERBOSITY')).
@@ -178,21 +179,22 @@ In all our examples so far, you have noticed that we always run a
 scheduler like this :
 
     # run the scheduler
-    ok = scheduler.orchestrate()
+    ok = scheduler.run()
     # give details if it failed
     ok or scheduler.debrief()
 
-This means that, if ever `orchestrate()` does not return `True`, we
+This means that, if ever `run()` does not return `True`, we
 run the `debrief()` method on that scheduler.
 
-Keep in mind that `orchestrate` orchestration returns `False` only in
+Keep in mind that `run` orchestration returns `False` only in
 either of these 2 cases:
 
 * one of the *critical* jobs inside the scheduler has raised an exception,
-* and when you specify a timeout by calling e.g. `orchestrate(timeout=120)`,
-if the total duration of `orchestrate` exceeds that timeout.
+* or, when dealing with a scheduler that has an attached timeout
+  - e.g. created as `Scheduler(timeout=120)` -
+  if the total duration of `run` exceeds that timeout.
 
-So if `orchestrate()` returns `False`, and you have not specified a
+So if `run()` returns `False`, and you have not specified a
 global timeout, it means you are in the first situation; and by
 calling `debrief()` like we have done in all the tutorials, you will
 see more details on the critical job that has caused the scheduler to
@@ -218,14 +220,14 @@ The `Scheduler.list()` method allows you to see an overview of your
 orchestrate the scheduler, but if your script behaves oddly it might
 be a good idea to check the scheduler before running it
 
-     # just before you run orchestrate()
+     # just before you trigger run()
      shceduler.list()
 
 You can even ask for more details
 
     scheduler.list(details=True)
 
-`Sceduler.list()` uses some symbols in the hope to provide meaningful
+`Scheduler.list()` uses some symbols in the hope to provide meaningful
 information in a condensed way, you [can refer to this
 page](http://nepi-ng.inria.fr/asynciojobs/README.html#inspecting-scheduler-and-results-scheduler-list)
 to see the meaning of the different symbols, but in a nutshell:
@@ -241,7 +243,7 @@ to see the meaning of the different symbols, but in a nutshell:
 
 ### Graphical view
 
-As we [have already seen in C2bis](tuto-060-C-files.md#C2bis), it is
+As we [have already seen in C3bis](tuto-060-C-files.md#C3bis), it is
 rather easy to produce a *png* file that depicts the jobs in a
 scheduler, together with their relationships.
 
@@ -251,9 +253,9 @@ scheduler, together with their relationships.
 
 You will need to install `graphviz` so that you can use the `dot`
 program in this fragment. Here's the example of output obtained in
-[C2bis](tuto-060-C-files.md#C2bis)
+[C3bis](tuto-060-C-files.md#C3bis)
 
-<center><img src="assets/img/C2bis-files.png" height="150px"></center>
+<center><img src="assets/img/C3bis-files.png" height="150px"></center>
 
 # Verbosity
 

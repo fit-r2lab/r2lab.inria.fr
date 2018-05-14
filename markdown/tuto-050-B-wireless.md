@@ -186,7 +186,7 @@ So for example we would issue lines like
 About that last point, note that other types of formatters are
   available, that will let you store output in a given directory, and
   in files named after each individual hostname. See [this
-  page](http://nepi-ng.inria.fr/apssh/API.html#module-apssh.formatters)
+  page](http://apssh.readthedocs.io/en/latest/API.html#module-apssh.formatters)
   for more info on other available formatters.
 
 

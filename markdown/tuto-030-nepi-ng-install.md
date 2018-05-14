@@ -33,10 +33,10 @@ set of tools that we collectively refer to as `nepi-ng`.
 detailed instructions for installing them. You will also find a more
 complete documentation on these 2 tools below :
 
-* [the `asynciojobs` documentation](http://nepi-ng.inria.fr/asynciojobs)
-  including [its API reference](http://nepi-ng.inria.fr/asynciojobs/API.html)
-* [the `apssh` documentation](http://nepi-ng.inria.fr/apssh)
-  including [its API reference](http://nepi-ng.inria.fr/apssh/API.html)
+* [the `asynciojobs` documentation](http://asynciojobs.readthedocs.io/)
+  including [its API reference](http://asynciojobs.readthedocs.io/en/latest/API.html)
+* [the `apssh` documentation](http://apssh.readthedocs.io/)
+  including [its API reference](http://apssh.readthedocs.io/en/latest/API.html)
 
 ### Terminal-based
 

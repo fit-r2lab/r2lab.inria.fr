@@ -254,7 +254,7 @@ This mostly is convenient to avoid ending up with hostname like `fit1`
 with a missing `0`, so as you can see it is very basic.
 
 
-A complete reference can be [found on readthedocs.io](http://r2lab.readthedocs.io).
+A complete reference can be [found on readthedocs.io](http://r2lab.readthedocs.io/).
 
 ### The code
 
