@@ -1,0 +1,136 @@
+faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+faraday.inria.fr:reboot24:ok
+faraday.inria.fr:reboot23:ok
+faraday.inria.fr:reboot13:ok
+faraday.inria.fr:reboot12:ok
+faraday.inria.fr:reboot26:ok
+faraday.inria.fr:reboot21:ok
+faraday.inria.fr:reboot25:ok
+faraday.inria.fr:reboot29:ok
+faraday.inria.fr:reboot19:ok
+faraday.inria.fr:reboot22:ok
+faraday.inria.fr:reboot14:ok
+faraday.inria.fr:reboot11:ok
+faraday.inria.fr:reboot33:ok
+faraday.inria.fr:reboot04:ok
+faraday.inria.fr:reboot15:ok
+faraday.inria.fr:reboot07:ok
+faraday.inria.fr:reboot35:ok
+faraday.inria.fr:reboot27:ok
+faraday.inria.fr:reboot28:ok
+faraday.inria.fr:reboot32:ok
+faraday.inria.fr:reboot01:ok
+faraday.inria.fr:reboot30:ok
+faraday.inria.fr:reboot06:ok
+faraday.inria.fr:reboot02:ok
+faraday.inria.fr:reboot05:ok
+faraday.inria.fr:reboot18:ok
+faraday.inria.fr:reboot36:ok
+faraday.inria.fr:reboot17:ok
+faraday.inria.fr:reboot34:ok
+faraday.inria.fr:reboot31:ok
+faraday.inria.fr:Found binary frisbeed as /usr/sbin/frisbeed
+faraday.inria.fr:reboot16:ok
+faraday.inria.fr:Found binary nc as /bin/nc
+faraday.inria.fr:reboot03:ok
+faraday.inria.fr:reboot37:ok
+faraday.inria.fr:reboot08:ok
+faraday.inria.fr:reboot09:ok
+faraday.inria.fr:12:22:58 - +000s: Selection: fit10 fit20
+faraday.inria.fr:12:22:58 - +000s: Loading image /var/lib/rhubarbe-images/ubuntu.ndz
+faraday.inria.fr:12:22:58 - +000s: AUTH: checking for a valid lease
+faraday.inria.fr:12:22:58 - +000s: AUTH: access granted
+faraday.inria.fr:12:22:58 - +000s: fit10 reboot = Sending message 'on' to CMC reboot10
+faraday.inria.fr:12:22:58 - +000s: fit20 reboot = Sending message 'on' to CMC reboot20
+faraday.inria.fr:reboot33:ok
+faraday.inria.fr:reboot32:already off
+faraday.inria.fr:reboot27:already off
+faraday.inria.fr:reboot19:already off
+faraday.inria.fr:reboot31:already off
+faraday.inria.fr:reboot04:already off
+faraday.inria.fr:reboot37:already off
+faraday.inria.fr:reboot26:already off
+faraday.inria.fr:reboot06:already off
+faraday.inria.fr:reboot25:already off
+faraday.inria.fr:reboot21:already off
+faraday.inria.fr:reboot18:already off
+faraday.inria.fr:reboot22:already off
+faraday.inria.fr:reboot36:already off
+faraday.inria.fr:reboot11:already off
+faraday.inria.fr:reboot12:already off
+faraday.inria.fr:reboot03:already off
+faraday.inria.fr:reboot34:already off
+faraday.inria.fr:reboot29:already off
+faraday.inria.fr:reboot02:already off
+faraday.inria.fr:reboot16:already off
+faraday.inria.fr:reboot24:already off
+faraday.inria.fr:reboot15:already off
+faraday.inria.fr:reboot28:already off
+faraday.inria.fr:reboot14:already off
+faraday.inria.fr:reboot35:already off
+faraday.inria.fr:reboot05:already off
+faraday.inria.fr:reboot08:already off
+faraday.inria.fr:reboot09:already off
+faraday.inria.fr:reboot13:already off
+faraday.inria.fr:reboot17:already off
+faraday.inria.fr:12:22:59 - +001s: fit10 reboot = idling for 15s
+faraday.inria.fr:12:22:59 - +001s: fit20 reboot = idling for 15s
+faraday.inria.fr:reboot01:already off
+faraday.inria.fr:reboot30:already off
+faraday.inria.fr:reboot07:already off
+faraday.inria.fr:reboot23:already off
+faraday.inria.fr:ssh -i /home/faraday/r2lab-embedded/mac-ssh-keys/macphone tester@macphone1 phone-off
+faraday.inria.fr:Turning OFF phone : turning on airplane mode
+faraday.inria.fr:Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
+faraday.inria.fr:Broadcast completed: result=0
+faraday.inria.fr:ssh -i /home/faraday/r2lab-embedded/mac-ssh-keys/macphone tester@macphone2 phone-off
+faraday.inria.fr:Turning OFF phone : turning on airplane mode
+faraday.inria.fr:Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
+faraday.inria.fr:Broadcast completed: result=0
+faraday.inria.fr:12:23:15 - +017s: started <frisbeed@234.5.6.1:10001 on ubuntu.ndz at 500 Mibps>
+faraday.inria.fr:12:23:15 - +017s: fit20 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:15 - +017s: fit10 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:17 - +019s: fit20 frisbee_status = timed out..
+faraday.inria.fr:12:23:17 - +019s: fit20 frisbee_status = backing off for 1.7s
+faraday.inria.fr:12:23:17 - +019s: fit10 frisbee_status = timed out..
+faraday.inria.fr:12:23:17 - +019s: fit10 frisbee_status = backing off for 3.97s
+faraday.inria.fr:12:23:19 - +020s: fit20 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:21 - +022s: fit20 frisbee_status = timed out..
+faraday.inria.fr:12:23:21 - +022s: fit20 frisbee_status = backing off for 3.93s
+faraday.inria.fr:12:23:21 - +023s: fit10 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:23 - +025s: fit10 frisbee_status = timed out..
+faraday.inria.fr:12:23:23 - +025s: fit10 frisbee_status = backing off for 3.38s
+faraday.inria.fr:12:23:24 - +026s: fit20 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:26 - +028s: fit10 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:26 - +028s: fit20 frisbee_status = timed out..
+faraday.inria.fr:12:23:26 - +028s: fit20 frisbee_status = backing off for 1.61s
+faraday.inria.fr:12:23:28 - +030s: fit20 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:28 - +030s: fit10 frisbee_status = timed out..
+faraday.inria.fr:12:23:28 - +030s: fit10 frisbee_status = backing off for 1.73s
+faraday.inria.fr:12:23:30 - +032s: fit10 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:30 - +032s: fit20 frisbee_status = timed out..
+faraday.inria.fr:12:23:30 - +032s: fit20 frisbee_status = backing off for 3.07s
+faraday.inria.fr:12:23:32 - +034s: fit10 frisbee_status = timed out..
+faraday.inria.fr:12:23:32 - +034s: fit10 frisbee_status = backing off for 3.29s
+faraday.inria.fr:12:23:33 - +035s: fit20 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:33 - +035s: fit20 frisbee_status = starting frisbee client
+faraday.inria.fr:12:23:35 - +037s: fit10 frisbee_status = trying to telnet..
+faraday.inria.fr:12:23:35 - +037s: fit10 frisbee_status = starting frisbee client
+faraday.inria.fr:12:23:57 - +059s: fit20 Uploading successful
+faraday.inria.fr:12:23:57 - +059s: fit20 reboot = Sending message 'reset' to CMC reboot20
+faraday.inria.fr:|                                                   |  0% |0.00s|ETA:  --:--:--|                                                    |  1% |0.59s|ETA:  0:00:38|##                                                  |  5% |1.65s|ETA:  0:00:28|####                                                |  8% |2.68s|ETA:  0:00:28|#####                                               | 11% |2.96s|ETA:  0:00:23|#######                                             | 14% |3.90s|ETA:  0:00:22|#########                                           | 17% |4.08s|ETA:  0:00:19|###########                                         | 21% |4.94s|ETA:  0:00:18|#############                                       | 25% |5.05s|ETA:  0:00:14|###############                                     | 29% |6.03s|ETA:  0:00:14|################                                    | 32% |6.32s|ETA:  0:00:13|#################                                   | 34% |8.02s|ETA:  0:00:15|###################                                 | 37% |8.20s|ETA:  0:00:13|#####################                               | 41% |8.92s|ETA:  0:00:12|######################                             | 44% |10.65s|ETA:  0:00:13|########################                           | 48% |11.27s|ETA:  0:00:12|##########################                         | 51% |11.48s|ETA:  0:00:10|############################                       | 55% |12.19s|ETA:  0:00:09|#############################                      | 57% |12.35s|ETA:  0:00:09|##############################                     | 60% |12.98s|ETA:  0:00:08|################################                   | 63% |14.32s|ETA:  0:00:08|#################################                  | 66% |15.41s|ETA:  0:00:07|###################################                | 69% |16.07s|ETA:  0:00:07|####################################               | 72% |16.85s|ETA:  0:00:06|######################################             | 75% |17.23s|ETA:  0:00:05|#######################################            | 78% |17.44s|ETA:  0:00:04|#########################################          | 81% |18.30s|ETA:  0:00:04|###########################################        | 85% |19.05s|ETA:  0:00:03|############################################       | 87% |21.10s|ETA:  0:00:03|##############################################     | 91% |21.54s|ETA:  0:00:02|################################################   | 95% |21.67s|ETA:  0:00:01|#################################################  | 97% |22.32s|ETA:  0:00:00|################################################## | 99% |23.10s|ETA:  0:00:00|###################################################|100% |25.80s|ETA:  0:00:00|###################################################|100% |25.80s|Time: 0:00:25
+faraday.inria.fr:12:23:59 - +061s: fit10 Uploading successful
+faraday.inria.fr:12:23:59 - +061s: fit10 reboot = Sending message 'reset' to CMC reboot10
+faraday.inria.fr:12:24:01 - +063s: stopped <frisbeed@234.5.6.1:10001 on ubuntu.ndz at 500 Mibps>
+faraday.inria.fr:<Node fit10>:ssh OK
+faraday.inria.fr:<Node fit20>:ssh OK
+fit10:turn-on-data: data network on interface data
+fit20:turn-on-data: data network on interface data
+fit10:data
+fit20:data
+fit10:PING data20 (192.168.2.20) from 192.168.2.10 data: 56(84) bytes of data.
+fit10:64 bytes from data20 (192.168.2.20): icmp_seq=1 ttl=64 time=0.446 ms
+fit10:
+fit10:--- data20 ping statistics ---
+fit10:1 packets transmitted, 1 received, 0% packet loss, time 0ms
+fit10:rtt min/avg/max/mdev = 0.446/0.446/0.446/0.000 ms

@@ -12,6 +12,7 @@ skip_header: True
   <li> <a href="#D1">D1</a></li>
   <li> <a href="#D2">D2</a></li>
   <li> <a href="#D3">D3</a></li>
+  <li> <a href="#D4">D4</a></li>
   <li> <a href="#WRAPUP">WRAPUP</a></li>
 
   << include r2lab/tutos-index.html >>
@@ -269,6 +270,60 @@ It is easy to select other nodes with the `-a` and `-b` option.
 
 ### Next
 
+In [the next example](javascript:open_tab('D4')), we will see how
+to rewrite this example to use nested schedulers, for better modularity.
+
+</div>
+
+<!------------ D4 ------------>
+<div id="D4" class="tab-pane fade" markdown="1">
+
+### Objectives
+
+In this section, we will change the `D3` script and illustrate a very convenient feature,
+that allows to create so-called **nested schedulers**; the idea is to be able to
+insert a scheduler as a job in a higher-level scheduler.
+This feature aims in particular at allowing a modular design of schedulers.
+
+In a nutshell, all you need to know is that a `Scheduler` object can be inserted inside another scheduler, like e.g.:
+
+    s_high = Scheduler()
+    s_high.append(
+        Sequence(
+            SshJob(...),
+            Scheduler(...),  # low-level scheduler
+            SshJob()))
+
+Of course in practice, the low-level scheduler is often built separately;
+for example it could be built by a regular python function.
+
+The other way around, it is also possible to implement a python
+function that accepts a scheduler in argument, an returns a decorated scheduler that would,
+for example, check for the lease before running the incoming scheduler.
+
+A more detailed introduction to nested schedulers can be found
+[in the asynciojobs documentation](http://asynciojobs.readthedocs.io/en/latest/README.html#nesting-schedulers).
+
+So in this example we create a script that behaves exactly like in D3,
+but using a nested scheduler to provide for more modularity.
+
+### The code
+
+Notice:
+
+* how nested schedulers are rendered graphically, and
+* how the reusable `check_lease` function decorates `experiment_scheduler`
+so as to first check for the lease.
+
+<< codeview D4 D4-prep.py previous=D3-prep.py graph=D4.png selected=graph >>
+
+
+### Sample output
+
+<< togglableoutput D4out D4.out "$ python3 D4-prep.py --load --node-a 10 --node-b 20" >>
+
+### Next
+
 We can now [wrap up this D-series](javascript:open_tab('WRAPUP')).
 
 </div>
@@ -278,7 +333,12 @@ We can now [wrap up this D-series](javascript:open_tab('WRAPUP')).
 
 ### Summary
 You now have a complete toolset at your disposal, and should be able to create `nepi-ng` scripts for
-writing a real scale experiment, including that involve setting up nodes from scratch, and account for any node that the previous experimenter may have forgotten to switch off.
+writing a real scale experiment, including features like:
+
+* setting up nodes from scratch,
+* accounting for any node that the previous experimenter may have forgotten to switch off,
+* passing node numbers on the command-line,
+* and, last but not least, using nested schedulers to write more modular experiments.
 
 ### Next
 
