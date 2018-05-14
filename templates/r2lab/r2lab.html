@@ -38,6 +38,9 @@
   <link rel="stylesheet" type="text/css" media="screen" href="/assets/fit/css/openlab-fit-layout.css" />
   <!---------------------------------------- r2lab specifics -->
   <link rel="stylesheet" type="text/css" media="screen" href="/assets/r2lab/r2lab.css" />
+  <!-- inria fonts -->
+  <link rel="stylesheet" type="text/css" media="screen" href="http://commons.inria.fr/INRIA_FONT/InriaSans/Web/fonts.css" />
+<!--  <link rel="stylesheet" type="text/css" media="screen" href="http://commons.inria.fr/INRIA_FONT/InriaSerif/Web/fonts.css" />-->
   <!-- override fit layout -->
   <link rel="stylesheet" type="text/css"                href="/assets/r2lab/openlab-fit-layout_overrides.css" />
   <!-- our script for setting the active tabs right -->
@@ -51,7 +54,7 @@
   <!-- expose sidecar_url from settings.py -->
   {% include 'r2lab/sidecar-url.js' %}
  </head>
- <body>
+ <body class="r2lab">
 {% if not skip_menu %}
   <div class="header">
    <div class="container">
@@ -96,7 +99,7 @@
 {% endif %}
 
 {% if not skip_header %}
-  <div class="container-fluid personal" id="background">
+  <div class="container-fluid header-area" id="background">
    {% if not r2lab_context and widget_login_template %}{% include widget_login_template %}{% endif %}
   </div>
   {% if not skip_news %}

@@ -1,3 +1,13 @@
+/* override onelab's defaut, use Inria's font by default */
+body.r2lab {
+    font-family: 'Inria Sans', 'Ubuntu', sans-serif;
+}
+
+/* restore onelab's font for the login form that otherwise shows up a bit off */
+div.login-form {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 div.navigation ul {
     margin:26px 0 0 0;
     padding:0;
@@ -13,12 +23,12 @@ div.slogan {
     text-shadow: 1px 1px white;
 }
 
-div.personal {
+div.header-area {
     font-size:11pt;
     line-height:1.2em;
     letter-spacing:0.3pt;
     min-height:400px;
-    background-image: url('../img/back.jpg');
+<!--    background-image: url('../img/back.jpg'); -->
     background-repeat:no-repeat;
     /*background-size:100%;*/
     background-size:cover;
