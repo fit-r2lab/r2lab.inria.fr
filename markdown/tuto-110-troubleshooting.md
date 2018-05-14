@@ -252,10 +252,7 @@ scheduler, together with their relationships.
     os.system("dot -Tpng -o foo.png foo.dot")
 
 You will need to install `graphviz` so that you can use the `dot`
-program in this fragment. Here's the example of output obtained in
-[C3bis](tuto-060-C-files.md#C3bis)
-
-<center><img src="assets/img/C3bis-files.png" height="150px"></center>
+program in this fragment.
 
 # Verbosity
 
