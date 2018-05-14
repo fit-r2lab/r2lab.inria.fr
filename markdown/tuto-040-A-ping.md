@@ -471,10 +471,10 @@ write scripts that are
 
 ### Next
 
-In [the next tutorial](tuto-050-B-wireless.md), we will see how to deal
+In [the B-series](tuto-050-B-wireless.md), we will see how to deal
 with the more complex task of setting up a wireless network.
 
-In [the tutorial after that](tuto-060-C-files.md), we will address file
+In [the C-series](tuto-060-C-files.md), we will address file
 transfers to and from `SshNode`s.
 
 </div>
