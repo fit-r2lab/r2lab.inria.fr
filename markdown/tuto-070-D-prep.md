@@ -265,7 +265,7 @@ A complete reference can be [found on readthedocs.io](http://r2lab.readthedocs.i
 
 It is easy to select other nodes with the `-a` and `-b` option.
 
-<< togglableoutput D3out D3.out "$ python3 D3-prep.py -a 10 -b 20" >>
+<< togglableoutput D3out D3.out "$ python3 D3-prep.py --load --node-a 10 --node-b 20" >>
 
 ### Next
 

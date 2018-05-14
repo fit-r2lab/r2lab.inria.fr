@@ -76,7 +76,8 @@ tutorial pages.
 
 * A set of examples that deal with preparing the testbed from a `nepi-ng` script, like
 * [D1](tuto-070-D-prep.md#D1) : adding a command-line option to load images,
-* [D2](tuto-070-D-prep.md#D2) : turning off unused nodes while loading images.
+* [D2](tuto-070-D-prep.md#D2) : turning off unused nodes while loading images,
+* [D3](tuto-070-D-prep.md#D3) : passing chosen nodes on the command line.
 
 #### [nepi-ng : troubleshooting guidelines](tuto-110-troubleshooting.md)
 
