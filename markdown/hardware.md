@@ -142,8 +142,10 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
 <a name='gory-details'></a>
 Please note the following specifics about the additional SDR devices:
 
-* the following table shows in the **usrp** columns the type of the
-  attached SDR, if present
+* the following table shows in the **sdr** columns the type of the
+  attached SDR or `none` if none is installed.
+  
+* Depending on the SDR device, one or two Rx/Tx channels may be available. The antennas attached to each channel are specified as follows: **/900M** for omni-directional 5dBi antennas, operating on 800-900MHz; **/2-5G** for dual-band 5dBi omni-directional antennas, operating on both 2.4GHz and 5GHz; and **/Dup-eNB** or **/Dup-UE** if a duplexer is used.
 
 * the `n210` and `usrp2` models use an **Ethernet** connection to link
   to the node. This means that on those nodes, the `data` wired
@@ -169,17 +171,17 @@ in our default configuration for OpenAirInterface. That is to say, it is assumed
 * Downlink (eNB to UE) uses frequency 2.66 GHz (duplexers are set to the 2.62-2.69 GHz range)
 * Uplink (UE to eNB) uses frequency 2.54 GHz (duplexers are set to the 2.50-2.57 GHz range)
 
-In the **duplexer** column below, devices are
-tagged as either `none`, `for UE` or `for eNB`.
+In the **sdr antennas** column below, devices are
+tagged as either `none`, `Dup-UE` or `Dup-eNB`.
 
 With the above assumptions, these tags can be interpreted as follows:
 
 * `none`: no duplexer is attached
 
-* `for UE`: to transmits on the uplink and receive on the downlink;  
+* `Dup-UE`: to transmits on the uplink and receive on the downlink;  
   hence typically this setup can be used to scramble the uplink
 
-* `for eNB`: conversely, this node is fit to scramble the downlink
+* `Dup-eNB`: conversely, this node is fit to scramble the downlink
 
    </div>
   </div>
