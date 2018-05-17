@@ -62,8 +62,8 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
 
 * State of the art motherboard
   * CPU Intel Core i7-2600 processor
-  * 8Gb RAM
-  * 240 Gb SSD
+  * 8GB RAM
+  * 240 GB SSD
 * 2 Wireless Interfaces, dedicated to experimentation, 3 antennas each&nbsp;:
   * one Atheros 802.11 93xx a/b/g/n - exposed as `atheros`
   * and one Intel 5300 - exposed as `intel`
@@ -145,7 +145,7 @@ Please note the following specifics about the additional SDR devices:
 * the following table shows in the **sdr** columns the type of the
   attached SDR or `none` if none is installed.
   
-* Depending on the SDR device, one or two Rx/Tx channels may be available. The antennas attached to each channel are specified as follows: **/900M** for omni-directional 5dBi antennas, operating on 800-900MHz; **/2-5G** for dual-band 5dBi omni-directional antennas, operating on both 2.4GHz and 5GHz; and **/Dup-eNB** or **/Dup-UE** if a duplexer is used.
+* Depending on the SDR device, one or two Rx/Tx channels may be available. The antennas attached to each channel are specified as follows: **900M** for omni-directional 5dBi antennas, operating on 800-900MHz; **2-5G** for dual-band 5dBi omni-directional antennas, operating on both 2.4GHz and 5GHz; and **Dup-eNB** or **Dup-UE** if a duplexer is used.
 
 * the `n210` and `usrp2` models use an **Ethernet** connection to link
   to the node. This means that on those nodes, the `data` wired
