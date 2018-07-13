@@ -123,7 +123,7 @@ USRP attached. The former on the other hand can run on any node.
 
 For more details on how to run a 5G network inside the room, please
 take a look in the R2lab git repo at [the OpenAirInterface
-demo](https://github.com/parmentelat/r2lab-demos/tree/master/openair)
+demo](https://github.com/fit-r2lab/r2lab-demos/tree/master/openair)
 and in particular [the source code](https://github.com/parmentelat/r2lab-demos/blob/master/openair/oai-scenario.py) for
 `oai-scenario.py`.
 
@@ -143,7 +143,7 @@ For the sake of completeness, the convenience tools available on these 2 images 
 * `nodes.sh` is what all regular nodes already have [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/nodes.sh)
 * `oai-common.sh` is relevant on both images [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/oai-common.sh)
 * `oai-gw.sh` is exposed in the `oai-gw` image [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/oai-enb.sh)
-* `oai-enb.sh` is exposed in the `oai-enb` image [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/oai-epc.sh) 
+* `oai-enb.sh` is exposed in the `oai-enb` image [(source code)](https://github.com/fit-r2lab/r2lab-embedded/blob/master/shell/oai-epc.sh)
 
 There is room for quite some improvement in these tools; if of interest, feel free to discuss this topic [on the users mailing list](mailto:fit-r2lab-users@inria.fr).
 
