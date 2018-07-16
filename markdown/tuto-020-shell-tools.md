@@ -269,45 +269,19 @@ Images that may be of common interest usually needto be renamed; get in touch wi
 
 ## Phones
 
-For now we have two commercial phones available right in the room:
+For now we have two commercial phones available right in the room; each phone can be controlled through a dedicated MAC box, called `macphone1` and `macphone2`.
 
-<table style="font-size:Large; text-align:center; margin:10px">
-<thead><tr><th>Phone #</th><th>Model</th></tr></thead>
-<tbody>
-<tr><td>1</td><td>Nexus 5</td></tr>
-<tr><td>2</td><td>Moto E</td></tr>
-</tbody>
-</table>
+As far as shell commands are concerned, since that is the focus of this tutorial, be aware that you can reach e.g. the second `macphone` from faraday by doing just
 
-In order to use them as UE's in your experiment, you can control them essentially through 2 ways.
+    macphone2
 
-### `macphone`
-
-Each of them is physically connected through USB to a MAC (also in the room) named `macphone1` for the first phone, and of course `macphone2` etc..
-
-You can reach the controlling MAC from faraday by typing
-
-    macphone1
-
-From that point you can get a list of available commands, like always
+and from then, as usual
 
     help
 
-Among other things, you'll want to check for the following commands
+to get a reminder.
 
-    phone-status
-    phone-off
-    phone-on
-
-
-### VNC
-
-You can also use VNC to share a `macphone`'s screen with the following info (use proper phone number of course)
-
-    hostname : faraday-macphone1.inria.fr
-    port number : 5900
-    macphone's user id : tester
-    password : tester++
+[Please refer to this page](/tuto-130-5g.md#PHONES) for more details on this offering, and how to manage these phones e.g. through a VNC session.
 
 </div>
 
