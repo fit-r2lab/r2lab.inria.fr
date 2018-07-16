@@ -302,10 +302,10 @@ Among other things, you'll want to check for the following commands
 
 ### VNC
 
-You can also use VNC to share `macphone`'s screen with the following info
+You can also use VNC to share a `macphone`'s screen with the following info (use proper phone number of course)
 
     hostname : faraday-macphone1.inria.fr
-    port numnber : 5900
+    port number : 5900
     macphone's user id : tester
     password : tester++
 

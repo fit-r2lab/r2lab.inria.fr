@@ -43,29 +43,60 @@ Here's the generic setup regarding the commercial phones available
 
 <img src="/assets/img/macphone.png"  width='500px'>
 
-### From `faraday` to controlling MAC `macphone`
-* controlling MAC is known from `faraday.inria.fr` as `macphone`
-* however you need a private key to login; this is located in `/home/faraday/r2lab/inventory/macphone`
-* so for convenience on `faraday` you can use the `macphone` alias that calls `ssh` with the right options
+There currently are 2 phones available in the room named `macphone1` and `macphone2`
 
-So for example to run the `macphone-status` command on the MAC, you can do this
+<table style="font-size:Large; text-align:center; margin:10px">
+<thead><tr><th>Phone #</th><th>Model</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Nexus 5</td></tr>
+<tr><td>2</td><td>Moto E</td></tr>
+</tbody>
+</table>
+
+In order to use them as UE's in your experiment, you can control them essentially through 2 ways.
+
+### `ssh` from faraday
+
+As shown above, each phone is physically connected through USB to a MAC (also in the room) named `macphone1` for the first phone, and of course `macphone2` etc..
+
+* The controlling MAC's are exposed from faraday as hostnames like e.g. `macphone1`
+
+* You can reach ssh-enter them from faraday by typing e.g.
+
+    macphone1
+
+  This is a convenience alias, that actually refers to a private key required to login; this one is located in
+
+  `/home/faraday/r2lab-embedded/mac-ssh-keys/macphone`
+
+* From that point you can get a list of available commands, like always
+
+    help
+
+* Among other things, you'll want to check for the following commands
+
+    phone-status
+    phone-off
+    phone-on
 
 
-    inria_r2lab.tutorial@faraday:~$ macphone phone-status && echo OK
+So for example to get the status for phone #2, run this command on `faraday`:
+
+    inria_r2lab.tutorial@faraday:~$ macphone2 phone-status && echo OK
     phone is turned ON
     OK
 
 Or more simply if you just want to login into the MAC box, you can do this
 
-    inria_r2lab.tutorial@faraday:~$ macphone
+    inria_r2lab.tutorial@faraday:~$ macphone2
     Last login: Fri May 12 14:50:13 2017 from rhubarbe-switches
-    macphone:~ tester$
+    macphone2:~ tester$
 
-### From `macphone`
+### From `macphone`*n*
 
-Once on `macphone`, just like on faraday, there are some convenience tools available in this shell environment
+Once on `macphone2`, just like on faraday, there are some convenience tools available in this shell environment
 
-    macphone:~ tester$ help
+    macphone2:~ tester$ help
     #################### Native bash help
     <snip>
     #################### R2lab: tools for managing R2lab phone from macphone
@@ -81,23 +112,25 @@ Once on `macphone`, just like on faraday, there are some convenience tools avail
 
 You can also of course use `adb`, and thus eventually enter the phone itself
 
-    macphone:~ tester$ adb devices
+    macphone2:~ tester$ adb devices
     List of devices attached
     062337da0051af9f	device
 
-    macphone:~ tester$ adb shell
+    macphone2:~ tester$ adb shell
     shell@hammerhead:/ $
 
 ### VNC access
 
-Another way to control the phone is through VNC, or equivalently the *Screen Sharing* application if your own computer is a MAC. This way you can obtain a video session in `macphone`, as illustrated below, and from that point you can run the *Vysor* application and see the phone screen, and interact with it as if it were in your hand.
+Another way to control the phone is through VNC, or equivalently the *Screen Sharing* application if your own computer is a MAC. This way you can obtain a video session in `macphone1`, as illustrated below, and from that point you can run the *Vysor* application and see the phone screen, and interact with it as if it were in your hand.
 
 <img src="/assets/img/screen-sharing.png" width='500px'>
 
-For this you will need the following information:
+For this you will need the following information (use proper phone number of course):
 
-* VNC endpoint : `faraday.inria.fr` on port 5900 - this port is forwarded to `macphone` on same port
-* login credentials in `macphone` : `tester` / `tester++`
+    hostname : faraday-macphone1.inria.fr
+    port number : 5900
+    macphone's user id : tester
+    password : tester++
 
 ### SIM cards and other details
 * There is no reason why you would need this, but if only for the record:
