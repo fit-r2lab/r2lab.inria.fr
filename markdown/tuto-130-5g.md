@@ -157,7 +157,7 @@ USRP attached. The former on the other hand can run on any node.
 For more details on how to run a 5G network inside the room, please
 take a look in the R2lab git repo at [the OpenAirInterface
 demo](https://github.com/fit-r2lab/r2lab-demos/tree/master/openair)
-and in particular [the source code](https://github.com/parmentelat/r2lab-demos/blob/master/openair/oai-scenario.py) for
+and in particular [the source code](https://github.com/fit-r2lab/r2lab-demos/blob/master/openair/oai-scenario.py) for
 `oai-scenario.py`.
 
 This script leverages these 2 images in order to create a setup where
