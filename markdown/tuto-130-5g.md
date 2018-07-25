@@ -32,6 +32,12 @@ As of Nov. 2016, the following pieces are made available to R2lab users
 
 These pieces are described in more detail in this section of the tutorial
 
+### Extra requirements
+
+Also the script that we describe in this tutorial requires a separate Python library named `r2lab`, that you need to install as follows:
+
+    pip3 install r2lab
+
 </div>
 
 <!------------ PHONE ------------>
