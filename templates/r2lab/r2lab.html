@@ -122,6 +122,9 @@
     </div>
    </div>
    {% endif %}
+   {% if login_message %}
+   <div class="alert alert-danger" role="alert">{{login_message}}</div>
+   {% endif %}
    <div class="row">
     <div class="col-md-12">
      {{ html_from_markdown }}
