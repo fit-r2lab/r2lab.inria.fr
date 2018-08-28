@@ -33,8 +33,6 @@ class ManifoldBackend:
         if token is None:
             return
 
-        if debug:
-            print("authenticating token={}".format(token))
         try:
             email = token['username']
             password = token['password']
@@ -47,13 +45,9 @@ class ManifoldBackend:
                     logger.info(
                         "dbg: could not get or missing manifold details")
                 return None
-            if debug:
-                logger.info("dbg: SESSION keys: {}".format(session.keys()))
 
             # get a more relevant list of slices right at the r2lab portal
             r2lab_user = get_r2lab_user(email)
-            if debug:
-                logger.info("dbg: r2lab_user = {}".format(r2lab_user))
 
             if not r2lab_user:
                 logger.error("mfbackend.authenticate emergency exit")
@@ -82,7 +76,7 @@ class ManifoldBackend:
             # Check if the user exists in Django's local database
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            logger.info("Creating django user object {}".format(email))
+            logger.info(f"Creating django user object for email={email}")
             # Create a user in Django's local database
             # first arg is a name, second an email
             user = User.objects.create_user(

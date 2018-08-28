@@ -39,15 +39,14 @@ class PlcAuthBackend:
             request = token['request']
 
             if debug:
-                logger.info("connecting to plcapi at {}"
-                            .format(self.plcapi_url))
+                logger.info(f"connecting to plcapi at {self.plcapi_url}")
             plcapi_proxy = PlcApiProxy(self.plcapi_url,
                                        email=email, password=password)
 
             # check that email/password
             exists = plcapi_proxy.AuthCheck()
             if exists != 1:
-                logger.error("AuthCheck failed, email={}".format(email))
+                logger.error(f"AuthCheck failed, email={email}")
                 return None
             persons = plcapi_proxy.GetPersons(
                 {'email' : email},
@@ -67,8 +66,6 @@ class PlcAuthBackend:
             # get the slices right at the r2lab portal
             # xxx this is a bit suboptimal, as get_r2lab_user will resend a GetPersons()
             r2lab_user = get_r2lab_user(email)
-            if debug:
-                logger.info("dbg: r2lab_user = {}".format(r2lab_user))
 
             if not r2lab_user:
                 logger.error("mfbackend.authenticate emergency exit")
@@ -91,7 +88,7 @@ class PlcAuthBackend:
             # Check if the user exists in Django's local database
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            logger.info("Creating django user object {}".format(email))
+            logger.info(f"Creating django user object for email={email}")
             # Create a user in Django's local database
             # first arg is a name, second an email
             user = User.objects.create_user(
