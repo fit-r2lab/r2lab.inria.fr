@@ -5,13 +5,13 @@ def init_logger(filename):
 
     logging_config = {
         'version' : 1,
-        'disable_existing_loggers' : True,
-        'formatters': { 
-            'standard': { 
+        'disable_existing_loggers' : False,
+        'formatters': {
+            'standard': {
                 'format': '%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s',
                 'datefmt': '%m-%d %H:%M:%S'
             },
-            'shorter': { 
+            'shorter': {
                 'format': '%(asctime)s %(levelname)s %(message)s',
                 'datefmt': '%d %H:%M:%S'
             },
@@ -36,6 +36,3 @@ def init_logger(filename):
     logging.config.dictConfig(logging_config)
 
     return logging.getLogger('r2lab')
-    
-
-
