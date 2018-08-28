@@ -29,7 +29,11 @@ class PlcAuthBackend:
             return None
 
     # This is called by the standard Django login procedure
-    def authenticate(self, token=None):
+    # it seems that the expected signature here has changed
+    # between Django-1.11 and 2.x, so we use the least possible
+    # bounding form here
+    def authenticate(self, *args, **kwds):
+        token = kwds['token']
         if token is None:
             return
 
