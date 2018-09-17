@@ -101,9 +101,9 @@ tutorial pages.
 
 #### [Video tutorials on YouTube](tuto-150-youtube.md)
 
-  * [End-to-End Experiment](tuto-140-youtube.md#AOA) : Running a wireless
+  * [End-to-End Experiment](tuto-150-youtube.md#AOA) : Running a wireless
     experiment end-to-end.
-  * [OAI 5G experiment](tuto-140-youtube.md#OAI) : Setting up an
+  * [OAI 5G experiment](tuto-150-youtube.md#OAI) : Setting up an
     OpenAirInterface-based 5G infrastructure, and a tour in the
     chamber using Skype on a commercial android phone.
 
