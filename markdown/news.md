@@ -3,7 +3,7 @@ tab: news
 skip_news: yes
 ---
 
-# Most recent first&nbsp;:
+# Most recent first&nbsp;: (see also our [list of papers](papers.md))
 
 ****
 ## 2018
