@@ -7,25 +7,22 @@ tab: papers
 
 ### Conferences / Workshops
 
-* Fontes, R. D. R., Mahfoudi, M., Dabbous, W., Turletti, T., & Rothenberg, C. (2017). [How far can we go? Towards realistic software-defined wireless networking experiments](https://hal.inria.fr/hal-01480973). The Computer Journal, 60(10), 1458-1471.
-* Pakzad F., Portmann, M., Turletti, T., Parmentlat, T., Mahfoudi, M.-N., Dabbous, W., (2018, November). R2Lab Testbed Evaluation for Wireless Mesh Network Experiments. In International Telecommunication Networks and Applications Conference (ITNAC), Sydney, Australia.
+* Parmentelat, T., Turletti, T., Dabbous, W., Mahfoudi, M. N., & Bronzino, F. [nepi-ng: an efficient experiment control tool in R2lab](https://hal.inria.fr/hal-01857266/). In ACM WiNTECH 2018-12th ACM International Workshop on Wireless Network Testbeds, Experimental evaluation & CHaracterization (pp. 1-8), November 2, 2018, New Delhi, India.
+* Pakzad F., Portmann, M., Turletti, T., Parmentlat, T., Mahfoudi, M.-N., Dabbous, W. R2Lab Testbed Evaluation for Wireless Mesh Network Experiments. In International Telecommunication Networks and Applications Conference (ITNAC), November 21-23, 2018, Sydney, Australia.
 * Camurati, G., Poeplau, S., Muench, M., Hayes, T., & Francillon, A. [Screaming Channels: When Electromagnetic Side Channels Meet Radio Transceivers](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiJ-N_J68HdAhUCr6QKHfeqDB8QFjAAegQIARAC&url=http%3A%2F%2Fs3.eurecom.fr%2Fdocs%2Fccs18_camurati_preprint.pdf&usg=AOvVaw0QGoGtX0JBkp0xnLDnzT1S). 25th ACM conference on Computer and communications security (CCS), 15-19 October 2018, Toronto, Canada.
-Khokhar, M., Spetebroot, T., & Barakat, C. (2018, October). [A Methodology for Performance Benchmarking of Mobile Networks for Internet Video Streaming](https://hal.inria.fr/hal-01855264/). In the 21st ACM International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems (MSWIM).
+* Khokhar, M., Spetebroot, T., & Barakat, C. (2018, October). [A Methodology for Performance Benchmarking of Mobile Networks for Internet Video Streaming](https://hal.inria.fr/hal-01855264/). In the 21st ACM International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems (MSWIM), Oct. 28 - Nov. 2, 2018, Montreal, Canada.
 
 ### Posters / Demos
 
-* Bleyfuesz, Y., Parmentelat, T., Turletti, T., Pakzad, F., Mahfoudi, M., & Dabbous, W. (2018, November). [Using nepi-ng for Mesh Networks Experiments](https://hal.inria.fr/hal-01869979v2). In The 12th ACM International Workshop on Wireless Network Testbeds, Experimental evaluation & CHaracterization (WINTECH).
-* Baron, L., Klacza, R., Gaudet-Chardonnet, P., Bradai, A., Scognamiglio, C., & Fdida, S. (2018, June). [Next generation portal for federated testbeds MySlice v2: from prototype to production](https://arxiv.org/abs/1806.04467). Poster at Fed4FIRE Engineering Conference - FEC2, Volos, Greece (2017). arXiv preprint arXiv:1806.04467.
+* Bleyfuesz, Y., Parmentelat, T., Turletti, T., Pakzad, F., Mahfoudi, M., & Dabbous, W. (2018, November). [Using nepi-ng for Mesh Networks Experiments](https://hal.inria.fr/hal-01869979v2). In the 12th ACM International Workshop on Wireless Network Testbeds, Experimental evaluation & CHaracterization (WINTECH), November 2, 2018, New Delhi, India.
+* Baron, L., Klacza, R., Gaudet-Chardonnet, P., Bradai, A., Scognamiglio, C., & Fdida, S. [Next generation portal for federated testbeds MySlice v2: from prototype to production](https://arxiv.org/abs/1806.04467). Poster at Fed4FIRE Engineering Conference - FEC2, June 2018, Volos, Greece (2017). 
 
 ### PFE / B.T. / BSc. / MSc. Thesis
 
 * Bleyfuesz, Y. (Master 1 Informatique UNSA 2018) on Experimental Comparison between OLSR and BATMAN protocols.
-* Indukala Naladala (B.T. in CS and Engineering, NITK Mangalore 2018) on Integrating
-R2lab with ns-3.
-* Othmane Bensoufa Korachi (Master Ubinet 2018) on Geolocation for LoRa Low Power
-Wide Area Network.
-* Gayatri Sivadoss (Master Ubinet 2018) on LoRa Characterization and Range Extension
-in Campus Environment.
+* Indukala Naladala (B.T. in CS and Engineering, NITK Mangalore 2018) on Integrating R2lab with ns-3.
+* Othmane Bensoufa Korachi (Master Ubinet 2018) on Geolocation for LoRa Low Power Wide Area Network.
+* Gayatri Sivadoss (Master Ubinet 2018) on LoRa Characterization and Range Extension in Campus Environment.
 
 ****
 # 2017
@@ -48,13 +45,12 @@ in Campus Environment.
 
 ### PhD Thesis
 
-* Pakzad, Farzaneh (2017). [Towards Software Defined Wireless Mesh Networks](https://doi.org/10.14264/uql.2017.918
-). PhD Thesis, School of Information Technol and Elec Engineering, The University of Queensland.
+* Pakzad, Farzaneh (2017). [Towards Software Defined Wireless Mesh Networks](https://doi.org/10.14264/uql.2017.918). PhD Thesis, School of Information Technol and Elec Engineering, The University of Queensland.
 
 ### PFE / B.T. / BSc. / MSc. Thesis
 
 * Claudio Laterza and Gayatri Sivadoss (PFE Ubinet 2017) on LoRa Low Power Wide Area Networks for the Internet of things.
-* Salmat Ait Ljaj (PFE Ubinet 2017) on High Definition video streaming on 5G networks.
+* Salmat Ait Ljaj (PFE Ubinet 2017) on High Definition video streaming on 5G networks.
 * Yassir M'Rabet (Master Ubinet 2017) on SDN-based wireless mesh.
 
 ****
@@ -71,6 +67,6 @@ in Campus Environment.
 
 * Anas El Ankouri (PFE Ubinet 2016-17) on characterizing an anechoic chamber.
 * Farzaneh Pakzad (PhD Candidate at University of Queensland, Australia, visit Nov-Dec 2016) on applying SDN in wireless mesh networks.
-* Ramon Fontes (PhD Candidate at University of Campinas, visit Apr-Sep 2016) onSoftware-Defined Wireless Networking Experiments.
+* Ramon Fontes (PhD Candidate at University of Campinas, visit Apr-Sep 2016) on Software-Defined Wireless Networking Experiments.
 * Naoufal Mahfoudi (Master Ubinet 2015) on reproducible wireless experimentation.
 * Amal Ben Ameur (PFE Ubinet 2014-15) on reproducible wireless experimentation.
