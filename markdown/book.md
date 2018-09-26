@@ -5,6 +5,10 @@ require_login: true
 
 <div class="container" markdown="1">
 
+<div class="alert alert-info text-center" role="alert" markdown="1">
+Please make sure to check <a href="#policy">our reservation policy</a> below.
+</div>
+
 <div class="alert alert-danger" role="alert" markdown="1">
 <strong>Important notes!</strong>
 
@@ -48,6 +52,20 @@ which is UTC+1 in winter, and UTC+2 in summer.
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>
  </div>
+
+<div class="alert alert-info" role="alert" markdown="1">
+<div class="text-center"><h2><a name='policy'>Reservation policy</a></h2></div>
+
+<p>The software does not enforce any limitation on the duration or frequency of reservations.<br/>
+We expect however everyone to adhere to the following, common sense, rules: </p>
+
+* Please do not reserve for more than 2 consecutive hours during daytime.
+* When reserving in advance, please create a maximum of 2 slices for one given day.
+* During the last half-hour of your reserved time, if there is no other reservation following the current slot, it is OK to extend for another 2 hours, and so on.
+* Finally, if you are done early, then please just delete the current slot; the software will then automatically shrink your lease (so that we keep track, for accurate testbed usage statistics) so that the testbed becomes available to others.
+
+Thanks !
+</div>
 
 <!-- defines slices_keys_modal -->
 << include r2lab/slices-keys-modal.html >>
