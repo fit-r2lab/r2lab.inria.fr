@@ -3,12 +3,14 @@ tab: book
 skip_header: yes
 require_login: true
 
-<div class="container" markdown="1">
-
-<div class="alert alert-info text-center" role="alert" markdown="1">
+<div class="container">
+<div class="alert alert-primary text-center">
 Please make sure to check <a href="#policy">our reservation policy</a> below.
 </div>
+</div>
 
+
+<div class="container" markdown="1">
 <div class="alert alert-danger" role="alert" markdown="1">
 <strong>Important notes!</strong>
 
@@ -44,7 +46,7 @@ which is UTC+1 in winter, and UTC+2 in summer.
    <script type="text/javascript" src="/assets/r2lab/xhttp-django.js"></script>
    <script type="text/javascript" src="/assets/r2lab/liveleases.js"></script>
    <script>
-    // override liveleases default settings 
+    // override liveleases default settings
     Object.assign(liveleases_options, {
       mode : 'book',
     });
