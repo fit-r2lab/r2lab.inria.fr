@@ -70,3 +70,8 @@ img.onelab-header {
 ul>li>p {
     margin-bottom: 2px;
 }
+
+/* tooltips tend to create a lot of junk below the bottom */
+.ui-helper-hidden-accessible {
+    display:none;
+}
