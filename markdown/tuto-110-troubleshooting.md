@@ -7,20 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#COMMON_MISTAKES">COMMON MISTAKES</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#CODE_UPDATE">CODE UPDATE</a></li>
-  <li class="nav-item">
-   <a class="nav-link" href="#VERBOSITY">VERBOSITY</a></li>
-   <li class="nav-item">
-
-  << include r2lab/tutos-index.html >>
-</ul>
-
+<< tuto_tabs "INTRO": "COMMON MISTAKES":COMMONMISTAKES "CODE UPDATE":CODEUPDATE "VERBOSITY": >>
 
 <div id="contents" class="tab-content" markdown="1">
 
@@ -43,8 +30,8 @@ This tuto is organized in several parts
 
 </div>
 
-<!------------ COMMON_MISTAKES ------------>
-<div id="COMMON_MISTAKES" class="tab-pane fade" markdown="1">
+<!------------ COMMONMISTAKES ------------>
+<div id="COMMONMISTAKES" class="tab-pane fade" markdown="1">
 
 ## Check for the obvious
 
@@ -109,11 +96,11 @@ that you need nodes 4, 6 and from 10 to 13 inclusive :
     fit12:2016-11-29@00:12 - built-on fit03 - from-image fedora-23-v10-wireless-names - by inria_r2lab.tutorial
 
 
-Otherwise, check out [the next section on code updates.](javascript:open_tab('CODE_UPDATE')).
+Otherwise, check out [the next section on code updates.](javascript:open_tab('CODEUPDATE')).
 </div>
 
-<!------------ CODE_UPDATE ------------>
-<div id="CODE_UPDATE" class="tab-pane fade" markdown="1">
+<!------------ CODEUPDATE ------------>
+<div id="CODEUPDATE" class="tab-pane fade" markdown="1">
 
 The software involved in R2lab, either `nepi-ng` or the shell
 utilities, are evolving quickly, especially during the current rollout

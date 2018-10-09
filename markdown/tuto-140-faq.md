@@ -2,12 +2,8 @@ title: R2lab FAQ
 tab: tutorial
 skip_header: True
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#FAQ">FAQ</a> </li>
 
-  << include r2lab/tutos-index.html >>
-</ul>
+<< tuto_tabs "FAQ": >>
 
 
 <div id="contents" class="tab-content" markdown="1">

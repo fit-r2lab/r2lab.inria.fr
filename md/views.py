@@ -44,10 +44,12 @@ looks a little scary / time-consuming
 # and code in the "code/" subdir
 # xxx should be configurable
 MARKDOWN_SUBDIR = "markdown"
-INCLUDE_PATHS = [MARKDOWN_SUBDIR,
-                 "templates",
-                 "code",
-                 "assets/code"]
+INCLUDE_PATHS = [
+    MARKDOWN_SUBDIR,
+    "templates",
+    "code",
+    "assets/code",
+]
 
 METAVAR_RE = re.compile(r"\A(?P<name>[\S_]+):\s*(?P<value>.*)\Z")
 
@@ -83,6 +85,14 @@ def parse(markdown_file):
     << include file >>
        -> raw include
 
+    << tuto_tabs ID1->"title 1" ... IDn->"title n" >>
+        -> a bootstrap tabs-based <nav> that shows the various parts
+           in that tuto page
+           this includes the 'tutorial_index' as the last rightmost dropdown
+           each ID should then be defined in a subsequent <div id="ID">
+        the first ID is considered active, active-tabs
+           is in charge of tweaking that if needed
+
     <<togglableoutput file header>>
        -> raw include inside a collapsible
 
@@ -95,7 +105,7 @@ def parse(markdown_file):
        [previous=filename]
        [graph=filename]
        [selected=plain|diff|graph] >>
-       -> a navpills <ul> with
+       -> a bootstrap pills-based <nav> with
           * a 'plain' option tab that shows the main file
             (this amounts to one <<include>>)
           * if previous is set, a 'diff' tab to show the differences
@@ -107,6 +117,7 @@ def parse(markdown_file):
        it is
           * the diff tab if previous is set
           * the plain tab otherwise
+
     """
     metavars = {}
     markdown = ""
@@ -132,6 +143,7 @@ def resolve_tags(incoming):
     """
 #    print("XXXXXXXXXXXXXXXXXXXX IN ", incoming)
     incoming = resolve_includes(incoming)
+    incoming = resolve_tuto_tabs(incoming)
     incoming = resolve_codediffs(incoming)
     incoming = resolve_togglables(incoming)
     incoming = resolve_codeviews(incoming)
@@ -164,10 +176,35 @@ def resolve_includes(markdown):
     resolved = ""
     for match in re_include.finditer(markdown):
         filename = match.group('file')
-        resolved = resolved + markdown[end:match.start()]
+        resolved += markdown[end:match.start()]
         resolved += implement_include(filename, "include")
         end = match.end()
-    resolved = resolved + markdown[end:]
+    resolved += markdown[end:]
+    # print("resolve_includes <- {} chars".format(len(resolved)))
+    return resolved
+
+
+def resolve_tuto_tabs(markdown):
+    id_def = r'"([^"]*)":(\w*)'
+    re_id_def = re.compile(id_def)
+    id_defs = f"(?P<id_defs>({id_def})(\s+{id_def})*)"
+    pattern = rf'<<\s*tuto_tabs\s+{id_defs}\s*>>\s*\n'
+    print(pattern)
+    re_tuto_tabs = re.compile(post_markdown(pattern))
+    end = 0
+    resolved = ""
+    id_titles = []
+    for match in re_tuto_tabs.finditer(markdown):
+        id_defs = match.group('id_defs')
+        print(f"id_defs={id_defs}")
+        for title, divid in re_id_def.findall(id_defs):
+            # use same title & divids if omitted
+            divid = divid or title
+            id_titles.append((divid, title))
+        resolved += markdown[end:match.start()]
+        resolved += implement_tuto_tabs(id_titles)
+        end = match.end()
+    resolved += markdown[end:]
     # print("resolve_includes <- {} chars".format(len(resolved)))
     return resolved
 
@@ -195,10 +232,10 @@ def resolve_codediffs(markdown):
     for match in re_codediff.finditer(markdown):
         viewid = match.group('viewid')
         file1, file2 = match.group('file1'), match.group('file2')
-        resolved = resolved + markdown[end:match.start()]
+        resolved += markdown[end:match.start()]
         resolved += implement_codediff(viewid, file1, file2)
         end = match.end()
-    resolved = resolved + markdown[end:]
+    resolved += markdown[end:]
     return resolved
 
 
@@ -220,11 +257,11 @@ def resolve_togglables(markdown):
     for match in re_togglable.finditer(markdown):
         viewid = match.group('viewid')
         file, header = match.group('file'), match.group('header')
-        resolved = resolved + markdown[end:match.start()]
+        resolved += markdown[end:match.start()]
         # always start non expanded for now
         resolved += implement_togglable(viewid, file, header, False)
         end = match.end()
-    resolved = resolved + markdown[end:]
+    resolved += markdown[end:]
     return resolved
 
 
@@ -258,10 +295,10 @@ def resolve_codeviews(markdown):
                 raise ValueError(f"ill-formed tag in codeview {tagvalue}"
                                  " - {tag} not allowed")
             kwds[tag] = value
-        resolved = resolved + markdown[end:match.start()]
+        resolved += markdown[end:match.start()]
         resolved += implement_codeview(viewid, main, **kwds)
         end = match.end()
-    resolved = resolved + markdown[end:]
+    resolved += markdown[end:]
     return resolved
 
 
@@ -279,6 +316,21 @@ def implement_include(filename, tag):
         except IOError:
             pass
     return "**include file {} not found in {} tag**".format(filename, tag)
+
+
+def implement_tuto_tabs(id_titles):
+    result = ""
+    result += f'<ul class="nav nav-tabs nav-fill" role="tablist">'
+
+    for index, (divid, title) in enumerate(id_titles):
+        klass = "active" if not index else ""
+        result += f'''<li class="nav-item"><a class="nav-link {klass}"
+href="#{divid}">{title}</a></li>'''
+
+    result += implement_include('r2lab/tutos-index.html', 'include')
+    result += f'</ul>'
+
+    return result
 
 
 def implement_codediff(viewid, file1, file2, lang='python'):
@@ -381,7 +433,7 @@ def implement_codeview(viewid, main, *,                 # pylint: disable=r0914
         # depends only on whether we have a previous or not
         selected = 'diff' if previous else 'plain'
     # this is how to tag the section that we start with
-    sections_classes[selected] = ('active', 'in active')
+    sections_classes[selected] = ('active', 'show active')
 
     # the headers (nav pills) for the various tabs
     plain_header_class, plain_body_class = sections_classes['plain']
@@ -390,41 +442,54 @@ def implement_codeview(viewid, main, *,                 # pylint: disable=r0914
     previous_graph_header_class, previous_graph_body_class = \
         sections_classes['previous_graph']
 
-    result += '<ul class="nav nav-pills">\n'
+    result += f'''<nav class="navbar navbar-expand-md">'''
 
     # pill for the right-hand-side download tab
-    result += f'''<li class="navbar-right">
- <a class="default-click" href="/code/{main}"
-  download target="_blank" title="Download {main}">
-  <span class='fa fa-cloud-download'></span> {main}
- </a>
-</li>\n'''
+    result += f'''
+<div class="navbar-collapse collapse w-100 order-2 dual-collapse2">
+<ul class="nav nav-pills ml-auto">
+<li class="nav-item">
+<a class="nav-link default-click" href="/code/{main}"
+download target="_blank" title="Download {main}">
+<span class='fa fa-cloud-download'></span> {main}
+</a>
+</li></ul></div>'''
+
+    # the left-hand-side group of buttons
+    result += f'''
+<div class="navbar-collapse collapse w-100 order-1 dual-collapse2">
+<ul class="nav nav-pills mr-auto">'''
+
+    def button(klass, label, title, hrefid):
+        return f'''<li class="nav-item">
+<a class="nav-link {klass}" href="#{hrefid}" title="{title}">{label}</a></li>'''
 
     # pill for graphical view
     if graph:
-        result += f'''<li class="{graph_header_class}">
- <a href="#view-{viewid}-graph" title="Display jobs graph for {main}">
-  Graph <span class="fa fa-compass"></span>
- </a>
-</li>'''
+        result += button(graph_header_class,
+                         'Graph <span class="fa fa-compass"></span>',
+                         f"Display jobs graph for {main}",
+                         f"view-{viewid}-graph")
 
     # pill for plain code tab
-    result += f'''<li class="{plain_header_class}">
-<a href="#view-{viewid}-plain" title="Display {main}">{main}</a></li>\n'''
+    result += button(plain_header_class, main,
+                     f"Display {main}", f"view-{viewid}-plain")
 
     # pill for diff contents
     if previous:
-        result += f'''<li class="{diff_header_class}">
- <a href="#view-{viewid}-diff" title="Outline diffs
- from {previous} to {main}">{previous} ➾ {main}</a></li>\n'''
+        result += button(diff_header_class,
+                         f"{previous} ➾ {main}",
+                         f"Outline diffs from {previous} to {main}",
+                         f"view-{viewid}-diff")
 
     # pill for the previous graph if provided
     if previous_graph:
-        result += f'''<li class="{previous_graph_header_class}">
- <a href="#view-{viewid}-previous-graph" title="Display graph for {previous}">
- Graph for {previous}</a></li>\n'''
+        result += button(previous_graph_header_class,
+                         f"Graph for {previous}",
+                         f"Display graph for {previous}",
+                         f"view-{viewid}-previous-graph")
 
-    result += "</ul>"
+    result += "</ul></div></nav>"
 
     # the contents of the various tabs
 

@@ -8,18 +8,7 @@ skip_header: True
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#PHONES">PHONES</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#OAI-IMAGES">OAI IMAGES</a></li>
-  <li class="nav-item">
-    <a class="nav-link" href="#WRAPUP">WRAP UP</a></li>
-
-  << include r2lab/tutos-index.html >>
-</ul>
+<< tuto_tabs "INTRO": "PHONES": "OAI IMAGES":OAIIMAGES "WRAP UP":WRAPUP >>
 
 
 
@@ -150,8 +139,8 @@ For this you will need the following information (use proper phone number of cou
 
 </div>
 
-<!------------ OAI-IMAGES ------------>
-<div id="OAI-IMAGES" class="tab-pane fade" markdown="1">
+<!------------ OAIIMAGES ------------>
+<div id="OAIIMAGES" class="tab-pane fade" markdown="1">
 
 ### Images
 

@@ -7,14 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#MULTI_PING">MULTI PING</a> </li>
-
-  << include r2lab/tutos-index.html >>
-</ul>
+<< tuto_tabs "INTRO": "MULTI PING":MULTIPING >>
 
 
 <div id="contents" class="tab-content" markdown="1">
@@ -33,8 +26,8 @@ We have grouped in this page a few more elaborate examples :
 
 </div>
 
-<!------------ MULTI_PING ------------>
-<div id="MULTI_PING" class="tab-pane fade" markdown="1">
+<!------------ MULTIPING ------------>
+<div id="MULTIPING" class="tab-pane fade" markdown="1">
 
 ## Objective
 
@@ -113,7 +106,7 @@ doing other choices.
 
 ### The code
 
-<< codeview MULTI_PING multi-ping.py >>
+<< codeview MULTIPING multi-ping.py >>
 
 ### How to run it
 

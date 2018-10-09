@@ -7,22 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#C1">C1</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#C2">C2</a></li>
-  <li class="nav-item">
-   <a class="nav-link" href="#C3">C3</a></li>
-   <li class="nav-item">
-    <a class="nav-link" href="#C3bis">C3bis</a></li>
-  <li class="nav-item">
-    <a class="nav-link" href="#WRAPUP">WRAP UP</a></li>
-
-  << include r2lab/tutos-index.html >>
-</ul>
+<< tuto_tabs "INTRO": "C1": "C2": "C3": "C3bis": "WARP UP":WRAPUP >>
 
 
 <div id="contents" class="tab-content" markdown="1">

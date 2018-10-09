@@ -7,15 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#INSTALL">INSTALL</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#SSHAGENT">SSH AGENT</a></li>
-
-  << include r2lab/tutos-index.html >>
-</ul>
-
+<< tuto_tabs "INSTALL": "SSH AGENT":SSHAGENT >>
 
 <div id="contents" class="tab-content" markdown="1">
 

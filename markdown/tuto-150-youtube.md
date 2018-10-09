@@ -7,16 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#AOA">Angle of Arrival</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#OAI">OpenAirInterface</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#OAI-NG">OpenAirInterface (2)</a></li>
-
-  << include r2lab/tutos-index.html >>
-</ul>
+<< tuto_tabs "Angle of Arrival":AOA "OpenAirInterface":OAI "OpenAirInterface (2)":OAING >>
 
 
 <div id="contents" class="tab-content" markdown="1">
@@ -57,8 +48,8 @@ data="https://www.youtube.com/embed/FpZo6uqTosQ">
 
 </div>
 
-<!------------ OAI-NG ------------>
-<div id="OAI-NG" class="tab-pane fade" markdown="1">
+<!------------ OAING ------------>
+<div id="OAING" class="tab-pane fade" markdown="1">
 
 ### Set up a 5G network in 5 minutes
 

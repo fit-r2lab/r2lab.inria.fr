@@ -7,16 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#JUPYTER">Intro</a> </li>
-   <li class="nav-item">
-    <a class="nav-link" href="#RADIOMAP">Radiomap</a> </li>
-   <li class="nav-item">
-    <a class="nav-link" href="#BATMAN-VS-OLSR">batman/OLSR</a> </li>
-
-  << include r2lab/tutos-index.html >>
-</ul>
+<< tuto_tabs "Intro":JUPYTER "Radiomap":RADIOMAP "batman/OLSR":BATMANOLSR >>
 
 
 <div id="contents" class="tab-content" markdown="1">
@@ -90,8 +81,8 @@ You can find the source for this notebook:
 </div>
 
 
-<!------------ BATMAN-VS-OLSR ------------>
-<div id="BATMAN-VS-OLSR" class="tab-pane fade" markdown="1">
+<!------------ BATMANOLSR ------------>
+<div id="BATMANOLSR" class="tab-pane fade" markdown="1">
 
 ### Comparing batman *vs* OLSR
 
