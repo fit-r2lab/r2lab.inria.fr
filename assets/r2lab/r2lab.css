@@ -75,3 +75,7 @@ ul>li>p {
 .ui-helper-hidden-accessible {
     display:none;
 }
+
+a.nav-link, a.dropdown-item {
+    font-size: large;
+}
