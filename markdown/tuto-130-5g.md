@@ -8,20 +8,25 @@ skip_header: True
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#INTRO">INTRO</a> </li>
-  <li> <a href="#PHONES">PHONES</a></li>
-  <li> <a href="#OAI-IMAGES">OAI IMAGES</a></li>
-  <li> <a href="#WRAPUP">WRAPUP</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#PHONES">PHONES</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#OAI-IMAGES">OAI IMAGES</a></li>
+  <li class="nav-item">
+    <a class="nav-link" href="#WRAPUP">WRAP UP</a></li>
 
   << include r2lab/tutos-index.html >>
 </ul>
 
 
+
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ INTRO ------------>
-<div id="INTRO" class="tab-pane fade in active" markdown="1">
+<div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 ### The pieces
 

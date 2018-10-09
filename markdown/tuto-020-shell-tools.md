@@ -7,11 +7,15 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#LOGIN">LOG IN</a> </li>
-  <li> <a href="#NODES">SELECT NODES</a></li>
-  <li> <a href="#IMAGES">IMAGES</a></li>
-  <li> <a href="#PHONES">PHONES</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#LOGIN">LOG IN</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#NODES">SELECT NODES</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#IMAGES">IMAGES</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#PHONES">PHONES</a></li>
 
   << include r2lab/tutos-index.html >>
 </ul>
@@ -19,7 +23,7 @@ skip_header: True
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ LOGIN ------------>
-<div id="LOGIN" class="tab-pane fade in active" markdown="1">
+<div id="LOGIN" class="tab-pane fade show active" markdown="1">
 
 ### Logging in the gateway
 

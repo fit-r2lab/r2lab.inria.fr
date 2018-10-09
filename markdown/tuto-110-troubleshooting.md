@@ -7,18 +7,25 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#INTRO">INTRO</a> </li>
-  <li> <a href="#COMMON_MISTAKES">COMMON_MISTAKES</a></li>
-  <li> <a href="#CODE_UPDATE">CODE_UPDATE</a></li>
-  <li> <a href="#VERBOSITY">VERBOSITY</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#COMMON_MISTAKES">COMMON MISTAKES</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#CODE_UPDATE">CODE UPDATE</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#VERBOSITY">VERBOSITY</a></li>
+   <li class="nav-item">
+
   << include r2lab/tutos-index.html >>
 </ul>
+
 
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ INTRO ------------>
-<div id="INTRO" class="tab-pane fade in active" markdown="1">
+<div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 # Objectives
 
@@ -236,9 +243,9 @@ to see the meaning of the different symbols, but in a nutshell:
 * `★` : raised an exception
 * `☉` : went through fine (no exception raised)
 * `☓` : complete
-* `↺` : running  
-* `⚐` : idle     
-* `∞` : forever  
+* `↺` : running
+* `⚐` : idle
+* `∞` : forever
 
 
 ### Graphical view

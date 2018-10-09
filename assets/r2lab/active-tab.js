@@ -1,5 +1,5 @@
 /*
- * this hook is designed to fire at load-time 
+ * this hook is designed to fire at load-time
  * and to set one tab as active in the header
  *
  * the logic here is quite simple
@@ -7,15 +7,15 @@
  * (as of now, these will be 3 : overview, tutorials and status)
  * each comes with these 2 attributes set
  * id="tab-status"  (fixed in page.html)
- * tab="{{tab}}" - as per the page's metadata, 
+ * tab="{{tab}}" - as per the page's metadata,
  * that is to say a line in the header that says tab:tutorials
  *
  * so all that is left to do here is to set class 'active' on elements
  * (*) that have an id of the form
  *    id == tab-<foo>
- * (*) and that have 
+ * (*) and that have
  *    tab == foo
- * 
+ *
  */
 
 /* for eslint */
@@ -25,7 +25,8 @@
 (function($){
     /* register a function to fire at load-time */
     $(function() {
-	/* select all <li> elts that have a 'tab' attribute */
+	/* toplevel tabs
+       select all <a> elts that have a 'tab' attribute */
 	$("a[tab]").map(function() {
 	    /* convert into a jquery obj */
 	    var $this = $(this);

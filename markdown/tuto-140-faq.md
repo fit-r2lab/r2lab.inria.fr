@@ -2,6 +2,19 @@ title: R2lab FAQ
 tab: tutorial
 skip_header: True
 
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#FAQ">FAQ</a> </li>
+
+  << include r2lab/tutos-index.html >>
+</ul>
+
+
+<div id="contents" class="tab-content" markdown="1">
+
+<!------------ INTRO ------------>
+<div id="FAQ" class="tab-pane fade show active" markdown="1">
+
 In no particular order...
 
 [TOC]
@@ -69,3 +82,5 @@ Or shorter
 
     uoff 1-11-2
     uon 1-11-2
+
+</div>

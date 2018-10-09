@@ -7,11 +7,13 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#AOA">Angle of Arrival</a> </li>
-  <li> <a href="#OAI">OpenAirInterface</a></li>
-  <li> <a href="#OAI-NG">OpenAirInterface (2)</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#AOA">Angle of Arrival</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#OAI">OpenAirInterface</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#OAI-NG">OpenAirInterface (2)</a></li>
 
   << include r2lab/tutos-index.html >>
 </ul>
@@ -20,7 +22,7 @@ skip_header: True
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ AOA ------------>
-<div id="AOA" class="tab-pane fade in active" markdown="1">
+<div id="AOA" class="tab-pane fade show active" markdown="1">
 
 
 ### Measuring WiFi angle of arrival
@@ -60,7 +62,7 @@ data="https://www.youtube.com/embed/FpZo6uqTosQ">
 
 ### Set up a 5G network in 5 minutes
 
-The purpose is vry similar to the previous one; here again we leverage OpenAirInterface in order to
+The purpose is very similar to the previous one; here again we leverage OpenAirInterface in order to
 
 * create a standalone 5G infrastructure inside R2Lab,
 * deploy a base station on one of the nodes,

@@ -7,17 +7,20 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#INSTALL">INSTALL</a> </li>
-  <li> <a href="#SSHAGENT">SSH AGENT</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#INSTALL">INSTALL</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#SSHAGENT">SSH AGENT</a></li>
 
   << include r2lab/tutos-index.html >>
 </ul>
 
+
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ INSTALL ------------>
-<div id="INSTALL" class="tab-pane fade in active" markdown="1">
+<div id="INSTALL" class="tab-pane fade show active" markdown="1">
 
 # What is `nepi-ng` ?
 The commands that we have seen in the previous tutorial are useful for

@@ -7,21 +7,28 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#INTRO">INTRO</a> </li>
-  <li> <a href="#C1">C1</a></li>
-  <li> <a href="#C2">C2</a></li>
-  <li> <a href="#C3">C3</a></li>
-  <li> <a href="#C3bis">C3bis</a></li>
-  <li> <a href="#WRAPUP">WRAPUP</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#C1">C1</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#C2">C2</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#C3">C3</a></li>
+   <li class="nav-item">
+    <a class="nav-link" href="#C3bis">C3bis</a></li>
+  <li class="nav-item">
+    <a class="nav-link" href="#WRAPUP">WRAP UP</a></li>
 
   << include r2lab/tutos-index.html >>
 </ul>
 
+
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ INTRO ------------>
-<div id="INTRO" class="tab-pane fade in active" markdown="1">
+<div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 ### Scenario
 

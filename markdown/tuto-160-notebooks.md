@@ -7,19 +7,22 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#JUPYTER">Intro</a> </li>
+   <li class="nav-item">
+    <a class="nav-link" href="#RADIOMAP">Radiomap</a> </li>
+   <li class="nav-item">
+    <a class="nav-link" href="#BATMAN-VS-OLSR">batman/OLSR</a> </li>
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#JUPYTER">Intro</a> </li>
-  <li> <a href="#RADIOMAP">Radiomap</a> </li>
-
-<< include r2lab/tutos-index.html >>
+  << include r2lab/tutos-index.html >>
 </ul>
 
 
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ JUPYTER ------------>
-<div id="JUPYTER" class="tab-pane fade in active" markdown="1">
+<div id="JUPYTER" class="tab-pane fade show active" markdown="1">
 
 ### Jupyter notebooks for reproducible research
 
@@ -85,5 +88,30 @@ You can find the source for this notebook:
   </a>
 
 </div>
+
+
+<!------------ BATMAN-VS-OLSR ------------>
+<div id="BATMAN-VS-OLSR" class="tab-pane fade" markdown="1">
+
+### Comparing batman *vs* OLSR
+
+Another example, similar to radiomap, was about gathering data in order to
+comparatively assess these 2 mesh routing protocols. It can be found here:
+
+You can find the source for this notebook:
+
+* [under github in the r2lab-demos area](https://github.com/fit-r2lab/r2lab-demos/tree/master/batman-vs-olsr).  This repo
+  contains all the needed code to collect your own data; because of the
+  limitations exposed above, the repository also contains some
+  gathered data, so that visualization can be done right away from mybinder as well
+
+
+* in mybinder here :
+  <a href="https://mybinder.org/v2/gh/fit-r2lab/r2lab-demos/master?filepath=batman-vs-olsr%2Fbatman-vs-olsr.ipynb" target='_'>
+  radiomap <img src="https://mybinder.org/badge.svg">
+  </a>
+
+</div>
+
 
 </div> <!-- end div contents -->

@@ -8,21 +8,26 @@ skip_header: True
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#REGISTER">1- REGISTER</a> </li>
-  <li> <a href="#SLICE">2- SLICE</a></li>
-  <li> <a href="#CREDENTIALS">3- CREDENTIALS</a></li>
-  <li> <a href="#RESERVATION">4- RESERVATION</a></li>
-  <li> <a href="#ACCESS">5- ACCESS</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#REGISTER">1. REGISTER</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#SLICE">2. SLICE</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#CREDENTIALS">3. CREDENTIALS</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#RESERVATION">4. RESERVATION</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#ACCESS">5. ACCESS</a></li>
 
   << include r2lab/tutos-index.html >>
 </ul>
 
 
-<div id="contents" class="tab-content" markdown="1">
+<div class="tab-content" markdown="1">
 
 <!------------ REGISTER ------------>
-<div id="REGISTER" class="tab-pane fade in active" markdown="1">
+<div id="REGISTER" class="tab-pane fade show active" markdown="1">
 
 ### Introduction
 
@@ -136,7 +141,7 @@ R2lab. For this, let's follow 2 steps.
 
   - if you are not familiar with ssh keys, please be careful to **always select the public key**;
     the private key, as its name clearly states, is not supposed to be uploaded anywhere;
-    
+
   - in general, the key pair is located under a hide folder (`../.ssh/`).
     In the browser view, after click *browse* button , enable the **hide file options view** to find it;
 

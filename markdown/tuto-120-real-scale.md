@@ -7,17 +7,20 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#INTRO">INTRO</a> </li>
-  <li> <a href="#MULTI_PING">MULTI_PING</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#MULTI_PING">MULTI PING</a> </li>
 
   << include r2lab/tutos-index.html >>
 </ul>
 
+
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ INTRO ------------>
-<div id="INTRO" class="tab-pane fade in active" markdown="1">
+<div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 # Contents
 
@@ -26,7 +29,7 @@ We have grouped in this page a few more elaborate examples :
 * a `multi-ping` example that in particular deals with a variable
   number of nodes, and runs ping beween each couple of nodes.
 
-* more examples are expected in the future...
+* more examples are also available [in this github repo https://github.com/fit-r2lab/r2lab-demos](https://github.com/fit-r2lab/r2lab-demos)
 
 </div>
 
@@ -55,7 +58,7 @@ the purpose of this tutorial:
   * check that we have the lease,
   * then prepare all nodes (init their wireless ad-hoc network) in parallel,
   * then **sequentially** run all the pings
-  
+
 ### full parallel (with the `-p 0` option) :
 
 Same, but all the pings are running **at the same time**.  This is
@@ -68,7 +71,7 @@ connections, and the script stops to behave as expected.
 
 This is an illustration of the ability that an `asynciojobs` scheduler
 has, to limit the number of simultaneous jobs. So if you say `-p 20`
-only a maximum number of 20 pings will run at the same time. 
+only a maximum number of 20 pings will run at the same time.
 
 ## `--dry-run`
 
@@ -85,18 +88,18 @@ in its own documentation](http://nepi-ng.inria.fr/asynciojobs/API.html#module-as
 
 
 <div class="row" markdown="1">
-<div class="col-md-4">  
+<div class="col-md-4">
 <center><img src="assets/img/multi-ping-seq-4.png" width="100%">
 <br/><br/>Sequential scheduler with `--max 4`</center>
-</div>  
-<div class="col-md-8" markdown="1">  
+</div>
+<div class="col-md-8" markdown="1">
 <center><img src="assets/img/multi-ping-par-4.png" width="100%">
 <br/><br/>Parallel scheduler with `--max 4`</center>
 </div>
 </div>
 
 
-## troubleshooting: `--verbose` and `--debug` 
+## troubleshooting: `--verbose` and `--debug`
 
 The script implements 2 options to increase verbosity
 

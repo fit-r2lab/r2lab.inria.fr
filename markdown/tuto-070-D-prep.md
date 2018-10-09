@@ -7,13 +7,19 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<ul class="nav nav-tabs">
-  <li class="active"> <a href="#INTRO">INTRO</a> </li>
-  <li> <a href="#D1">D1</a></li>
-  <li> <a href="#D2">D2</a></li>
-  <li> <a href="#D3">D3</a></li>
-  <li> <a href="#D4">D4</a></li>
-  <li> <a href="#WRAPUP">WRAPUP</a></li>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+  <li class="nav-item">
+   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#D1">D1</a> </li>
+  <li class="nav-item">
+   <a class="nav-link" href="#D2">D2</a></li>
+  <li class="nav-item">
+   <a class="nav-link" href="#D3">D3</a></li>
+   <li class="nav-item">
+    <a class="nav-link" href="#D4">D4</a></li>
+  <li class="nav-item">
+    <a class="nav-link" href="#WRAPUP">WRAP UP</a></li>
 
   << include r2lab/tutos-index.html >>
 </ul>
@@ -22,7 +28,7 @@ skip_header: True
 <div id="contents" class="tab-content" markdown="1">
 
 <!------------ INTRO ------------>
-<div id="INTRO" class="tab-pane fade in active">
+<div id="INTRO" class="tab-pane fade show active">
 
 ### Preparation
 
@@ -64,7 +70,7 @@ we had seen sessions like this:
 
 
 It is important to emphasize that the commands involved here are all
-**volatile bash** materials like *aliases* or *functions*.  
+**volatile bash** materials like *aliases* or *functions*.
 This means that, as of beginning of Feb. 2018 at least,
 if you try to run from your laptop something like this:
 
