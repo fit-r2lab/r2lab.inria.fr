@@ -319,16 +319,23 @@ def implement_include(filename, tag):
 
 
 def implement_tuto_tabs(id_titles):
+    """
+    implement the tabs header part for a standard tutorial page
+    id_titles is a list of tuples (divid, title)
+    title is what shows up in the tabs
+    divid is the DOM id of the div that is made visible when this tab is clicked
+    """
     result = ""
-    result += f'<ul class="nav nav-tabs nav-fill" role="tablist">'
+    result += f'''<div class="mx-auto">
+    <ul class="nav nav-tabs" role="tablist">'''
 
     for index, (divid, title) in enumerate(id_titles):
         klass = "active" if not index else ""
         result += f'''<li class="nav-item"><a class="nav-link {klass}"
-href="#{divid}">{title}</a></li>'''
+data-toggle="tab" href="#{divid}" role="tab">{title}</a></li>'''
 
     result += implement_include('r2lab/tutos-index.html', 'include')
-    result += f'</ul>'
+    result += f'</ul></div>'
 
     return result
 

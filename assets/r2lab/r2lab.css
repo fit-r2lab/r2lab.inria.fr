@@ -79,3 +79,8 @@ ul>li>p {
 a.nav-link, a.dropdown-item {
     font-size: large;
 }
+
+/* outline the tuto index items a little */
+div.tuto-index a.dropdown-item {
+    background-color: #eee;
+}
