@@ -9,14 +9,7 @@ skip_header: True
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
 
-<ul class="nav nav-tabs nav-fill" role="tablist">
-  <li class="nav-item">
-   <a class="nav-link active" href="#INTRO">INTRO</a> </li>
-  <li class="nav-item">
-   <a class="nav-link" href="#CONTACT">CONTACT</a></li>
-
-  << include r2lab/tutos-index.html >>
-</ul>
+<< tuto_tabs "INTRO": "CONTACT": >>
 
 <div id="contents" class="tab-content" markdown="1">
 
