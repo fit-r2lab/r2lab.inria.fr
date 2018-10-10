@@ -28,9 +28,9 @@ set of tools that we collectively refer to as `nepi-ng`.
 detailed instructions for installing them. You will also find a more
 complete documentation on these 2 tools below :
 
-* [the `asynciojobs` documentation](http://asynciojobs.readthedocs.io/)
+* [the asynciojobs documentation](http://asynciojobs.readthedocs.io/)
   including [its API reference](http://asynciojobs.readthedocs.io/en/latest/API.html)
-* [the `apssh` documentation](http://apssh.readthedocs.io/)
+* [the apssh documentation](http://apssh.readthedocs.io/)
   including [its API reference](http://apssh.readthedocs.io/en/latest/API.html)
 
 ### Terminal-based
@@ -40,12 +40,11 @@ are familiar with dealing with such interfaces.
 
 ***
 
-# Requires python-3.5
+# Requires asyncio and python-3.5
 
-`nepi-ng` is a set of python libraries; these use [the `asyncio`
-library](https://docs.python.org/3/library/asyncio.html), and as such
-require python-3.5 (as we use the latest `async def` and `await`
-syntax, that won't work under python-3.4).  Please refer to the python
+`nepi-ng` is a set of python libraries; these are based on [the asyncio
+library](https://docs.python.org/3/library/asyncio.html)  and as such
+require python-3.5. Please refer to the Python
 documentation for installing that version of python on your laptop.
 You can check that this requirement is fulfilled by running
 
@@ -65,10 +64,10 @@ might need to run these commands under `sudo`:
 This should be sufficient as `asynciojobs` is required by `apssh`. You can check
 the installed versions like this
 
-    $ python3 -c 'from asynciojobs import version; print(version.version)'
-    0.4.3
-    $ python3 -c 'from apssh import version; print(version.version)'
-    0.4.6
+    $ python3 -c 'from asynciojobs import __version__; print(__version__)'
+    0.13.1
+    $ python3 -c 'from apssh import __version__; print(__version__)'
+    0.14.1
 
 Note that if you need to upgrade in the future, you will need to run
 
@@ -85,6 +84,11 @@ The library is also required for running
  [some of the demos](https://github.com/fit-r2lab/r2lab-demos):
 
     [sudo] pip3 install r2lab
+
+and then likewise
+
+    $ python3 -c 'from r2lab import __version__; print(__version__)'
+    0.1.1
 
 </div>
 
