@@ -7,7 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<< tuto_tabs "INTRO": "COMMON MISTAKES":COMMONMISTAKES "CODE UPDATE":CODEUPDATE "VERBOSITY": >>
+<< tuto_tabs "INTRO": "COMMON MISTAKES":COMMONMISTAKES "CODE UPDATE":CODEUPDATE "VERBOSITY": "HANGING": >>
 
 <div id="contents" class="tab-content" markdown="1">
 
@@ -27,6 +27,9 @@ This tuto is organized in several parts
 * Code updates : check to see if you're running the latest versions of the code
 
 * Verbosity : how to enable more logging messages from your script
+
+* Hanging : how to deal with a scheduler that never completes
+  and you do not understand why
 
 </div>
 
@@ -279,6 +282,80 @@ commands being run in verbose mode.
 
 Finally you can set `verbose=True` on a `Scheduler` object, which will
 give you details of the jobs being started, and their are done.
+
+</div>
+
+
+<!------------ HANGING ------------>
+<div id="HANGING" class="tab-pane fade" markdown="1">
+
+Sometimes a scheduler may exhibit the symptom of not completing as you expect it
+to, and it may be a little hard to understand which job is causing the issue.
+
+There are several tricks that can come in handy in this sort of situations:
+
+### Making the scheduler verbose
+
+If you create your Scheduler instance with the `verbose` attribute set to True
+(this can be safely done manually late on), then while running it will
+issue debug-level statements like these:
+
+    12:32:55.397 3D + 2R + 1I = 6 DONE    : 5 ⚠ ☉ ☓   <SshJob ...
+    12:32:55.398 3D + 2R + 1I = 6 STARTING: 6 ⚠   ⚐   <SshJob ...
+
+That should be interpreted as follows:
+
+* at that time (12:32:55) the running scheduler has
+  * 3 done jobs
+  * 2 running jobs
+  * 1 idle job
+  * which amounts to a total of 6 jobs
+* at that moment, job #5 has just completed,
+* and as a result, a millisecond later, job #6 has been started
+
+### Interrupting the Scheduler
+
+Another simple trick is to replace a simple call to `scheduler.Run()` by the
+following idiom:
+
+    try:
+        success = scheduler.run()
+    except KeyboardInterrupt:
+        print("OOPS ! ")
+        scheduler.debrief()
+        exit(1)
+
+This way when the execution hangs, you can interrupt it by typing `Ctrl-C`, which will dump the status of the various jobs, like e.g.:
+
+    ^COOPS - current status
+    ----- FINE
+    1 ⚠ ☉ ☓   <SshJob `rhubarbe leases --check`> OK
+    2 ⚠ ☉ ↺   <SshJob `RunScript: cefore.sh run-cefore-sim`> OK requires={1}
+    3 ⚠ ☉ ☓   <SshJob `RunScript: cefore.sh run-cefore-publisher`> OK requires={1}
+    4 ⚠ ☉ ☓   <PrintJob `settling for 15 seconds`> [[ -> None]] requires={1}
+    5 ⚠ ☉ ☓   <SshJob `cd NS3/sourc ...`> OK requires={4}
+    6 ⚠ ☉ ☓   <SshJob `Pull: remote path /root/NS3/source/ns-3-dce/files-2/tmp/OutFile into .`> OK requires={5}
+
+where you can see that job #2 is still running.
+
+### Using the Service class
+
+Very often, when an SshJob does not complete as you expect it to, it is because
+it starts background processes that do not properly daemonize.
+
+When the remote process still has an open std channel (in, out or err) open, the
+session will cowardly refuse to hang up in the fear to lose such information.
+
+In order to ease the management of such service-oriented activities, the `apssh`
+library comes with a `Service` class, that leverages the now general
+availability of `systemd` on all the major linux distributions, as an attempt to provide easier and more robust path.
+
+Please see [the Service class
+documentation](https://apssh.readthedocs.io/en/latest/API.html?highlight=service#module-apssh.service)
+for more details.
+
+
+
 
 </div>
 
