@@ -10,6 +10,8 @@ from pathlib import Path
 import re
 import traceback
 
+# WARNING: version 2.3.6 of markdown2 breaks it for me
+# see https://github.com/trentm/python-markdown2/issues/311
 import markdown2 as markdown_module
 
 from django.shortcuts import render
