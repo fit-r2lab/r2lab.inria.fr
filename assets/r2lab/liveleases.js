@@ -153,7 +153,7 @@ class LiveLeases {
                 },
             },
 
-            defaultView: run_mode ? 'agendaDay' : 'agendaThreeDays',
+            defaultView: run_mode ? 'agendaDay' : 'agendaZoom',
 
             ////////////////////
             slotDuration: "01:00:00", // except for agendaZoom
