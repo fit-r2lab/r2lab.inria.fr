@@ -17,7 +17,7 @@ For more details about each node, please click in the node number or badge.
   <div class="col-lg-2"></div>
   <div class="col-lg-10">
     <div id="livemap_container"></div>
-    <script type="text/javascript" src="/assets/r2lab/livemap.js"></script>
+    <script src="/assets/r2lab/livemap.js"></script>
     <style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
     <script>
     // override livemap default settings 
@@ -68,8 +68,8 @@ In addition, you will find the following symbols close to some nodes
 <div class="row" id="all">
   <div class="col-lg-12">
     <table class="table table-condensed" id='livetable_container'> </table>
-    <script type="text/javascript" src="/assets/r2lab/livecolumns.js"></script>
-    <script type="text/javascript" src="/assets/r2lab/livetable.js"></script>
+    <script src="/assets/r2lab/livecolumns.js"></script>
+    <script src="/assets/r2lab/livetable.js"></script>
     <script>
     // override livetable default settings 
     Object.assign(livetable_options, {
@@ -120,6 +120,6 @@ The nodes are arranged in a grid with ≈1.0m (vertical) and ≈1.15m (horizonta
 
 <br />
 
-<script type="text/javascript" src="/assets/r2lab/xhttp-django.js"></script>
+<script src="/assets/r2lab/xhttp-django.js"></script>
 <!-- defines node_details_modal -->
 << include r2lab/nodes-details-modal.html >>

@@ -6,7 +6,7 @@ skip_footer: yes
 
 <div id="livemap_container"></div>
 
-<script type="text/javascript" src="/assets/r2lab/livemap.js"></script>
+<script src="/assets/r2lab/livemap.js"></script>
 <style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
 
 <script>

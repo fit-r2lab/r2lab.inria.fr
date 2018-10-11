@@ -7,7 +7,7 @@ This is a unit test; all data is hard-coded in the page itself
 See also `slices/view.py`
 
 <!-- this exposes the getCookie function -->
-<script type="text/javascript" src="/assets/r2lab/xhttp-django.js"></script>
+<script src="/assets/r2lab/xhttp-django.js"></script>
 
 ---
 <div id="get2-div"><p>Click this paragraph to get slices details (hard-wired list)</p>

@@ -225,8 +225,8 @@ The testbed offers a couple of commercial phones right inside the chamber:
       <p>Clicking in the header will focus on nodes that have a USRP device</p>
       <a name="details"></a>
        <table class="table table-condensed" id='livehardware_container'> </table>
-      <script type="text/javascript" src="/assets/r2lab/livecolumns.js"></script>
-      <script type="text/javascript" src="/assets/r2lab/livehardware.js"></script>
+      <script src="/assets/r2lab/livecolumns.js"></script>
+      <script src="/assets/r2lab/livehardware.js"></script>
       <style type="text/css"> @import url("/assets/r2lab/livecolumns.css"); </style>
       <style type="text/css"> @import url("/assets/r2lab/livehardware.css"); </style>
     </div>
@@ -261,6 +261,6 @@ The testbed offers a couple of commercial phones right inside the chamber:
 </div>
 
 
-<script type="text/javascript" src="/assets/r2lab/xhttp-django.js"></script>
+<script src="/assets/r2lab/xhttp-django.js"></script>
 <!-- defines nodes_details_modal -->
 << include r2lab/nodes-details-modal.html >>

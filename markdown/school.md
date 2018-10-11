@@ -179,9 +179,9 @@ We need to split the nodes in several groups to implement some kind of light iso
 </div>
 </div>
 
-<script type="text/javascript" src="/assets/r2lab/livemap.js"></script>
+<script src="/assets/r2lab/livemap.js"></script>
 <style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
-<script type="text/javascript" src="/assets/r2lab/colormap.js"></script>
+<script src="/assets/r2lab/colormap.js"></script>
 <style type="text/css"> @import url("/assets/r2lab/colormap.css"); </style>
 <script>
 
