@@ -9,23 +9,23 @@ tab: platform
         The nodes are distributed in a grid layout and are customizable, allowing great variety of experimentation scenarios.
         <h2 class="text-center" style="color:green;">
           Full control and access to bare metal
-          <br>
+          <br/>
           <span class="text-muted lead">
             The nodes are totally open and users can install any software stack they need
           </span>
-          <br>
+          <br/>
         </h2>
       </p>
     </div>
   </div>
 </div>
 
-</hr>
+<hr/>
 
 <div class="container" markdown="1">
   <div class="row">
     <div class="col-md-4">
-      <span> <h3>The testbed is yours</h3> </span>
+      <h3>The testbed is yours</h3>
       <p>
 	The testbed is reservable as a whole.
 	Once they have booked the testbed, registered users can ssh into `faraday.inria.fr`,
@@ -34,7 +34,7 @@ tab: platform
         </p>
     </div>
     <div class="col-md-4">
-      <span> <h3>The nodes are yours</h3> </span>
+      <h3>The nodes are yours</h3>
       <p>
         Also you can load your operating system of choice on any node.
 	From that point you can ssh-access all nodes with administration privileges, and configure
@@ -42,7 +42,7 @@ tab: platform
        </p>
     </div>
     <div class="col-md-4">
-      <span> <h3>Methodology</h3> </span>
+      <h3>Methodology</h3>
       <p>
       Experimental scenarios can be created using standard tools. We also provide [tutorials, and python libraries](tutorial.md)
       that can optionnally help you efficiently orchestrate the complete experimental workflow, from deployment to data collection.
@@ -71,7 +71,6 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
   * remote power and reset management (not visible from linux)
   * `control`, used by the testbed management framework for providing access - reachable from the gateway as e.g. `fit02` or `fit34`
   * `data`, dedicated to experimentation - known as e.g. `data04` or `data12`
-
     </div>
     <div class="col-md-4">
       <br/>
@@ -143,7 +142,7 @@ Please note the following specifics about the additional SDR devices:
 
 * the following table shows in the **sdr** columns the type of the
   attached SDR or `none` if none is installed.
-  
+
 * Depending on the SDR device, one or two Rx/Tx channels may be available. The antennas attached to each channel are specified as follows: **900M** for omni-directional 5dBi antennas, operating on 800-900MHz; **2-5G** for dual-band 5dBi omni-directional antennas, operating on both 2.4GHz and 5GHz; and **Dup-eNB** or **Dup-UE** if a duplexer is used.
 
 * the `n210` and `usrp2` models use an **Ethernet** connection to link
@@ -177,7 +176,7 @@ With the above assumptions, these tags can be interpreted as follows:
 
 * `none`: no duplexer is attached
 
-* `Dup-UE`: to transmits on the uplink and receive on the downlink;  
+* `Dup-UE`: to transmits on the uplink and receive on the downlink;
   hence typically this setup can be used to scramble the uplink
 
 * `Dup-eNB`: conversely, this node is fit to scramble the downlink
