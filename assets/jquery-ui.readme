@@ -1,0 +1,21 @@
+we need some parts of jquery-ui as a requirement of fullcalendar
+
+as per https://fullcalendar.io/docs/v1/jquery-ui-dnd (which is for v1)
+the only 2 required components of jquery-ui are
+Draggable
+Resizable
+
+So as of 2018 oct 11, I've gone to jquery-ui.com so-called 'Download Builder' page
+https://jqueryui.com/download/
+
+and from there, for version 1.12.1, 
+* I started from a blank slate
+* then added these 2 pieces, which selected others as requirements - I take it
+* and from the resulting zip file I kept only what went into
+
+assets/css/jquery-ui-custom-1.12.1.min.css
+assets/js/jquery-ui-custom-1.12.1.min.js
+
+both are used in both run.md and book.md
+
+

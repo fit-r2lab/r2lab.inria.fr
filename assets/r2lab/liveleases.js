@@ -296,10 +296,14 @@ class LiveLeases {
             // on double click
             element.bind('dblclick', delete_slot);
             // add X button
+            let help = "delete this slot<br/>"
+                     + "double click inside a slot<br/>"
+                     + "deletes it as well";
             element.find(".fc-content")
-                .append(`<div class='delete-slot fa fa-remove'`
-                        + ` data-toggle='tooltip' title='delete (double click deletes too)'></div>`);
-                   element.find(".delete-slot").on('click', delete_slot)
+                .append(`<div class='delete-slot fa fa-remove'>`);
+            element.find(".delete-slot")
+                .on('click', delete_slot)
+                .tooltip({title: help, html: true});
         }
         // cannot do something like fullCalendar('updateEvent', slot)
         // that would cause an infinite loop
@@ -641,20 +645,25 @@ class LiveLeases {
                 continue;
             // need to run shortSliceName ?
             let name = pslice.name;
+            let handle = `handle-${name}`;
             let color = pslice.color;
-            let slice_tooltip = "double-click to make current -- drag in timeline to book";
+            let help = "drag in timeline</br>to create a reservation";
             $("#my-slices")
                 .append(
                     $("<div />")
                         .addClass('fc-event')
-                        .attr('data-toggle', 'tooltip')
-                        .attr('title', slice_tooltip)
                         .attr("style", `background-color: ${color}`)
+                        .attr("id", handle)
                         .text(name))
                 .append(
                     $("<div />")
                         .attr("id", liveleases.sliceElementId(name))
                         .addClass('noactive'));
+                $(`#${handle}`).tooltip(
+                    {title: help,
+                     placement: 'left',
+                     delay: 1200,
+                     html: true});
         }
         $('#my-slices .fc-event').each(function() {
             $(this).draggable({

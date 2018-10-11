@@ -14,3 +14,18 @@
 
 <!-- font-awesome -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+<!-- for tooltips
+  -- enable the ones that get loaded right away
+  -- the ones created later (e.g. on xhttp requests)
+  -- need the same, but individually, because
+  -- it does not seem right to call tooltip() several times
+  -->
+<script>
+$(function () {
+    let tooltips = $('[data-toggle="tooltip"]');
+    console.log(`corelibs: tooltip() enabled on ${tooltips.length} items ! `);
+    tooltips.tooltip();
+    console.log(tooltips);
+})
+</script>

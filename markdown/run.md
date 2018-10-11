@@ -28,9 +28,10 @@ require_login: true
  << include r2lab/slices-left-pane.html >>
   <div class="col-md-3 leases-run-width">
    <div id="liveleases_container" class="run"></div>
+   <script src="assets/js/jquery-ui-custom-1.12.1.min.js"></script>
+   <style> @import url("assets/css/jquery-ui-custom-1.12.1.min.css"); </style>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
    <script src="/assets/js/moment-round.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
@@ -47,7 +48,7 @@ require_login: true
    <script src="/assets/r2lab/livemap.js"></script>
    <style> @import url("/assets/r2lab/livemap.css"); </style>
    <script>
-    // override livemap default settings 
+    // override livemap default settings
     Object.assign(livemap_options, {
       space_x : 72,
       space_y : 87,
@@ -77,7 +78,7 @@ require_login: true
       <script src="/assets/r2lab/livecolumns.js"></script>
       <script src="/assets/r2lab/livetable.js"></script>
     <script>
-    // override livetable default settings 
+    // override livetable default settings
     Object.assign(livetable_options, {
     //      debug : true,
     });
@@ -85,7 +86,7 @@ require_login: true
       <style> @import url("/assets/r2lab/livecolumns.css"); </style>
       <style> @import url("/assets/r2lab/livetable.css"); </style>
     </div>
-  </div>    
+  </div>
 </div>
 
 <!-- defines slices_keys_modal -->

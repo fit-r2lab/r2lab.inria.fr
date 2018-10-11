@@ -199,7 +199,7 @@ if not PRODUCTION:
     elif 'http' in SIDECAR:
         # development mode, SIDECAR mentions http, this means
         # it points at the URL to use
-        sidecar_url = SIDECAR_URL
+        sidecar_url = SIDECAR
     else:
         # development mode, SIDECAR defined to e.g. r2lab
         # specify https

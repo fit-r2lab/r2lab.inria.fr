@@ -36,9 +36,10 @@ which is UTC+1 in winter, and UTC+2 in summer.
  << include r2lab/slices-left-pane.html >>
  <div class="col-md-10">
   <div id="liveleases_container" class="book"></div>
+   <script src="assets/js/jquery-ui-custom-1.12.1.min.js"></script>
+   <style> @import url("assets/css/jquery-ui-custom-1.12.1.min.css"); </style>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
    <script src="/assets/js/moment-round.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
