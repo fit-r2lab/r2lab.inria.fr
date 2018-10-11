@@ -7,8 +7,9 @@
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
 	 x="0px" y="0px" width="482px" height="283px" viewBox="0 0 270 135"
 	 overflow="visible" xml:space="preserve">
-<defs>
-</defs>
+<!-- needed to remove the empty <defs> tag here to make onclick work properly -->
+<g onclick='window.open("https://fit-equipex.fr/", "_blank");'>
+<rect fill="#ffffff" x="0" y="0" width="482" height="283" />
 <polygon fill="#2C2B7B" points="1.4580078,49.3710938 11.5537109,49.3710938 11.5537109,34.734375 22.6357422,34.734375
 	22.6357422,25.3710938 11.5537109,25.3710938 11.5537109,20.4121094 22.6357422,20.4121094 22.6357422,11.203125
 	1.4580078,11.203125 "/>
@@ -112,4 +113,5 @@
 <path fill="#2C2B7B" d="M240.1992188,96.5537109c3.9296875,0,7.1152344,3.2128906,7.1152344,7.1767578v22.8994141
 	c0,3.9628906-3.1855469,7.1767578-7.1152344,7.1767578s-7.1152344-3.2138672-7.1152344-7.1767578v-22.8994141
 	C233.0839844,99.7666016,236.2695312,96.5537109,240.1992188,96.5537109"/>
+</g>
 </svg>
