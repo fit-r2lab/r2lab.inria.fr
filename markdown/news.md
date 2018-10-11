@@ -91,7 +91,7 @@ As a reminder, the code for `nepi-ng` currently sits here:
 ## 2016
 ****
 
-### <a name='migration'>December 20</a>
+<h3 id='migration'>December 20</h3>
 
 * Running new architecture based on **PLCAPI** instead of **omf_sfa**
 * Previous contents (accounts, slices, keys...) has been migrated automatically

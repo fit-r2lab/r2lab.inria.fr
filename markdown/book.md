@@ -56,7 +56,7 @@ which is UTC+1 in winter, and UTC+2 in summer.
  </div>
 
 <div class="alert alert-info" role="alert" markdown="1">
-<div class="text-center"><h2><a name='policy'>Reservation policy</a></h2></div>
+<div class="text-center" id="policy"><h2>Reservation policy</h2></div>
 
 <p>The software does not enforce any limitation on the duration or frequency of reservations.<br/>
 We expect however everyone to adhere to the following, common sense, rules: </p>

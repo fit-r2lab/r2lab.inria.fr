@@ -137,9 +137,8 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
 
 <div class="container" markdown="1">
   <div class="row">
-    <div class="col-md-4 new_pad">
+    <div class="col-md-4 new_pad" id="gory-details">
 ###Important notes on SDR devices
-<a name='gory-details'></a>
 Please note the following specifics about the additional SDR devices:
 
 * the following table shows in the **sdr** columns the type of the
@@ -220,10 +219,9 @@ The testbed offers a couple of commercial phones right inside the chamber:
 
 <div class="container">
   <div class="row" markdown="1">
-    <div class="col-md-12 new_pad">
+    <div class="col-md-12 new_pad" id="details">
       <h3>Nodes detailed information</h3>
       <p>Clicking in the header will focus on nodes that have a USRP device</p>
-      <a name="details"></a>
        <table class="table table-condensed" id='livehardware_container'> </table>
       <script src="/assets/r2lab/livecolumns.js"></script>
       <script src="/assets/r2lab/livehardware.js"></script>

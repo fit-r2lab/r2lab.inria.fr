@@ -5,9 +5,8 @@ skip_header: yes
 This page gives you live details on the individual nodes in the R2lab testbed.
 
 ---
-## Overall status (livemap)
+<h2 id="livemap">Overall status (livemap)</h2>
 
-<a name="livemap"></a>
 For accurate dimensions of the room, please see the [static blueprint
 at the bottom of this page](#accurate-layout)
 
@@ -30,9 +29,8 @@ For more details about each node, please click in the node number or badge.
   </div>
 </div>
 
-<a name="livemap:legend"></a>
 
-#### Legend
+<h3 id="livemap:legend">Legend</h3>
 
 ##### Nodes
 * A round shape with a O.S. icon (fedora or ubuntu) informs that the node is turned on, running the
@@ -59,9 +57,7 @@ In addition, you will find the following symbols close to some nodes
 
 ***
 
-## Detailed status (livetable)
-
-<a name="livetable"></a>
+<h2 id="livetable">Detailed status (livetable)</h2>
 
 <br />
 
@@ -81,9 +77,7 @@ In addition, you will find the following symbols close to some nodes
   </div>
 </div>
 
-<a name="livetable:legend"></a>
-
-#### Legend
+<h4 id="livetable:legend">Legend</h4>
 
 * The ***availability*** column
   tells you whether the node is usable or not. If not, this means you should not try to use that node for your experiment, as it may be physically powered off, or otherwise behave erratically.
@@ -105,13 +99,12 @@ Also please note that
 
 ***
 
-### Accurate layout
+<h3 id="accurate-layout">Accurate layout</h3>
 
 Below is the ground plan layout of the anechoic room which provides thirty-seven wireless nodes distributed in a **≈ 90m<sup>2</sup>** room.
 
 The nodes are arranged in a grid with ≈1.0m (vertical) and ≈1.15m (horizontal) of distance between them, except for nodes 12, 16, 17, 20 and 23, 24, 27 which are the ones surrounding close to the two columns in the room.
 
-<a name="accurate-layout">
 <center>
 	<img src="/assets/img/status-chamber.png" style="width:950px; height:592px;"/><br>
 	<!-- <center> Fig. 1 - Resources status</center> -->
