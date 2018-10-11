@@ -8,7 +8,7 @@ require_login: true
      so now the chat plugin comes in 2 parts, one for the actual chat area,
      and one for the button to enable it -->
 <script src="/assets/r2lab/chat.js"></script>
-<style type="text/css"> @import url("/assets/r2lab/chat.css"); </style>
+<style> @import url("/assets/r2lab/chat.css"); </style>
 <div id="chat-container"></div>
 
 <div class="container">
@@ -32,9 +32,9 @@ require_login: true
    <script src="/assets/js/moment-round.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-   <style type="text/css"> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
+   <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
-   <style type="text/css"> @import url("/assets/r2lab/liveleases.css"); </style>
+   <style> @import url("/assets/r2lab/liveleases.css"); </style>
    <script src="/assets/r2lab/xhttp-django.js"></script>
    <script src="/assets/r2lab/liveleases.js"></script>
    <div id="current-slice" data-current-slice-color="#000"></div>
@@ -45,7 +45,7 @@ require_login: true
     <span id="chat-button"></span>
    </div>
    <script src="/assets/r2lab/livemap.js"></script>
-   <style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
+   <style> @import url("/assets/r2lab/livemap.css"); </style>
    <script>
     // override livemap default settings 
     Object.assign(livemap_options, {
@@ -82,8 +82,8 @@ require_login: true
     //      debug : true,
     });
     </script>
-      <style type="text/css"> @import url("/assets/r2lab/livecolumns.css"); </style>
-      <style type="text/css"> @import url("/assets/r2lab/livetable.css"); </style>
+      <style> @import url("/assets/r2lab/livecolumns.css"); </style>
+      <style> @import url("/assets/r2lab/livetable.css"); </style>
     </div>
   </div>    
 </div>

@@ -180,9 +180,9 @@ We need to split the nodes in several groups to implement some kind of light iso
 </div>
 
 <script src="/assets/r2lab/livemap.js"></script>
-<style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
+<style> @import url("/assets/r2lab/livemap.css"); </style>
 <script src="/assets/r2lab/colormap.js"></script>
-<style type="text/css"> @import url("/assets/r2lab/colormap.css"); </style>
+<style> @import url("/assets/r2lab/colormap.css"); </style>
 <script>
 
     let groups5 = [

@@ -40,9 +40,9 @@ which is UTC+1 in winter, and UTC+2 in summer.
    <script src="/assets/js/moment-round.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-   <style type="text/css"> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
+   <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
-   <style type="text/css"> @import url("/assets/r2lab/liveleases.css"); </style>
+   <style> @import url("/assets/r2lab/liveleases.css"); </style>
    <script src="/assets/r2lab/xhttp-django.js"></script>
    <script src="/assets/r2lab/liveleases.js"></script>
    <script>

@@ -17,7 +17,7 @@ For more details about each node, please click in the node number or badge.
   <div class="col-lg-10">
     <div id="livemap_container"></div>
     <script src="/assets/r2lab/livemap.js"></script>
-    <style type="text/css"> @import url("/assets/r2lab/livemap.css"); </style>
+    <style> @import url("/assets/r2lab/livemap.css"); </style>
     <script>
     // override livemap default settings 
     Object.assign(livemap_options, {
@@ -72,8 +72,8 @@ In addition, you will find the following symbols close to some nodes
 //    debug : true,
    });
     </script>
-    <style type="text/css"> @import url("/assets/r2lab/livecolumns.css"); </style>
-    <style type="text/css"> @import url("/assets/r2lab/livetable.css"); </style>
+    <style> @import url("/assets/r2lab/livecolumns.css"); </style>
+    <style> @import url("/assets/r2lab/livetable.css"); </style>
   </div>
 </div>
 

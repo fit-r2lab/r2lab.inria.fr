@@ -225,8 +225,8 @@ The testbed offers a couple of commercial phones right inside the chamber:
        <table class="table table-condensed" id='livehardware_container'> </table>
       <script src="/assets/r2lab/livecolumns.js"></script>
       <script src="/assets/r2lab/livehardware.js"></script>
-      <style type="text/css"> @import url("/assets/r2lab/livecolumns.css"); </style>
-      <style type="text/css"> @import url("/assets/r2lab/livehardware.css"); </style>
+      <style> @import url("/assets/r2lab/livecolumns.css"); </style>
+      <style> @import url("/assets/r2lab/livehardware.css"); </style>
     </div>
   </div>
 </div>

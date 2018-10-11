@@ -19,7 +19,7 @@ tab: platform
       <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
       <script src="/assets/js/chartlib/src/charts/Chart.Heat.js"></script>
       <script src="/assets/r2lab/charts.js"></script>
-      <style type="text/css"> @import url("/assets/r2lab/charts.css"); </style>
+      <style> @import url("/assets/r2lab/charts.css"); </style>
       <script src="/assets/js/chartlib/dist/Chart.bundle.min.js"></script>
     </div>
   </div>
