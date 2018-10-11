@@ -13,7 +13,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 ### Prerequisites
@@ -54,7 +54,7 @@ about. Let us [see them in action right away](javascript:open_tab('B1')).
 
 </div>
 
-<!------------ B1 ------------>
+<!-- ------- B1 ------------>
 <div id="B1" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -113,7 +113,7 @@ Let us see some variants on that theme [in the next tab](javascript:open_tab('B2
 
 </div>
 
-<!------------ B2 ------------>
+<!-- ------- B2 ------------>
 <div id="B2" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -196,7 +196,7 @@ actually come up.
 
 </div>
 
-<!------------ B3 ------------>
+<!-- ------- B3 ------------>
 <div id="B3" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -260,7 +260,7 @@ cyclic task](javascript:open_tab('B4')) to this scenario.
 
 </div>
 
-<!------------ B4 ------------>
+<!-- ------- B4 ------------>
 <div id="B4" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -307,7 +307,7 @@ handy in most experiments as it allows to keep track of elapsed time since the b
 
 </div>
 
-<!------------ B5 ------------>
+<!-- ------- B5 ------------>
 <div id="B5" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -334,7 +334,7 @@ It is now [time to wrap up this series](javascript:open_tab('WRAPUP')).
 
 </div>
 
-<!------------ WRAPUP ------------>
+<!-- ------- WRAPUP ------------>
 <div id="WRAPUP" class="tab-pane fade" markdown="1">
 
 We now know how to:

@@ -8,7 +8,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="FAQ" class="tab-pane fade show active" markdown="1">
 
 In no particular order...

@@ -13,7 +13,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 # Contents
@@ -106,7 +106,7 @@ tutorial pages.
 
 </div>
 
-<!------------ CONTACT ------------>
+<!-- ------- CONTACT ------------>
 <div id="CONTACT" class="tab-pane fade" markdown="1">
 
 ### Contacts

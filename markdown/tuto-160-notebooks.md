@@ -12,7 +12,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ JUPYTER ------------>
+<!-- ------- JUPYTER ------------>
 <div id="JUPYTER" class="tab-pane fade show active" markdown="1">
 
 ### Jupyter notebooks for reproducible research
@@ -54,7 +54,7 @@ more capabilities.
 
 </div>
 
-<!------------ RADIOMAP ------------>
+<!-- ------- RADIOMAP ------------>
 <div id="RADIOMAP" class="tab-pane fade" markdown="1">
 
 ### Building a radiomap
@@ -81,7 +81,7 @@ You can find the source for this notebook:
 </div>
 
 
-<!------------ BATMANOLSR ------------>
+<!-- ------- BATMANOLSR ------------>
 <div id="BATMANOLSR" class="tab-pane fade" markdown="1">
 
 ### Comparing batman *vs* OLSR

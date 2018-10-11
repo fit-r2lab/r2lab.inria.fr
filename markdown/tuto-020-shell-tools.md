@@ -11,7 +11,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ LOGIN ------------>
+<!-- ------- LOGIN ------------>
 <div id="LOGIN" class="tab-pane fade show active" markdown="1">
 
 ### Logging in the gateway
@@ -107,7 +107,7 @@ focus on a specific set of nodes, and easily control them.<
 
 </div>
 
-<!------------ NODES ------------>
+<!-- ------- NODES ------------>
 <div id="NODES" class="tab-pane fade" markdown="1">
 
 ### Monitor what you're doing
@@ -193,7 +193,7 @@ provide)
 
 </div>
 
-<!------------ IMAGES ------------>
+<!-- ------- IMAGES ------------>
 <div id="IMAGES" class="tab-pane fade" markdown="1">
 
 ### Loading images
@@ -257,7 +257,7 @@ Images that may be of common interest usually needto be renamed; get in touch wi
 
 </div>
 
-<!------------ PHONES ------------>
+<!-- ------- PHONES ------------>
 <div id="PHONES" class="tab-pane fade" markdown="1">
 
 ## Phones

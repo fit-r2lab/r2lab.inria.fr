@@ -11,7 +11,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="INTRO" class="tab-pane fade show active">
 
 ### Presentation
@@ -147,7 +147,7 @@ run [the tutorial in tab A1](javascript:open_tab('A1')).
 </div>
 
 
-<!------------ A1 ------------>
+<!-- ------- A1 ------------>
 <div id="A1" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -198,7 +198,7 @@ command line](javascript:open_tab('A2')), and other good practices.
 
 </div>
 
-<!------------ A2 ------------>
+<!-- ------- A2 ------------>
 <div id="A2" class="tab-pane fade" markdown="1">
 
 ### Objectives
@@ -238,7 +238,7 @@ run commands in a node rather than on the gateway.
 
 </div>
 
-<!------------ A3 ------------>
+<!-- ------- A3 ------------>
 <div id="A3" class="tab-pane fade" markdown="1">
 
 ### Objective : controlling a node beyond the gateway
@@ -273,7 +273,7 @@ In the next improvement, we see [in tab A4 how to check for leases before](javas
 
 </div>
 
-<!------------ A4 ------------>
+<!-- ------- A4 ------------>
 <div id="A4" class="tab-pane fade" markdown="1">
 
 ### Objectives
@@ -366,7 +366,7 @@ Let us now see [how to use other network interfaces](javascript:open_tab('A5')).
 </div>
 
 
-<!------------ A5 ------------>
+<!-- ------- A5 ------------>
 <div id="A5" class="tab-pane fade" markdown="1">
 
 ### Objectives
@@ -436,7 +436,7 @@ We can now [wrap up this A-series](javascript:open_tab('WRAPUP')).
 
 </div>
 
-<!------------ WRAPUP ------------>
+<!-- ------- WRAPUP ------------>
 <div id="WRAPUP" class="tab-pane fade" markdown="1">
 
 ### Summary

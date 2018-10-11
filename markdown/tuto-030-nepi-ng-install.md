@@ -11,7 +11,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INSTALL ------------>
+<!-- ------- INSTALL ------------>
 <div id="INSTALL" class="tab-pane fade show active" markdown="1">
 
 # What is `nepi-ng` ?
@@ -92,7 +92,7 @@ and then likewise
 
 </div>
 
-<!------------ SSHAGENT ------------>
+<!-- ------- SSHAGENT ------------>
 <div id="SSHAGENT" class="tab-pane fade" markdown="1">
 
 ### ssh and ssh-agent

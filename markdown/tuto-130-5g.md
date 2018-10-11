@@ -14,7 +14,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 ### The pieces
@@ -34,7 +34,7 @@ Also the script that we describe in this tutorial requires a separate Python lib
 
 </div>
 
-<!------------ PHONE ------------>
+<!-- ------- PHONE ------------>
 <div id="PHONES" class="tab-pane fade" markdown="1">
 
 ### Phone setup
@@ -139,7 +139,7 @@ For this you will need the following information (use proper phone number of cou
 
 </div>
 
-<!------------ OAIIMAGES ------------>
+<!-- ------- OAIIMAGES ------------>
 <div id="OAIIMAGES" class="tab-pane fade" markdown="1">
 
 ### Images
@@ -182,7 +182,7 @@ There is room for quite some improvement in these tools; if of interest, feel fr
 
 </div>
 
-<!------------ WRAPUP ------------>
+<!-- ------- WRAPUP ------------>
 <div id="WRAPUP" class="tab-pane fade" markdown="1">
 
 The software and hardware featured at R2lab allow to setup an experimental 5G network inside the anechoic chamber.

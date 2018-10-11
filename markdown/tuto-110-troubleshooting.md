@@ -11,7 +11,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 # Objectives
@@ -33,7 +33,7 @@ This tuto is organized in several parts
 
 </div>
 
-<!------------ COMMONMISTAKES ------------>
+<!-- ------- COMMONMISTAKES ------------>
 <div id="COMMONMISTAKES" class="tab-pane fade" markdown="1">
 
 ## Check for the obvious
@@ -102,7 +102,7 @@ that you need nodes 4, 6 and from 10 to 13 inclusive :
 Otherwise, check out [the next section on code updates.](javascript:open_tab('CODEUPDATE')).
 </div>
 
-<!------------ CODEUPDATE ------------>
+<!-- ------- CODEUPDATE ------------>
 <div id="CODEUPDATE" class="tab-pane fade" markdown="1">
 
 The software involved in R2lab, either `nepi-ng` or the shell
@@ -162,7 +162,7 @@ from the latest version published on github.
 Otherwise, check out [the next section on verbosity in your scripts.](javascript:open_tab('VERBOSITY')).
 </div>
 
-<!------------ VERBOSITY ------------>
+<!-- ------- VERBOSITY ------------>
 <div id="VERBOSITY" class="tab-pane fade" markdown="1">
 
 OK, so you have tried everything else, you can't seem to find why your
@@ -286,7 +286,7 @@ give you details of the jobs being started, and their are done.
 </div>
 
 
-<!------------ HANGING ------------>
+<!-- ------- HANGING ------------>
 <div id="HANGING" class="tab-pane fade" markdown="1">
 
 Sometimes a scheduler may exhibit the symptom of not completing as you expect it

@@ -13,7 +13,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="INTRO" class="tab-pane fade show active">
 
 ### Preparation
@@ -122,7 +122,7 @@ that knows how to load images.
 </div>
 
 
-<!------------ D1 ------------>
+<!-- ------- D1 ------------>
 <div id="D1" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -170,7 +170,7 @@ is turned off](javascript:open_tab('D2')).
 
 </div>
 
-<!------------ D2 ------------>
+<!-- ------- D2 ------------>
 <div id="D2" class="tab-pane fade" markdown="1">
 
 ### Objectives
@@ -223,7 +223,7 @@ We will now see [in tab D3 how to pass target nodes on the command-line](javascr
 
 </div>
 
-<!------------ D3 ------------>
+<!-- ------- D3 ------------>
 <div id="D3" class="tab-pane fade" markdown="1">
 
 ### Objectives
@@ -267,7 +267,7 @@ to rewrite this example to use nested schedulers, for better modularity.
 
 </div>
 
-<!------------ D4 ------------>
+<!-- ------- D4 ------------>
 <div id="D4" class="tab-pane fade" markdown="1">
 
 ### Objectives
@@ -320,7 +320,7 @@ We can now [wrap up this D-series](javascript:open_tab('WRAPUP')).
 
 </div>
 
-<!------------ WRAPUP ------------>
+<!-- ------- WRAPUP ------------>
 <div id="WRAPUP" class="tab-pane fade" markdown="1">
 
 ### Summary

@@ -12,7 +12,7 @@ skip_header: True
 
 <div class="tab-content" markdown="1">
 
-<!------------ REGISTER ------------>
+<!-- ------- REGISTER ------------>
 <div id="REGISTER" class="tab-pane fade show active" markdown="1">
 
 ### Introduction
@@ -63,7 +63,7 @@ However, you need a slice. Let's move to the [next tab](javascript:open_tab('SLI
 
 </div>
 
-<!------------ SLICE ------------>
+<!-- ------- SLICE ------------>
 <div id="SLICE" class="tab-pane fade" markdown="1">
 
 ### You need a slice
@@ -86,7 +86,7 @@ We explain how to do it in the [next tab](javascript:open_tab('CREDENTIALS')).
 
 </div>
 
-<!------------ R2LAB ------------>
+<!-- ------- R2LAB ------------>
 <div id="CREDENTIALS" class="tab-pane fade" markdown="1">
 
 ### Uploading your SSH public key to R2lab
@@ -153,7 +153,7 @@ tab](javascript:open_tab('RESERVATION')) to book your slices in R2lab.
 
 </div>
 
-<!------------ RESERVATION ------------>
+<!-- ------- RESERVATION ------------>
 <div id="RESERVATION" class="tab-pane fade" markdown="1">
 
 ### Make the reservation
@@ -188,7 +188,7 @@ to access R2lab platform and run your tests.
 </div>
 
 
-<!------------ ACCESS ------------>
+<!-- ------- ACCESS ------------>
 <div id="ACCESS" class="tab-pane fade" markdown="1">
 
 ### The ssh agent

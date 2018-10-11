@@ -12,7 +12,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ AOA ------------>
+<!-- ------- AOA ------------>
 <div id="AOA" class="tab-pane fade show active" markdown="1">
 
 
@@ -28,7 +28,7 @@ data="https://www.youtube.com/embed/vDPLQNsZaVY">
 
 </div>
 
-<!------------ OAI ------------>
+<!-- ------- OAI ------------>
 <div id="OAI" class="tab-pane fade" markdown="1">
 
 ### Visiting the chamber using skype on top of a local 5G infrastructure based on OpenAirInterface
@@ -48,7 +48,7 @@ data="https://www.youtube.com/embed/FpZo6uqTosQ">
 
 </div>
 
-<!------------ OAING ------------>
+<!-- ------- OAING ------------>
 <div id="OAING" class="tab-pane fade" markdown="1">
 
 ### Set up a 5G network in 5 minutes

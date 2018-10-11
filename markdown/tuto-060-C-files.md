@@ -12,7 +12,7 @@ skip_header: True
 
 <div id="contents" class="tab-content" markdown="1">
 
-<!------------ INTRO ------------>
+<!-- ------- INTRO ------------>
 <div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 ### Scenario
@@ -62,7 +62,7 @@ node](javascript:open_tab('C1')) with the `Push` command object.
 
 </div>
 
-<!------------ C1 ------------>
+<!-- ------- C1 ------------>
 <div id="C1" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -105,7 +105,7 @@ scenario, and push the RANDOM file on another node using the wired network.
 
 </div>
 
-<!------------ C2 ------------>
+<!-- ------- C2 ------------>
 <div id="C2" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -179,7 +179,7 @@ how to retrieve back that same file in order to close the loop.
 
 </div>
 
-<!------------ C3 ------------>
+<!-- ------- C3 ------------>
 <div id="C3" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -212,7 +212,7 @@ series.
 
 </div>
 
-<!------------ C3bis ------------>
+<!-- ------- C3bis ------------>
 <div id="C3bis" class="tab-pane fade" markdown="1">
 
 ### Objective
@@ -257,7 +257,7 @@ We can now [conclude this section](javascript:open_tab('WRAPUP'))
 
 </div>
 
-<!------------ WRAPUP ------------>
+<!-- ------- WRAPUP ------------>
 <div id="WRAPUP" class="tab-pane fade" markdown="1">
 
 In this C series , we have seen:
