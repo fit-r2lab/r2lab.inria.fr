@@ -6,7 +6,7 @@ PUBLISH-PATH = /var/www/r2lab.inria.fr
 EXCLUDES = .git
 RSYNC-EXCLUDES = $(foreach exc,$(EXCLUDES), --exclude $(exc))
 
-########## mirror this contents 
+########## mirror this contents
 publish:
 	rsync -av $(RSYNC-EXCLUDES) --delete --delete-excluded ./ $(PUBLISH-PATH)/
 
@@ -17,7 +17,7 @@ publish:
 apache:
 	systemctl restart httpd
 
-# 
+#
 install: publish apache
 
 .PHONY: publish apache install
@@ -36,7 +36,7 @@ tags:
 
 ########## get rid of pdf's and the like
 files:
-	@git ls-files | egrep -v 'assets/(js|css)|\.(pdf|png|jpg|gif|svg|ttf|otf)'
+	@git ls-files | egrep -v 'assets/(js|css)|\.(pdf|png|jpg|gif|svg|ttf|otf|JPG)'
 
 .PHONY: files
 
