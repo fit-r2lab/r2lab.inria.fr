@@ -672,6 +672,11 @@ class LiveLeases {
                 revertDuration: 0
             });
         });
+        $("#liveleases_reset_colors").on('click', function() {
+            liveleases.persistent_slices._clear();
+            alert("Colors have been reset, page will now be reloaded");
+            location.reload();
+        })
     }
 
     // triggered when a new message comes from the API
