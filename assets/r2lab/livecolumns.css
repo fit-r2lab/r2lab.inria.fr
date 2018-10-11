@@ -9,21 +9,33 @@
 
 /* show hand pointer in the column with node ids */
 .pointer {
-    cursor: pointer;
     font-weight: normal;
+    cursor: pointer;
 }
 
 /* colors for various icons : ok = green, ko = gray, error = red */
+.livecolumns_body td       { color: #00a; }
 .livecolumns_body td.ok    { color: #5EAE10; }
 .livecolumns_body td.ko    { color: #ababab; }
 .livecolumns_body td.error { color: red; }
 
+/* inria font not good here */
+.livecolumns_body {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 /* the node badges */
 .livecolumns_body td>span.badge {
-    background-color : #a0a0b0;
+    background-color : #a0a0f0;
+    color: #eee;
+    border-radius: 4px;
 }
 
 /* override stuff from bootstrap-fit.css */
 tbody.livecolumns_body>tr>td {
     padding: 3px;
+}
+
+span.fa-camera {
+    color: blue;
 }

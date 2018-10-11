@@ -84,9 +84,3 @@ a.nav-link, a.dropdown-item {
 div.tuto-index a.dropdown-item {
     background-color: #eee;
 }
-
-/* the inria font makes the text a little too high */
-span.badge.pointer {
-    color: #ddd;
-    font-family: 'Ubuntu', sans-serif;
-}
