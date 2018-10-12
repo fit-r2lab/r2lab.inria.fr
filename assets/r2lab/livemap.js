@@ -195,8 +195,8 @@ let livemap_geometry = {
     // also, using l (relative) instead of L (absolute) is simpler
     // but it keeps roundPathCorners from rounding.js from working fine
     // keep it this way from now, a class would help keep track here
-    line_x : function(x) {return `l ${x} 0 `;},
-    line_y : function(y) {return `l 0 ${-y} `;},
+    line_x : x => `l ${x} 0 ` ,
+    line_y : y => `l 0 ${-y} `,
 
     walls_path : function() {
 	let path="";
@@ -439,10 +439,8 @@ let MapNode = function (node_spec) {
     this.clicked = function() {
         console.log(`in method ${this.id}`);
     }
-    
-}
 
-let get_obj_id = function(node) {return node.id;}
+}
 
 //////////////////////////////
 function LiveMap() {
@@ -561,22 +559,22 @@ function LiveMap() {
 	let svg = d3.select('div#livemap_container svg');
 	let animation_duration = 750;
 	let circles = svg.selectAll('circle.node-status')
-	    .data(this.nodes, get_obj_id);
+	    .data(this.nodes, obj => obj.id);
 	// circles show the overall status of the node
 	circles
 	  .enter()
 	    .append('circle')
 	    .attr('class', 'node-status')
-	    .attr('id', function(node){return node.id;})
-	    .attr('cx', function(node){return node.x;})
-	    .attr('cy', function(node){return node.y;})
-	    .on('click', function(node) {node.clicked()})
+	    .attr('id', node => node.id)
+	    .attr('cx', node => node.x)
+	    .attr('cy', node => node.y)
+	    .on('click', node => node.clicked())
           .merge(circles)
 	    .transition()
 	    .duration(animation_duration)
-	    .attr('r', function(node){return node.node_status_radius();})
-	    .attr('fill', function(node){return node.node_status_color();})
-	    .attr('filter', function(node){return node.node_status_filter();})
+	    .attr('r', node => node.node_status_radius())
+	    .attr('fill', node => node.node_status_color())
+	    .attr('filter', node => node.node_status_filter())
 	;
 
         if (livemap_options.colormap) {
@@ -585,81 +583,81 @@ function LiveMap() {
             let offset_x = size_x / 2;
             let offset_y = size_y / 2;
             let group_squares = svg.selectAll('rect.node-group')
-                        .data(this.nodes, get_obj_id);
+                        .data(this.nodes, obj => obj.id);
             group_squares
               .enter()
                 .append('rect')
                 .attr('class', 'node-group')
-                .attr('x', function(node){return node.x - offset_x;})
-                .attr('y', function(node){return node.y - offset_y;})
+                .attr('x', node => node.x - offset_x)
+                .attr('y', node => node.y - offset_y)
                 .attr('width', size_x)
                 .attr('height', size_y)
-                .attr('style', function(node) {return `fill:${node.group_color}`;})
+                .attr('style', node => `fill:${node.group_color}`)
             ;
         }
 
 	// labels show the nodes numbers
 	let labels = svg.selectAll('text')
-	    .data(this.nodes, get_obj_id);
+	    .data(this.nodes, obj => obj.id);
 
 	labels
 	  .enter()
 	    .append('text')
 	    .attr('class', 'node-label')
         .attr('font-size', livemap_options.font_size)
-	    .text(get_obj_id)
-	    .attr('x', function(node){return node.x;})
-	    .attr('y', function(node){return node.y;})
-	    .attr('id', function(node){return node.id;})
-	    .on('click', function(node) {node.clicked()})
+	    .text(obj => obj.id)
+	    .attr('id', node => node.id)
+	    .attr('x', node => node.x)
+	    .attr('y', node => node.y)
+	    .on('click', node => node.clicked())
 	  .merge(labels)
 	    .transition()
 	    .duration(animation_duration)
-	    .attr('fill', function(node){return node.text_color();})
-	    .attr('x', function(node){return node.text_x();})
-	    .attr('y', function(node){return node.text_y();})
+	    .attr('fill', node => node.text_color())
+	    .attr('x', node => node.text_x())
+	    .attr('y', node => node.text_y())
 	;
 
 	// how to display unavailable nodes
 	let unavailables = svg.selectAll('circle.unavailable')
-	    .data(this.nodes, get_obj_id);
+	    .data(this.nodes, obj => obj.id);
 	unavailables
 	  .enter()
 	    .append('circle')
 	    .attr('class', 'unavailable')
-	    .attr('cx', function(node){return node.x;})
-	    .attr('id', function(node){return node.id;})
-	    .attr('cy', function(node){return node.y;})
-	    .attr('r', function(/*node*/){return livemap_options.radius_unavailable;})
-	    .on('click', function(node) {node.clicked()})
+        .attr('id', node => node.id)
+        .attr('cx', node => node.x)
+        .attr('cy', node => node.y)
+
+	    .attr('r', node => livemap_options.radius_unavailable)
+	    .on('click', node => node.clicked())
 	  .merge(unavailables)
 	    .transition()
 	    .duration(animation_duration)
-	    .attr('display', function(node){
-		return node.unavailable_display();})
+	    .attr('display', node => node.unavailable_display())
 	;
 
 	// these rectangles are placeholders for the various icons
 	// that are meant to show usrp status
 	let usrp_rects = svg.selectAll('rect.usrp-status')
-	    .data(this.nodes, get_obj_id);
+	    .data(this.nodes, obj => obj.id);
 	usrp_rects
 	  .enter()
 	    .append('rect')
 	    .attr('class', 'usrp-status')
-	    .attr('id', function(node){return node.id;})
+	    .attr('id', node => node.id)
 	    .attr('stroke-width', '1px')
-	    .attr('x', function(node){return node.usrp_x();})
-	    .attr('y', function(node){return node.usrp_y();})
+	    .attr('x', node => node.usrp_x())
+	    .attr('y', node => node.usrp_y())
 	  .merge(usrp_rects)
 	    .transition()
 	    .duration(animation_duration)
-	    .attr('display', function(node){return node.usrp_status_display();})
-	    .attr('filter', function(node){return node.usrp_status_filter();})
-	    .attr('x', function(node){return node.usrp_x();})
-	    .attr('y', function(node){return node.usrp_y();})
-	    .attr('width', function(node){return node.usrp_w();})
-	    .attr('height', function(node){return node.usrp_h();})
+	    .attr('display', node => node.usrp_status_display())
+	    .attr('filter', node => node.usrp_status_filter())
+	    .attr('x', node => node.usrp_x())
+	    .attr('y', node => node.usrp_y())
+	    .attr('width', node => node.usrp_w())
+	    .attr('height', node => node.usrp_h())
 	;
     }
 
@@ -700,15 +698,15 @@ function LiveMap() {
 	let h = w;
 	let r = 2;
 	let squares = svg.selectAll('rect.phone-status')
-	    .data(this.phones, get_obj_id);
+	    .data(this.phones, obj => obj.id);
 	// simple square repr. for now, with an airplane in the middle
 	squares
 	  .enter()
 	    .append('rect')
 	    .attr('class', 'phone-status')
-	    .attr('id', function(phone){return phone.id;})
-	    .attr('x', function(phone){return phone.x - w/2;})
-	    .attr('y', function(phone){return phone.y - h/2;})
+	    .attr('id', phone => phone.id)
+	    .attr('x', phone => phone.x - w/2)
+	    .attr('y', phone => phone.y - h/2)
 	    .attr('rx', r)
 	    .attr('ry', r)
 	    .attr('width', w)
@@ -720,14 +718,14 @@ function LiveMap() {
 	;
 
 	let texts = svg.selectAll('text.phone-status')
-	    .data(this.phones, get_obj_id);
+	    .data(this.phones, obj => obj.id);
 
 	texts
 	  .enter()
 	    .append('text')
 	    .attr('class', 'phone-status')
-	    .attr('x', function(phone){return phone.x;})
-	    .attr('y', function(phone){return phone.y;})
+	    .attr('x', phone => phone.x)
+	    .attr('y', phone => phone.y)
 	    .attr('dy', h*.1)
 	    .attr('font-family', 'FontAwesome')
 	    .attr('font-size', h*1)
@@ -736,7 +734,7 @@ function LiveMap() {
           .merge(texts)
 	    .transition()
 	    .duration(animation_duration)
-	    .text(function(phone){ return phone.text();})
+	    .text(phone => phone.text())
 	;
 
     }
