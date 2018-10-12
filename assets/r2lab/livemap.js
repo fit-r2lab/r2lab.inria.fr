@@ -4,7 +4,6 @@
 /*global $ d3 io*/
 
 /*global sidecar_url*/
-/*global info_nodes*/
 
 "use strict";
 
@@ -437,6 +436,10 @@ let MapNode = function (node_spec) {
 	let {usrp_height, usrp_on_ratio, usrp_off_ratio} = livemap_options;
 	return usrp_height * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio); }
 
+    this.clicked = function() {
+        console.log(`in method ${this.id}`);
+    }
+    
 }
 
 let get_obj_id = function(node) {return node.id;}
@@ -552,6 +555,7 @@ function LiveMap() {
 	}
     }
 
+
     //////////////////// the nodes graphical layout
     this.animate_nodes_changes = function() {
 	let svg = d3.select('div#livemap_container svg');
@@ -566,11 +570,7 @@ function LiveMap() {
 	    .attr('id', function(node){return node.id;})
 	    .attr('cx', function(node){return node.x;})
 	    .attr('cy', function(node){return node.y;})
-	    .on('click', function() {
-		// call an external function (located in info-nodes.js)
-		// to show de nodes details
-		info_nodes(this.id)
-	    })
+	    .on('click', function(node) {node.clicked()})
           .merge(circles)
 	    .transition()
 	    .duration(animation_duration)
@@ -611,11 +611,7 @@ function LiveMap() {
 	    .attr('x', function(node){return node.x;})
 	    .attr('y', function(node){return node.y;})
 	    .attr('id', function(node){return node.id;})
-	    .on('click', function() {
-		//call a external function (located in info-nodes.js)
-		// to show de nodes details
-		info_nodes(this.id)
-	    })
+	    .on('click', function(node) {node.clicked()})
 	  .merge(labels)
 	    .transition()
 	    .duration(animation_duration)
@@ -635,11 +631,7 @@ function LiveMap() {
 	    .attr('id', function(node){return node.id;})
 	    .attr('cy', function(node){return node.y;})
 	    .attr('r', function(/*node*/){return livemap_options.radius_unavailable;})
-	    .on('click', function() {
-		//call a external function (located in info-nodes.js)
-		// to show de nodes details
-		info_nodes(this.id)
-	    })
+	    .on('click', function(node) {node.clicked()})
 	  .merge(unavailables)
 	    .transition()
 	    .duration(animation_duration)

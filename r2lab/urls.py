@@ -25,8 +25,11 @@ import mfauth.views
 import leases.views
 import slices.views
 import users.views
-import files.views
 import keys.views
+
+from pathlib import Path
+
+BASE = Path(settings.BASE_DIR)
 
 urlpatterns = [
     # default: empty or just / -> md/index.md
@@ -39,13 +42,10 @@ urlpatterns = [
     url(r'^leases/(?P<verb>(add|update|delete))', leases.views.LeasesProxy.as_view()),
     url(r'^slices/(?P<verb>(get|renew))', slices.views.SlicesProxy.as_view()),
     url(r'^users/(?P<verb>(get|renew))', users.views.UsersProxy.as_view()),
-    url(r'^files/(?P<verb>(get))', files.views.FilesProxy.as_view()),
     url(r'^keys/(?P<verb>(get|add|delete))', keys.views.KeysProxy.as_view()),
     # probably not useful
 #    url(r'^admin/', admin.site.urls),
-] \
-    + static( '/assets/', document_root=settings.BASE_DIR+'/assets/') \
-    + static( '/raw/', document_root=settings.BASE_DIR+'/raw/') \
-    + static( '/files/nodes/images/', document_root=settings.BASE_DIR+'/files/nodes/images/') \
-    + static( '/files/nodes/images_dt/', document_root=settings.BASE_DIR+'/files/nodes/images_dt/') \
-    + static( '/code/', document_root=settings.BASE_DIR+'/code/') 
+]
+urlpatterns.extend(static('/assets/', document_root=str(BASE / '/assets/')))
+urlpatterns.extend(static('/raw/', document_root=str(BASE / '/raw/')))
+urlpatterns.extend(static('/code/', document_root=str(BASE / '/code/')))

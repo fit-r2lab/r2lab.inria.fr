@@ -1,16 +1,22 @@
+# pylint: disable=c0111, r1705, w0703
+
 import json
-import os, os.path
+import os
+import os.path
+from datetime import datetime
+
+import markdown2
+
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import View
 from django.http import HttpResponse
-from datetime import datetime
-import markdown2
 
 # Create your views here.
 class FilesProxy(View):
 
-    def http_response_from_struct(self, answer):
+    @staticmethod
+    def http_response_from_struct(answer):
         return HttpResponse(json.dumps(answer))
 
     def not_authenticated_error(self, request):
@@ -21,8 +27,10 @@ class FilesProxy(View):
           'user_details' not in request.session['r2lab_context']:
             return self.http_response_from_struct(
                 {'error' : 'User is not authenticated'})
+        return self.http_response_from_struct({'OOPS', 'unexpected'})
 
-    def decode_body_as_json(self, request):
+    @staticmethod
+    def decode_body_as_json(request):
         utf8 = request.body.decode()
         return json.loads(utf8)
 
@@ -38,10 +46,10 @@ class FilesProxy(View):
             else:
                 return self.http_response_from_struct(
                     {'error' : "Unknown verb {}".format(verb)})
-        except Exception as e:
-            return self.http_response_from_struct(
-                { 'error' : "Failure when running verb {}".format(verb),
-                  'message' : e})
+        except Exception as exc:
+            return self.http_response_from_struct({
+                'error' : "Failure when running verb {}".format(verb),
+                'message' : exc})
 
     def which_file(self, record):
         """
@@ -52,12 +60,12 @@ class FilesProxy(View):
             return self.get_nigthly()
         elif option == 'detail':
             return self.get_detail()
-        elif int(option['info']) in list(range(1,38)):
+        elif int(option['info']) in list(range(1, 38)):
             node = option['info']
             return self.get_info(node)
         else:
-            return self.http_response_from_struct(
-                { 'error' : "File not found or not allowed" })
+            return self.http_response_from_struct({
+                'error' : "File not found or not allowed"})
 
     def get_detail(self):
         """
@@ -71,9 +79,10 @@ class FilesProxy(View):
                 data = json.load(data_file)
             data = self.build_detail(data)
             return self.http_response_from_struct(data)
-        except Exception as e:
+        except Exception as exc:
             data = {}
-            print("Failure in read node detail file - {} - {} - {}".format(directory, the_file, e))
+            print("Failure in read node detail file - {} - {} - {}".
+                  format(directory, the_file, exc))
             return self.http_response_from_struct(data)
 
     def get_nigthly(self):
@@ -142,10 +151,10 @@ class FilesProxy(View):
         """
         find the node info through the files already saved
         """
-        directory = os.path.dirname(os.path.abspath(__file__))
-        directory = directory+'/nodes/'
-        data      = False
-        setup_file= 'info_nodes.json'
+        directory  = os.path.dirname(os.path.abspath(__file__))
+        directory  = directory+'/nodes/'
+        data       = False
+        setup_file = 'info_nodes.json'
         try:
             with open(directory + setup_file) as f:
                 data = json.load(f)
@@ -195,8 +204,8 @@ class FilesProxy(View):
             print("Failure in read maintenance file - {} - {} - {}".format(directory, the_file, e))
 
         element = json.loads(line)
-        for el in maintenance_nodes:
-            for item in maintenance_nodes[el]:
+        for elt in maintenance_nodes:
+            for item in maintenance_nodes[elt]:
                 try:
                     avoid_date = datetime.strptime(item['date'], "%Y-%m-%d")#maintenance nodes date
                     based_date = datetime.strptime(element['date'], "%Y-%m-%d")#database

@@ -4,6 +4,9 @@
 // or
 //  "#00E0DF80",
 
+/* for eslint */
+/*global $*/
+
 let ColorMap = function(index_max) {
 
     this.index_max = index_max;
@@ -65,16 +68,19 @@ let ColorMap = function(index_max) {
     }
 
     this.hostname = function(node_id) {
-        return "fit" + node_id.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-
+        let twodigits = node_id.toLocaleString(
+            'en-US',
+            {minimumIntegerDigits: 2,
+             useGrouping:false});
+        return `fit${twodigits}`;
     }
 
     this.colortable = function() {
-        let columns = this.colors.size;
+        /*let columns = this.colors.size;*/
         let div = $(`div#colortable_container`);
         div
           .append(`<table><thead><tr><th>Group #</th><th>Nodes</th></thead>`
-              + `<tbody></tbody></table>`)
+                + `<tbody></tbody></table>`)
         ;
         let group_number = 0;
         for (let color of this.colors.keys()) {

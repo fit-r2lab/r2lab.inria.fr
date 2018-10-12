@@ -87,11 +87,11 @@ class LiveLeases {
     }
 
     buildCalendar() {
-        let liveleases = this;
+        /*let liveleases = this;*/
         let today  = moment().format("YYYY-MM-DD");
         let showAt = moment().subtract(1, 'hour').format("HH:mm");
         let run_mode = liveleases_options.mode == 'run';
-        console.log(`liveleases - sidecar_url = ${sidecar_url}`);
+        console.log(`liveleases: sidecar_url=${sidecar_url}`);
 
         // the view types that are not read-only
         this.active_views = [
@@ -473,10 +473,10 @@ class LiveLeases {
 
 
     // minor callbacks
-    callbackEventDragStart(dom/*, event, jsEvent, ui, view*/) {
+    callbackEventDragStart(/*dom, event, jsEvent, ui, view*/) {
         this.dragging = true;
     }
-    callbackEventDragStop(dom/*, event, jsEvent, ui, view*/) {
+    callbackEventDragStop(/*dom, event, jsEvent, ui, view*/) {
         this.dragging = false;
     }
     callbackEventMouseout(dom/*, event, jsEvent, view*/) {

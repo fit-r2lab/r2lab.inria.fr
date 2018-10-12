@@ -92,5 +92,3 @@ require_login: true
 <!-- defines slices_keys_modal -->
 << include r2lab/slices-keys-modal.html >>
 
-<!-- defines node_details_modal -->
-<< include r2lab/nodes-details-modal.html >>

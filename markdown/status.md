@@ -114,5 +114,3 @@ The nodes are arranged in a grid with ≈1.0m (vertical) and ≈1.15m (horizonta
 <br />
 
 <script src="/assets/r2lab/xhttp-django.js"></script>
-<!-- defines node_details_modal -->
-<< include r2lab/nodes-details-modal.html >>

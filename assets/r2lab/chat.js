@@ -2,9 +2,9 @@
 
 /* for eslint */
 /*global $ */
-/*global r2lab_user */
+/*global r2lab_user */ 
 
-"use strict"; 
+"use strict";
 
 $(function() {
 
@@ -46,7 +46,7 @@ $(function() {
     let hide_show = function() {
 	$("#chat-body").toggle(200, update_hide_show);
     }
-			  
+
     let update_hide_show = function() {
 	let classes = [ 'fa-caret-down', 'fa-caret-right'];
 	let visible = $("#chat-body").is(":visible");
@@ -58,7 +58,7 @@ $(function() {
 	$("#chat-hide-legend").toggle(visible);
 	$("#chat-show-legend").toggle(!visible);
     }
-    
+
     let update_button = function() {
 	let classes = [ 'fa-close', 'fa-user-o'];
 	let messages = [ 'leave IRC', 'join IRC'];

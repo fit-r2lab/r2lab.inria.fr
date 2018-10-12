@@ -259,5 +259,3 @@ The testbed offers a couple of commercial phones right inside the chamber:
 
 
 <script src="/assets/r2lab/xhttp-django.js"></script>
-<!-- defines nodes_details_modal -->
-<< include r2lab/nodes-details-modal.html >>

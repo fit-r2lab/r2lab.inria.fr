@@ -18,3 +18,12 @@ div.slice-header {
     font-weight: bold;
     font-size: large;
 }
+
+/* the inria font does not fit in boxes too well */
+div#my-slices>div {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+tbody.fc-body {
+    font-family: 'Ubuntu', sans-serif;
+}    
