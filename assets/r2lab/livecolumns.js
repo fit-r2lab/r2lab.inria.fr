@@ -115,7 +115,7 @@ class LiveColumnsNode {
 
 
     set_display(display) {
-        let selector = 'tbody.livecolumns_body #row' + this.id;
+        let selector = `tbody.livecolumns_body #row${this.id}`;
         display ? $(selector).show() : $(selector).hide();
     }
 
@@ -205,13 +205,13 @@ class LiveColumns {
         cells
             .enter()
             .append('td')
-        // attach a click event on the first column only
             .each(function(d, i) {
+                // attach a click event on the first column only
                 if (i==0) {
-                    // I'm using DOM/jquery here because the datum d here
+                    // I'm using DOM/jquery here because the datum d
                     //  is a tuple (html, class) so this is useless
                     $(this).click(function() {
-                    $(this).parent().attr('style', 'display:none');
+                        $(this).parent().attr('style', 'display:none');
                     })
                 }
             })

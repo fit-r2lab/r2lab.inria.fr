@@ -88,13 +88,13 @@ class LiveTableNode extends LiveColumnsNode {
         if (os_release == undefined)
             return [ "n/a", klass ];
         if (os_release.startsWith('fedora'))
-            return [ livetable_options.fedora_badge + ' ' + os_release + ' ', klass ];
+            return [ `${livetable_options.fedora_badge} ${os_release}`, klass ];
         else if (os_release.startsWith('ubuntu'))
-            return [ livetable_options.ubuntu_badge + ' ' + os_release + ' ', klass ];
+            return [ `${livetable_options.ubuntu_badge} ${os_release}`, klass ];
         else if (os_release == 'other')
-            return [ livetable_options.other_badge + ' (ssh OK)', klass ];
+            return [ `${livetable_options.other_badge} (ssh OK)`,  klass ];
         else
-            return [ 'N/A', klass ];
+            return [ 'n/a', klass ];
     }
 
     cell_uname(uname) {
