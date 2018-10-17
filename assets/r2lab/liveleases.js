@@ -291,6 +291,7 @@ class LiveLeases {
         if (slot.editable) {
             // arm callback for deletion
             let delete_slot = function() {
+                element.find(".delete-slot").tooltip('dispose');
                 liveleases.removeSlot(slot, element);
             };
             // on double click
