@@ -205,19 +205,18 @@ class LiveColumns {
         cells
             .enter()
             .append('td')
+            .merge(cells)
+            .html(LiveColumns.get_html)
+            .attr('class', LiveColumns.get_class)
             .each(function(d, i) {
                 // attach a click event on the first column only
-                if (i==0) {
-                    // I'm using DOM/jquery here because the datum d
-                    //  is a tuple (html, class) so this is useless
+                if (i == 0) {
                     $(this).click(function() {
                         $(this).parent().attr('style', 'display:none');
                     })
                 }
-            })
-            .merge(cells)
-            .html(LiveColumns.get_html)
-            .attr('class', LiveColumns.get_class);
+                $(this).find('[data-toggle="tooltip"]').tooltip();
+            });
     }
 
     // related helpers
