@@ -64,10 +64,10 @@ let livemap_options = {
     ////////// must be in sync with sidecar.js
     // the socket.io channels that are used -- see sidecar/AA-overview.md
     channels : {
-	chan_nodes : 'info:nodes',
-	chan_nodes_request : 'request:nodes',
-	chan_phones : 'info:phones',
-	chan_phones_request : 'request:phones',
+    	chan_nodes : 'info:nodes',
+    	chan_nodes_request : 'request:nodes',
+    	chan_phones : 'info:phones',
+    	chan_phones_request : 'request:phones',
     },
 
     // override this with a ColorMap object if desired
@@ -437,7 +437,7 @@ let MapNode = function (node_spec) {
 	return usrp_height * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio); }
 
     this.clicked = function() {
-        console.log(`in method ${this.id}`);
+        console.log(`in clicked ${this.id}`);
     }
 
 }
@@ -610,6 +610,14 @@ function LiveMap() {
 	    .attr('x', node => node.x)
 	    .attr('y', node => node.y)
 	    .on('click', node => node.clicked())
+        .each(function(data) {
+            let type = data.usrp_type;
+            if (type != "none") {
+                $(this).tooltip({
+                    title: data.usrp_type,
+                    delay:250, placement: "bottom"})
+            }
+        })
 	  .merge(labels)
 	    .transition()
 	    .duration(animation_duration)
