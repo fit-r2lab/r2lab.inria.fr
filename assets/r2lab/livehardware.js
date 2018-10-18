@@ -65,7 +65,7 @@ class LiveHardwareNode extends LiveColumnsNode{
                  + ` href="${url}" target="_blank">${icon}</a>`;
         return `<span data-toggle="tooltip" `
              + `data-position="top" data-html="true" data-delay="100"`
-             + `title="${tooltip_text}" data-position="top">`
+             + `title="${tooltip_text}" data-placement=bottom>`
              + `${link}`
              + `</span>`;
          }
