@@ -43,9 +43,7 @@ urlpatterns = [
     url(r'^slices/(?P<verb>(get|renew))', slices.views.SlicesProxy.as_view()),
     url(r'^users/(?P<verb>(get|renew))', users.views.UsersProxy.as_view()),
     url(r'^keys/(?P<verb>(get|add|delete))', keys.views.KeysProxy.as_view()),
-    # probably not useful
-#    url(r'^admin/', admin.site.urls),
 ]
-urlpatterns.extend(static('/assets/', document_root=str(BASE / '/assets/')))
-urlpatterns.extend(static('/raw/', document_root=str(BASE / '/raw/')))
-urlpatterns.extend(static('/code/', document_root=str(BASE / '/code/')))
+urlpatterns.extend(static('/assets/', document_root=str(BASE / 'assets/')))
+urlpatterns.extend(static('/raw/', document_root=str(BASE / 'raw/')))
+urlpatterns.extend(static('/code/', document_root=str(BASE / 'code/')))
