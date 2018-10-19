@@ -5,7 +5,7 @@ widget_login_template: r2lab/widget_login.html
 
 ### What is R2Lab ?
 <div class="row" markdown="1">
-  <div class="col-md-7">  
+  <div class="col-md-7">
 R2lab is an open tested located in an anechoic chamber for reproducible research
 in wireless WiFi and 4G/5G networks.
   <br/>
@@ -94,7 +94,8 @@ collect results.
   </div>
   <div class="col-md-3">
     <br>
-    <img src="/assets/img/fit-logo.png" style="height:55px;">
+    <object type="image/svg+xml" data="/assets/img/fit-logo.svg"
+     height="55">FIT</object>
     <br>
     <br>
     <img src="/assets/img/onelab-logo.png" style="height:55px;">
