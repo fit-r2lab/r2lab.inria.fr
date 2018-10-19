@@ -7,6 +7,9 @@ body.r2lab {
 div.login-form {
     font-family: 'Ubuntu', sans-serif;
 }
+div#main.login-form {
+    margin: 0px;
+}
 
 div.navigation ul {
     margin:26px 0 0 0;
@@ -28,26 +31,30 @@ div.header-area {
     line-height:1.2em;
     letter-spacing:0.3pt;
     min-height:400px;
-<!--    background-image: url('../img/back.jpg'); -->
     background-repeat:no-repeat;
-    /*background-size:100%;*/
     background-size:cover;
     background-position:center center;
     background-color:#f0f0f0;
 }
 
 .login-column {
-    background:rgba(200,220,240,0.6);
+    background:rgba(200, 220, 240, 0.85);
     border: 2px solid transparent;
     min-height:400px;
 }
-
-/*.login-form {
-    margin-top:80px;
-    padding:0 25px 25px 25px;
-}*/
-
+.login-column img.img-responsive {
+    margin: 0px;
+}
+.login-signup {
+    margin: 0px;
+}
+.login-header {
+    margin-top: 15px;
+}
 .header .logo img {
     vertical-align:middle;
     margin-top:-3px;
+}
+div.last-text {
+    margin-top: 10px;
 }
