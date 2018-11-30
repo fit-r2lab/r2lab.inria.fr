@@ -298,8 +298,8 @@ class LiveLeases {
             element.bind('dblclick', delete_slot);
             // add X button
             let help = "delete this slot<br/>"
-                     + "double click inside a slot<br/>"
-                     + "deletes it as well";
+                     + "double clicking a slot<br/>"
+                     + "deletes it too";
             element.find(".fc-content")
                 .append(`<div class='delete-slot fa fa-remove'>`);
             element.find(".delete-slot")
