@@ -33,7 +33,7 @@ $(document).ready(function() {
         }
         $('html,body').animate({'scrollTop' : 0}, 400);
         $('#messages').removeClass().addClass(`alert alert-${cls}`);
-        $('#messages').html(`<strong>${title}</strong> {msg}`);
+        $('#messages').html(`<strong>${title}</strong> ${msg}`);
         $('#messages').fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200);
     }
 
