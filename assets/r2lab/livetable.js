@@ -9,9 +9,6 @@
 
 "use strict";
 
-// sidecar_url global variable is defined in template sidecar-url.js
-// from sidecar_url as defined in settings.py
-
 //global - mostly for debugging and convenience
 let the_livetable;
 
@@ -33,15 +30,15 @@ class LiveTableNode extends LiveColumnsNode {
         super(id);
 
         this.cells_data = [
-            [ span_html(id, 'badge pointer'), '' ],	// id
-            undefined,				// avail
-            undefined,				// on/off
-            undefined,				// usrp-on-off
-            undefined,				// ping
-            undefined,				// ssh
-            undefined,				// os_release
-            undefined,				// uname
-            undefined,				// image_radical
+            [ span_html(id, 'badge pointer'), '' ],     // id
+            undefined,                          // avail
+            undefined,                          // on/off
+            undefined,                          // usrp-on-off
+            undefined,                          // ping
+            undefined,                          // ssh
+            undefined,                          // os_release
+            undefined,                          // uname
+            undefined,                          // image_radical
         ];
     }
 

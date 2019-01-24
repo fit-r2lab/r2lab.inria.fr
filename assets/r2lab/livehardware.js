@@ -18,7 +18,7 @@ class LiveHardwareNode extends LiveColumnsNode{
     constructor(id) {
         super(id);
         this.cells_data = [
-            [ span_html(id, 'badge pointer'), '' ],	// id
+            [ span_html(id, 'badge pointer'), '' ],     // id
             undefined,                             // avail
             undefined,                             // on/off
             undefined,                             // usrp-on-off
