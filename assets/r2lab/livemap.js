@@ -1,5 +1,5 @@
 /* for eslint */
-/*global $ d3 io*/
+/*global $ d3 */
 
 /*global sidecar_url*/
 
@@ -59,15 +59,6 @@ let livemap_options = {
     icon_phone_content : "\uf095",
     icon_question_content : "\uf128",
 
-    ////////// must be in sync with sidecar.js
-    // the socket.io channels that are used -- see sidecar/AA-overview.md
-    channels : {
-    	chan_nodes : 'info:nodes',
-    	chan_nodes_request : 'request:nodes',
-    	chan_phones : 'info:phones',
-    	chan_phones_request : 'request:phones',
-    },
-
     // override this with a ColorMap object if desired
     colormap : null,
 
@@ -77,7 +68,7 @@ let livemap_options = {
 
 function livemap_debug(...args) {
     if (livemap_options.debug)
-        console.log(...args);
+        console.log(`${new Date()}`,...args);
 }
 
 
@@ -226,9 +217,9 @@ let livemap_geometry = {
 // helpers
 // locating a record by id in a list
 function locate_by_id (list_objs, id) {
-    for (let i=0; i< list_objs.length; i++) {
-        if (list_objs[i].id == id) {
-            return list_objs[i];
+    for (let obj of list_objs) {
+        if (obj.id == id) {
+            return obj;
         }
     }
     console.log(`ERROR: livemap: locate_by_id: id= ${id} was not found`);
@@ -506,52 +497,6 @@ function LiveMap() {
         }
     }
 
-    //////////////////// nodes
-    this.handle_nodes_json = function(json) {
-        let livemap = this;
-        return this.handle_incoming_json(
-            "node", this.nodes, json,
-            function() { livemap.animate_nodes_changes();});
-    }
-
-    this.handle_phones_json = function(json) {
-        let livemap = this;
-        return this.handle_incoming_json(
-            "phone", this.phones, json,
-            function() { livemap.animate_phones_changes();});
-    }
-
-    //////////////////// generic way to handle incoming json
-    // apply changes to internal data and then apply callback
-    // that will reflect the changes visually
-    this.handle_incoming_json = function(type, list_objs, json, callback) {
-        // xxx somehow we get noise in the mix
-        if (json == "" || json == null) {
-            console.log("node json fragment is empty..");
-            return;
-        }
-        try {
-            let infos = JSON.parse(json);
-            livemap_debug(`*** ${new Date()} Received info about ${infos.length} ${type}(s)`,
-                          infos)
-            // first we write this data into the MapNode structures
-            infos.forEach(function(info) {
-                let id = info['id'];
-                let obj = locate_by_id(list_objs, id);
-                if (obj != undefined)
-                    update_obj_from_info(obj, info);
-                else
-                    console.log(`livemap: could not locate ${type} id ${id} - ignored`);
-            });
-            callback();
-        } catch(err) {
-            console.log(`*** Could not handle news for ${type} - ignored JSON has ${json.length} chars`);
-            console.log(err.stack);
-            console.log("***");
-        }
-    }
-
-
     //////////////////// the nodes graphical layout
     this.animate_nodes_changes = function() {
         let svg = d3.select('div#livemap_container svg');
@@ -745,30 +690,93 @@ function LiveMap() {
 
     }
 
-    //////////////////// socket.io business
-    this.init_sidecar_socket_io = function() {
-	livemap_debug(`livemap is connecting to sidecar server at ${sidecar_url}`);
-	this.sidecar_socket = io(sidecar_url);
-	// what to do when receiving news from sidecar
-	let { chan_nodes, chan_nodes_request,
-	      chan_phones, chan_phones_request} = livemap_options.channels;
-	let lab = this;
-	////////// nodes
-	livemap_debug(`arming callback on channel ${chan_nodes}`);
-	this.sidecar_socket.on(chan_nodes, function(json){
-            lab.handle_nodes_json(json);
-	});
-	// request the first complete copy of the sidecar db
-	livemap_debug(`requesting complete status on channel ${chan_nodes_request}`);
-	this.sidecar_socket.emit(chan_nodes_request, 'INIT');
-	////////// phones
-	livemap_debug(`arming callback on channel ${chan_phones}`);
-	this.sidecar_socket.on(chan_phones, function(json){
-            lab.handle_phones_json(json);
-	});
-	// request the first complete copy of the sidecar db
-	livemap_debug(`requesting complete status on channel ${chan_phones_request}`);
-	this.sidecar_socket.emit(chan_phones_request, 'INIT');
+    //////////////////// specific way to handle incoming json
+    // apply changes to internal data and then apply callback
+    // that will reflect the changes visually
+    this.category_map = {
+        nodes: {
+            objects: () => this.nodes,
+            callback: () => this.animate_nodes_changes(),
+        },
+        phones: {
+            objects: () => this.phones,
+            callback: () => this.animate_phones_changes(),
+        },
+    }
+
+    this.handle_incoming_json = function(json, category_map) {
+        try {
+            let umbrella = JSON.parse(json);
+            console.log(`websockets: incoming umbrella`, umbrella)
+            let category = umbrella.category;
+            let action = umbrella.action;
+            let infos = umbrella.message;
+            // xxx somehow we get noise in the mix
+            if (json == "" || json == null) {
+                console.log(`sidecar json fragment is empty..`);
+                return;
+            }
+            if (action != "info") {
+                console.log(`sidecar action ${action} on category ${category} ignored`);
+                return;
+            }
+            let specifics = category_map[category];
+            if (specifics == undefined) {
+                // we don't care about leases
+                // console.log(`unresolved sidecar category ${category}`)
+                return;
+            }
+            livemap_debug(
+                `*** ${new Date()} recv info about ${infos.length} ${category}`,
+                infos)
+
+            // first we write this data into the MapNode structures
+            infos.forEach(function(info) {
+                let id = info['id'];
+                let obj = locate_by_id(specifics.objects(), id);
+                if (obj != undefined)
+                    update_obj_from_info(obj, info);
+                else
+                    console.log(`livemap: could not locate obj in ${category} with id ${id} - ignored`);
+            });
+            specifics.callback();
+        } catch(err) {
+            console.log(`*** Could not handle news - ignored JSON is ${json.length} chars long`);
+            console.log(json);
+            console.log(err.stack);
+            console.log("***");
+        }
+    }
+
+
+    //////////////////// websockets business
+    this.init_sidecar = function() {
+        livemap_debug(`livemap is connecting to sidecar server at ${sidecar_url}`);
+        let websocket = new WebSocket(sidecar_url);
+        this.sidecar_socket = websocket;
+        let lab = this;
+
+        websocket.onopen = function(event) {
+            if (event.target != websocket)
+                return;
+            // what to do when receiving news from sidecar
+            websocket.onmessage = function(event) {
+                /* in case of reconnections or other */
+                if (event.target != websocket)
+                    return;
+                console.log("receiving message on websocket", websocket.url);
+                lab.handle_incoming_json(event.data, lab.category_map);
+            };
+
+            // request the first complete copy of the sidecar db
+            for (let category of ['nodes', 'phones']) {
+                livemap_debug(`requesting complete status for ${category}`);
+                websocket.send(
+                    JSON.stringify(
+                        {category: category, action: 'request',
+                           'message': 'please'}));
+            }
+        }
     }
 
 }
