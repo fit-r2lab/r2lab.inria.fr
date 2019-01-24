@@ -62,7 +62,8 @@ let livemap_options = {
     // override this with a ColorMap object if desired
     colormap : null,
 
-    debug : false,
+    //debug : false,
+    debug : true,
 
 }
 
@@ -693,90 +694,49 @@ function LiveMap() {
     //////////////////// specific way to handle incoming json
     // apply changes to internal data and then apply callback
     // that will reflect the changes visually
-    this.category_map = {
-        nodes: {
-            objects: () => this.nodes,
-            callback: () => this.animate_nodes_changes(),
-        },
-        phones: {
-            objects: () => this.phones,
-            callback: () => this.animate_phones_changes(),
-        },
+    this.nodes_callback = function(infos) {
+        let livemap = this;
+        // first we write this data into the MapNode structures
+        infos.forEach(function(info) {
+            let id = info['id'];
+            let obj = locate_by_id(livemap.nodes, id);
+            if (obj != undefined)
+                update_obj_from_info(obj, info);
+            else
+                console.log(`livemap: could not locate node ${id} - ignored`);
+        });
+        livemap.animate_nodes_changes();
     }
 
-    this.handle_incoming_json = function(json, category_map) {
-        try {
-            let umbrella = JSON.parse(json);
-            console.log(`websockets: incoming umbrella`, umbrella)
-            let category = umbrella.category;
-            let action = umbrella.action;
-            let infos = umbrella.message;
-            // xxx somehow we get noise in the mix
-            if (json == "" || json == null) {
-                console.log(`sidecar json fragment is empty..`);
-                return;
-            }
-            if (action != "info") {
-                console.log(`sidecar action ${action} on category ${category} ignored`);
-                return;
-            }
-            let specifics = category_map[category];
-            if (specifics == undefined) {
-                // we don't care about leases
-                // console.log(`unresolved sidecar category ${category}`)
-                return;
-            }
-            livemap_debug(
-                `*** ${new Date()} recv info about ${infos.length} ${category}`,
-                infos)
-
-            // first we write this data into the MapNode structures
-            infos.forEach(function(info) {
-                let id = info['id'];
-                let obj = locate_by_id(specifics.objects(), id);
-                if (obj != undefined)
-                    update_obj_from_info(obj, info);
-                else
-                    console.log(`livemap: could not locate obj in ${category} with id ${id} - ignored`);
-            });
-            specifics.callback();
-        } catch(err) {
-            console.log(`*** Could not handle news - ignored JSON is ${json.length} chars long`);
-            console.log(json);
-            console.log(err.stack);
-            console.log("***");
-        }
+    this.phones_callback = function(infos) {
+        let livemap = this;
+        // first we write this data into the MapNode structures
+        infos.forEach(function(info) {
+            let id = info['id'];
+            let obj = locate_by_id(livemap.phones, id);
+            if (obj != undefined)
+                update_obj_from_info(obj, info);
+            else
+                console.log(`livemap: could not locate phone id ${id} - ignored`);
+        });
+        livemap.animate_phones_changes();
     }
 
+    this.callbacks_map = {
+        nodes:  (infos) => this.nodes_callback(infos),
+        phones: (infos) => this.phones_callback(infos),
+    }
 
     //////////////////// websockets business
     this.init_sidecar = function() {
-        livemap_debug(`livemap is connecting to sidecar server at ${sidecar_url}`);
-        let websocket = new WebSocket(sidecar_url);
-        this.sidecar_socket = websocket;
-        let lab = this;
-
-        websocket.onopen = function(event) {
-            if (event.target != websocket)
-                return;
-            // what to do when receiving news from sidecar
-            websocket.onmessage = function(event) {
-                /* in case of reconnections or other */
-                if (event.target != websocket)
-                    return;
-                console.log("receiving message on websocket", websocket.url);
-                lab.handle_incoming_json(event.data, lab.category_map);
-            };
-
-            // request the first complete copy of the sidecar db
+        let sidecar = new Sidecar(sidecar_url, this.callbacks_map);
+        this.sidecar = sidecar;
+        sidecar.connect(function(){
             for (let category of ['nodes', 'phones']) {
                 livemap_debug(`requesting complete status for ${category}`);
-                websocket.send(
-                    JSON.stringify(
-                        {category: category, action: 'request',
-                           'message': 'please'}));
+                sidecar.request(category);
             }
-        }
+        });
     }
 
 }

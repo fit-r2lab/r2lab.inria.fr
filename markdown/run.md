@@ -45,6 +45,7 @@ require_login: true
     see also <a href="status.md#livemap:legend">this page for a legend</a>
     <span id="chat-button"></span>
    </div>
+   <script src="/assets/r2lab/sidecar.js"></script>
    <script src="/assets/r2lab/livemap.js"></script>
    <style> @import url("/assets/r2lab/livemap.css"); </style>
    <script>
@@ -91,4 +92,3 @@ require_login: true
 
 <!-- defines slices_keys_modal -->
 << include r2lab/slices-keys-modal.html >>
-
