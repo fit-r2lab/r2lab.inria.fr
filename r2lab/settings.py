@@ -203,7 +203,8 @@ if not PRODUCTION:
     else:
         # development mode, SIDECAR defined to e.g. r2lab
         # specify https
-        sidecar_url = "https://r2lab.inria.fr:999/"
+        # xxx temporarily use 998
+        sidecar_url = "wss://r2lab.inria.fr:998/"
     print("Using sidecar_url = {sidecar_url}".format(**locals()))
 
 # transitioning to plcauthbackend
