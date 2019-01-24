@@ -186,8 +186,6 @@ manifold_url = "https://portal.onelab.eu:7080/"
 # not specifying either http: or https: here is the right thing to do
 # it means to use the same protocol as the one
 # used to reach the main service in the first place
-sidecar_url = "//r2lab.inria.fr:999/"
-
 if not PRODUCTION:
     # use remote sidecar, unless SIDECAR is defined
     # it can be either the actual sidecar_url,
@@ -195,7 +193,7 @@ if not PRODUCTION:
     SIDECAR = os.getenv('SIDECAR')
     if not SIDECAR:
         # development mode with no setting: use the local sidecar
-        sidecar_url = "http://localhost:10000"
+        sidecar_url = "ws://localhost:10000"
     elif 'http' in SIDECAR:
         # development mode, SIDECAR mentions http, this means
         # it points at the URL to use
