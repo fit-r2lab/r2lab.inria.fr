@@ -1,4 +1,4 @@
-sidecar_debug = true;
+sidecar_debug = false;
 
 class Sidecar {
 
@@ -43,29 +43,35 @@ class Sidecar {
         let websocket = new WebSocket(this.url);
         this.websocket = websocket;
         let sidecar = this;
+        let status_changed = this.callbacks_map.status_changed;
 
         websocket.onopen = function(event) {
             if (event.target != websocket) {
                 sidecar.debug("ignoring open");
                 return;
             }
+            status_changed && status_changed();
             // what to do when receiving news from sidecar
             websocket.onmessage = function(event) {
                 if (event.target != websocket) {
                     sidecar.debug("")
                     return;
                 }
-                console.log("receiving message on websocket", event.target.url);
+                sidecar.debug("receiving message on websocket", event.target.url);
                 sidecar.handle_incoming_json(event.data);
             };
             init_callback();
+        }
+        if (status_changed) {
+            websocket.onclose = status_changed;
+            websocket.onerror = status_changed;
         }
     }
 
     handle_incoming_json(json) {
         try {
             let umbrella = JSON.parse(json);
-            console.log(`sidecar: incoming umbrella`, umbrella)
+            this.debug(`sidecar: incoming umbrella`, umbrella)
             let category = umbrella.category;
             let action = umbrella.action;
             let infos = umbrella.message;
@@ -83,7 +89,7 @@ class Sidecar {
                 // ignore categories not present in callbacks
                 return;
             }
-            livemap_debug(
+            this.debug(
                 `*** ${new Date()} recv info about ${infos.length} ${category}`,
                 infos);
             callback(infos);

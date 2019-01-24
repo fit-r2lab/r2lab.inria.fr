@@ -62,8 +62,7 @@ let livemap_options = {
     // override this with a ColorMap object if desired
     colormap : null,
 
-    //debug : false,
-    debug : true,
+    debug : false,
 
 }
 
@@ -161,6 +160,10 @@ let livemap_geometry = {
         {id : 2, i : 8. , j : 0.5 },
     ],
 
+    sidecar_details: {
+        i: 8, j: 4, radius: 10, border: 3.2,
+    },
+
     //////////////////// configuration
     // total number of rows and columns
     steps_x : 8, steps_y : 4,
@@ -176,8 +179,10 @@ let livemap_geometry = {
 
     // translate i, j into actual coords
     grid_to_canvas : function (i, j) {
-        return [i*livemap_options.space_x + livemap_options.margin_x + livemap_options.padding_x,
-                (this.steps_y-j)*livemap_options.space_y + livemap_options.margin_y + livemap_options.padding_y];
+        return [ i * livemap_options.space_x
+               + livemap_options.margin_x + livemap_options.padding_x,
+                (this.steps_y-j) * livemap_options.space_y
+               + livemap_options.margin_y + livemap_options.padding_y];
     },
 
     //////////////////////////////
@@ -270,7 +275,7 @@ let MapNode = function (node_spec) {
     this.i = node_spec['i'];
     this.j = node_spec['j'];
     // compute actual coordinates
-    let coords = livemap_geometry.grid_to_canvas (this.i, this.j);
+    let coords = livemap_geometry.grid_to_canvas(this.i, this.j);
     this.x = coords[0];
     this.y = coords[1];
 
@@ -691,6 +696,42 @@ function LiveMap() {
 
     }
 
+    // the sidecar area
+    this.animate_sidecar_status_changes = function() {
+        livemap_debug("animate_sidecar_status_changes");
+        let svg = d3.select('div#livemap_container svg');
+        let status = this.sidecar.readyState;
+        let details = livemap_geometry.sidecar_details;
+        let [x, y] = livemap_geometry.grid_to_canvas(
+            details.i, details.j);
+        let color;
+        switch (status) {
+            case undefined:            color='gray'; break;
+            case WebSocket.CONNECTING: color='orange'; break;
+            case WebSocket.OPEN:       color='green'; break;
+            case WebSocket.CLOSING:
+            case WebSocket.CLOSED:     color='red'; break;
+        }
+        let animation_duration = 750;
+
+
+        let button = svg.selectAll('circle.sidecar-status')
+            .data([status]);
+        button
+          .enter()
+            .append('circle')
+            .attr('class', 'sidecar-status')
+            .attr('cx', x)
+            .attr('cy', y)
+            .attr('r', details.radius)
+            .attr('stroke-width', details.border)
+          .merge(button)
+            .transition()
+            .duration(animation_duration)
+            .attr('fill', color)
+            ;
+    }
+
     //////////////////// specific way to handle incoming json
     // apply changes to internal data and then apply callback
     // that will reflect the changes visually
@@ -722,14 +763,31 @@ function LiveMap() {
         livemap.animate_phones_changes();
     }
 
-    this.callbacks_map = {
-        nodes:  (infos) => this.nodes_callback(infos),
-        phones: (infos) => this.phones_callback(infos),
+    this.check_sidecar = function() {
+        if (this.sidecar.readyState == WebSocket.OPEN) {
+            return;
+        }
+        livemap_debug("Lost sidecar, trying to reconnect")
+        this.init_sidecar();
+    }
+
+    this.cyclically_check_sidecar = function() {
+        let livemap = this;
+        setTimeout(function() {
+            livemap.check_sidecar();
+            livemap.cyclically_check_sidecar();
+        }, 3000);
     }
 
     //////////////////// websockets business
     this.init_sidecar = function() {
-        let sidecar = new Sidecar(sidecar_url, this.callbacks_map);
+        let callbacks_map = {
+            status_changed: () => this.animate_sidecar_status_changes(),
+            nodes:  (infos) => this.nodes_callback(infos),
+            phones: (infos) => this.phones_callback(infos),
+        }
+
+        let sidecar = new Sidecar(sidecar_url, callbacks_map);
         this.sidecar = sidecar;
         sidecar.connect(function(){
             for (let category of ['nodes', 'phones']) {
@@ -737,6 +795,7 @@ function LiveMap() {
                 sidecar.request(category);
             }
         });
+        the_livemap.cyclically_check_sidecar();
     }
 
 }
