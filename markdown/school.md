@@ -124,7 +124,7 @@ During the first session, some participants could not see this animation,
 for them the testbed remains blank.
 
 This is due to the live traffic about the testbed being broadcast
-through socketio on port 999, that apparently is filtered for some participants.
+through websockets on port 998, that apparently is filtered for some participants.
 
 This is not critical for the tutorial session, so unless you can work around
 the filtering by enabling a VPN or swapping to another network, just live with that :)

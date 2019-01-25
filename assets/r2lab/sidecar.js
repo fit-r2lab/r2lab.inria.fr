@@ -3,10 +3,10 @@ sidecar_debug = false;
 class Sidecar {
 
     debug(...args) {
-        let now = new Date();
-        let nowstring = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
-
         if (sidecar_debug) {
+            let now = new Date();
+            let nowstring = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+
             console.log(`${nowstring} - sidecar`,...args);
         }
     }
@@ -39,7 +39,7 @@ class Sidecar {
      */
 
     connect(init_callback) {
-        this.debug(`sidecar connecting to ${this.url}`);
+        console.log(`sidecar connecting to ${this.url}`);
         let websocket = new WebSocket(this.url);
         this.websocket = websocket;
         let sidecar = this;
@@ -54,7 +54,7 @@ class Sidecar {
             // what to do when receiving news from sidecar
             websocket.onmessage = function(event) {
                 if (event.target != websocket) {
-                    sidecar.debug("")
+                    sidecar.debug("ignoring traffic on obso websocket");
                     return;
                 }
                 sidecar.debug("receiving message on websocket", event.target.url);
