@@ -181,6 +181,7 @@ STATICFILES_DIRS = [
 ]
 
 manifold_url = "https://portal.onelab.eu:7080/"
+sidecar_url = "wss://r2lab.inria.fr:999/"
 
 # IMPORTANT NOTE.
 # not specifying either http: or https: here is the right thing to do
@@ -198,11 +199,6 @@ if not PRODUCTION:
         # development mode, SIDECAR mentions http, this means
         # it points at the URL to use
         sidecar_url = SIDECAR
-    else:
-        # development mode, SIDECAR defined to e.g. r2lab
-        # specify https
-        # xxx temporarily use 998
-        sidecar_url = "wss://r2lab.inria.fr:998/"
     print("Using sidecar_url = {sidecar_url}".format(**locals()))
 
 # transitioning to plcauthbackend
