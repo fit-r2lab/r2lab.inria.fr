@@ -9,6 +9,7 @@ skip_footer: yes
 <script src="/assets/r2lab/sidecar.js"></script>
 <script src="/assets/r2lab/livecolumns.js"></script>
 <script src="/assets/r2lab/livetable.js"></script>
+<style> @import url("/assets/r2lab/livecolumns.css"); </style>
 <style> @import url("/assets/r2lab/livetable.css"); </style>
 
 <script>

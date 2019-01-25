@@ -1,7 +1,7 @@
 // -*- js-indent-level:4 -*-
 
 /* for eslint */
-/*global $ d3 io */
+/*global $ d3 Sidecar */
 /*global sidecar_url */
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "LiveColumns(Node)?" }]*/
 
@@ -18,13 +18,6 @@
 let livecolumns_options = {
 
     nb_nodes : 37,
-
-    ////////// must be in sync with r2lab-sidecar.js
-    // the 2 socket.io channels that are used
-    channels : {
-        chan_nodes : 'info:nodes',
-        chan_nodes_request : 'request:nodes',
-    },
 
     debug : false,
 }
@@ -140,7 +133,7 @@ class LiveColumns {
         this.init_headers(headers);
         // needs to be written
         this.init_nodes();
-        this.init_sidecar_socket_io();
+        this.init_sidecar();
     }
 
 
@@ -203,9 +196,9 @@ class LiveColumns {
             .data(LiveColumns.get_node_data);
 
         cells
-            .enter()
+          .enter()
             .append('td')
-            .merge(cells)
+          .merge(cells)
             .html(LiveColumns.get_html)
             .attr('class', LiveColumns.get_class)
             .each(function(d, i) {
@@ -228,55 +221,27 @@ class LiveColumns {
 
 
     ////////// socket.io business
-    handle_json_status(json) {
-        // xxx somehow we get noise in the mix
-        if (json == "" || json == null) {
-            console.log("Bloops..");
-            return;
-        }
-        try {
-            let node_infos = JSON.parse(json);
-            livecolumns_debug(`handle_json_status - incoming ${node_infos.length} node infos`);
-            // first we write this data into the TableNode structures
-            for (let i=0; i < node_infos.length; i++) {
-                let node_info = node_infos[i];
-                let id = node_info['id'];
-                let node = this.locate_node_by_id(id);
-                if (node != undefined)
-                    node.update_from_news(node_info);
-                else
-                    console.log(`livecolumns: could not locate node id ${id} - ignored`);
-            }
-            this.animate_changes(node_infos);
-        } catch(err) {
-            if (json != "") {
-                console.log(`Could not apply news - ignored  - JSON has ${json.length} chars`);
-                console.log(err.stack);
-            }
-        }
-    }
-
-
-    init_sidecar_socket_io() {
-        livecolumns_debug(`livecolumns is connecting to sidecar server at ${sidecar_url}`);
-        this.sidecar_socket = io(sidecar_url);
-        // what to do when receiving news from sidecar
-        let { chan_nodes } = livecolumns_options.channels;
-        let lab = this;
-        this.sidecar_socket.on(chan_nodes, function(json){
-            livecolumns_debug(`livecolumns is receiving on ${chan_nodes}`);
-            lab.handle_json_status(json);
+    nodes_callback(infos) {
+        let livecolumns = this;
+        infos.forEach(function(node_info) {
+            let id = node_info['id'];
+            let node = livecolumns.locate_node_by_id(id);
+            if (node != undefined)
+                node.update_from_news(node_info);
+            else
+                console.log(`livecolumns: could not locate node id ${id} - ignored`);
         });
-        this.request_complete_from_sidecar();
+        this.animate_changes(infos);
     }
 
-
-    // request sidecar for initial status on the signalling channel
-    // content is not actually used by sidecar server
-    // could maybe send some client id instead
-    request_complete_from_sidecar() {
-        let { chan_nodes_request } = livecolumns_options.channels;
-        this.sidecar_socket.emit(chan_nodes_request, 'INIT');
+    init_sidecar() {
+        let callbacks_map = {
+            nodes:  (infos) => this.nodes_callback(infos),
+        }
+        livecolumns_debug(`livecolumns is connecting to sidecar server at ${sidecar_url}`);
+        let sidecar = new Sidecar(sidecar_url, callbacks_map);
+        this.sidecar = sidecar;
+        sidecar.connect(() => sidecar.request('nodes'));
     }
 
 }

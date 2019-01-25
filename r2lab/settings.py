@@ -194,7 +194,7 @@ if not PRODUCTION:
     if not SIDECAR:
         # development mode with no setting: use the local sidecar
         sidecar_url = "ws://localhost:10000"
-    elif 'http' in SIDECAR:
+    elif 'ws' in SIDECAR:
         # development mode, SIDECAR mentions http, this means
         # it points at the URL to use
         sidecar_url = SIDECAR
