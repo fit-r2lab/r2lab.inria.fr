@@ -71,9 +71,9 @@ $(function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 display_keys("livekeys-container");
                 // decoding
-                let answer = JSON.parse(xhttp.responseText);
-                console.log("answer from /keys/delete");
-                console.log(answer);
+                // let answer = JSON.parse(xhttp.responseText);
+                // console.log("answer from /keys/delete");
+                // console.log(answer);
             }});
     }
 
@@ -99,9 +99,9 @@ $(function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 display_keys("livekeys-container");
                 // decoding
-                let answer = JSON.parse(xhttp.responseText);
-                console.log("answer from /keys/add");
-                console.log(answer);
+                // let answer = JSON.parse(xhttp.responseText);
+                // console.log("answer from /keys/add");
+                // console.log(answer);
             }})
     }
 

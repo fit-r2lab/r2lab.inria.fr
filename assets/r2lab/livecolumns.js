@@ -158,7 +158,7 @@ class LiveColumns {
 
 
     toggle_view_mode () {
-        console.log("display_nodes", this.view_mode);
+        livecolumns_debug(`display_nodes ${this.view_mode}`);
         this.view_mode = (this.view_mode == 'all') ? 'worth' : 'all';
         this.display_nodes(this.view_mode);
         $(".livecolumns_header tr").toggleClass('all');

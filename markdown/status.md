@@ -12,16 +12,17 @@ from another webpage, or a Jupyter notebook.
 For accurate dimensions of the room, please see the [static blueprint
 at the bottom of this page](#accurate-layout)
 
-For more details about what kind of SDR each node is quipped with, please hover on the node number. 
+For more details about what kind of SDR each node is quipped with, please hover on the node number.
 
 <div class="row" id="all">
   <div class="col-lg-2"></div>
   <div class="col-lg-10">
     <div id="livemap_container"></div>
+    <script src="/assets/r2lab/sidecar.js"></script>
     <script src="/assets/r2lab/livemap.js"></script>
     <style> @import url("/assets/r2lab/livemap.css"); </style>
     <script>
-    // override livemap default settings 
+    // override livemap default settings
     Object.assign(livemap_options, {
         usrp_width : 15,
     	usrp_height : 26,
@@ -54,8 +55,8 @@ In addition, you will find the following symbols close to some nodes
 
 ##### Phone
 * Phones in the testbed appear as either
-  * <span class='fa fa-plane'></span> (meaning the phone is in airplane mode) 
-  * <span class='fa fa-phone'></span> (meaning it's not in airplane mode) 
+  * <span class='fa fa-plane'></span> (meaning the phone is in airplane mode)
+  * <span class='fa fa-phone'></span> (meaning it's not in airplane mode)
 
 ***
 
@@ -69,7 +70,7 @@ In addition, you will find the following symbols close to some nodes
     <script src="/assets/r2lab/livecolumns.js"></script>
     <script src="/assets/r2lab/livetable.js"></script>
     <script>
-    // override livetable default settings 
+    // override livetable default settings
     Object.assign(livetable_options, {
 //    debug : true,
    });

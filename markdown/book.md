@@ -43,9 +43,10 @@ which is UTC+1 in winter, and UTC+2 in summer.
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
-   <style> @import url("/assets/r2lab/liveleases.css"); </style>
+   <script src="/assets/r2lab/sidecar.js"></script>
    <script src="/assets/r2lab/xhttp-django.js"></script>
    <script src="/assets/r2lab/liveleases.js"></script>
+   <style> @import url("/assets/r2lab/liveleases.css"); </style>
    <script>
     // override liveleases default settings
     Object.assign(liveleases_options, {

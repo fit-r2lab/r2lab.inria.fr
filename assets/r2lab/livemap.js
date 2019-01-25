@@ -232,7 +232,7 @@ function locate_by_id (list_objs, id) {
 }
 
 
-// obj_info is a dict coming through socket.io in JSON
+// obj_info is a dict coming through sidecar
 // simply copy the fieds present in this dict in the local object
 // for further usage in animate_nodes_changes
 function update_obj_from_info(obj, obj_info){
@@ -795,7 +795,7 @@ function LiveMap() {
                 sidecar.request(category);
             }
         });
-        the_livemap.cyclically_check_sidecar();
+        this.cyclically_check_sidecar();
     }
 
 }

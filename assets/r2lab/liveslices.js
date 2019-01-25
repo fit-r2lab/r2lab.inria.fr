@@ -117,8 +117,8 @@ Click here to renew it!</a>';
         post_xhttp_django('/slices/renew', request, function(xhttp) {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 let answer = JSON.parse(xhttp.responseText);
-                console.log("answer from /slices/renew");
-                console.log(answer);
+                // console.log("answer from /slices/renew");
+                // console.log(answer);
 
                 $('#timestamp-expire'+element).removeClass('in-red');
                 $('#timestamp-expire'+element).addClass('in-green');

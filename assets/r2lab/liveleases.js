@@ -1,7 +1,7 @@
 // -*- js-indent-level:4 -*-
 
 /* for eslint */
-/*global $ moment io*/
+/*global $ moment Sidecar*/
 /*global PersistentSlices sidecar_url r2lab_accounts post_xhttp_django*/
 
 "use strict";
@@ -66,7 +66,6 @@ class LiveLeases {
         ////////////////////////////////////////
         this.persistent_slices   = new PersistentSlices(r2lab_accounts, 'r2lab');
 
-        this.socket              = io.connect(sidecar_url);
         this.dragging            = false;
 
         this.initial_duration    = 60;
@@ -91,7 +90,7 @@ class LiveLeases {
         let today  = moment().format("YYYY-MM-DD");
         let showAt = moment().subtract(1, 'hour').format("HH:mm");
         let run_mode = liveleases_options.mode == 'run';
-        console.log(`liveleases: sidecar_url=${sidecar_url}`);
+        liveleases_debug(`liveleases: sidecar_url=${sidecar_url}`);
 
         // the view types that are not read-only
         this.active_views = [
@@ -753,30 +752,24 @@ class LiveLeases {
     // of the set of leases
     // of course it must be called *after* the actual API call
     // via django
-    requestUpdateFromApi(){
-        let msg = "INIT";
-        liveleases_debug("sending on request:leases -> ", msg);
-        this.socket.emit('request:leases', msg);
+    requestUpdateFromApi() {
+        liveleases_debug(`requesting leases`);
+        this.sidecar.request('leases');
     }
 
 
-    // subscribe to the socket io channel
-    listenToApiChannel(){
-        let liveleases = this;
-        this.socket.on('info:leases', function(json){
-            let api_slots = liveleases.parseLeases(json);
-            liveleases_debug(`incoming on info:leases ${api_slots.length} leases`/*, json*/);
-            liveleases.refreshFromApiLeases(api_slots);
-            liveleases.outlineCurrentSlice(liveleases.getCurrentSliceName());
-        });
+    leases_callback(leases) {
+        let api_slots = this.parseLeases(leases);
+        liveleases_debug(`incoming ${api_slots.length} leases`);
+        this.refreshFromApiLeases(api_slots);
+        this.outlineCurrentSlice(this.getCurrentSliceName());
     }
 
 
     // transform API leases from JSON into an object,
     // and then into fc-friendly slots
-    parseLeases(json) {
+    parseLeases(leases) {
         let liveleases = this;
-        let leases = JSON.parse(json);
         liveleases_debug("parseLeases", leases);
 
         return leases.map(function(lease){
@@ -799,16 +792,24 @@ class LiveLeases {
     }
 
 
+    init_sidecar() {
+        let callbacks_map = { leases: (leases) => this.leases_callback(leases)};
+
+        let sidecar = new Sidecar(sidecar_url, callbacks_map);
+        this.sidecar = sidecar;
+
+        let liveleases = this;
+        sidecar.connect(function() {
+            liveleases.requestUpdateFromApi();
+        });
+    }
+
     ////////////////////////////////////////
-    main(){
+    main() {
 
         this.buildSlicesBox();
         this.buildCalendar();
         this.outlineCurrentSlice(this.getCurrentSliceName());
-
-        this.listenToApiChannel();
-
-        this.requestUpdateFromApi();
 
         let run_mode = liveleases_options.mode == 'run';
         if (run_mode) {
@@ -826,6 +827,7 @@ class LiveLeases {
             liveleases.showMessage('This view is read only!', 'info');
         });
 
+        this.init_sidecar();
     }
 }
 

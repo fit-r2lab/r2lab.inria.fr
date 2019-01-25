@@ -139,5 +139,4 @@ $(function() {
     // name it for debugging from the console
     the_livetable = new LiveTable("livetable_container");
     the_livetable.init();
-    console.log(the_livetable);
 })
