@@ -81,7 +81,7 @@ class Sidecar {
                 return;
             }
             if (action != "info") {
-                console.log(`sidecar action ${action} on category ${category} ignored`);
+                this.debug(`sidecar action ${action} on category ${category} ignored`);
                 return;
             }
             let callback = this.callbacks_map[category];
