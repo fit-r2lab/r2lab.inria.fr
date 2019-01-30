@@ -247,15 +247,18 @@ function update_obj_from_info(obj, obj_info){
 }
 
 //////////////////////////////
-let MapPhone = function(phone_spec) {
-    this.id = phone_spec['id'];
-    this.i = phone_spec['i'];
-    this.j = phone_spec['j'];
-    let coords = livemap_geometry.grid_to_canvas(this.i, this.j);
-    this.x = coords[0];
-    this.y = coords[1];
+class MapPhone {
+    
+    constructor(phone_spec) {
+        this.id = phone_spec['id'];
+        this.i = phone_spec['i'];
+        this.j = phone_spec['j'];
+        let coords = livemap_geometry.grid_to_canvas(this.i, this.j);
+        this.x = coords[0];
+        this.y = coords[1];
+    }
 
-    this.text = function(){
+    text() {
         if (this.airplane_mode == 'on')
             return livemap_options.icon_plane_content;
         else if (this.airplane_mode == 'off')
@@ -269,25 +272,28 @@ let MapPhone = function(phone_spec) {
 //////////////////////////////
 // nodes are dynamic
 // their visual rep. get created through d3 enter mechanism
-let MapNode = function (node_spec) {
-    this.id = node_spec['id'];
-    // i and j refer to a logical grid
-    this.i = node_spec['i'];
-    this.j = node_spec['j'];
-    // compute actual coordinates
-    let coords = livemap_geometry.grid_to_canvas(this.i, this.j);
-    this.x = coords[0];
-    this.y = coords[1];
+class MapNode {
+    
+    constructor (node_spec) {
+        this.id = node_spec['id'];
+        // i and j refer to a logical grid
+        this.i = node_spec['i'];
+        this.j = node_spec['j'];
+        // compute actual coordinates
+        let coords = livemap_geometry.grid_to_canvas(this.i, this.j);
+        this.x = coords[0];
+        this.y = coords[1];
 
-    if (livemap_options.colormap) {
-        this.group_color = livemap_options.colormap.color(this.id);
+        if (livemap_options.colormap) {
+            this.group_color = livemap_options.colormap.color(this.id);
+        }
     }
 
-    this.is_available = function() {
+    is_available() {
         return this.available != 'ko';
     }
 
-    this.is_alive = function() {
+    is_alive() {
         return this.cmc_on_off == 'on'
             && this.control_ping == 'on'
             && this.control_ssh != 'off'
@@ -296,16 +302,17 @@ let MapNode = function (node_spec) {
 
     // shift label south-east a little
     // we cannot just add a constant to the radius
-    this.text_offset = function(radius) {
+    text_offset(radius) {
         return Math.max(5, 12-radius/2);
     }
-    this.text_x = function() {
+    text_x() {
         if ( ! this.is_available()) return this.x;
         let radius = this.node_status_radius();
         let delta = this.text_offset(radius);
         return this.x + ((radius == 0) ? 0 : (radius + delta));
     }
-    this.text_y = function() {
+    
+    text_y() {
         if ( ! this.is_available()) return this.y;
         let radius = this.node_status_radius();
         let delta = this.text_offset(radius);
@@ -320,7 +327,7 @@ let MapNode = function (node_spec) {
     // when answers ping, still larger
     // when ssh : full size with OS badge
     // but animate.py does show that
-    this.node_status_radius = function() {
+    node_status_radius() {
         // completely off
         if (this.cmc_on_off != 'on')
             return livemap_options.radius_ko;
@@ -337,12 +344,12 @@ let MapNode = function (node_spec) {
 
     // right now this is visible only for intermediate radius
     // let's show some lightgreen for the 2/3 radius (ssh is up)
-    this.text_color = function() {
+    text_color() {
         return '#555';
     }
 
     // luckily this is not rendered when a filter is at work
-    this.node_status_color = function() {
+    node_status_color() {
         let radius = this.node_status_radius();
         return (radius == livemap_options.radius_pinging) ? d3.rgb('#71edb0').darker() :
             (radius == livemap_options.radius_warming) ? d3.rgb('#f7d8dd').darker() :
@@ -351,7 +358,7 @@ let MapNode = function (node_spec) {
 
     // showing an image (or not, if filter is undefined)
     // depending on the OS
-    this.node_status_filter = function() {
+    node_status_filter() {
         let filter_name;
         // only set a filter with full-fledged nodes
         if (! this.is_alive())
@@ -371,7 +378,7 @@ let MapNode = function (node_spec) {
     }
 
     // a missing 'available' means the node is OK
-    this.unavailable_display = function() {
+    unavailable_display() {
         if ((this.available == undefined)
             || (this.available == "ok"))
             return "none";
@@ -380,14 +387,14 @@ let MapNode = function (node_spec) {
     }
 
     ////////// show an icon only if usrp_type is defined
-    this.has_usrp = function() {
+    has_usrp() {
         return (this.usrp_type || 'none') != 'none';
     }
-    this.usrp_status_display = function() {
+    usrp_status_display() {
         return (this.has_usrp()) ? "on" : "none";
     }
 
-    this.usrp_status_filter = function() {
+    usrp_status_filter() {
         let filter_name;
         if ( ! this.has_usrp() )
             return undefined;
@@ -401,7 +408,7 @@ let MapNode = function (node_spec) {
     }
 
     // the radius of the circle that we need to leave free
-    this.overall_radius = function() {
+    overall_radius() {
         let r = this.node_status_radius();
         if (! this.is_available())
             return r;
@@ -412,81 +419,92 @@ let MapNode = function (node_spec) {
     }
 
     // 0.7 stands for sin(pi/2)
-    this.usrp_offset_x = function() {
+    usrp_offset_x() {
         let {usrp_delta_x} = livemap_options;
         return this.overall_radius() * 0.7 + usrp_delta_x;
     }
-    this.usrp_offset_y = function() {
+    usrp_offset_y() {
         let {usrp_delta_y} = livemap_options;
         return this.overall_radius() * 0.7 + usrp_delta_y;
     }
-    this.usrp_x = function() {
-        return this.x + this.usrp_offset_x(); }
-    this.usrp_y = function() {
-        return this.y - (this.usrp_offset_y() + this.usrp_h()); }
-    this.usrp_w = function() {
+    usrp_x() {
+        return this.x + this.usrp_offset_x();
+    }
+    usrp_y() {
+        return this.y - (this.usrp_offset_y() + this.usrp_h());
+    }
+    usrp_w() {
         let {usrp_width, usrp_on_ratio, usrp_off_ratio} = livemap_options;
-        return usrp_width * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio); }
-    this.usrp_h = function() {
+        return usrp_width * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio);
+    }
+    usrp_h() {
         let {usrp_height, usrp_on_ratio, usrp_off_ratio} = livemap_options;
         return usrp_height * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio); }
 
-    this.clicked = function() {
+    clicked() {
         console.log(`in clicked ${this.id}`);
     }
 
 }
 
 //////////////////////////////
-function LiveMap() {
-    let canvas_x = livemap_geometry.room_x() + 2 * livemap_options.margin_x;
-    let canvas_y = livemap_geometry.room_y() + 2 * livemap_options.margin_y;
-    let svg =
-        d3.select('div#livemap_container')
-        .append('svg')
-        .attr('width', canvas_x)
-        .attr('height', canvas_y)
-    ;
-    // we insert a g to flip the walls upside down
-    // too lazy to rewrite this one
-    let g =
-        svg.append('g')
-        .attr('id', 'walls_upside_down')
-        .attr('transform', 'translate(' + canvas_x + ',' + canvas_y + ')' + ' ' +  'rotate(180)')
-    ;
+class LiveMap {
 
-    // walls
-    g.append('path')
-        .attr('d', livemap_geometry.walls_path())
-        .attr('id', 'walls')
-        .attr('fill', '#fdfdfd')
-        .call(livemap_geometry.walls_style)
-    ;
+    constructor() {
+        let canvas_x = livemap_geometry.room_x() + 2 * livemap_options.margin_x;
+        let canvas_y = livemap_geometry.room_y() + 2 * livemap_options.margin_y;
+        let svg =
+            d3.select('div#livemap_container')
+            .append('svg')
+            .attr('width', canvas_x)
+            .attr('height', canvas_y)
+        ;
+        // we insert a g to flip the walls upside down
+        // too lazy to rewrite this one
+        let g =
+            svg.append('g')
+            .attr('id', 'walls_upside_down')
+            .attr('transform', 'translate(' + canvas_x + ',' + canvas_y + ')' + ' ' +  'rotate(180)')
+        ;
 
-    let {pillar_radius} = livemap_options;
-
-    livemap_geometry.pillar_specs.forEach(function(spec) {
-        let coords = livemap_geometry.grid_to_canvas(spec.i, spec.j);
-        svg.append('rect')
-            .attr('id', 'pillar-' + spec.id)
-            .attr('class', 'pillar')
-            .attr('x', coords[0] - pillar_radius)
-            .attr('y', coords[1] - pillar_radius)
-            .attr('width', 2*pillar_radius)
-            .attr('height', 2*pillar_radius)
-            .attr('fill', '#101030')
+        // walls
+        g.append('path')
+            .attr('d', livemap_geometry.walls_path())
+            .attr('id', 'walls')
+            .attr('fill', '#fdfdfd')
             .call(livemap_geometry.walls_style)
         ;
-    });
 
-    this.init = function() {
-            this.init_nodes();
+        let {pillar_radius} = livemap_options;
+
+        livemap_geometry.pillar_specs.forEach(function(spec) {
+            let coords = livemap_geometry.grid_to_canvas(spec.i, spec.j);
+            svg.append('rect')
+                .attr('id', 'pillar-' + spec.id)
+                .attr('class', 'pillar')
+                .attr('x', coords[0] - pillar_radius)
+                .attr('y', coords[1] - pillar_radius)
+                .attr('width', 2*pillar_radius)
+                .attr('height', 2*pillar_radius)
+                .attr('fill', '#101030')
+                .call(livemap_geometry.walls_style)
+            ;
+        });
+        this.declare_image_filter('fedora-logo', 'png');
+        this.declare_image_filter('ubuntu-logo', 'png');
+        this.declare_image_filter('other-logo', 'png');
+        this.declare_image_filter('gnuradio-logo-icon-green', 'svg');
+        this.declare_image_filter('gnuradio-logo-icon-red', 'svg');
+    }
+    
+    init() {
+        this.init_nodes();
         this.init_phones();
         this.init_sidecar();
     }
 
     //////////////////// nodes
-    this.init_nodes = function () {
+    init_nodes() {
         this.nodes = [];
         let mapnode_specs = livemap_geometry.mapnode_specs;
         for (let i=0; i < mapnode_specs.length; i++) {
@@ -495,7 +513,7 @@ function LiveMap() {
     }
 
     //////////////////// phones
-    this.init_phones = function () {
+    init_phones () {
         this.phones = [];
         let mapphone_specs = livemap_geometry.mapphone_specs;
         for (let i=0; i < mapphone_specs.length; i++) {
@@ -504,7 +522,7 @@ function LiveMap() {
     }
 
     //////////////////// the nodes graphical layout
-    this.animate_nodes_changes = function() {
+    animate_nodes_changes () {
         let svg = d3.select('div#livemap_container svg');
         let animation_duration = 750;
         let circles = svg.selectAll('circle.node-status')
@@ -620,7 +638,7 @@ function LiveMap() {
 
     //////////////////// convenience / helpers
     // filters nice_float(for background)s
-    this.declare_image_filter = function (id_filename, suffix) {
+    declare_image_filter (id_filename, suffix) {
         // create defs element if not yet present
         if ( ! $('#livemap_container svg defs').length) {
             d3.select('#livemap_container svg').append('defs');
@@ -639,14 +657,9 @@ function LiveMap() {
                   + "." + suffix);
     }
 
-    this.declare_image_filter('fedora-logo', 'png');
-    this.declare_image_filter('ubuntu-logo', 'png');
-    this.declare_image_filter('other-logo', 'png');
-    this.declare_image_filter('gnuradio-logo-icon-green', 'svg');
-    this.declare_image_filter('gnuradio-logo-icon-red', 'svg');
 
     //////////////////// phones graphical layout
-    this.animate_phones_changes = function() {
+    animate_phones_changes() {
         livemap_debug("in animate_phones_changes");
         let svg = d3.select('div#livemap_container svg');
         let animation_duration = 750;
@@ -696,8 +709,10 @@ function LiveMap() {
 
     }
 
+    
+
     // the sidecar area
-    this.animate_sidecar_status_changes = function() {
+    animate_sidecar_status_changes () {
         livemap_debug("animate_sidecar_status_changes");
         let svg = d3.select('div#livemap_container svg');
         let status = this.sidecar.readyState;
@@ -735,7 +750,7 @@ function LiveMap() {
     //////////////////// specific way to handle incoming json
     // apply changes to internal data and then apply callback
     // that will reflect the changes visually
-    this.nodes_callback = function(infos) {
+    nodes_callback (infos) {
         let livemap = this;
         // first we write this data into the MapNode structures
         infos.forEach(function(info) {
@@ -749,7 +764,7 @@ function LiveMap() {
         livemap.animate_nodes_changes();
     }
 
-    this.phones_callback = function(infos) {
+    phones_callback (infos) {
         let livemap = this;
         // first we write this data into the MapNode structures
         infos.forEach(function(info) {
@@ -763,7 +778,7 @@ function LiveMap() {
         livemap.animate_phones_changes();
     }
 
-    this.check_sidecar = function() {
+    check_sidecar () {
         if (this.sidecar.readyState == WebSocket.OPEN) {
             return;
         }
@@ -771,7 +786,7 @@ function LiveMap() {
         this.init_sidecar();
     }
 
-    this.cyclically_check_sidecar = function() {
+    cyclically_check_sidecar () {
         let livemap = this;
         setTimeout(function() {
             livemap.check_sidecar();
@@ -780,7 +795,7 @@ function LiveMap() {
     }
 
     //////////////////// websockets business
-    this.init_sidecar = function() {
+    init_sidecar () {
         let callbacks_map = {
             status_changed: () => this.animate_sidecar_status_changes(),
             nodes:  (infos) => this.nodes_callback(infos),
