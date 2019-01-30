@@ -6,6 +6,9 @@
 
 "use strict";
 
+import {load_css} from "/assets/r2lab/load-css.js";
+load_css("/assets/r2lab/liveleases.css");
+
 import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 
 import {Sidecar} from "/assets/r2lab/sidecar.js";

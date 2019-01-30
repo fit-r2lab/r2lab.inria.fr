@@ -179,8 +179,6 @@ We need to split the nodes in several groups to implement some kind of light iso
 </div>
 </div>
 
-<style> @import url("/assets/r2lab/livemap.css"); </style>
-<style> @import url("/assets/r2lab/colormap.css"); </style>
 <script type="module">
 
 import {livemap_options} from "/assets/r2lab/livemap.js";

@@ -5,9 +5,13 @@
 /*global sidecar_url */
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "LiveColumns(Node)?" }]*/
 
+"use strict";
+
+import {load_css} from "/assets/r2lab/load-css.js";
+load_css("/assets/r2lab/livecolumns.css");
+
 import {Sidecar} from "/assets/r2lab/sidecar.js";
 
-"use strict";
 
 //
 // this code is the common ground for both livetable and livehardware

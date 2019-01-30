@@ -14,8 +14,6 @@ at the bottom of this page](#accurate-layout)
 
 For more details about what kind of SDR each node is quipped with, please hover on the node number.
 
-<style> @import url("/assets/r2lab/livemap.css"); </style>
-
 <script type="module">
 import {livemap_options} from "/assets/r2lab/livemap.js";
 // override livemap default settings
@@ -76,8 +74,6 @@ Object.assign(livetable_options, {
 <div class="row" id="all">
   <div class="col-lg-12">
     <table class="table table-condensed" id='livetable_container'> </table>
-    <style> @import url("/assets/r2lab/livecolumns.css"); </style>
-    <style> @import url("/assets/r2lab/livetable.css"); </style>
   </div>
 </div>
 

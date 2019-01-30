@@ -5,6 +5,9 @@
 
 "use strict";
 
+import {load_css} from "/assets/r2lab/load-css.js";
+load_css("/assets/r2lab/livemap.css");
+
 import {Sidecar} from "/assets/r2lab/sidecar.js";
 
 //global - mostly for debugging and convenience

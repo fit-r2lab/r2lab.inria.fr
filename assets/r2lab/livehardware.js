@@ -2,9 +2,11 @@
 
 /* for eslint */
 /*global $ */
-/*exported LiveHardwareNode LiveHardware */
 
 "use strict";
+
+import {load_css} from "/assets/r2lab/load-css.js";
+load_css("/assets/r2lab/livehardware.css");
 
 import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
 

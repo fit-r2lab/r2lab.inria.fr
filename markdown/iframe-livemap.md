@@ -6,8 +6,6 @@ skip_footer: yes
 
 <div id="livemap_container"></div>
 
-<style> @import url("/assets/r2lab/livemap.css"); </style>
-
 <script type="module">
     import {livemap_options} from "/assets/r2lab/livemap.js";
     let ratio = 2/3;

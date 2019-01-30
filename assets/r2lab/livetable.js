@@ -3,9 +3,12 @@
 /* for eslint */
 /*global $*/
 
-import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
-
 "use strict";
+
+import {load_css} from "/assets/r2lab/load-css.js";
+load_css("/assets/r2lab/livetable.css");
+
+import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
 
 //global - mostly for debugging and convenience
 let the_livetable;

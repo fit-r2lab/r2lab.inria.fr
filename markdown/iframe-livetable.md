@@ -6,9 +6,6 @@ skip_footer: yes
 
 <div id="livetable_container"></div>
 
-<style> @import url("/assets/r2lab/livecolumns.css"); </style>
-<style> @import url("/assets/r2lab/livetable.css"); </style>
-
 <script type="module">
     import {livetable_options} from "/assets/r2lab/livetable.js";
     let ratio = 2/3;

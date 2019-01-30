@@ -34,7 +34,6 @@ require_login: true
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
-   <style> @import url("/assets/r2lab/liveleases.css"); </style>
    <script type="module"> import "/assets/r2lab/liveleases.js" </script>
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>
@@ -43,7 +42,6 @@ require_login: true
     see also <a href="status.md#livemap:legend">this page for a legend</a>
     <span id="chat-button"></span>
    </div>
-   <style> @import url("/assets/r2lab/livemap.css"); </style>
    <script type="module">
     import {livemap_options} from "/assets/r2lab/livemap.js";
     // override livemap default settings
@@ -73,8 +71,6 @@ require_login: true
     <div class="col-md-12">
       <br/>
       <table class="table table-condensed" id='livetable_container'></table>
-      <style> @import url("/assets/r2lab/livecolumns.css"); </style>
-      <style> @import url("/assets/r2lab/livetable.css"); </style>
     </div>
   </div>
 </div>

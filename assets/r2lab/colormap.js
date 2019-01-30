@@ -9,6 +9,10 @@
 
 "use strict";
 
+import {load_css} from "/assets/r2lab/load-css.js";
+load_css("/assets/r2lab/colormap.css");
+
+
 export class ColorMap {
 
     constructor(index_max) {
