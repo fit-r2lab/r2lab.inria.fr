@@ -6,9 +6,6 @@ This is a unit test; all data is hard-coded in the page itself
 
 See also `slices/view.py`
 
-<!-- this exposes the getCookie function -->
-<script src="/assets/r2lab/xhttp-django.js"></script>
-
 ---
 <div id="get2-div"><p>Click this paragraph to get slices details (hard-wired list)</p>
 <ul id='get2'><li>Results here</li></ul>
@@ -19,7 +16,8 @@ See also `slices/view.py`
 <ul id='getall'><li>Results here</li></ul>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 // an example of how to retrieve slices
 var get_slices = function(id, names) {
     var sel = "#"+id;
@@ -56,7 +54,8 @@ $(function(){
 <p id='renew-response'>Result here</p>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 // an example of how to renew a slice
 var renew_slice = function() {
     var request = {

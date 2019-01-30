@@ -179,59 +179,39 @@ We need to split the nodes in several groups to implement some kind of light iso
 </div>
 </div>
 
-<script src="/assets/r2lab/livemap.js"></script>
 <style> @import url("/assets/r2lab/livemap.css"); </style>
-<script src="/assets/r2lab/colormap.js"></script>
 <style> @import url("/assets/r2lab/colormap.css"); </style>
-<script>
+<script type="module">
 
-    let groups5 = [
-        [1,  7, 13, 19, 27, 33, 35, 37],
-        [2,  9, 11, 18, 23, 28 ,36],
-        [3, 10, 12, 16, 21, 29, 31],
-        [4,  6, 14, 20, 25, 26, 34],
-        [5, 8, 15, 17, 22, 24 ,30, 32],
-    ];
+import {livemap_options} from "/assets/r2lab/livemap.js";
+import {ColorMap} from "/assets/r2lab/colormap.js";
 
-    let groups6 = [
-        [1, 7, 15, 22, 29, 35],
-        [2, 8, 14, 16, 24, 26, 33],
-        [3, 9, 13, 20, 28, 37],
-        [4, 10, 12, 21, 27, 34],
-        [5, 11, 17, 23, 25, 32],
-        [6, 18, 19, 30, 31, 36],
-    ];
+// no longer used apparently
+let colors = [
+    "#FF1F2080",
+    "#00E0DF80",
+    "#FF5FC080",
+    "#3030A380",
+    "#00A40080",
+    "#FFBA3F80",
+    "#616F6F80",
+    "rgba(171, 152, 149, .5)",
+    "rgba(83, 45, 59, .5)",
+    "rgba(205, 102, 146, .5)",
+    "rgba(247, 202, 201, .5)",
+    "rgba(164, 158, 157, .5)",
+];
+let colormap = new ColorMap(37).cyclic(colors, 10);
 
-    let colors = [
-        "#FF1F2080",
-        "#00E0DF80",
-        "#FF5FC080",
-        "#3030A380",
-        "#00A40080",
-        "#FFBA3F80",
-        "#616F6F80",
-        "rgba(171, 152, 149, .5)",
-        "rgba(83, 45, 59, .5)",
-        "rgba(205, 102, 146, .5)",
-        "rgba(247, 202, 201, .5)",
-        "rgba(164, 158, 157, .5)",
-    ];
+let ratio = .72;
+// override livemap default settings
+Object.assign(livemap_options, {
+    ratio : ratio,
+    margin_x : 10/ratio,
+    margin_y : 10/ratio,
+    colormap : colormap,
+    debug : true,
+});
 
-    // let colormap = new ColorMap(37).handpick(colors, groups6);
-    let colormap = new ColorMap(37).cyclic(colors, 12);
-
-    let ratio = .72;
-
-    // override livemap default settings
-    Object.assign(livemap_options, {
-        ratio : ratio,
-        margin_x : 10/ratio,
-        margin_y : 10/ratio,
-        colormap : colormap,
-
-//    debug : true,
-   });
-
-   $(function() { colormap.colortable(); });
-
+$(() => colormap.colortable());
 </script>

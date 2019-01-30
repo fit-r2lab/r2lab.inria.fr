@@ -15,7 +15,7 @@
 //
 
 ////////// configurable
-let livecolumns_options = {
+export let livecolumns_options = {
 
     nb_nodes : 37,
 
@@ -28,10 +28,18 @@ function livecolumns_debug(...args) {
 }
 
 
+////////////////////
+// quick'n dirty helper to create <span> tags inside the <td>
+// d3 should allow us to do that more nicely but I could not figure it out yet
+export function span_html(text, cls) {
+    let tag = cls ? ` class='${cls}'` : "";
+    return `<span${tag}>${text}</span>`;
+}
+
 //////////////////////////////
 // nodes are dynamic
 // their table row and cells get created through d3's enter mechanism
-class LiveColumnsNode {
+export class LiveColumnsNode {
 
 
     constructor(id) {
@@ -117,7 +125,7 @@ class LiveColumnsNode {
 
 //////////////////////////////
 // the base class for both LiveHardware and LiveTable
-class LiveColumns {
+export class LiveColumns {
 
 
     constructor() {
@@ -246,10 +254,3 @@ class LiveColumns {
 
 }
 
-////////////////////
-// quick'n dirty helper to create <span> tags inside the <td>
-// d3 should allow us to do that more nicely but I could not figure it out yet
-function span_html(text, cls) {
-    let tag = cls ? ` class='${cls}'` : "";
-    return `<span${tag}>${text}</span>`;
-}

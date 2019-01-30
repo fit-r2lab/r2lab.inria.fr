@@ -3,8 +3,6 @@
 /* for eslint */
 /*global $*/
 
-/*exported getCookie post_xhttp_django*/
-
 "use strict";
 
 //from https://docs.djangoproject.com/en/1.9/ref/csrf/
@@ -27,7 +25,7 @@ function getCookie(name) {
 // callback will be called on the xhttp object upon ready state change
 // see http://www.w3schools.com/ajax/ajax_xmlhttprequest_onreadystatechange.asp
 // urlpath being for example "/slices/get" or similar
-function post_xhttp_django(urlpath, request, callback) {
+export function post_xhttp_django(urlpath, request, callback) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", urlpath, true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

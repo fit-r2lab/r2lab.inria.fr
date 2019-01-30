@@ -7,16 +7,14 @@ This is a unit test; all data is hard-coded in the page itself
 
 See also `keys/views.py`
 
-<!-- this exposes the getCookie function -->
-<script src="/assets/r2lab/xhttp-django.js"></script>
-
 <h1>List</h1>
 
 <div id="get-key"><p>Click this paragraph to list the keys for hard-wired user</p>
 <p id='get-keys'>Result here</p>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 var get_keys = function() {
     var request = {
     /* empty record for get_keys; user is deduced from logged-in user */
@@ -54,7 +52,8 @@ $(function(){$('#get-key').click(get_keys);})
 <span id="add-response"></span>
 
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 // an example of how to add a key
 function displayContents(contents) {
   $('#file-content').html(contents);
@@ -96,7 +95,8 @@ $(function(){document.getElementById('key-file-selector').addEventListener('chan
 <p id='delete-response'>Result here</p>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 // an example of how to delete a key
 var delete_key = function() {
     var request = { "uuid" : added_key_uuid };

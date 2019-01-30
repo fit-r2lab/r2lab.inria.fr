@@ -6,15 +6,13 @@ This is a unit test; all data is hard-coded in the page itself
 
 See also `leases/view.py`
 
-<!-- this exposes the getCookie function -->
-<script src="/assets/r2lab/xhttp-django.js"></script>
-
 ---
 <div id="add-lease"><p>Click this paragraph to add a lease</p>
 <p id='add-response'>Result here</p>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 var added_lease_uuid;
 // an example of how to add a lease
 var add_lease = function() {
@@ -42,7 +40,8 @@ $(function(){$('#add-lease').click(add_lease);})
 <p id='update-response'>Result here</p>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 // an example of how to update a lease
 var update_lease = function() {
     var request = {
@@ -68,7 +67,8 @@ $(function(){$('#update-lease').click(update_lease);})
 <p id='delete-response'>Result here</p>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 // an example of how to delete a lease
 var delete_lease = function() {
     var request = {

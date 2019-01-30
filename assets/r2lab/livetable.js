@@ -3,9 +3,7 @@
 /* for eslint */
 /*global $*/
 
-/*global LiveColumnsNode LiveColumns livecolumns_options span_html*/
-
-/*exported LiveTableNode LiveTable*/
+import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
 
 "use strict";
 
@@ -13,7 +11,7 @@
 let the_livetable;
 
 ////////// configurable
-let livetable_options = {
+export let livetable_options = {
 
     fedora_badge : '<img src="/assets/img/fedora-logo.png">',
     ubuntu_badge : '<img src="/assets/img/ubuntu-logo.png">',
@@ -24,7 +22,7 @@ let livetable_options = {
 //////////////////////////////
 // nodes are dynamic
 // their table row and cells get created through d3 enter mechanism
-class LiveTableNode extends LiveColumnsNode {
+export class LiveTableNode extends LiveColumnsNode {
 
     constructor(id) {
         super(id);
@@ -107,7 +105,7 @@ class LiveTableNode extends LiveColumnsNode {
 }
 
 //////////////////////////////
-class LiveTable extends LiveColumns{
+export class LiveTable extends LiveColumns{
 
     constructor(domid) {
         super();

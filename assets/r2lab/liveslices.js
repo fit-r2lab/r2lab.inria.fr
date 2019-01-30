@@ -2,12 +2,13 @@
 
 /* for eslint */
 /*global $  moment*/
-/*global post_xhttp_django */
 /*global r2lab_accounts */
 
 "use strict";
 
-$(document).ready(function() {
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
+
+$(function() {
 
     function normalize_id(name){
         let new_name = name;

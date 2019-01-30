@@ -18,22 +18,10 @@
  *
  */
 
-/* for eslint */
-/*global jQuery*/
-
-/* hide everything in an anonymous function and pass global jQuery as $ */
-(function($){
-    /* register a function to fire at load-time */
-    $(function() {
-	/* toplevel tabs
-       select all <a> elts that have a 'tab' attribute */
-	$("a[tab]").map(function() {
-	    /* convert into a jquery obj */
-	    var $this = $(this);
-	    /* if criteria are met */
-	    if (( "tab-" + $this.attr('tab')) == this.id)
-		/* set as active */
-		$this.addClass('current');
-	})
+$(function() {
+    $("a[tab]").map(function() {
+	let $this = $(this);
+	if ( `tab-${$this.attr('tab')}` == this.id)
+	    $this.addClass('current');
     })
-})(jQuery);
+})

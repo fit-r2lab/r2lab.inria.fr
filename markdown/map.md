@@ -4,9 +4,9 @@ skip_header: yes
 require_login: true
 
 <div id="livemap_container"></div>
-<script src="/assets/r2lab/livemap.js"></script>
 <style> @import url("/assets/r2lab/livemap.css"); </style>
-<script>
+<script type="module">
+    import {livemap_options} from "/assets/r2lab/livemap.js";
     // override livemap default settings 
     Object.assign(livemap_options, {
       space_x : 72,

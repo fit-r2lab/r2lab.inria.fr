@@ -92,7 +92,7 @@ def parse(markdown_file):
            in that tuto page
            this includes the 'tutorial_index' as the last rightmost dropdown
            each ID should then be defined in a subsequent <div id="ID">
-        the first ID is considered active, active-tabs
+        the first ID is considered active, active-tab.js
            is in charge of tweaking that if needed
 
     <<togglableoutput file header>>

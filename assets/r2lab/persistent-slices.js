@@ -104,7 +104,7 @@ class ColorsGenerator {
   }
 ---------- */
 
-class PersistentSlices {
+export class PersistentSlices {
 
     // at the beginning we only have a list of slice names
     constructor(r2lab_accounts, category) {

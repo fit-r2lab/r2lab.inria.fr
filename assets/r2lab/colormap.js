@@ -7,26 +7,31 @@
 /* for eslint */
 /*global $*/
 
-let ColorMap = function(index_max) {
+"use strict";
 
-    this.index_max = index_max;
-    this.hash = new Map();
+export class ColorMap {
+
+    constructor(index_max) {
+
+        this.index_max = index_max;
+        this.hash = new Map();
+    }
 
 
     // mechanism to keep track of the actual
     // number of different colors
-    this.init = function() {
+    init() {
         this.colors = new Set();
     }
 
-    this.set =  function(index, color) {
+    set(index, color) {
         this.hash.set(index, color);
         this.colors.add(color);
     }
 
 
     // generate colormap from a list of colours
-    this.cyclic = function(group_colors, width) {
+    cyclic(group_colors, width) {
         if (width === undefined) {
             width = group_colors.length;
         }
@@ -45,7 +50,7 @@ let ColorMap = function(index_max) {
     //    [2, 5, 11, 19],
     //    [...]
     //  ]
-    this.handpick = function(group_colors, partitions) {
+    handpick (group_colors, partitions) {
         this.init();
         for (let part_index = 0;
              part_index < partitions.length;
@@ -63,11 +68,11 @@ let ColorMap = function(index_max) {
         return this;
     }
 
-    this.color = function(index) {
+    color (index) {
         return this.hash.get(index);
     }
 
-    this.hostname = function(node_id) {
+    hostname (node_id) {
         let twodigits = node_id.toLocaleString(
             'en-US',
             {minimumIntegerDigits: 2,
@@ -75,7 +80,7 @@ let ColorMap = function(index_max) {
         return `fit${twodigits}`;
     }
 
-    this.colortable = function() {
+    colortable () {
         /*let columns = this.colors.size;*/
         let div = $(`div#colortable_container`);
         div

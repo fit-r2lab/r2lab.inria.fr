@@ -14,21 +14,23 @@ at the bottom of this page](#accurate-layout)
 
 For more details about what kind of SDR each node is quipped with, please hover on the node number.
 
+<style> @import url("/assets/r2lab/livemap.css"); </style>
+
+<script type="module">
+import {livemap_options} from "/assets/r2lab/livemap.js";
+// override livemap default settings
+Object.assign(livemap_options, {
+    usrp_width : 15,
+    usrp_height : 26,
+//    debug : true,
+});
+</script>
+
 <div class="row" id="all">
   <div class="col-lg-2"></div>
   <div class="col-lg-10">
     <div id="livemap_container"></div>
     <script src="/assets/r2lab/sidecar.js"></script>
-    <script src="/assets/r2lab/livemap.js"></script>
-    <style> @import url("/assets/r2lab/livemap.css"); </style>
-    <script>
-    // override livemap default settings
-    Object.assign(livemap_options, {
-        usrp_width : 15,
-    	usrp_height : 26,
-//    debug : true,
-   });
-    </script>
   </div>
 </div>
 
@@ -64,17 +66,17 @@ In addition, you will find the following symbols close to some nodes
 
 <br />
 
+<script type="module">
+import {livetable_options} from "/assets/r2lab/livetable.js" ;
+// override livetable default settings
+Object.assign(livetable_options, {
+//    debug : true,
+});
+</script>
+
 <div class="row" id="all">
   <div class="col-lg-12">
     <table class="table table-condensed" id='livetable_container'> </table>
-    <script src="/assets/r2lab/livecolumns.js"></script>
-    <script src="/assets/r2lab/livetable.js"></script>
-    <script>
-    // override livetable default settings
-    Object.assign(livetable_options, {
-//    debug : true,
-   });
-    </script>
     <style> @import url("/assets/r2lab/livecolumns.css"); </style>
     <style> @import url("/assets/r2lab/livetable.css"); </style>
   </div>
@@ -114,6 +116,3 @@ The nodes are arranged in a grid with ≈1.0m (vertical) and ≈1.15m (horizonta
 </center>
 </a>
 
-<br />
-
-<script src="/assets/r2lab/xhttp-django.js"></script>

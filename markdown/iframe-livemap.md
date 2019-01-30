@@ -7,10 +7,10 @@ skip_footer: yes
 <div id="livemap_container"></div>
 
 <script src="/assets/r2lab/sidecar.js"></script>
-<script src="/assets/r2lab/livemap.js"></script>
 <style> @import url("/assets/r2lab/livemap.css"); </style>
 
-<script>
+<script type="module">
+    import {livemap_options} from "/assets/r2lab/livemap.js";
     let ratio = 2/3;
     Object.assign(livemap_options, {
         ratio : ratio,

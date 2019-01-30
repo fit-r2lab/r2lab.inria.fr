@@ -2,18 +2,22 @@
 
 /* for eslint */
 /*global $ moment Sidecar*/
-/*global PersistentSlices sidecar_url r2lab_accounts post_xhttp_django*/
+/*global PersistentSlices sidecar_url r2lab_accounts*/
+
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 
 "use strict";
 
+import {PersistentSlices} from "/assets/r2lab/persistent-slices.js";
+
 ////////// provide for array.has()
-if (!Array.prototype.has) {
+if (! Array.prototype.has) {
   Array.prototype.has = function(needle) {
       return this.indexOf(needle>=0);
   }
 }
 
-let liveleases_options = {
+export let liveleases_options = {
 
     // set to 'book' for the BOOK page
     mode : 'run',
@@ -55,7 +59,7 @@ function liveleases_debug(...args) {
 // title + start + end
 ////
 
-class LiveLeases {
+export class LiveLeases {
 
     constructor(domid, r2lab_accounts) {
         // this.domid is the id of the DOM element that serves

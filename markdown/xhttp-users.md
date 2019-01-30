@@ -6,9 +6,6 @@ This is a unit test; all data is hard-coded in the page itself
 
 See also `users/view.py`
 
-<!-- this exposes the getCookie function -->
-<script src="/assets/r2lab/xhttp-django.js"></script>
-
 ---
 <div id="getall-div"><p>Click this paragraph to get the complete list of users</p>
 <ul id='getall'><li>Results here</li></ul>
@@ -24,7 +21,8 @@ See also `users/view.py`
 <ul id='getme'><li>Results here</li></ul>
 </div>
 
-<script>
+<script type="module">
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 // an example of how to retrieve users
 var get_users = function(id, urn) {
     var sel = "#"+id;

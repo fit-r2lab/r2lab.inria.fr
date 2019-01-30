@@ -7,12 +7,11 @@ skip_footer: yes
 <div id="livetable_container"></div>
 
 <script src="/assets/r2lab/sidecar.js"></script>
-<script src="/assets/r2lab/livecolumns.js"></script>
-<script src="/assets/r2lab/livetable.js"></script>
 <style> @import url("/assets/r2lab/livecolumns.css"); </style>
 <style> @import url("/assets/r2lab/livetable.css"); </style>
 
-<script>
+<script type="module">
+    import {livetable_options} from "/assets/r2lab/livetable.js";
     let ratio = 2/3;
     Object.assign(livetable_options, {
         ratio : ratio,

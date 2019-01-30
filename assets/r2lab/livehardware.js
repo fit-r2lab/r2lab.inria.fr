@@ -2,10 +2,11 @@
 
 /* for eslint */
 /*global $ */
-/*global LiveColumnsNode LiveColumns livecolumns_options span_html*/  /* from livecolumns.js */
 /*exported LiveHardwareNode LiveHardware */
 
 "use strict";
+
+import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
 
 //global - mostly for debugging and convenience
 let the_livehardware;

@@ -13,7 +13,7 @@
 let the_livemap;
 
 ////////// configurable
-let livemap_options = {
+export let livemap_options = {
 
     // just set this if you need scaling
     ratio : 1.,
@@ -448,7 +448,7 @@ class MapNode {
 }
 
 //////////////////////////////
-class LiveMap {
+export class LiveMap {
 
     constructor() {
         let canvas_x = livemap_geometry.room_x() + 2 * livemap_options.margin_x;

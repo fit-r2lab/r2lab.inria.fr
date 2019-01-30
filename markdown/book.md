@@ -30,8 +30,18 @@ which is UTC+1 in winter, and UTC+2 in summer.
    </div>
   </div>
  </div>
- <br />
- <div class="row book" id="all">
+
+<br />
+
+<script type="module">
+import {liveleases_options} from "/assets/r2lab/liveleases.js";
+// override liveleases default settings
+Object.assign(liveleases_options, {
+   mode : 'book',
+});
+</script>
+
+<div class="row book" id="all">
  <!-- the left pane with the slices & keys button, and the slices list, on 2 columns -->
  << include r2lab/slices-left-pane.html >>
  <div class="col-md-10">
@@ -44,15 +54,7 @@ which is UTC+1 in winter, and UTC+2 in summer.
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
    <script src="/assets/r2lab/sidecar.js"></script>
-   <script src="/assets/r2lab/xhttp-django.js"></script>
-   <script src="/assets/r2lab/liveleases.js"></script>
    <style> @import url("/assets/r2lab/liveleases.css"); </style>
-   <script>
-    // override liveleases default settings
-    Object.assign(liveleases_options, {
-      mode : 'book',
-    });
-   </script>
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>
  </div>

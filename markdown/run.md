@@ -7,7 +7,7 @@ require_login: true
      it was suboptimal though, as e.g. freenode being down would cause our page to hang
      so now the chat plugin comes in 2 parts, one for the actual chat area,
      and one for the button to enable it -->
-<script src="/assets/r2lab/chat.js"></script>
+<script type="module"> import "/assets/r2lab/chat.js" </script>
 <style> @import url("/assets/r2lab/chat.css"); </style>
 <div id="chat-container"></div>
 
@@ -36,8 +36,7 @@ require_login: true
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
    <style> @import url("/assets/r2lab/liveleases.css"); </style>
-   <script src="/assets/r2lab/xhttp-django.js"></script>
-   <script src="/assets/r2lab/liveleases.js"></script>
+   <script type="module"> import "/assets/r2lab/liveleases.js" </script>
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>
   <div class="col-md-7">
@@ -46,9 +45,9 @@ require_login: true
     <span id="chat-button"></span>
    </div>
    <script src="/assets/r2lab/sidecar.js"></script>
-   <script src="/assets/r2lab/livemap.js"></script>
    <style> @import url("/assets/r2lab/livemap.css"); </style>
-   <script>
+   <script type="module">
+    import {livemap_options} from "/assets/r2lab/livemap.js";
     // override livemap default settings
     Object.assign(livemap_options, {
       space_x : 72,
@@ -72,23 +71,23 @@ require_login: true
   <hr/>
   See also <a href="status.md#livetable:legend">this page for a legend</a>; try clicking anywhere in the header or footer to focus on nodes of interest.
 
-  <div class="row">
+  <div class="row" markdown="0">
     <div class="col-md-12">
       <br/>
-      <table class="table table-condensed" id='livetable_container'> </table>
-      <script src="/assets/r2lab/livecolumns.js"></script>
-      <script src="/assets/r2lab/livetable.js"></script>
-    <script>
-    // override livetable default settings
-    Object.assign(livetable_options, {
-    //      debug : true,
-    });
-    </script>
+      <table class="table table-condensed" id='livetable_container'></table>
       <style> @import url("/assets/r2lab/livecolumns.css"); </style>
       <style> @import url("/assets/r2lab/livetable.css"); </style>
     </div>
   </div>
 </div>
+
+<script type="module">
+import {livetable_options} from "/assets/r2lab/livetable.js";
+// override default settings
+Object.assign(livetable_options, {
+//      debug : true,
+});
+</script>
 
 <!-- defines slices_keys_modal -->
 << include r2lab/slices-keys-modal.html >>

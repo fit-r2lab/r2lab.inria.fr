@@ -2,7 +2,8 @@
 
 /* for eslint */
 /*global $ */
-/*global post_xhttp_django */
+
+import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 
 "use strict";
 
@@ -110,4 +111,4 @@ $(function() {
     }
 
     main();
-});
+})

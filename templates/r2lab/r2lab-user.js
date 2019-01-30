@@ -1,5 +1,4 @@
 {% load jsonify %}
-<script src="/assets/r2lab/persistent-slices.js"></script>
 <script>
 // globals that describe logged in user
 var r2lab_user = {{r2lab_context.user_details|jsonify|safe}};
