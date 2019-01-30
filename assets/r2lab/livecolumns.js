@@ -3,7 +3,6 @@
 /* for eslint */
 /*global $ d3 */
 /*global sidecar_url */
-/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "LiveColumns(Node)?" }]*/
 
 "use strict";
 

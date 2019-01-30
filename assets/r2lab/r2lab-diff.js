@@ -4,7 +4,8 @@
 /*global $*/
 /*global JsDiff*/   /* from diff.min.js */
 
-/*exported r2lab_diff*/
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "r2lab_diff" }]*/
+
 
 "use strict";
 

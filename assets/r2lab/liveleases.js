@@ -2,7 +2,7 @@
 
 /* for eslint */
 /*global $ moment */
-/*global PersistentSlices sidecar_url r2lab_accounts*/
+/*global sidecar_url r2lab_accounts*/
 
 "use strict";
 
@@ -263,7 +263,7 @@ export class LiveLeases {
             title = 'Yep!'
         }
         $('html,body').animate({'scrollTop' : 0},400);
-        $('#messages').removeClass().addClass('alert alert-'+cls);
+        $('#messages').removeClass().addClass(`alert alert-${cls}`);
         $('#messages').html(`<strong>${title}</strong> ${msg}`);
         $('#messages').fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200);
         $('#messages').delay(20000).fadeOut();
@@ -841,10 +841,7 @@ export class LiveLeases {
 }
 
 
-// global - only for debugging and convenience
-let the_liveleases;
-
 $(function() {
-    the_liveleases = new LiveLeases('liveleases_container', r2lab_accounts);
-    the_liveleases.main();
+    let liveleases = new LiveLeases('liveleases_container', r2lab_accounts);
+    liveleases.main();
 })

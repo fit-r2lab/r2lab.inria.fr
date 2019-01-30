@@ -10,9 +10,6 @@ load_css("/assets/r2lab/livehardware.css");
 
 import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
 
-//global - mostly for debugging and convenience
-let the_livehardware;
-
 //////////////////////////////
 // nodes are dynamic
 // their hardware row and cells get created through d3 enter mechanism
@@ -122,6 +119,6 @@ class LiveHardware extends LiveColumns {
 // autoload
 $(function() {
     // name it for debugging from the console
-    the_livehardware = new LiveHardware("livehardware_container");
-    the_livehardware.init();
+    let livehardware = new LiveHardware("livehardware_container");
+    livehardware.init();
 })

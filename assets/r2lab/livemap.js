@@ -10,9 +10,6 @@ load_css("/assets/r2lab/livemap.css");
 
 import {Sidecar} from "/assets/r2lab/sidecar.js";
 
-//global - mostly for debugging and convenience
-let the_livemap;
-
 ////////// configurable
 export let livemap_options = {
 
@@ -196,7 +193,7 @@ let livemap_geometry = {
 
     walls_path : function() {
         let path="";
-        path += "M " + (this.room_x()+livemap_options.margin_x) + " " + (this.room_y()+livemap_options.margin_y) + " ";
+        path += `M ${this.room_x()+livemap_options.margin_x} ${this.room_y()+livemap_options.margin_y} `;
         path += this.line_x(-(7*livemap_options.space_x+2*livemap_options.padding_x));
         path += this.line_y(3*livemap_options.space_y);
         path += this.line_x(-1*livemap_options.space_x);
@@ -375,7 +372,7 @@ class MapNode {
             filter_name = 'ubuntu-logo';
         else
             return undefined;
-        return "url(#" + filter_name + ")";
+        return `url(#${filter_name})`;
     }
 
     // a missing 'available' means the node is OK
@@ -405,7 +402,7 @@ class MapNode {
             filter_name = 'gnuradio-logo-icon-red';
         else
             return undefined;
-        return "url(#" + filter_name + ")";
+        return `url(#${filter_name})`;
     }
 
     // the radius of the circle that we need to leave free
@@ -472,7 +469,7 @@ export class LiveMap {
         let g =
             svg.append('g')
             .attr('id', 'walls_upside_down')
-            .attr('transform', 'translate(' + canvas_x + ',' + canvas_y + ')' + ' ' +  'rotate(180)')
+            .attr('transform', `translate(${canvas_x},${canvas_y}) rotate(180)`)
         ;
 
         // walls
@@ -488,7 +485,7 @@ export class LiveMap {
         livemap_geometry.pillar_specs.forEach(function(spec) {
             let coords = livemap_geometry.grid_to_canvas(spec.i, spec.j);
             svg.append('rect')
-                .attr('id', 'pillar-' + spec.id)
+                .attr('id', `pillar-${spec.id}`)
                 .attr('class', 'pillar')
                 .attr('x', coords[0] - pillar_radius)
                 .attr('y', coords[1] - pillar_radius)
@@ -514,18 +511,16 @@ export class LiveMap {
     //////////////////// nodes
     init_nodes() {
         this.nodes = [];
-        let mapnode_specs = livemap_geometry.mapnode_specs;
-        for (let i=0; i < mapnode_specs.length; i++) {
-            this.nodes[i] = new MapNode(mapnode_specs[i]);
+        for (let mapnode_spec of livemap_geometry.mapnode_specs) {
+            this.nodes.push(new MapNode(mapnode_spec));
         }
     }
 
     //////////////////// phones
     init_phones () {
         this.phones = [];
-        let mapphone_specs = livemap_geometry.mapphone_specs;
-        for (let i=0; i < mapphone_specs.length; i++) {
-            this.phones[i] = new MapPhone(mapphone_specs[i]);
+        for (let mapphone_spec of livemap_geometry.mapphone_specs) {
+            this.phones.push(new MapPhone(mapphone_spec));
         }
     }
 
@@ -614,7 +609,7 @@ export class LiveMap {
         .attr('cx', node => node.x)
         .attr('cy', node => node.y)
 
-            .attr('r', node => livemap_options.radius_unavailable)
+            .attr('r', () => livemap_options.radius_unavailable)
             .on('click', node => node.clicked())
           .merge(unavailables)
             .transition()
@@ -669,8 +664,7 @@ export class LiveMap {
             .attr("height", "100%")
         ;
         filter.append("feImage")
-            .attr("xlink:href", "../assets/img/" + id_filename
-                  + "." + suffix);
+            .attr("xlink:href", `../assets/img/${id_filename}.${suffix}`);
     }
 
 
@@ -832,10 +826,8 @@ export class LiveMap {
 }
 
 // autoload
-// again, recording this unique instance in the_livemap
-// is for debugging convenience only
 $(function() {
     scale_options();
-    the_livemap = new LiveMap();
-    the_livemap.init();
+    let livemap = new LiveMap();
+    livemap.init();
 })

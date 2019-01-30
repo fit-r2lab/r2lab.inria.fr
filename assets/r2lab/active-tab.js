@@ -18,6 +18,9 @@
  *
  */
 
+/* for eslint */
+/*global $ */
+
 $(function() {
     $("a[tab]").map(function() {
 	let $this = $(this);

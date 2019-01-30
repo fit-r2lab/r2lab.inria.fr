@@ -10,9 +10,6 @@ load_css("/assets/r2lab/livetable.css");
 
 import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
 
-//global - mostly for debugging and convenience
-let the_livetable;
-
 ////////// configurable
 export let livetable_options = {
 
@@ -138,6 +135,6 @@ export class LiveTable extends LiveColumns{
 ////////// autoload
 $(function() {
     // name it for debugging from the console
-    the_livetable = new LiveTable("livetable_container");
-    the_livetable.init();
+    let livetable = new LiveTable("livetable_container");
+    livetable.init();
 })
