@@ -8,7 +8,6 @@ require_login: true
      so now the chat plugin comes in 2 parts, one for the actual chat area,
      and one for the button to enable it -->
 <script type="module"> import "/assets/r2lab/chat.js" </script>
-<style> @import url("/assets/r2lab/chat.css"); </style>
 <div id="chat-container"></div>
 
 <div class="container">

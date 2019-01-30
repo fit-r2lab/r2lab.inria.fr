@@ -6,6 +6,9 @@
 
 "use strict";
 
+import {load_css} from "/assets/r2lab/load-css.js";
+load_css("/assets/r2lab/chat.css");
+
 $(function() {
 
     let init_chat = function() {
