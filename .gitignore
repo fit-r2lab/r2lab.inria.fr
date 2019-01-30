@@ -1,0 +1,5 @@
+*.pyc
+venv/
+assets/unwrap/
+*.dot
+manifold/
