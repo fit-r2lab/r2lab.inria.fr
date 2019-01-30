@@ -6,7 +6,6 @@ skip_footer: yes
 
 <div id="livetable_container"></div>
 
-<script src="/assets/r2lab/sidecar.js"></script>
 <style> @import url("/assets/r2lab/livecolumns.css"); </style>
 <style> @import url("/assets/r2lab/livetable.css"); </style>
 

@@ -5,9 +5,7 @@
 
 "use strict";
 
-// xxx todo
-// there are way too many globals in this code..
-// we should have a single livemap object with everything else shoved in there
+import {Sidecar} from "/assets/r2lab/sidecar.js";
 
 //global - mostly for debugging and convenience
 let the_livemap;

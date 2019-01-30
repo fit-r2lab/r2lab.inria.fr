@@ -1,9 +1,11 @@
 // -*- js-indent-level:4 -*-
 
 /* for eslint */
-/*global $ d3 Sidecar */
+/*global $ d3 */
 /*global sidecar_url */
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "LiveColumns(Node)?" }]*/
+
+import {Sidecar} from "/assets/r2lab/sidecar.js";
 
 "use strict";
 
@@ -253,4 +255,3 @@ export class LiveColumns {
     }
 
 }
-

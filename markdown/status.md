@@ -30,7 +30,6 @@ Object.assign(livemap_options, {
   <div class="col-lg-2"></div>
   <div class="col-lg-10">
     <div id="livemap_container"></div>
-    <script src="/assets/r2lab/sidecar.js"></script>
   </div>
 </div>
 

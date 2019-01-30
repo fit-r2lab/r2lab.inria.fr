@@ -44,7 +44,6 @@ require_login: true
     see also <a href="status.md#livemap:legend">this page for a legend</a>
     <span id="chat-button"></span>
    </div>
-   <script src="/assets/r2lab/sidecar.js"></script>
    <style> @import url("/assets/r2lab/livemap.css"); </style>
    <script type="module">
     import {livemap_options} from "/assets/r2lab/livemap.js";

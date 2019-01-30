@@ -53,7 +53,6 @@ Object.assign(liveleases_options, {
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
-   <script src="/assets/r2lab/sidecar.js"></script>
    <style> @import url("/assets/r2lab/liveleases.css"); </style>
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>

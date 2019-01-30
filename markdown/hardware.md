@@ -222,7 +222,6 @@ The testbed offers a couple of commercial phones right inside the chamber:
       <h3>Nodes detailed information</h3>
       <p>Clicking in the header will focus on nodes that have a USRP device</p>
        <table class="table table-condensed" id='livehardware_container'> </table>
-      <script src="/assets/r2lab/sidecar.js"></script>
       <script type="module"> import "/assets/r2lab/livehardware.js" </script>
       <style> @import url("/assets/r2lab/livecolumns.css"); </style>
       <style> @import url("/assets/r2lab/livehardware.css"); </style>

@@ -1,12 +1,14 @@
 // -*- js-indent-level:4 -*-
 
 /* for eslint */
-/*global $ moment Sidecar*/
+/*global $ moment */
 /*global PersistentSlices sidecar_url r2lab_accounts*/
+
+"use strict";
 
 import {post_xhttp_django} from "/assets/r2lab/xhttp-django.js";
 
-"use strict";
+import {Sidecar} from "/assets/r2lab/sidecar.js";
 
 import {PersistentSlices} from "/assets/r2lab/persistent-slices.js";
 

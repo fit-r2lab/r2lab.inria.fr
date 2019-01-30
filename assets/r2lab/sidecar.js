@@ -1,6 +1,6 @@
-sidecar_debug = false;
+let sidecar_debug = false;
 
-class Sidecar {
+export class Sidecar {
 
     debug(...args) {
         if (sidecar_debug) {

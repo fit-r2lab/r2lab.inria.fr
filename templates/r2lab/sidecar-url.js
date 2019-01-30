@@ -1,4 +1,3 @@
-{% load jsonify %}
 <script>
 // expose sidecar_url as defined in settings.py to all javascript plugins
     var sidecar_url = "{{sidecar_url}}";
