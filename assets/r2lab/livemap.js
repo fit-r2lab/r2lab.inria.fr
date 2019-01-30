@@ -446,6 +446,13 @@ class MapNode {
         console.log(`in clicked ${this.id}`);
     }
 
+    tooltip() {
+        if (this.has_usrp())
+            return `${this.id} : SDR is ${this.usrp_type}`;
+        else
+            return `${this.id} - no SDR`;
+    }
+
 }
 
 //////////////////////////////
@@ -537,6 +544,11 @@ export class LiveMap {
             .attr('cx', node => node.x)
             .attr('cy', node => node.y)
             .on('click', node => node.clicked())
+            .each(function(node) {
+                $(this).tooltip({
+                    title: node.tooltip(),
+                    delay:250, placement: "bottom"})
+            })
           .merge(circles)
             .transition()
             .duration(animation_duration)
@@ -572,20 +584,17 @@ export class LiveMap {
           .enter()
             .append('text')
             .attr('class', 'node-label')
-        .attr('font-size', livemap_options.font_size)
+            .attr('font-size', livemap_options.font_size)
             .text(obj => obj.id)
             .attr('id', node => node.id)
             .attr('x', node => node.x)
             .attr('y', node => node.y)
             .on('click', node => node.clicked())
-        .each(function(data) {
-            let type = data.usrp_type;
-            if (type != "none") {
+            .each(function(node) {
                 $(this).tooltip({
-                    title: data.usrp_type,
+                    title: node.tooltip(),
                     delay:250, placement: "bottom"})
-            }
-        })
+            })
           .merge(labels)
             .transition()
             .duration(animation_duration)
@@ -625,6 +634,12 @@ export class LiveMap {
             .attr('stroke-width', '1px')
             .attr('x', node => node.usrp_x())
             .attr('y', node => node.usrp_y())
+            .on('click', node => node.clicked())
+            .each(function(node) {
+                $(this).tooltip({
+                    title: node.tooltip(),
+                    delay:250, placement: "bottom"})
+            })
           .merge(usrp_rects)
             .transition()
             .duration(animation_duration)
