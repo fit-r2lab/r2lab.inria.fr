@@ -802,15 +802,20 @@ export class LiveLeases {
 
 
     init_sidecar() {
-        let callbacks_map = { leases: (leases) => this.leases_callback(leases)};
+        let callbacks_map = {
+             leases: (leases) => this.leases_callback(leases)
+         };
+        //sidecar.connect(function() {
+        //    liveleases.requestUpdateFromApi();
+        //});
+        let categories = ['leases'];
 
-        let sidecar = new Sidecar(sidecar_url, callbacks_map);
-        this.sidecar = sidecar;
+         // this actually is a singleton
+         this.sidecar = Sidecar();
+         this.sidecar.register_callbacks_map(callbacks_map);
+         this.sidecar.register_categories(categories);
+         this.sidecar.open();
 
-        let liveleases = this;
-        sidecar.connect(function() {
-            liveleases.requestUpdateFromApi();
-        });
     }
 
     ////////////////////////////////////////

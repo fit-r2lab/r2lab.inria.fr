@@ -1,8 +1,6 @@
 /* for eslint */
 /*global $ d3 */
 
-/*global sidecar_url*/
-
 "use strict";
 
 import {load_css} from "/assets/r2lab/load-css.js";
@@ -92,9 +90,6 @@ function scale_options() {
 
     livemap_options._scaled = true;
 }
-
-// sidecar_url var is defined in template sidecar-url.js
-// from sidecar_url as defined in settings.py
 
 ////////// status details
 // fields that this widget knows about concerning each node
@@ -246,7 +241,7 @@ function update_obj_from_info(obj, obj_info){
 
 //////////////////////////////
 class MapPhone {
-    
+
     constructor(phone_spec) {
         this.id = phone_spec['id'];
         this.i = phone_spec['i'];
@@ -271,7 +266,7 @@ class MapPhone {
 // nodes are dynamic
 // their visual rep. get created through d3 enter mechanism
 class MapNode {
-    
+
     constructor (node_spec) {
         this.id = node_spec['id'];
         // i and j refer to a logical grid
@@ -309,7 +304,7 @@ class MapNode {
         let delta = this.text_offset(radius);
         return this.x + ((radius == 0) ? 0 : (radius + delta));
     }
-    
+
     text_y() {
         if ( ! this.is_available()) return this.y;
         let radius = this.node_status_radius();
@@ -501,7 +496,7 @@ export class LiveMap {
         this.declare_image_filter('gnuradio-logo-icon-green', 'svg');
         this.declare_image_filter('gnuradio-logo-icon-red', 'svg');
     }
-    
+
     init() {
         this.init_nodes();
         this.init_phones();
@@ -719,13 +714,13 @@ export class LiveMap {
 
     }
 
-    
+
 
     // the sidecar area
     animate_sidecar_status_changes () {
         livemap_debug("animate_sidecar_status_changes");
         let svg = d3.select('div#livemap_container svg');
-        let status = this.sidecar.readyState;
+        let status = this.sidecar.state();
         let details = livemap_geometry.sidecar_details;
         let [x, y] = livemap_geometry.grid_to_canvas(
             details.i, details.j);
@@ -788,39 +783,19 @@ export class LiveMap {
         livemap.animate_phones_changes();
     }
 
-    check_sidecar () {
-        if (this.sidecar.readyState == WebSocket.OPEN) {
-            return;
-        }
-        livemap_debug("Lost sidecar, trying to reconnect")
-        this.init_sidecar();
-    }
-
-    cyclically_check_sidecar () {
-        let livemap = this;
-        setTimeout(function() {
-            livemap.check_sidecar();
-            livemap.cyclically_check_sidecar();
-        }, 3000);
-    }
-
     //////////////////// websockets business
     init_sidecar () {
         let callbacks_map = {
             status_changed: () => this.animate_sidecar_status_changes(),
             nodes:  (infos) => this.nodes_callback(infos),
             phones: (infos) => this.phones_callback(infos),
-        }
-
-        let sidecar = new Sidecar(sidecar_url, callbacks_map);
-        this.sidecar = sidecar;
-        sidecar.connect(function(){
-            for (let category of ['nodes', 'phones']) {
-                livemap_debug(`requesting complete status for ${category}`);
-                sidecar.request(category);
-            }
-        });
-        this.cyclically_check_sidecar();
+        };
+        let categories = ['nodes', 'phones'];
+        // this actually is a singleton
+        this.sidecar = Sidecar();
+        this.sidecar.register_callbacks_map(callbacks_map);
+        this.sidecar.register_categories(categories);
+        this.sidecar.open();
     }
 
 }

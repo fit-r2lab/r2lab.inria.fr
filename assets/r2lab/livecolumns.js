@@ -2,7 +2,6 @@
 
 /* for eslint */
 /*global $ d3 */
-/*global sidecar_url */
 
 "use strict";
 
@@ -251,10 +250,12 @@ export class LiveColumns {
         let callbacks_map = {
             nodes:  (infos) => this.nodes_callback(infos),
         }
-        livecolumns_debug(`livecolumns is connecting to sidecar server at ${sidecar_url}`);
-        let sidecar = new Sidecar(sidecar_url, callbacks_map);
-        this.sidecar = sidecar;
-        sidecar.connect(() => sidecar.request('nodes'));
+        let categories = ['nodes'];
+        // this actually is a singleton
+        this.sidecar = Sidecar();
+        this.sidecar.register_callbacks_map(callbacks_map);
+        this.sidecar.register_categories(categories);
+        this.sidecar.open();
     }
 
 }
