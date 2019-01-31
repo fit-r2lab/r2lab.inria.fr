@@ -8,7 +8,7 @@ RSYNC-EXCLUDES = $(foreach exc,$(EXCLUDES), --exclude $(exc))
 
 ########## mirror this contents
 publish:
-	rsync -av $(RSYNC-EXCLUDES) --delete --delete-excluded ./ $(PUBLISH-PATH)/
+	rsync -ai $(RSYNC-EXCLUDES) --delete --delete-excluded ./ $(PUBLISH-PATH)/
 
 ########## restart apache on r2lab.inria.fr
 # maybe not strictly necessary when the python code is stable
@@ -42,4 +42,4 @@ files:
 
 ##########
 nepi-ng:
-	rsync -av nepi-ng-index.html root@nepi-ng.inria.fr:/var/www/nepi-ng/index.html
+	rsync -ai nepi-ng-index.html root@nepi-ng.inria.fr:/var/www/nepi-ng/index.html
