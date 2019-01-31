@@ -33,7 +33,9 @@ class WebSocketReconnectable {
             return;
         let reconnectable = this;
         this.websocket = new WebSocket(this.url);
-        this.websocket.onopen = (() => reconnectable.onopen());
+        this.websocket.onopen =
+            function() { reconnectable.onopen()
+            };
         this.websocket.onmessage =
             function(data, flags) {
                 reconnectable.number ++;
@@ -65,7 +67,7 @@ class WebSocketReconnectable {
             };
     }
 
-    send(data,option) {
+    send(data, option) {
         try {
             this.websocket.send(data, option);
         } catch (event) {
