@@ -2,7 +2,7 @@
 
 /* for eslint */
 /*global $ moment */
-/*global sidecar_url r2lab_accounts*/
+/*global r2lab_accounts*/
 
 "use strict";
 
@@ -99,7 +99,6 @@ export class LiveLeases {
         let today  = moment().format("YYYY-MM-DD");
         let showAt = moment().subtract(1, 'hour').format("HH:mm");
         let run_mode = liveleases_options.mode == 'run';
-        liveleases_debug(`liveleases: sidecar_url=${sidecar_url}`);
 
         // the view types that are not read-only
         this.active_views = [
@@ -805,9 +804,6 @@ export class LiveLeases {
         let callbacks_map = {
              leases: (leases) => this.leases_callback(leases)
          };
-        //sidecar.connect(function() {
-        //    liveleases.request_update_from_api();
-        //});
         let categories = ['leases'];
 
          // this actually is a singleton
