@@ -25,14 +25,12 @@ class WebSocketReconnectable {
         this.url = url;
         this.number = 0;                        // Message number
         this.autoReconnectInterval = 5*1000;    // ms
-        this.websocket = null;
     }
 
-    open() {
-        if (this.websocket !== null)
-            return;
-        let reconnectable = this;
+    connect() {
+        console.log("creating WebSocket instance")
         this.websocket = new WebSocket(this.url);
+        let reconnectable = this;
         this.websocket.onopen =
             function() { reconnectable.onopen()
             };
@@ -68,6 +66,10 @@ class WebSocketReconnectable {
     }
 
     send(data, option) {
+        if (this.websocket == null) {
+            console.log("Trying to send on idle websocket - dropped", data);
+            return;
+        }
         try {
             this.websocket.send(data, option);
         } catch (event) {
@@ -80,18 +82,19 @@ class WebSocketReconnectable {
         let reconnectable = this;
         console.log(`websocket retry ${this.url} in ${this.autoReconnectInterval}ms`);
         debug(event);
+        // would make sense to do something like this
         // this.websocket.removeAllListeners();
         setTimeout(
             function(){
                 debug("WebSocketClient: reconnecting...");
-                reconnectable.open(reconnectable.url);
+                reconnectable.connect();
             },
             reconnectable.autoReconnectInterval);
     }
 
     // overwrite on instances to suit your needs
     onopen(event) {
-        console.log(`websocket open`, event);
+        console.log(`onopen`, event);
     }
     onmessage(data, flags, number) {
         console.log(`websocket: message`, data, flags, number);
@@ -113,7 +116,7 @@ class SidecarImplementation {
         this.url = sidecar_url;
         this.callbacks_map = {};
         this.categories = [];
-        this.reconnectable = undefined;
+        this.reconnectable = null;
     }
 
     // <key> is typically a sidecar category, which
@@ -173,13 +176,17 @@ class SidecarImplementation {
      */
 
     open() {
+        if (this.reconnectable != null) {
+            console.log(`sidecar already connected - ignored`)
+            return;
+        }
         let reconnectable = new WebSocketReconnectable(this.url);
         reconnectable.onmessage =
             ((event, flags, number) => this.handle_incoming_json(event.data, number));
         reconnectable.onopen = ((event) => this.handle_connection_open(event));
         reconnectable.onerror = ((event) => this.handle_connection_error(event));
         reconnectable.onclose = ((event) => this.handle_status_changed(event));
-        reconnectable.open(this.url);
+        reconnectable.connect(this.url);
         this.reconnectable = reconnectable;
     }
 
@@ -247,7 +254,9 @@ let sidecar_singleton = null;
 
 export function Sidecar() {
     if (sidecar_singleton === null) {
+        console.log(`first sidecar - instantiating`);
         sidecar_singleton = new SidecarImplementation();
     }
+    console.log(`returning global singleton`);
     return sidecar_singleton;
 }
