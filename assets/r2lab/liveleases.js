@@ -51,7 +51,7 @@ function liveleases_debug(...args) {
 // they have a slicename, and valid_from valid_until times
 // and they have a uuid, that is the internal API lease_id
 ////
-// refreshFromApiLeases's job is to reconcile
+// refresh_from_api_leases's job is to reconcile
 // (*) the currently displayed slots (displayed_slots),
 // (*) with what comes in from the API (confirmed_slots)
 //
@@ -94,7 +94,7 @@ export class LiveLeases {
         return $(`#${this.domid}`).fullCalendar(...args);
     }
 
-    buildCalendar() {
+    build_calendar() {
         /*let liveleases = this;*/
         let today  = moment().format("YYYY-MM-DD");
         let showAt = moment().subtract(1, 'hour').format("HH:mm");
@@ -194,14 +194,14 @@ export class LiveLeases {
     // all the methods in LiveLeases whose names start with 'callback'
     // get attached to the corresponding fullCalendar callback
     // e.g.
-    // because we had defined callbackSelect,
+    // because we had defined callback_select,
     // calendar_args will contain a 'select' entry
-    // that will redirect to invoking callbackSelect on
+    // that will redirect to invoking callback_select on
     // the liveleases object
     //
     // so e.g. a selection event in fullCalendar
     // triggers select(start, end, jsEvent, view)
-    // which results in liveleases.callbackSelect(thisdom, start, end, jsEvent, view)
+    // which results in liveleases.callback_select(thisdom, start, end, jsEvent, view)
     // in which thisdom is the 'this' passed to the callback, a DOM element in most cases
     //
     // for details on suported callbacks see
@@ -216,7 +216,7 @@ export class LiveLeases {
                         && prop.startsWith('callback'));
             });
 
-        // callback typically is callbackEventRender
+        // callback typically is callback_event_render
         let decorator = function(callback) {
             let wrapped = function(...args) {
                 // always pass 'this' as a first *arg* to the method
@@ -228,30 +228,30 @@ export class LiveLeases {
             return wrapped;
         }
         // transform callbackSomeThing into just someThing
-        function simpleName(x) {
-            return camlCase(x.replace('callback', ''));
+        function simple_name(x) {
+            return caml_case(x.replace('callback', ''));
         }
-        function camlCase(x) {
+        function caml_case(x) {
             return x[0].toLowerCase() + x.slice(1);
         }
         for (let callback of callbacks) {
-            calendar_args[simpleName(callback)] = decorator(callback);
+            calendar_args[simple_name(callback)] = decorator(callback);
         }
         return calendar_args;
     }
 
     ////////////////////
     // convenience
-    isReadOnlyView() {
+    is_readonly_view() {
         let view = this.fullCalendar('getView').type;
         if (! this.active_views.has(view)) {
-            this.showMessage(`view ${view} is read only`);
+            this.show_message(`view ${view} is read only`);
             return true;
         }
     }
 
 
-    showMessage(msg, type){
+    show_message(msg, type){
         let cls   = 'danger';
         let title = 'Ooops!'
         if (type == 'info'){
@@ -279,7 +279,7 @@ export class LiveLeases {
         return `${hh_mm(slot.start._d)}-${hh_mm(slot.end._d)}`;
     }
 
-    callbackEventRender(dom, slot, element/*, view*/) {
+    callback_event_render(dom, slot, element/*, view*/) {
         $(element).popover({
             title: slot.title,
             content: this.popover_content(slot),
@@ -290,17 +290,17 @@ export class LiveLeases {
     }
 
 
-    callbackEventAfterRender(dom, slot, element/*, view*/) {
+    callback_event_after_render(dom, slot, element/*, view*/) {
         let liveleases = this;
 
         // adjust editable each time a change occurs
         slot.editable =
-            (this.isMySlice(slot.title) && (! this.isPastDate(slot.end)));
+            (this.is_my_slice(slot.title) && (! this.is_past_date(slot.end)));
         if (slot.editable) {
             // arm callback for deletion
             let delete_slot = function() {
                 element.find(".delete-slot").tooltip('dispose');
-                liveleases.removeSlot(slot, element);
+                liveleases.remove_slot(slot, element);
             };
             // on double click
             element.bind('dblclick', delete_slot);
@@ -319,88 +319,88 @@ export class LiveLeases {
     }
 
     // click in the calendar - requires a current slice
-    callbackSelect(dom, start, end/*, jsEvent, view*/) {
+    callback_select(dom, start, end/*, jsEvent, view*/) {
         liveleases_debug(`start ${start} - end ${end}`);
 
-        let current_title = this.getCurrentSliceName();
+        let current_title = this.get_current_slice_name();
         if ( ! current_title) {
-            this.showMessage("No selected slice..");
+            this.show_message("No selected slice..");
             return;
         }
 
-        if (this.isPastDate(end)) {
+        if (this.is_past_date(end)) {
             this.fullCalendar('unselect');
-            this.showMessage('This timeslot is in the past!');
+            this.show_message('This timeslot is in the past!');
             return;
         }
 
-        [start, end] = this.adaptStartEnd(start, end);
+        [start, end] = this.adapt_start_end(start, end);
 
         let slot = {
-            title: this.pendingName(current_title),
+            title: this.pending_name(current_title),
             start: start,
             end: end,
             overlap: false,
             editable: false,
             selectable: false,
-            color: this.getCurrentSliceColor(),
+            color: this.get_current_slice_color(),
             textColor: this.textcolors.creating,
             // note that this id really is used only until
             // the lease comes back from the API
             // so there is no need to maintain it later on
-            id: this.slotId(current_title, start, end),
+            id: this.slot_id(current_title, start, end),
         };
-        this.sendApi('add', slot);
+        this.send_api('add', slot);
         this.fullCalendar('renderEvent', slot, true);
         this.fullCalendar('unselect');
     }
 
 
     // dropping a slice into the calendar
-    callbackDrop(dom, date/*, jsEvent, ui, resourceId*/) {
+    callback_drop(dom, date/*, jsEvent, ui, resourceId*/) {
 
-        this.adoptCurrentSlice($(dom))
-        let current_title = this.getCurrentSliceName();
+        this.adopt_current_slice($(dom))
+        let current_title = this.get_current_slice_name();
 
         let start = date;
         let end   = moment(date).add(this.initial_duration, 'minutes');
-        if (this.isPastDate(end)) {
+        if (this.is_past_date(end)) {
             this.fullCalendar('unselect');
-            this.showMessage('This timeslot is in the past!');
+            this.show_message('This timeslot is in the past!');
             return false;
         }
 
-        [start, end] = this.adaptStartEnd(start, end);
+        [start, end] = this.adapt_start_end(start, end);
         let slot = {
-            title: this.pendingName(current_title),
+            title: this.pending_name(current_title),
             start: start,
             end: end,
             overlap: false,
             editable: false,
             selectable: false,
-            color: this.getCurrentSliceColor(),
+            color: this.get_current_slice_color(),
             textColor: this.textcolors.creating,
             // note that this id really is used only until
             // the lease comes back from the API
             // so there is no need to maintain it later on
-            id: this.slotId(current_title, start, end),
+            id: this.slot_id(current_title, start, end),
         };
-        this.sendApi('add', slot);
+        this.send_api('add', slot);
         this.fullCalendar('renderEvent', slot, true);
         this.fullCalendar('unselect');
     }
 
 
     // dragging a slot from one place to another
-    callbackEventDrop(dom, slot, delta, revertFunc/*, jsEvent, ui, view*/) {
+    callback_event_drop(dom, slot, delta, revertFunc/*, jsEvent, ui, view*/) {
         liveleases_debug(`eventDrop`, slot, delta);
         $(dom).popover('hide');
-        if (this.isReadOnlyView()) {
+        if (this.is_readonly_view()) {
             revertFunc();
             return;
         }
-        if (this.isPastDate(slot.end)) {
-            this.showMessage('This timeslot is in the past!');
+        if (this.is_past_date(slot.end)) {
+            this.show_message('This timeslot is in the past!');
             revertFunc();
             return;
         }
@@ -408,8 +408,8 @@ export class LiveLeases {
             revertFunc();
             return;
         }
-        this.sendApi('update', slot);
-        slot.title = this.pendingName(slot.title);
+        this.send_api('update', slot);
+        slot.title = this.pending_name(slot.title);
         slot.textColor = this.textcolors.editing;
         this.fullCalendar('updateEvent', slot)
     }
@@ -422,23 +422,23 @@ export class LiveLeases {
     // (*) but still keep track of that activity
     // so we try to resize the slot so that it remains in the history
     // but still is out of the way
-    removeSlot(slot/*, element*/) {
-        if (this.isReadOnlyView()) {
+    remove_slot(slot/*, element*/) {
+        if (this.is_readonly_view()) {
             return;
         }
         // cannot only remove my slices
-        if ( ! this.isMySlice(slot.title) )
+        if ( ! this.is_my_slice(slot.title) )
             return;
         // ignore leases in the past no matter what
-        if (this.isPastDate(slot.end)) {
-            this.showMessage("This lease is in the past !");
+        if (this.is_past_date(slot.end)) {
+            this.show_message("This lease is in the past !");
         }
 
         // this is editable, let's confirm
         if ( ! confirm("Confirm removing?"))
             return;
 
-        slot.title = this.removingName(slot.title);
+        slot.title = this.removing_name(slot.title);
         slot.textColor = this.textcolors.deleting;
         slot.selectable = false;
         // how many minutes has it been running
@@ -451,107 +451,107 @@ export class LiveLeases {
             liveleases_debug('before', slot);
             slot.end = moment(slot.start).add(rounded, 'minutes');
             liveleases_debug('after', slot);
-            this.sendApi('update', slot);
+            this.send_api('update', slot);
             this.fullCalendar( 'updateEvent', slot);
         } else {
             // either it's in the future completely, or has run for too
             // short a time that we can keep it, so delete altogether
             liveleases_debug(`up ${started} mn : delete slot completely`);
-            this.sendApi('delete', slot);
+            this.send_api('delete', slot);
             this.fullCalendar( 'updateEvent', slot);
         }
     }
 
 
-    callbackEventResize(dom, slot, delta, revertFunc, jsEvent/*, ui, view*/) {
+    callback_event_resize(dom, slot, delta, revertFunc, jsEvent/*, ui, view*/) {
         liveleases_debug(`resize`, slot, delta, jsEvent);
-        if ( ! this.isMySlice(slot.title)) {
+        if ( ! this.is_my_slice(slot.title)) {
             // should not happen..
-            this.showMessage("Not owner");
+            this.show_message("Not owner");
             return;
         }
         if ( ! confirm("Confirm this change?")) {
             revertFunc();
             return;
         }
-        this.sendApi('update', slot);
-        slot.title = this.pendingName(slot.title);
+        this.send_api('update', slot);
+        slot.title = this.pending_name(slot.title);
         slot.textColor = this.textcolors.editing;
         this.fullCalendar( 'updateEvent', slot);
     }
 
 
     // minor callbacks
-    callbackEventDragStart(/*dom, event, jsEvent, ui, view*/) {
+    callback_event_drag_start(/*dom, event, jsEvent, ui, view*/) {
         this.dragging = true;
     }
-    callbackEventDragStop(/*dom, event, jsEvent, ui, view*/) {
+    callback_event_drag_stop(/*dom, event, jsEvent, ui, view*/) {
         this.dragging = false;
     }
-    callbackEventMouseout(dom/*, event, jsEvent, view*/) {
+    callback_event_mouseout(dom/*, event, jsEvent, view*/) {
         $(dom).popover('hide');
     }
 
     //////////
-    sliceElementId(id){
+    slice_element_id(id){
         return id.replace(/\./g, '');
     }
 
     // make this the new current slice from a jquery element
     // associated to the clicked slice on the LHS
-    adoptCurrentSlice(slice_element){
+    adopt_current_slice(slice_element){
         let title  = $.trim(slice_element.text());
         this.persistent_slices.set_current(title);
-        this.outlineCurrentSlice(title)
+        this.outline_current_slice(title)
     }
 
 
-    outlineCurrentSlice(name){
-        let id = this.sliceElementId(name);
+    outline_current_slice(name){
+        let id = this.slice_element_id(name);
         $(".noactive").removeClass('slice-active');
         $(`#${id}`).addClass('slice-active');
     }
 
 
-    getCurrentSliceName(){
+    get_current_slice_name(){
         return this.persistent_slices.get_current_slice_name();
     }
-    getCurrentSliceColor(){
+    get_current_slice_color(){
         return this.persistent_slices.get_current_slice_color();
     }
-    getMySlicesNames(){
+    get_my_slices_names(){
         return this.persistent_slices.my_slices_names();
     }
-    getSliceColor(slicename){
+    get_slice_color(slicename){
         return this.persistent_slices.get_slice_color(slicename);
     }
-    shortSliceName(name){
+    short_slice_name(name){
         let new_name = name;
         new_name = name.replace('onelab.', '');
         return new_name
     }
-    isMySlice(slicename){
+    is_my_slice(slicename){
         let pslice = this.persistent_slices.record_slice(slicename);
         return pslice.mine;
     }
 
     ////////////////////
-    isPastDate(end)    { return (moment().diff(end, 'minutes') > 0) }
-    pendingName(name)  { return `${this.resetName(name)} (pending)`; }
-    removingName(name) { return `${this.resetName(name)} (removing)`; }
-    resetName(name) {
+    is_past_date(end)   { return (moment().diff(end, 'minutes') > 0) }
+    pending_name(name)  { return `${this.reset_name(name)} (pending)`; }
+    removing_name(name) { return `${this.reset_name(name)} (removing)`; }
+    reset_name(name) {
         return name
             .replace(' (pending)', '')
             .replace(' (removing)', '')
     }
-    slotId(title, start, end){
+    slot_id(title, start, end){
         let m_start = moment(start)._d.toISOString();
         let m_end   = moment(end)._d.toISOString();
         return `${title}-from-${m_start}-until-${m_end}`;
     }
 
     ////////////////////
-    adaptStartEnd(start, end) {
+    adapt_start_end(start, end) {
         let now = new Date();0
         let started = moment(now).diff(moment(start), 'minutes');
         if (started > 0){
@@ -580,14 +580,14 @@ export class LiveLeases {
         return result;
     }
 
-    sendApi(verb, slot){
-        liveleases_debug("sendApi", verb, slot);
+    send_api(verb, slot){
+        liveleases_debug("send_api", verb, slot);
         let liveleases = this;
         let request = null;
 
         if (verb == 'add'){
             request = {
-                "slicename"  : this.resetName(slot.title),
+                "slicename"  : this.reset_name(slot.title),
                 "valid_from" : slot.start._d.toISOString(),
                 "valid_until": slot.end._d.toISOString()
             };
@@ -602,14 +602,14 @@ export class LiveLeases {
                 "uuid" : slot.uuid,
             };
         } else {
-            liveleases_debug(`sendApi : Unknown verb ${verb}`);
+            liveleases_debug(`send_api : Unknown verb ${verb}`);
             return false;
         }
-        liveleases_debug('sendApi ->', request);
+        liveleases_debug('send_api ->', request);
         post_xhttp_django(`/leases/${verb}`, request, function(xhttp) {
             if (xhttp.readyState == 4) {
                 // this triggers a refresh of the leases once the sidecar server answers back
-                liveleases.requestUpdateFromApi();
+                liveleases.request_update_from_api();
                 ////////// temporary
                 // in all cases, show the results in console, in case we'd need to improve this
                 // logic further on in the future
@@ -618,20 +618,20 @@ export class LiveLeases {
                 if (xhttp.status != 200) {
                     // this typically is a 500 error inside django
                     // hard to know what to expect..
-                    liveleases.showMessage(`Something went wrong when managing leases with code ${xhttp.status}`);
+                    liveleases.show_message(`Something went wrong when managing leases with code ${xhttp.status}`);
                 } else {
                     // the http POST has been successful, but a lot can happen still
                     // for starters, are we getting a JSON string ?
                     try {
                         let obj = JSON.parse(xhttp.responseText);
                         if (obj.error) {
-                            liveleases.showMessage(
+                            liveleases.show_message(
                                 liveleases.dig_xpath(obj, ['error', 'exception', 'reason']));
                         } else {
                             liveleases_debug("JSON.parse ->", obj);
                         }
                     } catch(err) {
-                        liveleases.showMessage(`unexpected error while anayzing django answer ${err}`);
+                        liveleases.show_message(`unexpected error while anayzing django answer ${err}`);
                         console.log(err.stack);
                     }
                 }
@@ -642,17 +642,17 @@ export class LiveLeases {
 
     // incoming is an array of pslices as defined in
     // persistent_slices.js
-    buildSlicesBox() {
+    build_slices_box() {
 
         let liveleases = this;
-        liveleases_debug('buildSlicesBox');
+        liveleases_debug('build_slices_box');
         let pslices = this.persistent_slices.pslices;
 
         for (let pslice of pslices) {
             // show only slices that are mine
             if ( ! pslice.mine )
                 continue;
-            // need to run shortSliceName ?
+            // need to run short_slice_name ?
             let name = pslice.name;
             let handle = `handle-${name}`;
             let color = pslice.color;
@@ -666,7 +666,7 @@ export class LiveLeases {
                         .text(name))
                 .append(
                     $("<div />")
-                        .attr("id", liveleases.sliceElementId(name))
+                        .attr("id", liveleases.slice_element_id(name))
                         .addClass('noactive'));
                 $(`#${handle}`).tooltip(
                     {title: help,
@@ -690,8 +690,8 @@ export class LiveLeases {
 
     // triggered when a new message comes from the API
     // refresh calendar from that data
-    refreshFromApiLeases(confirmed_slots) {
-        liveleases_debug(`refreshFromApiLeases with ${confirmed_slots.length} API leases`)
+    refresh_from_api_leases(confirmed_slots) {
+        liveleases_debug(`refresh_from_api_leases with ${confirmed_slots.length} API leases`)
         // not while dragging
         if (this.dragging)
             return;
@@ -708,7 +708,7 @@ export class LiveLeases {
 
         // scan all confirmed
         for (let confirmed_slot of confirmed_slots) {
-            let confirmed_id = this.slotId(confirmed_slot.title,
+            let confirmed_id = this.slot_id(confirmed_slot.title,
                                            confirmed_slot.start,
                                            confirmed_slot.end);
             // scan all displayed
@@ -761,28 +761,28 @@ export class LiveLeases {
     // of the set of leases
     // of course it must be called *after* the actual API call
     // via django
-    requestUpdateFromApi() {
+    request_update_from_api() {
         liveleases_debug(`requesting leases`);
         this.sidecar.request('leases');
     }
 
 
     leases_callback(leases) {
-        let api_slots = this.parseLeases(leases);
+        let api_slots = this.parse_leases(leases);
         liveleases_debug(`incoming ${api_slots.length} leases`);
-        this.refreshFromApiLeases(api_slots);
-        this.outlineCurrentSlice(this.getCurrentSliceName());
+        this.refresh_from_api_leases(api_slots);
+        this.outline_current_slice(this.get_current_slice_name());
     }
 
 
     // transform API leases from JSON into an object,
     // and then into fc-friendly slots
-    parseLeases(leases) {
+    parse_leases(leases) {
         let liveleases = this;
-        liveleases_debug("parseLeases", leases);
+        liveleases_debug("parse_leases", leases);
 
         return leases.map(function(lease){
-            let title = liveleases.shortSliceName(lease.slicename);
+            let title = liveleases.short_slice_name(lease.slicename);
             let start = lease.valid_from;
             let end = lease.valid_until;
             // remember that slice
@@ -793,8 +793,8 @@ export class LiveLeases {
                 uuid : String(lease.uuid),
                 start : start,
                 end : end,
-                id : liveleases.slotId(title, start, end),
-                color : liveleases.getSliceColor(title),
+                id : liveleases.slot_id(title, start, end),
+                color : liveleases.get_slice_color(title),
                 overlap : false
             }
         })
@@ -806,7 +806,7 @@ export class LiveLeases {
              leases: (leases) => this.leases_callback(leases)
          };
         //sidecar.connect(function() {
-        //    liveleases.requestUpdateFromApi();
+        //    liveleases.request_update_from_api();
         //});
         let categories = ['leases'];
 
@@ -821,9 +821,9 @@ export class LiveLeases {
     ////////////////////////////////////////
     main() {
 
-        this.buildSlicesBox();
-        this.buildCalendar();
-        this.outlineCurrentSlice(this.getCurrentSliceName());
+        this.build_slices_box();
+        this.build_calendar();
+        this.outline_current_slice(this.get_current_slice_name());
 
         let run_mode = liveleases_options.mode == 'run';
         if (run_mode) {
@@ -834,11 +834,11 @@ export class LiveLeases {
         let liveleases = this;
         let slices = $('#my-slices .fc-event');
         slices.dblclick(function() {
-            liveleases.adoptCurrentSlice($(this));
+            liveleases.adopt_current_slice($(this));
         });
 
         $('body').on('click', 'button.fc-month-button', function() {
-            liveleases.showMessage('This view is read only!', 'info');
+            liveleases.show_message('This view is read only!', 'info');
         });
 
         this.init_sidecar();
