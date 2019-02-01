@@ -28,7 +28,6 @@ class WebSocketReconnectable {
     }
 
     connect() {
-        console.log("creating WebSocket instance")
         this.websocket = new WebSocket(this.url);
         let reconnectable = this;
         this.websocket.onopen =
@@ -177,7 +176,6 @@ class SidecarImplementation {
 
     open() {
         if (this.reconnectable != null) {
-            console.log(`sidecar already connected - ignored`)
             return;
         }
         let reconnectable = new WebSocketReconnectable(this.url);
@@ -198,7 +196,7 @@ class SidecarImplementation {
     }
 
     handle_connection_open() {
-        console.log(`websocket opened to ${this.url}`);
+        console.log(`websocket opened: ${this.url}`);
         for (let category of this.categories) {
             this.request(category);
         }
@@ -206,12 +204,12 @@ class SidecarImplementation {
     }
 
     handle_connection_error() {
-        console.log(`websocket error on ${this.url}`);
+        console.log(`websocket error: ${this.url}`);
         this.handle_status_changed();
     }
 
     handle_connection_close(event) {
-        console.log(`websocket close on ${this.url}`);
+        console.log(`websocket close: ${this.url}`);
         debug(`close event`, event);
         this.handle_status_changed();
     }
@@ -254,9 +252,7 @@ let sidecar_singleton = null;
 
 export function Sidecar() {
     if (sidecar_singleton === null) {
-        console.log(`first sidecar - instantiating`);
         sidecar_singleton = new SidecarImplementation();
     }
-    console.log(`returning global singleton`);
     return sidecar_singleton;
 }
