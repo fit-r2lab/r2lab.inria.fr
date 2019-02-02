@@ -23,9 +23,11 @@ require_login: true
  </div>
  <br />
  <div class="row run" id="all">
+
  <!-- the left pane with the slices & keys button, and the slices list, on 2 columns -->
  << include r2lab/slices-left-pane.html >>
-  <div class="col-md-3 leases-run-width">
+
+ <div class="col-md-3 leases-run-width">
    <div id="liveleases_container" class="run"></div>
    <script src="assets/js/jquery-ui-custom-1.12.1.min.js"></script>
    <style> @import url("assets/css/jquery-ui-custom-1.12.1.min.css"); </style>
@@ -34,9 +36,16 @@ require_login: true
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
    <style> @import url("https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"); </style>
 
+   <!-- the js modules try to autoload their css; however due to a limitation
+     -- of full calendar, we need to load this explicitly **beforehand**
+     -- https://stackoverflow.com/questions/25178565/fullcalendar-layout-broken-because-css-loading-after-javascript-layout-calculati
+     -->
+   <style> @import url("/assets/r2lab/liveleases.css"); </style>
+
    <script type="module"> import "/assets/r2lab/liveleases.js" </script>
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>
+
   <div class="col-md-7">
    <div id="livemap_container">Click a node for more details;
     see also <a href="status.md#livemap:legend">this page for a legend</a>

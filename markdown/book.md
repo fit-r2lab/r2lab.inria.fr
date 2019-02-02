@@ -33,6 +33,12 @@ which is UTC+1 in winter, and UTC+2 in summer.
 
 <br />
 
+<!-- the js modules try to autoload their css; however due to a limitation
+  -- of full calendar, we need to load this explicitly **beforehand**
+  -- https://stackoverflow.com/questions/25178565/fullcalendar-layout-broken-because-css-loading-after-javascript-layout-calculati
+  -->
+<style> @import url("/assets/r2lab/liveleases.css"); </style>
+
 <script type="module">
 import {liveleases_options} from "/assets/r2lab/liveleases.js";
 // override liveleases default settings
