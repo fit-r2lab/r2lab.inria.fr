@@ -183,20 +183,22 @@ export class LiveLeases {
             // events from Json file
             events: [],
         };
-        // for debugging only
         calendar_args = this.decorate_with_callbacks(calendar_args);
+        console.log(calendar_args);
 
         this.fullCalendar(calendar_args);
     }
 
     // the callback machinery
-    // all the methods in LiveLeases whose names start with 'callback'
+    // all the methods in LiveLeases whose names start with 'callback_'
     // get attached to the corresponding fullCalendar callback
     // e.g.
     // because we had defined callback_select,
     // calendar_args will contain a 'select' entry
     // that will redirect to invoking callback_select on
     // the liveleases object
+    // for an example with more words:
+    // our method callback_event_render becomes eventRender
     //
     // so e.g. a selection event in fullCalendar
     // triggers select(start, end, jsEvent, view)
@@ -208,12 +210,6 @@ export class LiveLeases {
 
     decorate_with_callbacks(calendar_args) {
         let liveleases = this;
-        let callbacks = Object.getOwnPropertyNames(
-            liveleases.__proto__)
-            .filter(function(prop) {
-                return ((typeof liveleases[prop] == 'function')
-                        && prop.startsWith('callback'));
-            });
 
         // callback typically is callback_event_render
         let decorator = function(callback) {
@@ -226,15 +222,33 @@ export class LiveLeases {
             }
             return wrapped;
         }
-        // transform callbackSomeThing into just someThing
-        function simple_name(x) {
-            return caml_case(x.replace('callback', ''));
+
+        // dude -> Dude
+        function title_case(x) {
+            return x[0].toUpperCase() + x.slice(1);
         }
-        function caml_case(x) {
-            return x[0].toLowerCase() + x.slice(1);
+        // transform callback_some_thing into someThing
+        function fullcalendar_name(our_name) {
+            let pieces = our_name.split('_');
+            // drop initial 'callback'
+            pieces.shift();
+            // start with the first part
+            let result = pieces.shift()
+            // if there are more
+            for (let piece of pieces)
+                result += title_case(piece);
+            return result;
         }
+
+        let callbacks = Object.getOwnPropertyNames(
+            liveleases.__proto__)
+            .filter(function(prop) {
+                return ((typeof liveleases[prop] == 'function')
+                        && prop.startsWith('callback_'));
+            });
+
         for (let callback of callbacks) {
-            calendar_args[simple_name(callback)] = decorator(callback);
+            calendar_args[fullcalendar_name(callback)] = decorator(callback);
         }
         return calendar_args;
     }
