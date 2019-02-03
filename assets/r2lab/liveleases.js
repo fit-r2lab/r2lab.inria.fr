@@ -184,7 +184,6 @@ export class LiveLeases {
             events: [],
         };
         calendar_args = this.decorate_with_callbacks(calendar_args);
-        console.log(calendar_args);
 
         this.fullCalendar(calendar_args);
     }
