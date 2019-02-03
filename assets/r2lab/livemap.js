@@ -55,6 +55,9 @@ export let livemap_options = {
     icon_phone_content : "\uf095",
     icon_question_content : "\uf128",
 
+    icon_sidecar_ok : "\uf14a",
+    icon_sidecar_ko : "\uf057",
+
     // override this with a ColorMap object if desired
     colormap : null,
 
@@ -154,7 +157,7 @@ let livemap_geometry = {
     ],
 
     sidecar_details: {
-        i: 8, j: 4, radius: 10, border: 3.2,
+        i: 8, j: 4, radius: 20,
     },
 
     //////////////////// configuration
@@ -202,14 +205,6 @@ let livemap_geometry = {
         return path;
     },
 
-    walls_style : function(selection) {
-        selection
-            .attr('stroke', '#3b4449')
-            .attr('stroke-width',  '6px')
-            .attr('stroke-linejoin', 'round')
-            .attr('stroke-miterlimit', 8)
-        ;
-    },
 }
 
 ////////////////////////////////////////
@@ -469,10 +464,9 @@ export class LiveMap {
 
         // walls
         g.append('path')
+            .attr('class', 'walls')
             .attr('d', livemap_geometry.walls_path())
-            .attr('id', 'walls')
-            .attr('fill', '#fdfdfd')
-            .call(livemap_geometry.walls_style)
+                //.attr('id', 'walls')
         ;
 
         let {pillar_radius} = livemap_options;
@@ -481,13 +475,11 @@ export class LiveMap {
             let coords = livemap_geometry.grid_to_canvas(spec.i, spec.j);
             svg.append('rect')
                 .attr('id', `pillar-${spec.id}`)
-                .attr('class', 'pillar')
+                .attr('class', 'pillar walls')
                 .attr('x', coords[0] - pillar_radius)
                 .attr('y', coords[1] - pillar_radius)
                 .attr('width', 2*pillar_radius)
                 .attr('height', 2*pillar_radius)
-                .attr('fill', '#101030')
-                .call(livemap_geometry.walls_style)
             ;
         });
         this.declare_image_filter('fedora-logo', 'png');
@@ -652,11 +644,11 @@ export class LiveMap {
         // create filter in there
         let defs = d3.select("#livemap_container svg defs");
         let filter = defs.append("filter")
-            .attr("id", id_filename)
-            .attr("x", "0%")
-            .attr("y", "0%")
-            .attr("width", "100%")
-            .attr("height", "100%")
+            .attr('id', id_filename)
+            .attr('x', '0%')
+            .attr('y', '0%')
+            .attr('width', '100%')
+            .attr('height', '100%')
         ;
         filter.append("feImage")
             .attr("xlink:href", `../assets/img/${id_filename}.${suffix}`);
@@ -671,7 +663,7 @@ export class LiveMap {
 
         let w = livemap_options.phone_size;
         let h = w;
-        let r = 2;
+
         let squares = svg.selectAll('rect.phone-status')
             .data(this.phones, obj => obj.id);
         // simple square repr. for now, with an airplane in the middle
@@ -682,14 +674,8 @@ export class LiveMap {
             .attr('id', phone => phone.id)
             .attr('x', phone => phone.x - w/2)
             .attr('y', phone => phone.y - h/2)
-            .attr('rx', r)
-            .attr('ry', r)
             .attr('width', w)
             .attr('height', h)
-        // in .css at some point
-            .attr('stroke-width', 1)
-            .attr('stroke', 'black')
-            .attr('fill', 'none')
         ;
 
         let texts = svg.selectAll('text.phone-status')
@@ -724,32 +710,59 @@ export class LiveMap {
         let details = livemap_geometry.sidecar_details;
         let [x, y] = livemap_geometry.grid_to_canvas(
             details.i, details.j);
+        let radius = details.radius;
+
         let color;
+        let text = livemap_options.icon_sidecar_ko;
+        let tooltip = "<span>sidecar is down<br/>data is not updated</span>";
         switch (status) {
-            case undefined:            color='gray'; break;
+            case undefined: color='gray'; break;
             case WebSocket.CONNECTING: color='orange'; break;
-            case WebSocket.OPEN:       color='green'; break;
+            case WebSocket.OPEN:
+                color='green'; text = livemap_options.icon_sidecar_ok;
+                tooltip = "<span>live data from sidecar is OK</span>"; break;
             case WebSocket.CLOSING:
             case WebSocket.CLOSED:     color='red'; break;
         }
         let animation_duration = 750;
 
+        console.log(text, tooltip);
 
-        let button = svg.selectAll('circle.sidecar-status')
+
+        let texts = svg.selectAll('text.sidecar-status')
             .data([status]);
-        button
+
+        let h = radius*2.;
+        let w = h;
+        texts
           .enter()
-            .append('circle')
+            .append('text')
             .attr('class', 'sidecar-status')
-            .attr('cx', x)
-            .attr('cy', y)
-            .attr('r', details.radius)
-            .attr('stroke-width', details.border)
-          .merge(button)
+            .attr('x', x)
+            .attr('y', y)
+            .attr('dy', h*.1)
+            .attr('font-family', 'FontAwesome')
+            .attr('font-size', h*1)
+            .attr('textLength', w*.8)
+            .attr('lengthAdjust', 'spacingAndGlyphs')
+            .each(function() {
+                $(this).tooltip({
+                    title: tooltip, delay:200,
+                    placement: "bottom", html: true})
+            })
+          .merge(texts)
             .transition()
             .duration(animation_duration)
             .attr('fill', color)
-            ;
+            .text(text)
+            .each(function() {
+                $(this)
+                    .tooltip('hide')
+                    .attr('data-original-title', tooltip)
+                    .tooltip('fixTitle')
+                    .tooltip('show');
+            })
+        ;
     }
 
     //////////////////// specific way to handle incoming json

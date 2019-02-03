@@ -1,4 +1,11 @@
-// somehow these styles on svg elements do not seem to trigger
+/*
+
+// The SVG specification decides strictly between attributes
+// that are properties and other attributes.
+// properties can be modified with CSS, the latter not.
+// see properties https://www.w3.org/TR/SVG/propidx.html
+
+ somehow these styles on svg elements do not seem to trigger
 //.walls {
 //    'fill': '#fdfdfd';
 //}
@@ -12,9 +19,20 @@
 //    'stroke-linejoin': 'round';
 //    'stroke-miterlimit': 8;
 //}
-//
+*/
 
-// this is working
+.walls {
+    fill: rgba(248, 248, 248, 0);
+    stroke: #3b4449;
+    stroke-width: 5px;
+    stroke-linejoin: round;
+    stroke-miterlimit: 8;
+}
+
+.pillar.walls {
+    fill: #888;
+}
+
 circle.node-status {
     stroke-width: 0;
     opacity:      .5;
@@ -35,15 +53,26 @@ text.node-label {
 circle.node-status:hover, circle.unavailable:hover, text.node-label:hover {
     cursor:	pointer;
 }
-//////////
+
+/* ---------- */
 rect.phone-status {
-    stroke:	red;
-    fill:	none;
+    stroke:	      black;
+    stroke-width: 1px;
+    fill:	      rgba(0,0,0,0);
+    rx:           2px;
+    ry:           2px;
 }
 
 text.phone-status {
-    text-anchor:	middle;
+    text-anchor:	    middle;
     alignment-baseline:	middle;
-    stroke:		blue;
-    stroke-width:	1px;
+    stroke:		        blue;
+    stroke-width:	    1px;
+}
+/* ---------- */
+text.sidecar-status {
+    text-anchor:	    middle;
+    alignment-baseline:	middle;
+    stroke:		        blue;
+    stroke-width:	    1px;
 }
