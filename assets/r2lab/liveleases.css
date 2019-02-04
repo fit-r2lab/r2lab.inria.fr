@@ -10,7 +10,7 @@
     width: 170px;
     height: 60px;
     padding: 3px 7px;
-    border: 1px solid #d0d0d0; 
+    border: 1px solid #d0d0d0;
     border-radius: 4px;
 }
 
@@ -118,6 +118,7 @@ div.leases-run-width {
 /* ----- layout in the page */
 #liveleases_container.run {
     max-width: 200px;
+    line-height: 1.24;
 }
 
 #liveleases_container.book {
@@ -133,9 +134,9 @@ div.leases-run-width {
 }
 
 
-/* --- run mode 
+/* --- run mode
 
- global height is set to 455 
+ global height is set to 455
  border of each slot takes 1 already, so 16 + 1 = 18 * 24 = 432
  */
 #liveleases_container.run .fc-slats td {
@@ -153,7 +154,7 @@ div.leases-run-width {
 }*/
 
 
-/* --- book mode 
+/* --- book mode
   same kind of computation here
   we use 24 * (28+1) = 696 px
   however in book mode we show a header so the final numbers
@@ -168,7 +169,7 @@ div.leases-run-width {
 }
 
 /* zoom */
-/* 
+/*
   in zoom mode we show plenty (24 * 6) time slots, so it sill spill
   below the viewport, no big deal, let's just try to have
   a reasonable portion of the day showup

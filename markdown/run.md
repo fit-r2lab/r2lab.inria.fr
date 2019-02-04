@@ -27,7 +27,7 @@ require_login: true
  <!-- the left pane with the slices & keys button, and the slices list, on 2 columns -->
  << include r2lab/slices-left-pane.html >>
 
- <div class="col-md-3 leases-run-width">
+ <div class="col-md-2 leases-run-width">
    <div id="liveleases_container" class="run"></div>
    <script src="assets/js/jquery-ui-custom-1.12.1.min.js"></script>
    <style> @import url("assets/css/jquery-ui-custom-1.12.1.min.css"); </style>
@@ -46,7 +46,7 @@ require_login: true
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>
 
-  <div class="col-md-7">
+  <div class="col-md-8">
    <div id="livemap_container">Click a node for more details;
     see also <a href="status.md#livemap:legend">this page for a legend</a>
     <span id="chat-button"></span>
