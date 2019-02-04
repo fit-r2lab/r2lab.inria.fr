@@ -714,20 +714,19 @@ export class LiveMap {
 
         let color;
         let text = livemap_options.icon_sidecar_ko;
-        let tooltip = "<span>sidecar is down<br/>data is not updated</span>";
+        let tooltip = `<span>data is not updated<br/>sidecar is down`
+                    + `<br/>${sidecar_url}</span>`;
         switch (status) {
             case undefined: color='gray'; break;
             case WebSocket.CONNECTING: color='orange'; break;
             case WebSocket.OPEN:
                 color='green'; text = livemap_options.icon_sidecar_ok;
-                tooltip = "<span>live data from sidecar is OK</span>"; break;
+                tooltip = `<span>data from sidecar is live<br/>connection is OK`
+                        + `<br/>${sidecar_url}</span>`; break;
             case WebSocket.CLOSING:
             case WebSocket.CLOSED:     color='red'; break;
         }
         let animation_duration = 750;
-
-        console.log(text, tooltip);
-
 
         let texts = svg.selectAll('text.sidecar-status')
             .data([status]);
@@ -757,10 +756,7 @@ export class LiveMap {
             .text(text)
             .each(function() {
                 $(this)
-                    .tooltip('hide')
                     .attr('data-original-title', tooltip)
-                    .tooltip('fixTitle')
-                    .tooltip('show');
             })
         ;
     }
