@@ -24,7 +24,8 @@ install: publish apache
 
 ########## force both infra boxes to use latest commit
 infra:
-	apssh -l root -t faraday.inria.fr -t r2lab.inria.fr /root/r2lab-embedded/services/pull-and-restart.sh
+	echo since fedora29, remote ssh run under hard-wired umask - run pull-and-restart.sh locally
+	#apssh -l root -t faraday.inria.fr -t r2lab.inria.fr /root/r2lab-embedded/services/pull-and-restart.sh
 
 .PHONY: infra
 
