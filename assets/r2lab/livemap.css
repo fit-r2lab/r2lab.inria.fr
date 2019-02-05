@@ -35,12 +35,12 @@
 
 circle.node-status {
     stroke-width: 0;
-    opacity:      .5;
+    opacity:      .8;
 }
 
 circle.unavailable {
     fill:	  #f00;
-    opacity:	  .5;
+    opacity:	  .8;
     stroke-width: 0;
 }
 

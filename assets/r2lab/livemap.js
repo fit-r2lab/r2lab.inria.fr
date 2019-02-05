@@ -585,25 +585,6 @@ export class LiveMap {
             .attr('y', node => node.text_y())
         ;
 
-        // how to display unavailable nodes
-        let unavailables = svg.selectAll('circle.unavailable')
-            .data(this.nodes, obj => obj.id);
-        unavailables
-          .enter()
-            .append('circle')
-            .attr('class', 'unavailable')
-        .attr('id', node => node.id)
-        .attr('cx', node => node.x)
-        .attr('cy', node => node.y)
-
-            .attr('r', () => livemap_options.radius_unavailable)
-            .on('click', node => node.clicked())
-          .merge(unavailables)
-            .transition()
-            .duration(animation_duration)
-            .attr('display', node => node.unavailable_display())
-        ;
-
         // these rectangles are placeholders for the various icons
         // that are meant to show usrp status
         let usrp_rects = svg.selectAll('rect.usrp-status')
@@ -632,6 +613,27 @@ export class LiveMap {
             .attr('width', node => node.usrp_w())
             .attr('height', node => node.usrp_h())
         ;
+
+
+        // how to display unavailable nodes
+        let unavailables = svg.selectAll('circle.unavailable')
+            .data(this.nodes, obj => obj.id);
+        unavailables
+          .enter()
+            .append('circle')
+            .attr('class', 'unavailable')
+        .attr('id', node => node.id)
+        .attr('cx', node => node.x)
+        .attr('cy', node => node.y)
+
+            .attr('r', () => livemap_options.radius_unavailable)
+            .on('click', node => node.clicked())
+          .merge(unavailables)
+            .transition()
+            .duration(animation_duration)
+            .attr('display', node => node.unavailable_display())
+        ;
+
     }
 
     //////////////////// convenience / helpers
