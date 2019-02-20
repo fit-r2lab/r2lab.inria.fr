@@ -164,6 +164,7 @@ export class LiveLeases {
 
             ////////////////////
             slotDuration: "01:00:00", // except for agendaZoom
+            snapDuration: "00:10:00",
             snapMinutes: 10,
             forceEventDuration: true,
             timezone: 'local',
@@ -173,6 +174,8 @@ export class LiveLeases {
             defaultDate: today,
             selectHelper: false,
             overlap: false,
+            eventOverlap: false,
+            selectOverlap: false,
             selectable: true,
             editable: true,
             allDaySlot: false,
@@ -564,7 +567,7 @@ export class LiveLeases {
 
     ////////////////////
     adapt_start_end(start, end) {
-        let now = new Date();0
+        let now = new Date();
         let started = moment(now).diff(moment(start), 'minutes');
         if (started > 0){
             let s   = moment(now).diff(moment(start), 'minutes')
