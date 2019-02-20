@@ -10,17 +10,7 @@ from r2lab.testbedapiview import TestbedApiView
 # essentially, this describes the OMF REST API endpoint details
 from r2lab.settings import plcapi_settings, logger
 
-### the standard way to use rhubarbe is to have it installed separately
-# make it explicit when rhubarbe is not found
-try:
-    import rhubarbe
-except:
-    print("cannot import module rhubarbe !!")
-try:
-    from rhubarbe.plcapiproxy import PlcApiProxy
-# in a standalone / devel environment however, just create a symlink
-except:
-    from .plcapiproxy import PlcApiProxy
+from rhubarbe.plcapiproxy import PlcApiProxy
 
 debug = False
 debug = True
