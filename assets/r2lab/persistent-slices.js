@@ -28,7 +28,7 @@ class ColorsGenerator {
         // hard-wire special cases
         this.hard_wired = {
             'inria_r2lab.nightly' : 'black',
-            'inria_r2lab.admin' : 'red',
+            'inria_admin' : 'red',
         }
 
         // special colors
