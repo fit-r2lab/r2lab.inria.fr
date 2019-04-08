@@ -8,7 +8,8 @@ tab: papers
 ### Conferences / Workshops
 
 * Parmentelat, T., Turletti, T., Dabbous, W., Mahfoudi, M. N., & Bronzino, F. [nepi-ng: an efficient experiment control tool in R2lab](https://hal.inria.fr/hal-01857266/). In ACM WiNTECH 2018-12th ACM International Workshop on Wireless Network Testbeds, Experimental evaluation & CHaracterization (pp. 1-8), November 2, 2018, New Delhi, India.
-* Pakzad F., Portmann, M., Turletti, T., Parmentlat, T., Mahfoudi, M.-N., Dabbous, W. R2Lab Testbed Evaluation for Wireless Mesh Network Experiments. In International Telecommunication Networks and Applications Conference (ITNAC), November 21-23, 2018, Sydney, Australia.
+* Pakzad F., Portmann, M., Turletti, T., Parmentlat, T., Mahfoudi, M.-N., Dabbous, W. [R2Lab Testbed Evaluation for Wireless Mesh Network Experiments](https://doi.org/10.1109/ATNAC.2018.8615202
+). In International Telecommunication Networks and Applications Conference (ITNAC), November 21-23, 2018, Sydney, Australia.
 * Camurati, G., Poeplau, S., Muench, M., Hayes, T., & Francillon, A. [Screaming Channels: When Electromagnetic Side Channels Meet Radio Transceivers](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiJ-N_J68HdAhUCr6QKHfeqDB8QFjAAegQIARAC&url=http%3A%2F%2Fs3.eurecom.fr%2Fdocs%2Fccs18_camurati_preprint.pdf&usg=AOvVaw0QGoGtX0JBkp0xnLDnzT1S). 25th ACM conference on Computer and communications security (CCS), 15-19 October 2018, Toronto, Canada.
 * Khokhar, M., Spetebroot, T., & Barakat, C. (2018, October). [A Methodology for Performance Benchmarking of Mobile Networks for Internet Video Streaming](https://hal.inria.fr/hal-01855264/). In the 21st ACM International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems (MSWIM), Oct. 28 - Nov. 2, 2018, Montreal, Canada.
 
