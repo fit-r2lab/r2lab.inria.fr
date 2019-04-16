@@ -7,7 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<< tuto_tabs "Angle of Arrival":AOA "OpenAirInterface":OAI "OpenAirInterface (2)":OAING >>
+<< tuto_tabs "Angle of Arrival":AOA "OpenAirInterface":OAI "OpenAirInterface (2)":OAING "OLSR vs batman":OLSRBATMAN >>
 
 
 <div id="contents" class="tab-content" markdown="1">
@@ -63,6 +63,24 @@ The purpose is very similar to the previous one; here again we leverage OpenAirI
 
 <object width="854" height="480"
 data="https://www.youtube.com/embed/N1nl_PqWlKw">
+</object>
+
+</div>
+
+<!-- ------- OAING ------------>
+<div id="OLSRBATMAN" class="tab-pane fade" markdown="1">
+
+### Comparing OLSR and batman
+
+In this video we show how to use [this demo published on
+github](https://github.com/fit-r2lab/r2lab-demos/tree/master/batman-vs-olsr),
+that uses nepi-ng and a Jupyter notebook to perform an objective
+comparison between two MANET routing protocols, namely OLSR and
+batman.
+
+
+<object width="854" height="480"
+data="https://www.youtube.com/embed/p2FfpkMLN_k">
 </object>
 
 </div>
