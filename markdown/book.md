@@ -69,10 +69,15 @@ Object.assign(liveleases_options, {
 <p>The software does not enforce any limitation on the duration or frequency of reservations.<br/>
 We expect however everyone to adhere to the following, common sense, rules: </p>
 
-* Please do not reserve for more than 2 consecutive hours during daytime.
-* When reserving in advance, please create a maximum of 2 slices for one given day.
-* During the last half-hour of your reserved time, if there is no other reservation following the current slot, it is OK to extend for another 2 hours, and so on.
-* Finally, if you are done early, then please just delete the current slot; the software will then automatically shrink your lease (so that we keep track, for accurate testbed usage statistics) so that the testbed becomes available to others.
+<ul>
+<li>Please do not reserve for more than 2 consecutive hours during daytime.</li>
+<li>When reserving in advance, please create a maximum of 2 slices for one given day.</li>
+<li>During the last half-hour of your reserved time, if there is no other reservation
+following the current slot, it is OK to extend for another 2 hours, and so on.</li>
+<li>Finally, if you are done early, then please just delete the current slot;
+the software will then automatically shrink your lease (so that we keep track,
+for accurate testbed usage statistics) and the testbed will become available to others.
+</ul>
 
 Thanks !
 </div>
