@@ -6,8 +6,22 @@ skip_news: yes
 # Most recent first&nbsp;: (see also our [list of papers](papers.md))
 
 ****
+## 2019
+****
+
+### March 2019
+
+* the federation link with Fed4Fire, that had been down for a couple years 
+  due to some nasty MD5-signed certificates, is live again. 
+  Fed4Fire users can make reservations throught Jfed again.
+
+****
 ## 2018
 ****
+
+### December 2018
+
+* `faraday.inria.fr`, `r2lab.inria.fr` and `r2labapi.inria.fr` all run fedora29
 
 ### April 2018
 
