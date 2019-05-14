@@ -115,7 +115,7 @@ So here's how you can check for possibly out-dated versions of either of these :
 
 Please double check that you
 
-* indeed run python-3.5 or higher
+* indeed run python-3.6 or higher
 * and that you indeed use `python3` to run your script - it is so easy to
   forget the `3` in `python3 A1-ping.py` !
 

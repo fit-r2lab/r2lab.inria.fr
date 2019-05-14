@@ -40,16 +40,16 @@ are familiar with dealing with such interfaces.
 
 ***
 
-# Requires asyncio and python-3.5
+# Requires asyncio and python-3.6
 
 `nepi-ng` is a set of python libraries; these are based on [the asyncio
-library](https://docs.python.org/3/library/asyncio.html)  and as such
-require python-3.5. Please refer to the Python
-documentation for installing that version of python on your laptop.
+library](https://docs.python.org/3/library/asyncio.html) and as such
+require at least python-3.5. In addition, since many example scripts use Python's *f-strings*, 
+we strongly recommend using at least Python-3.6, which is the version where *f-strings* were introduced.
 You can check that this requirement is fulfilled by running
 
     $ python3 --version
-    Python 3.5.1
+    Python 3.7.3
 
 ***
 
