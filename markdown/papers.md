@@ -2,6 +2,24 @@ title: Publications related to R2lab
 tab: papers
 
 ****
+# 2019
+****
+
+### Demos / Reports
+
+
+* Mohamed Naoufal Mahfoudi, Thierry Parmentelat, Thierry Turletti, Walid Dabbous, [Towards Reproducible Wireless Experiments Using R2lab](https://hal.archives-ouvertes.fr/hal-02167090), Research Report, June 2019.
+* Thierry Parmentelat, Mohamed Naoufal Mahfoudi, Thierry Turletti, Walid Dabbous, [A step towards runnable papers using R2lab](https://hal.archives-ouvertes.fr/hal-02167086v2), Research Report, June 2019.
+* Damien Saucez, Giuseppe Di Lena, Video demo, [4-Fat-Tree running a Hadoop cluster of 15 nodes and one streaming server](https://www.youtube.com/watch?v=ONfEdcwUZiA&feature=youtu.be), March 2019.
+
+
+### PFE / B.T. / BSc. / MSc. Thesis
+
+* Anas Errahali (PFE Ubinet 2018-19) on Range extension through Diversity Techniques in LoRa.
+* Antonello Florio (PFE Ubinet 2018-19) on Beamforming for LoRa Low Power Wide Area Networks.
+* Anas Errahali (Master Ubinet 2018-19) on Enhancing geolocation accuracy in LoRa Low Power Wide Area Networks
+
+****
 # 2018
 ****
 
