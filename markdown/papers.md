@@ -2,6 +2,24 @@ title: Publications related to R2lab
 tab: papers
 
 ****
+# 2019
+****
+
+### Demos / Reports
+
+
+* Mohamed Naoufal Mahfoudi, Thierry Parmentelat, Thierry Turletti, Walid Dabbous, [Towards Reproducible Wireless Experiments Using R2lab](https://hal.archives-ouvertes.fr/hal-02167090), Research Report, June 2019.
+* Thierry Parmentelat, Mohamed Naoufal Mahfoudi, Thierry Turletti, Walid Dabbous, [A step towards runnable papers using R2lab](https://hal.archives-ouvertes.fr/hal-02167086v2), Research Report, June 2019.
+* Damien Saucez, Giuseppe Di Lena, Video demo, [4-Fat-Tree running a Hadoop cluster of 15 nodes and one streaming server](https://www.youtube.com/watch?v=ONfEdcwUZiA&feature=youtu.be), March 2019.
+
+
+### PFE / B.T. / BSc. / MSc. Thesis
+
+* Anas Errahali (PFE Ubinet 2018-19) on Range extension through Diversity Techniques in LoRa.
+* Antonello Florio (PFE Ubinet 2018-19) on Beamforming for LoRa Low Power Wide Area Networks.
+* Anas Errahali (Master Ubinet 2018-19) on Enhancing geolocation accuracy in LoRa Low Power Wide Area Networks
+
+****
 # 2018
 ****
 
@@ -12,6 +30,7 @@ tab: papers
 ). In International Telecommunication Networks and Applications Conference (ITNAC), November 21-23, 2018, Sydney, Australia.
 * Camurati, G., Poeplau, S., Muench, M., Hayes, T., & Francillon, A. [Screaming Channels: When Electromagnetic Side Channels Meet Radio Transceivers](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiJ-N_J68HdAhUCr6QKHfeqDB8QFjAAegQIARAC&url=http%3A%2F%2Fs3.eurecom.fr%2Fdocs%2Fccs18_camurati_preprint.pdf&usg=AOvVaw0QGoGtX0JBkp0xnLDnzT1S). 25th ACM conference on Computer and communications security (CCS), 15-19 October 2018, Toronto, Canada.
 * Khokhar, M., Spetebroot, T., & Barakat, C. (2018, October). [A Methodology for Performance Benchmarking of Mobile Networks for Internet Video Streaming](https://hal.inria.fr/hal-01855264/). In the 21st ACM International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems (MSWIM), Oct. 28 - Nov. 2, 2018, Montreal, Canada.
+* Camurati, G., Poeplau, S., Muench, M., Hayes, T., & Francillon, A. (2018, October). [Screaming channels: When electromagnetic side channels meet radio transceivers.](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=25&ved=2ahUKEwjz7cfd5cPkAhUTrHEKHVllCz84FBAWMAR6BAgFEAI&url=http%3A%2F%2F193.55.114.4%2Fdocs%2Fccs18_camurati.pdf&usg=AOvVaw21FsBSRvPeLFEHYB4lXPbj) In Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security (pp. 163-177). ACM.
 
 ### Posters / Demos
 
@@ -39,6 +58,7 @@ tab: papers
 * Mahfoudi, M. N., Turletti, T., Parmentelat, T., Ferrero, F., Lizzi, L., Staraj, R., & Dabbous, W. (2017, May). [ORION: Orientation estimation using commodity Wi-Fi](https://hal.archives-ouvertes.fr/hal-01424239). In Communications Workshops (ICC Workshops), 2017 IEEE International Conference on (pp. 1233-1238). IEEE.
 * Mahfoudi, M. N., Turletti, T., Parmentelat, T., & Dabbous, W. (2017, August). [Lessons learned while trying to reproduce the openrf experiment](https://hal.archives-ouvertes.fr/hal-01615398/). In Proceedings of the Reproducibility Workshop (pp. 21-23). ACM.
 * Anthony Busson, Eric Fleury, Ngoc Phung. [A simple method to infer Wi-Fi conflict graph](https://hal.archives-ouvertes.fr/hal-01518742). Rencontres Francophones sur la Conception de Protocoles, l’Évaluation de Performance et l’Expérimentation des Réseaux de Communication, May 2017, Quiberon, France.
+
 
 ### Posters / Demos
 
