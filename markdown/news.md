@@ -9,6 +9,14 @@ skip_news: yes
 ## 2019
 ****
 
+### November 2019
+
+* deployed 2 boxes based on B-205 USRP hardware with duplexers (one for UE and one for eNB)
+
+### October 2019
+
+* part of the OpenAirInterface's CI run on a nightly basis on R2lab
+
 ### March 2019
 
 * the federation link with Fed4Fire, that had been down for a couple years 
