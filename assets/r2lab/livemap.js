@@ -358,6 +358,8 @@ class MapNode {
             filter_name = 'other-logo';
         else if (this.os_release.indexOf('fedora') >= 0)
             filter_name = 'fedora-logo';
+        else if (this.os_release.indexOf('centos') >= 0)
+            filter_name = 'centos-logo';
         else if (this.os_release.indexOf('ubuntu') >= 0)
             filter_name = 'ubuntu-logo';
         else
@@ -483,6 +485,7 @@ export class LiveMap {
             ;
         });
         this.declare_image_filter('fedora-logo', 'png');
+        this.declare_image_filter('centos-logo', 'png');
         this.declare_image_filter('ubuntu-logo', 'png');
         this.declare_image_filter('other-logo', 'png');
         this.declare_image_filter('gnuradio-logo-icon-green', 'svg');

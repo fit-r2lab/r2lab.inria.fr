@@ -14,6 +14,7 @@ import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/ass
 export let livetable_options = {
 
     fedora_badge : '<img src="/assets/img/fedora-logo.png">',
+    centos_badge : '<img src="/assets/img/centos-logo.png">',
     ubuntu_badge : '<img src="/assets/img/ubuntu-logo.png">',
     other_badge : '<img src="/assets/img/other-logo.png">',
 
@@ -84,6 +85,8 @@ export class LiveTableNode extends LiveColumnsNode {
             return [ "n/a", klass ];
         if (os_release.startsWith('fedora'))
             return [ `${livetable_options.fedora_badge} ${os_release}`, klass ];
+        else if (os_release.startsWith('centos'))
+            return [ `${livetable_options.centos_badge} ${os_release}`, klass ];
         else if (os_release.startsWith('ubuntu'))
             return [ `${livetable_options.ubuntu_badge} ${os_release}`, klass ];
         else if (os_release == 'other')
