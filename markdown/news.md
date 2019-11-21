@@ -12,6 +12,8 @@ skip_news: yes
 ### November 2019
 
 * deployed 2 boxes based on B-205 USRP hardware with duplexers (one for UE and one for eNB)
+* new images for `centos-8` and `fedora-31` are available;  
+  run `rhubarbe images centos-8 fedora-31` for their status
 
 ### October 2019
 
