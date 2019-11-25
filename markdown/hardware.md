@@ -145,7 +145,7 @@ Please note the following specifics about the additional SDR devices:
 
 * Depending on the SDR device, one or two Rx/Tx channels may be available. The antennas attached to each channel are specified as follows: **900M** for omni-directional 5dBi antennas, operating on 800-900MHz; **2-5G** for dual-band 5dBi omni-directional antennas, operating on both 2.4GHz and 5GHz; and **Dup-eNB** or **Dup-UE** if a duplexer is used.
 
-* the `n210` and `usrp2` models use an **Ethernet** connection to link
+* Warning: the `N210` and `usrp2` models use an **Ethernet** connection to link
   to the node. This means that on those nodes, the `data` wired
   interface is **not available**, as the hardware interface is wired
   into the USRP device.
@@ -156,7 +156,7 @@ Please note the following specifics about the additional SDR devices:
 
 ### Duplexers
 
-Some USRP devices, like the `b210`, have their Tx and Rx SMA
+Some USRP devices, like the `B210`, have their Tx and Rx SMA
 connectors very close to one another. For that reason some have
 a device named a **duplexer band 7**<a
 href="/raw/docs/duplexer-band7-specifications.pdf"
@@ -189,13 +189,26 @@ With the above assumptions, these tags can be interpreted as follows:
 <div class="container" markdown="1">
   <div class="row">
     <div class="col-md-8 new_pad">
+    
+###Commercial Huawei LTE Sticks
+
+The testbed currently includes 4 Huawei LTE sticks: 
+
+* Two <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on nodes fit02 (with SIM # 07) and fit26 (with SIM #05).
+* One <a href="https://www.4gltemall.com/blog/wp-content/uploads/2012/11/HUAWEI_E392_TDD_LTE_USB_Stick_Product_Description-Specification-and-datasheet.pdf" target="_blank">Huawei E392 stick</a> (with SIM #09) on node fit09, loaned by Eurecom.
+* One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM #10) on node fit29, loaned by Eurecom.
+
+###Commercial Bluetooth 4.2/5.0 Low Energy (BLE) devices
+
+* Two <a href="https://www.sparkfun.com/products/retired/14154" target="_blank">RedBearLab BLE Nano Kit v2 devicess</a> on nodes fit01 anf fit03, loaned by Eurecom.
+
 ###Commercial 4G Phones
 
 The testbed offers a couple of commercial phones right inside the chamber:
 
 * Each phone is reachable through a Mac (that also sits in the room) that has
   its wireless card physically disabled, and that has a USB cable to
-  the phone
+  the phone.
 * The Mac can be reached from the gateway as e.g. `ssh tester@macphone1` (or
   the <code>macphone1</code> convenience shell shortcut)
 * Once logged in the Mac you can use convenience helpers to manage the
