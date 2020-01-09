@@ -4,9 +4,17 @@ tab: papers
 ****
 # 2019
 ****
+### Journals
+
+* Mohamed Naoufal Mahfoudi, Gayatri Sivadoss, Othmane Bensouda Korachi, Thierry Turletti, Walid Dabbous, [Joint range extension and localization for LPWAN](https://hal.archives-ouvertes.fr/hal-02170466), Internet Technology Letters, Wiley, 2019, pp.e120. 
+
+### Conferences / Workshops
+
+* Kazuhisa Matsuzono, Hitoshi Asaeda, Indukala Naladala, Thierry Turletti, [Efficient Pull-based Mobile Video Streaming leveraging In-Network Functions](https://hal.inria.fr/hal-02359569/). IEEE - CCNC 2020 - Consumer Communications & Networking Conference, Jan 2020, Las Vegas, United States. 
+
+* Giuseppe Di Lena, Andrea Tomassilli, Damien Saucez, Frédéric Giroire, Thierry Turletti, Chidung Lac, Walid Dabbous, [Distributed Network Experiment Emulation](https://hal.inria.fr/hal-02359801), Global Experimentation for Future Internet Workshop, GEFI’19, Nov 2019, Coimbra, Portugal. 
 
 ### Demos / Reports
-
 
 * Mohamed Naoufal Mahfoudi, Thierry Parmentelat, Thierry Turletti, Walid Dabbous, [Towards Reproducible Wireless Experiments Using R2lab](https://hal.archives-ouvertes.fr/hal-02167090), Research Report, June 2019.
 * Thierry Parmentelat, Mohamed Naoufal Mahfoudi, Thierry Turletti, Walid Dabbous, [A step towards runnable papers using R2lab](https://hal.archives-ouvertes.fr/hal-02167086v2), Research Report, June 2019.
