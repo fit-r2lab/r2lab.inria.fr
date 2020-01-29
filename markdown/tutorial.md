@@ -102,7 +102,7 @@ tutorial pages.
     OpenAirInterface-based 5G infrastructure, and a tour in the
     chamber using Skype on a commercial android phone.
 
-#### [Using notebooks](tuto-16-notebooks.md)
+#### [Using notebooks](tuto-160-notebooks.md)
 
 </div>
 
