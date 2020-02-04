@@ -8,7 +8,7 @@ skip_header: True
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
 
-<< tuto_tabs "INTRO": "D1": "D2": "D3": "D4": "WARP UP":WRAPUP >>
+<< tuto_tabs "INTRO": "D1": "D2": "D3": "D4": "WRAP UP":WRAPUP >>
 
 
 <div id="contents" class="tab-content" markdown="1">
