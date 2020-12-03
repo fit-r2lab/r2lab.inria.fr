@@ -7,7 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<< tuto_tabs "Angle of Arrival":AOA "OpenAirInterface":OAI "OpenAirInterface (2)":OAING "OLSR vs batman":OLSRBATMAN >>
+<< tuto_tabs "Angle of Arrival":AOA "OAI (early)":OAI "5G in 5'":OAING "5G in 8' on k8s":OAIK8S "OLSR vs batman":OLSRBATMAN >>
 
 
 <div id="contents" class="tab-content" markdown="1">
@@ -67,7 +67,21 @@ data="https://www.youtube.com/embed/N1nl_PqWlKw">
 
 </div>
 
-<!-- ------- OAING ------------>
+
+<!-- ------- OAIK8S ------------>
+<div id="OAIK8S" class="tab-pane fade" markdown="1">
+
+### Set up a 5G network in 8 minutes over kubernetes
+
+Same old again, but over a kubernets cluster deployed over a few worker nodes in R2lab
+
+<object width="854" height="480"
+data="https://www.youtube.com/embed/b_oB9z7jflg">
+</object>
+
+</div>
+
+<!-- ------- OLSRBATMAN ------------>
 <div id="OLSRBATMAN" class="tab-pane fade" markdown="1">
 
 ### Comparing OLSR and batman
