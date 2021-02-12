@@ -16,6 +16,7 @@ tab: papers
 
 * Mamoutou Diarra, Thierry Turletti, Walid Dabbous, Amine Ismail, [Cross-layer Loss Discrimination Algorithms for MEC in 4G networks](https://hal.inria.fr/hal-03001893), Research Report, November 2020.
 * Houssam Elbouanani, Walid Dabbous, Chadi Barakat, Thierry Turletti, [Passive Delay Measurement for Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03001876), Research Report, November 2020.
+* Thierry Parmentelat, Thierry Turletti, Walid Dabbous, [Reproducible 5G network automation with Kube5G in R2lab](https://www.youtube.com/watch?v=b_oB9z7jflg),  [Mosaic 2020 Workshop](https://mosaic5g.io/workshop-2020/) online, December 2020.
 
 ### PFE / B.T. / BSc. / MSc. Thesis
 
@@ -33,11 +34,11 @@ tab: papers
 ### Conferences / Workshops
 
 * Giuseppe Di Lena, Andrea Tomassilli, Damien Saucez, Frédéric Giroire, Thierry Turletti, Chidung Lac, Walid Dabbous, [Distributed Network Experiment Emulation](https://hal.inria.fr/hal-02359801), Global Experimentation for Future Internet Workshop, GEFI’19, Nov 2019, Coimbra, Portugal. 
-* Louiza Yala, Marius Iordache, Ayoub Bousselmi, Sofiane Imadali, [Testbed Federation for 5G Experimentation: Review and Guidelines](10.1109/CSCN.2019.8931406), IEEE Conference on Standards for Communications and Networking (CSCN), GRANADA, Spain, 2019, pp. 1-6, doi: 10.1109/CSCN.2019.8931406.
+* Louiza Yala, Marius Iordache, Ayoub Bousselmi, Sofiane Imadali, [Testbed Federation for 5G Experimentation: Review and Guidelines](https://doi.org/10.1109/CSCN.2019.8931406), IEEE Conference on Standards for Communications and Networking (CSCN), GRANADA, Spain, 2019, pp. 1-6, doi: 10.1109/CSCN.2019.8931406.
 * Fontes, Ramon dos Reis; Esteve Rothenberg, Christian. [Mininet-WiFi: Plataforma de Emulação para Redes sem Fio Definidas por Software](https://sol.sbc.org.br/index.php/sbrc_estendido/article/view/7788/7662), in: Dissertation Digest - Brazilian Symposium on Computer Networks and Distributed Systems (SBRC), 2. , 2019, Gramado.
 * Lucas Nussbaum. [An overview of Fed4FIRE testbeds -- and beyond?](https://hal.inria.fr/hal-02401738/),  GEFI - Global Experimentation for Future Internet Workshop, Nov 2019, Coimbra, Portugal. 
-* M. J. Khokhar, T. Ehlinger and C. Barakat, [From Network Traffic Measurements to QoE for Internet Video](10.23919/IFIPNetworking.2019.8816854), IFIP Networking Conference, Warsaw, Poland, 2019, pp. 1-9.
-* I. Oussakel, P. Owezarski and P. Berthou, [Experimental Estimation of LTE-A Performance](10.23919/CNSM46954.2019.9012663), 15th International Conference on Network and Service Management (CNSM), Halifax, NS, Canada, 2019, pp. 1-9.
+* M. J. Khokhar, T. Ehlinger and C. Barakat, [From Network Traffic Measurements to QoE for Internet Video](https://doi.org/10.23919/IFIPNetworking.2019.8816854), IFIP Networking Conference, Warsaw, Poland, 2019, pp. 1-9.
+* I. Oussakel, P. Owezarski and P. Berthou, [Experimental Estimation of LTE-A Performance](https://doi.org/10.23919/CNSM46954.2019.9012663), 15th International Conference on Network and Service Management (CNSM), Halifax, NS, Canada, 2019, pp. 1-9.
 
 
 
@@ -60,7 +61,7 @@ tab: papers
 
 ### Journals
 
-Hardein, P., Primananda, R., & Basuki, A., [Analysis of Wireless Network Node Mobility in Software Defined Wireless Network (SDWN)](http://j-ptiik.ub.ac.id/index.php/j-ptiik/article/view/2798/1092), Jurnal Pengembangan Teknologi Informasi dan Ilmu Komputer, vol. 2, no. 10, p. 4116-4124, 2018. 
+* Hardein, P., Primananda, R., & Basuki, A., [Analysis of Wireless Network Node Mobility in Software Defined Wireless Network (SDWN)](http://j-ptiik.ub.ac.id/index.php/j-ptiik/article/view/2798/1092), Jurnal Pengembangan Teknologi Informasi dan Ilmu Komputer, vol. 2, no. 10, p. 4116-4124, 2018. 
 
 ### Conferences / Workshops
 
@@ -110,16 +111,13 @@ Hardein, P., Primananda, R., & Basuki, A., [Analysis of Wireless Network Node Mo
 * Mahfoudi, M. N., Turletti, T., Parmentelat, T., & Dabbous, W. (2017, August). [Lessons learned while trying to reproduce the openrf experiment](https://hal.archives-ouvertes.fr/hal-01615398/). In Proceedings of the Reproducibility Workshop (pp. 21-23). ACM.
 * Anthony Busson, Eric Fleury, Ngoc Phung. [A simple method to infer Wi-Fi conflict graph](https://hal.archives-ouvertes.fr/hal-01518742). Rencontres Francophones sur la Conception de Protocoles, l’Évaluation de Performance et l’Expérimentation des Réseaux de Communication, May 2017, Quiberon, France.
 * Lucas Nussbaum, [Testbeds Support for Reproducible Research](https://doi.org/10.1145/3097766.3097773). In Proceedings of the Reproducibility Workshop (Reproducibility '17). Association for Computing Machinery, New York, NY, USA, 24–26.
-* E. J. Sebastian, J. M. Jose, M. Schappacher and A. Sikora, [Seamless test environment for distributed embedded wireless networks](10.1109/ICACCI.2017.8125920), International Conference on Advances in Computing, Communications and Informatics (ICACCI), Udupi, 2017, pp. 681-686.
-* Anthony Busson, Eric Fleury, Ngoc Phung, [A simple method to infer Wi-Fi conflict graph](https://hal.archives-ouvertes.fr/hal-01518742/), Rencontres Francophones sur la Conception de Protocoles, l’Évaluation de Performance et l’Expérimentation des Réseaux de Communication, May 2017, Quiberon, France. 
+* E. J. Sebastian, J. M. Jose, M. Schappacher and A. Sikora, [Seamless test environment for distributed embedded wireless networks](https://doi.org/10.1109/ICACCI.2017.8125920), International Conference on Advances in Computing, Communications and Informatics (ICACCI), Udupi, 2017, pp. 681-686.
 
 
 ### Posters / Demos / Reports / Presentations / Videos
 
 * Mahfoudi, M. N., Parmentelat, T., Turletti, T., Dabbous, W., & Knopp, R. (2017, August). [Deploy a 5G network in less than 5 minutes: Demo Abstract](https://hal.inria.fr/hal-01580065). In ACM SIGCOMM Posters and Demos.
-
 * Lucas Nussbaum. [Testbeds in Computer Science](https://hal.inria.fr/hal-01538683). Presentation, Reproducible Research Webinars, Jun 2017, Grenoble, France. 
-
 * Lucas Nussbaum. [Scaling your experiments](https://hal.inria.fr/hal-01577847). Presentation, École RESCOM 2017, Jun 2017, Le Croisic, France. 
 
 ### PhD Thesis
