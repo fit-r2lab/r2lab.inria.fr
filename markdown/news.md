@@ -6,6 +6,12 @@ skip_news: yes
 # Most recent first&nbsp;: (see also our [list of papers](papers.md))
 
 ****
+## 2021
+
+### April 2021
+Thanks to Raphael Defosseux <raphael.defosseux@openairinterface.org>, we are pleased to announce that the lastest version of OpenAirInterface (OAI) EPC and RAN are currently available (and regularly refreshed) with docker images specific to R2lab. To automatically deploy those images, just follow the steps described in this [tutorial](./README-OAICI.md). 
+
+****
 ## 2019
 ****
 

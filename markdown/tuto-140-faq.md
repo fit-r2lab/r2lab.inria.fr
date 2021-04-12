@@ -17,6 +17,16 @@ In no particular order...
 
 ****
 
+### How should I cite R2lab in my paper?
+
+Please include the following text in the Acknowledgment section:
+
+``We would like to thank the FIT R2lab team from Inria, Sophia Antipolis, for their help in using the FIT-R2lab testbed (\url{https://fit-r2lab.inria.fr/}) [Ref-R2lab].''
+
+[Ref-R2lab]: T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). ``A step towards runnable papers using R2lab", INRIA Research Report, June 2019.
+
+****
+
 ### `nepi-ng` or `apssh` won't find my ssh key
 
 The simplest answer is, make sure to add the relevant ssh key in your ssh agent.
