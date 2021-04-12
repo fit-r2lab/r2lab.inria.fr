@@ -1,3 +1,17 @@
+title: README-OAICI
+tab: tutorial
+skip_header: True
+
+
+<< tuto_tabs "README-OAICI": >>
+
+
+<div id="contents" class="tab-content" markdown="1">
+
+<!-- ------- INTRO ------------>
+<div id="README-OAICI" class="tab-pane fade show active" markdown="1">
+
+
 # How to use the latest oaici docker images
 
 Author: Raphael Defosseux <raphael.defosseux@openairinterface.org>
@@ -2063,3 +2077,4 @@ Removing prod-cassandra      ... done
 Removing network prod-oai-private-net
 Removing network prod-oai-public-net
 ```
+</div>

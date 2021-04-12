@@ -2,9 +2,16 @@ title: Publications related to R2lab
 tab: papers
 
 ****
+Nota: If you are using R2lab for in your publications, please add the following text in the Acknowledgment section os your papers:
+
+*We would like to thank the FIT R2lab team from Inria, Sophia Antipolis, for their help in using the FIT-R2lab testbed (\url{https://fit-r2lab.inria.fr/}) [Ref]*.
+
+[Ref]: T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). ``A step towards runnable papers using R2lab", INRIA Research Report, June 2019.
+
+****
 # 2020
 ****
- 
+
 
 ### Conferences / Workshops
 
