@@ -73,7 +73,7 @@ ___
 
 ## Load the EPC image
 
-```bash
+```console
 ssh your_slicename@faraday.inria.fr
 $ rload -i oai-ci-cd-u18-epc-latest 17
 Found binary frisbeed as /usr/sbin/frisbeed
@@ -90,7 +90,7 @@ $ rwait 17
 
 ## Do some network manipulations for containers to talk to each other
 
-```bash
+```console
 ssh your_slicename@faraday.inria.fr
 $ ssh oaici@fit17              # password is `linux`
 oaici@fit17$ sudo sysctl net.ipv4.conf.all.forwarding=1
@@ -103,7 +103,7 @@ oaici@fit17$ sudo ip route add 192.168.61.0/26 via 192.168.3.23 dev control
 
 **CAUTION: This SHALL be done in 2 steps!**
 
-```bash
+```console
 ssh your_slicename@faraday.inria.fr
 $ ssh oaici@fit17
 oaici@fit17$ cd openair-epc-fed/docker-compose/inria-oai-mme/
@@ -124,7 +124,7 @@ Creating prod-db-init   ... done
 
 Wait a bit (around 30-50 seconds)
 
-```bash
+```console
 oaici@fit17$ docker logs prod-db-init
 Connection error: ('Unable to connect to any servers', {'prod-cassandra': error(111, "Tried connecting to [('192.168.68.2', 9042)]. Last error: Connection refused")})
 OK
@@ -132,14 +132,14 @@ OK
 
 You can remove the prod-db-init container. It's useless (this step is optional)
 
-```bash
+```console
 oaici@fit17:~/openair-epc-fed/docker-compose/inria-oai-mme$ docker rm prod-db-init
 prod-db-init
 ```
 
 **CAUTION: if you do NOT have the "OK" message as above, no need to go further**
 
-```bash
+```console
 oaici@fit17$ docker-compose up -d oai_spgwu trf_gen
 Building with native build. Learn about native build in Compose here: https://docs.docker.com/go/compose-native-build/
 prod-cassandra is up-to-date
@@ -152,7 +152,7 @@ Creating prod-oai-spgwu-tiny ... done
 
 After a while (again 20-30 seconds), the EPC shall be ready
 
-```bash
+```console
 oaici@fit17:~/openair-epc-fed/docker-compose/inria-oai-mme$ docker-compose ps -a
        Name                      Command                  State                            Ports                      
 ----------------------------------------------------------------------------------------------------------------------
@@ -166,7 +166,7 @@ prod-trf-gen          /bin/bash -c ip route add  ...   Up (healthy)
 
 Then you can follow live the action on MME:
 
-```bash
+```console
 oaici@fit17$ docker logs prod-oai-mme --follow
 ....
 ```
@@ -175,7 +175,7 @@ ___
 
 ## Load the eNB image
 
-```bash
+```console
 ssh your_slicename@faraday.inria.fr
 $ rload -i oai-ci-u18-lowlatency-enb-ue-docker-latest 23
 Found binary frisbeed as /usr/sbin/frisbeed
@@ -197,7 +197,7 @@ reboot23:ok
 
 ## Do some network manipulations for containers to talk to each other
 
-```bash
+```console
 ssh inria_oaici@faraday.inria.fr
 $ ssh oaici@fit23   # once again password is `linux`
 oaici@fit23$ sudo sysctl net.ipv4.conf.all.forwarding=1
@@ -207,7 +207,7 @@ oaici@fit23$ sudo ip route add 192.168.61.192/26 via 192.168.3.17 dev control
 
 ## Deploy the eNB
 
-```bash
+```console
 ssh your_slicename@faraday.inria.fr
 $ ssh oaici@fit23
 oaici@fit23$ cd ~/openairinterface5g/ci-scripts/yaml_files/inria_enb_mono_fdd
@@ -341,7 +341,7 @@ oaici@fit17$ docker logs prod-oai-mme --follow
 
 Let the eNB radio start:
 
-```bash
+```console
 oaici@fit23$ docker logs prod-enb-mono-fdd --follow
 ...
 [LIBCONFIG] MMEs.[0]: 1/1 parameters successfully set, (1 to default value)
@@ -384,7 +384,7 @@ ___
 ## On the MACPHONE2 terminal
 
 
-```bash
+```console
 ssh inria_oaici@faraday.inria.fr
 $  macphone2
 macphone2:~ tester$ phone-status 
@@ -399,7 +399,7 @@ the UE shall connect quickly:
 
 ## MME logs
 
-```bash
+```console
 000491 00199:803592 7F81A17FA700 DEBUG SCTP   rc/sctp/sctp_primitives_server.c:0547    [1][48] Msg of length 152 received from port 36412, on stream 1, PPID 18
 000492 00199:803678 7F81A17FA700 DEBUG SCTP   rc/sctp/sctp_primitives_server.c:0554    SCTP RETURNING!!
 000493 00199:803783 7F81F9FFB700 INFO  S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0093    Received S1AP INITIAL_UE_MESSAGE eNB_UE_S1AP_ID 06692d
@@ -1914,7 +1914,7 @@ the UE shall connect quickly:
 
 ## eNB logs:
 
-```bash
+```console
 [RRC]   [FRAME 00128][eNB][MOD 00][RNTI 18b8] Decoding UL CCCH 5c.6b.5b.b2.95.56 (0x55bb9587ab03)
 [RRC]   [FRAME 00128][eNB][MOD 00][RNTI 18b8] Accept new connection from UE random UE identity (0x5529bbb5c6000000) MME code 0 TMSI 0 cause 3
 [MAC]   UE 0 RNTI 18b8 adding LC 1 idx 0 to scheduling control (total 1)
@@ -2024,7 +2024,7 @@ KRRCint:8e 8c 7d 76 61 99 e4 da 35 62 96 69 e7 a7 42 8f a5 f7 79 c5 76 24 ec 64 
 
 ## Test traffic
 
-```bash
+```console
 $ macphone2
 macphone2:~ tester$ adb devices
 List of devices attached
@@ -2045,7 +2045,7 @@ rtt min/avg/max/mdev = 35.178/41.006/47.583/5.097 ms
 ___
 # Properly disconnect
 
-```bash
+```console
 $ macphone2
 macphone2:~ tester$ phone-off
 Turning OFF phone : turning on airplane mode
@@ -2053,14 +2053,14 @@ Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
 Broadcast completed: result=0
 ```
 
-```bash
+```console
 oaici@fit23:~/openairinterface5g/ci-scripts/yaml_files/inria_enb_mono_fdd$ docker-compose down
 Stopping prod-enb-mono-fdd ... done
 Removing prod-enb-mono-fdd ... done
 Removing network prod-oai-public-net
 ```
 
-```bash
+```console
 oaici@fit17:~/openair-epc-fed/docker-compose/inria-oai-mme$ docker-compose down
 Stopping prod-oai-spgwu-tiny ... done
 Stopping prod-oai-spgwc      ... done
