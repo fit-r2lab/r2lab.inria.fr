@@ -1,23 +1,15 @@
-title: README-OAICI
-tab: tutorial
+title: How to use the latest oaici docker images
+tab: news
 skip_header: True
 
 
-<< tuto_tabs "README-OAICI": >>
-
-
-<div id="contents" class="tab-content" markdown="1">
-
-<!-- ------- INTRO ------------>
-<div id="README-OAICI" class="tab-pane fade show active" markdown="1">
-
-
-# How to use the latest oaici docker images
-
 Author: Raphael Defosseux <raphael.defosseux@openairinterface.org>
+___
 
 
-The two oaici docker images are:
+## Summary
+
+This tuto explains how to use latest oaici docker images, which are:
 
 1. **oai-ci-cd-u18-epc-latest** for the EPC
 2. **oai-ci-u18-lowlatency-enb-ue-docker-latest** for the eNB
@@ -38,23 +30,6 @@ You have the choice to either deploy them automatically, through the  **deploy.p
 
 ___
 
-**TABLE OF CONTENT**
-
-1. What you need...
-2. EPC terminal
-   1. Load the EPC image
-   2. Do some network manipulations for containers to talk to each other
-   3. Deploy the EPC
-3. eNB terminal
-   1. Load the eNB image
-   2. Do some network manipulations for containers to talk to each other
-   3. Deploy the eNB
-4. Logs & Testing 
-   1. On the MACPHONE2 terminal
-   2. MME log 
-   3. eNB log
-   4. Test traffic
-5. Properly disconnect
 
 ## What you need...
 
@@ -2077,4 +2052,3 @@ Removing prod-cassandra      ... done
 Removing network prod-oai-private-net
 Removing network prod-oai-public-net
 ```
-</div>
