@@ -561,7 +561,8 @@ def markdown_page(request, markdown_file, extra_metavars=None):
         metavars, markdown = parse(markdown_file)
         # convert markdown
         html = markdown_module.markdown(
-            markdown, extras=['markdown-in-html', 'toc', 'header-ids'])
+            markdown, extras=['markdown-in-html', 'toc', 
+                              'header-ids', 'fenced-code-blocks'])
         toc = html.toc_html
         # handle our tags
         html = resolve_tags(html)
