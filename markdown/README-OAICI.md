@@ -2,34 +2,29 @@ title: How to use the latest oaici docker images
 tab: news
 skip_header: True
 
-
 Author: Raphael Defosseux <raphael.defosseux@openairinterface.org>
 ___
 
-
-## Summary
+# Summary
 
 This tuto explains how to use latest oaici docker images, which are:
 
 1. **oai-ci-cd-u18-epc-latest** for the EPC
 2. **oai-ci-u18-lowlatency-enb-ue-docker-latest** for the eNB
 
-
 You have the choice to either deploy them automatically, through the  **deploy.py** nepi-ng script or to launch them manually, step-by-step:
 
 1. If you choose to deploy them automatically, just run on your local machine: (replace slicename with your slice name)
 
- ``oaici-docker $ oaici.py -s slicename``
+  `oaici-docker $ oaici.py -s slicename`
 
- We assume that you have installed nepi-ng on your host before, see [nepi-ng tuto](https://r2lab.inria.fr/tuto-030-nepi-ng-install.md) and that you booked a R2lab timeslot with your slice, see [R2lab reservation](https://r2lab.inria.fr/tuto-010-registration.md).
+  We assume that you have installed nepi-ng on your host before, see [nepi-ng tuto](https://r2lab.inria.fr/tuto-030-nepi-ng-install.md) and that you booked a R2lab timeslot with your slice, see [R2lab reservation](https://r2lab.inria.fr/tuto-010-registration.md).
 
- The above script takes about 8mn to complete. It has several options, use ``deploy.py --help`` to see all of them. Once it finishes, you can directly go to Step 4 "Logs & Testing".
+  The above script takes about 8mn to complete. It has several options, use ``deploy.py --help`` to see all of them. Once it finishes, you can directly go to Step 4 "Logs & Testing".
 
-
-2. In the following you will learn how to manually launch, step-by-step, the latest oaici docker images on two R2lab nodes. In this example,  **fit17** is used for the EPC and **fit23** for the eNB.
+1. In the following you will learn how to manually launch, step-by-step, the latest oaici docker images on two R2lab nodes. In this example,  **fit17** is used for the EPC and **fit23** for the eNB.
 
 ___
-
 
 ## What you need...
 
@@ -129,14 +124,14 @@ After a while (again 20-30 seconds), the EPC shall be ready
 
 ```console
 oaici@fit17:~/openair-epc-fed/docker-compose/inria-oai-mme$ docker-compose ps -a
-       Name                      Command                  State                            Ports                      
+       Name                      Command                  State                            Ports
 ----------------------------------------------------------------------------------------------------------------------
 prod-cassandra        docker-entrypoint.sh cassa ...   Up (healthy)   7000/tcp, 7001/tcp, 7199/tcp, 9042/tcp, 9160/tcp
-prod-oai-hss          /openair-hss/bin/entrypoin ...   Up (healthy)   5868/tcp, 9042/tcp, 9080/tcp, 9081/tcp          
-prod-oai-mme          /openair-mme/bin/entrypoin ...   Up (healthy)   2123/udp, 3870/tcp, 5870/tcp                    
-prod-oai-spgwc        /openair-spgwc/bin/entrypo ...   Up (healthy)   2123/udp, 8805/udp                              
-prod-oai-spgwu-tiny   /openair-spgwu-tiny/bin/en ...   Up (healthy)   2152/udp, 8805/udp                              
-prod-trf-gen          /bin/bash -c ip route add  ...   Up (healthy)                                                   
+prod-oai-hss          /openair-hss/bin/entrypoin ...   Up (healthy)   5868/tcp, 9042/tcp, 9080/tcp, 9081/tcp
+prod-oai-mme          /openair-mme/bin/entrypoin ...   Up (healthy)   2123/udp, 3870/tcp, 5870/tcp
+prod-oai-spgwc        /openair-spgwc/bin/entrypo ...   Up (healthy)   2123/udp, 8805/udp
+prod-oai-spgwu-tiny   /openair-spgwu-tiny/bin/en ...   Up (healthy)   2152/udp, 8805/udp
+prod-trf-gen          /bin/bash -c ip route add  ...   Up (healthy)
 ```
 
 Then you can follow live the action on MME:
@@ -145,7 +140,9 @@ Then you can follow live the action on MME:
 oaici@fit17$ docker logs prod-oai-mme --follow
 ....
 ```
+
 ___
+
 # eNB terminal
 
 ## Load the eNB image
@@ -252,7 +249,7 @@ Additional option(s): --RUs.[0].max_rxgain 115 --RUs.[0].max_pdschReferenceSigna
 
 At that point, the eNB SHOULD be connected with the MME:
 
-```
+```console
 oaici@fit17$ docker logs prod-oai-mme --follow
 000382 00110:853675 7F81F9704700 DEBUG MME-AP src/mme_app/mme_app_statistics.c:0039    ======================================= STATISTICS ============================================
 
@@ -353,18 +350,19 @@ sleep...
 [PHY]   prach_I0 = 0.1 dB
 [PHY]   max_I0 30 (rb 2), min_I0 24 (rb 4), avg I0 27
 ```
+
 ___
+
 # Logs & Testing
 
 ## On the MACPHONE2 terminal
 
-
 ```console
 ssh inria_oaici@faraday.inria.fr
 $  macphone2
-macphone2:~ tester$ phone-status 
+macphone2:~ tester$ phone-status
 phone is turned OFF
-macphone2:~ tester$ phone-on 
+macphone2:~ tester$ phone-on
 Turning ON phone : turning off airplane mode
 Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE (has extras) }
 Broadcast completed: result=0
@@ -382,20 +380,20 @@ the UE shall connect quickly:
 000495 00199:803843 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0116    S1AP_FIND_PROTOCOLIE_BY_ID: /openair-mme/src/s1ap/s1ap_mme_nas_procedures.c 116: Optional ie is NULL
 000496 00199:804042 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0194    S1AP_FIND_PROTOCOLIE_BY_ID: /openair-mme/src/s1ap/s1ap_mme_nas_procedures.c 194: Optional ie is NULL
 000497 00199:804058 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0203    S1AP_FIND_PROTOCOLIE_BY_ID: /openair-mme/src/s1ap/s1ap_mme_nas_procedures.c 203: Optional ie is NULL
-000498 00199:804069 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_itti_messaging.c:0132    S1AP:Initial UE Message- Size 93: 
+000498 00199:804069 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_itti_messaging.c:0132    S1AP:Initial UE Message- Size 93:
 000499 00199:804127 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:0508    Entering mme_app_handle_initial_ue_message()
 000500 00199:804157 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0515    Received MME_APP_INITIAL_UE_MESSAGE from S1AP
-000501 00199:804171 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0771    MME_APP_INITIAL_UE_MESSAGE from S1AP,without S-TMSI. 
-000502 00199:804183 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0789    UE context doesn't exist -> create one 
+000501 00199:804171 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0771    MME_APP_INITIAL_UE_MESSAGE from S1AP,without S-TMSI.
+000502 00199:804183 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0789    UE context doesn't exist -> create one
 000503 00199:809811 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0136    Entering get_new_ue_context()
 000504 00199:809827 7F81F9704700 INFO  MME-AP me/src/mme_app/mme_app_context.c:0162    Clearing received current ue_context 0x5570b59e3858.
 000505 00199:809830 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:4034    Entering clear_ue_context()
-000506 00199:809833 7F81F9704700 INFO  MME-AP me/src/mme_app/mme_app_context.c:4114    Clearing UE context of UE ffffffff. 
-000507 00199:809835 7F81F9704700 INFO  MME-AP me/src/mme_app/mme_app_context.c:4126    Successfully cleared UE context for UE ffffffff. 
+000506 00199:809833 7F81F9704700 INFO  MME-AP me/src/mme_app/mme_app_context.c:4114    Clearing UE context of UE ffffffff.
+000507 00199:809835 7F81F9704700 INFO  MME-AP me/src/mme_app/mme_app_context.c:4126    Successfully cleared UE context for UE ffffffff.
 000508 00199:809837 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:4127    Leaving clear_ue_context()
-000509 00199:809839 7F81F9704700 DEBUG MME-AP me/src/mme_app/mme_app_context.c:0175    MME_APP_INITIAL_UE_MESSAGE. Allocated new MME UE context and new mme_ue_s1ap_id 1. 
+000509 00199:809839 7F81F9704700 DEBUG MME-AP me/src/mme_app/mme_app_context.c:0175    MME_APP_INITIAL_UE_MESSAGE. Allocated new MME UE context and new mme_ue_s1ap_id 1.
 000510 00199:809841 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0650    Entering mme_insert_ue_context()
-000511 00199:809844 7F81F9704700 DEBUG MME-AP me/src/mme_app/mme_app_context.c:0677    The received enb_ue_s1ap_id_key is invalid b59e3858. Skipping. 
+000511 00199:809844 7F81F9704700 DEBUG MME-AP me/src/mme_app/mme_app_context.c:0677    The received enb_ue_s1ap_id_key is invalid b59e3858. Skipping.
 000512 00199:809848 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0800    Leaving mme_insert_ue_context() (rc=0)
 000513 00199:809850 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0179    Leaving get_new_ue_context() (rc=93942571743320)
 000514 00199:809852 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0811    Created new MME UE context enb_ue_s1ap_id 06692d
@@ -408,43 +406,43 @@ the UE shall connect quickly:
 000521 00199:809870 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0267    Entering get_new_session_pool()
 000522 00199:809873 7F81F9704700 INFO  MME-AP me_app/mme_app_session_context.c:0288    Clearing received current sp 0x5570b5af3868.
 000523 00199:809875 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0850    Entering clear_session_pool()
-000524 00199:809877 7F81F9704700 INFO  MME-AP me_app/mme_app_session_context.c:0856    Clearing UE session pool of UE ffffffff. 
-000525 00199:809879 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 5 (0x5570b5af3894) for UE ffffffff. 
-000526 00199:809882 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 6 (0x5570b5af393b) for UE ffffffff. 
-000527 00199:809884 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 7 (0x5570b5af39e2) for UE ffffffff. 
-000528 00199:809886 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 8 (0x5570b5af3a89) for UE ffffffff. 
-000529 00199:809888 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 9 (0x5570b5af3b30) for UE ffffffff. 
-000530 00199:809890 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 10 (0x5570b5af3bd7) for UE ffffffff. 
-000531 00199:809892 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 11 (0x5570b5af3c7e) for UE ffffffff. 
-000532 00199:809894 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 12 (0x5570b5af3d25) for UE ffffffff. 
-000533 00199:809896 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 13 (0x5570b5af3dcc) for UE ffffffff. 
-000534 00199:809898 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 14 (0x5570b5af3e73) for UE ffffffff. 
-000535 00199:809899 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 15 (0x5570b5af3f1a) for UE ffffffff. 
-000536 00199:809901 7F81F9704700 INFO  MME-AP me_app/mme_app_session_context.c:0924    Successfully cleared UE session pool of UE ffffffff. 
+000524 00199:809877 7F81F9704700 INFO  MME-AP me_app/mme_app_session_context.c:0856    Clearing UE session pool of UE ffffffff.
+000525 00199:809879 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 5 (0x5570b5af3894) for UE ffffffff.
+000526 00199:809882 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 6 (0x5570b5af393b) for UE ffffffff.
+000527 00199:809884 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 7 (0x5570b5af39e2) for UE ffffffff.
+000528 00199:809886 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 8 (0x5570b5af3a89) for UE ffffffff.
+000529 00199:809888 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 9 (0x5570b5af3b30) for UE ffffffff.
+000530 00199:809890 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 10 (0x5570b5af3bd7) for UE ffffffff.
+000531 00199:809892 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 11 (0x5570b5af3c7e) for UE ffffffff.
+000532 00199:809894 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 12 (0x5570b5af3d25) for UE ffffffff.
+000533 00199:809896 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 13 (0x5570b5af3dcc) for UE ffffffff.
+000534 00199:809898 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 14 (0x5570b5af3e73) for UE ffffffff.
+000535 00199:809899 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0899    Clearing bearer context with ebi 15 (0x5570b5af3f1a) for UE ffffffff.
+000536 00199:809901 7F81F9704700 INFO  MME-AP me_app/mme_app_session_context.c:0924    Successfully cleared UE session pool of UE ffffffff.
 000537 00199:809903 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0925    Leaving clear_session_pool()
 000538 00199:809905 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0157    Entering mme_insert_ue_session_pool()
 000539 00199:809908 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0212    Leaving mme_insert_ue_session_pool() (rc=0)
 000540 00199:809910 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0297    Leaving get_new_session_pool() (rc=93942572857448)
 000541 00199:809912 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0071    Entering mme_ue_session_pool_update_coll_keys()
-000542 00199:809914 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0077    Update ue_session_pool.mme_ue_s1ap_id 1 teid 0x0. 
+000542 00199:809914 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0077    Update ue_session_pool.mme_ue_s1ap_id 1 teid 0x0.
 000543 00199:809916 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0131    Leaving mme_ue_session_pool_update_coll_keys()
 000544 00199:809919 7F81F9704700 TRACE MME-AP mme_app/mme_app_itti_messaging.c:0976    Entering notify_s1ap_new_ue_mme_s1ap_id_association()
 000545 00199:809930 7F81F9704700 DEBUG MME-AP mme_app/mme_app_itti_messaging.c:0990     Sent MME_APP_S1AP_MME_UE_ID_NOTIFICATION to S1AP for UE Id 1 and enbUeS1apId 420141
 000546 00199:809933 7F81F9704700 TRACE MME-AP mme_app/mme_app_itti_messaging.c:0991    Leaving notify_s1ap_new_ue_mme_s1ap_id_association()
 000547 00199:809943 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:0899    Leaving mme_app_handle_initial_ue_message()
-000548 00199:809947 7F81F9FFB700 DEBUG S1AP   /openair-mme/src/s1ap/s1ap_mme.c:0718    Associated  sctp_assoc_id 1, enb_ue_s1ap_id 06692d, mme_ue_s1ap_id 1:HASH_TABLE_OK 
+000548 00199:809947 7F81F9FFB700 DEBUG S1AP   /openair-mme/src/s1ap/s1ap_mme.c:0718    Associated  sctp_assoc_id 1, enb_ue_s1ap_id 06692d, mme_ue_s1ap_id 1:HASH_TABLE_OK
 000549 00199:809984 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/nas_emm_proc.c:0094    Entering nas_proc_establish_ind()
 000550 00199:809994 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_sap.c:0109    Entering emm_sap_send()
 000551 00199:810462 7F820083C700 TRACE NAS-EM air-mme/src/nas/emm/sap/emm_as.c:0190    Entering emm_as_send()
 000552 00199:810470 7F820083C700 INFO  NAS-EM air-mme/src/nas/emm/sap/emm_as.c:0197    EMMAS-SAP - Received primitive EMMAS_ESTABLISH_REQ (205)
 000553 00199:810474 7F820083C700 TRACE NAS-EM air-mme/src/nas/emm/sap/emm_as.c:0697    Entering _emm_as_establish_req()
-000554 00199:810477 7F820083C700 INFO  NAS-EM air-mme/src/nas/emm/sap/emm_as.c:0706    EMMAS-SAP - Received AS connection establish request. 
+000554 00199:810477 7F820083C700 INFO  NAS-EM air-mme/src/nas/emm/sap/emm_as.c:0706    EMMAS-SAP - Received AS connection establish request.
 000555 00199:810481 7F820083C700 INFO  NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0872    EMM-CTX - get UE id 1 context (nil)
 000556 00199:810487 7F820083C700 TRACE NAS    rc/nas/api/network/nas_message.c:0360    Entering nas_message_decode()
 000557 00199:810489 7F820083C700 DEBUG NAS    rc/nas/api/network/nas_message.c:0374    hex stream Incoming NAS message:  17 38 4d 7d 73 02 07 41 02 0b f6 02 f8 59 00 04 01 00 00 00 03 05 f0 70 c0 40 10 00 27 02 2d d0 11 d1 27 20 80 80 21 10 01 00 00 10 81 06 00 00 00 00 83 06 00 00 00 00 00 0d 00 00 0a 00 00 05 00 00 10 00 52 02 f8 59 00 01 5c 0a 00 31 03 e5 e0 34 90 11 03 57 58 a6 5d 01 00 e0 c1
 000558 00199:810524 7F820083C700 TRACE NAS    rc/nas/api/network/nas_message.c:0694    Entering nas_message_header_decode()
 000559 00199:810528 7F820083C700 TRACE NAS    rc/nas/api/network/nas_message.c:0751    Leaving nas_message_header_decode() (rc=6)
-000560 00199:810532 7F820083C700 DEBUG NAS    rc/nas/api/network/nas_message.c:0383    Header seq no of uplink message 2: 
+000560 00199:810532 7F820083C700 DEBUG NAS    rc/nas/api/network/nas_message.c:0383    Header seq no of uplink message 2:
 000561 00199:810535 7F820083C700 DEBUG NAS    rc/nas/api/network/nas_message.c:0386    nas_message_header_decode returned size 6
 000562 00199:810539 7F820083C700 TRACE NAS    rc/nas/api/network/nas_message.c:0827    Entering _nas_message_protected_decode()
 000563 00199:810542 7F820083C700 TRACE NAS    rc/nas/api/network/nas_message.c:1049    Entering _nas_message_decrypt()
@@ -474,35 +472,35 @@ the UE shall connect quickly:
 000587 00199:810727 7F820083C700 TRACE NAS-EM openair-mme/src/nas/emm/Attach.c:0199    Entering emm_proc_attach_request()
 000588 00199:810730 7F820083C700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:0217    EMM-PROC  ATTACH - EPS attach type = IMSI (1) requested (ue_id=1)
 000589 00199:810734 7F820083C700 INFO  NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0872    EMM-CTX - get UE id 1 context (nil)
-000590 00199:810738 7F820083C700 WARNI NAS-EM openair-mme/src/nas/emm/Attach.c:0336    EMM-PROC  - No old EMM context exists. Continuing with new EMM context for 1. 
-000591 00199:810741 7F820083C700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:0344    EMM-PROC  - Continuing for Attach Request for UE_ID 1 after validation of the attach request. 
-000592 00199:810744 7F820083C700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:0350    EMM-PROC  - No old EMM context was found for UE_ID 1. 
+000590 00199:810738 7F820083C700 WARNI NAS-EM openair-mme/src/nas/emm/Attach.c:0336    EMM-PROC  - No old EMM context exists. Continuing with new EMM context for 1.
+000591 00199:810741 7F820083C700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:0344    EMM-PROC  - Continuing for Attach Request for UE_ID 1 after validation of the attach request.
+000592 00199:810744 7F820083C700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:0350    EMM-PROC  - No old EMM context was found for UE_ID 1.
 000593 00199:810747 7F820083C700 NOTIC NAS-EM openair-mme/src/nas/emm/Attach.c:0379    EMM-PROC  - Create EMM context ue_id = 1
 000594 00199:810751 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:1067    UE 1 Init EMM-CTX
 000595 00199:810754 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0109    ue_id=1 GUTI cleared
 000596 00199:810757 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0137    ue_id=1 old GUTI cleared
 000597 00199:810760 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0168    ue_id=1 cleared IMSI
 000598 00199:810763 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0210    ue_id=1 IMEI cleared
-000599 00199:810766 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0246    ue_id=1 cleared IMEI_SV 
+000599 00199:810766 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0246    ue_id=1 cleared IMEI_SV
 000600 00199:810769 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0277    ue_id=1 cleared last visited registered TAI
 000601 00199:810773 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0368    ue_id=1 set security context security type 0
 000602 00199:810781 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0377    ue_id=1 set security context eksi 7
-000603 00199:810784 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0358    ue_id=1 cleared security context 
-000604 00199:810787 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0415    ue_id=1 cleared non current security context 
+000603 00199:810784 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0358    ue_id=1 cleared security context
+000604 00199:810787 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0415    ue_id=1 cleared non current security context
 000605 00199:810790 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0387    ue_id=1 clear security context vector index
-000606 00199:810793 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0317    ue_id=1 cleared auth vectors 
+000606 00199:810793 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0317    ue_id=1 cleared auth vectors
 000607 00199:810796 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0465    ue_id=1 cleared MS network capability IE
 000608 00199:810799 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0428    ue_id=1 cleared UE network capability IE
 000609 00199:810802 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0499    ue_id=1 cleared current DRX parameter
 000610 00199:810805 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0377    ue_id=1 set security context eksi 0
 000611 00199:810809 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:1979    EMM-CTX - Add in context 0x7f81680011b0 UE id 1
 000612 00199:810813 7F820083C700 TRACE NAS-EM src/nas/emm/nas_emm_procedures.c:0790    New EMM_SPEC_PROC_TYPE_ATTACH
-000613 00199:810817 7F820083C700 DEBUG NAS-EM openair-mme/src/nas/emm/Attach.c:1217     CREATED NEW ATTACH PROC 0x7f8168001a90. 
+000613 00199:810817 7F820083C700 DEBUG NAS-EM openair-mme/src/nas/emm/Attach.c:1217     CREATED NEW ATTACH PROC 0x7f8168001a90.
  000614 00199:810820 7F820083C700 TRACE NAS-EM openair-mme/src/nas/emm/Attach.c:1455    Entering _emm_attach_run_procedure()
 000615 00199:810823 7F820083C700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:1461    Hit 3GPP TS 24_301R10_5_5_1_2_3__1 : EMM common procedure initiation during attach procedure
 000616 00199:810827 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0440    ue_id=1 set UE network capability IE (present)
 000617 00199:810830 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0477    ue_id=1 set MS network capability IE (present)
-000618 00199:810832 7F820083C700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:1522    EMM-PROC  - Received an GUTI 208.95 |0004|01|00000003 in the attach request IE for ue_id=1. Continuing with identification procedure. 
+000618 00199:810832 7F820083C700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:1522    EMM-PROC  - Received an GUTI 208.95 |0004|01|00000003 in the attach request IE for ue_id=1. Continuing with identification procedure.
 000619 00199:810841 7F820083C700 TRACE NAS-EM mme/src/nas/emm/Identification.c:0132    Entering emm_proc_identification()
 000620 00199:810845 7F820083C700 NOTIC NAS    mme/src/nas/emm/Identification.c:0138    Hit 3GPP TS 24_301R10_5_4_4_1 : Identification procedure
 000621 00199:810847 7F820083C700 INFO  NAS-EM mme/src/nas/emm/Identification.c:0144    EMM-PROC  - Initiate identification type = IMSI (1), ctx = 0x7f81680011b0
@@ -546,7 +544,7 @@ the UE shall connect quickly:
 000659 00199:810960 7F820083C700 NOTIC NAS    mme/src/nas/emm/Identification.c:0610    Hit 3GPP TS 24_301R10_5_4_4_2 : Identification initiation by the network
 000660 00199:810960 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0051    Entering mme_app_handle_nas_dl_req()
 000661 00199:810967 7F81F9704700 DEBUG MME-AP /src/mme_app/mme_app_transport.c:0064    DOWNLINK NAS TRANSPORT Found enb_ue_s1ap_id 06692d mme_ue_s1ap_id 1
-000662 00199:810974 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d. 
+000662 00199:810974 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d.
 000663 00199:810975 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:1339    T3470 started UE 1
 000664 00199:810983 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0189    Leaving mme_app_handle_nas_dl_req() (rc=0)
 000665 00199:810992 7F820083C700 TRACE NAS-EM mme/src/nas/emm/Identification.c:0620    Leaving _identification_request() (rc=0)
@@ -566,7 +564,7 @@ the UE shall connect quickly:
 000679 00199:811048 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_fsm.c:0293    Leaving emm_fsm_process() (rc=0)
 000680 00199:811051 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_reg.c:0117    Leaving emm_reg_send() (rc=0)
 000682 00199:811058 7F820083C700 TRACE NAS-EM mme/src/nas/emm/Identification.c:0195    Leaving emm_proc_identification() (rc=0)
-000681 00199:811056 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584. 
+000681 00199:811056 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584.
 000683 00199:811062 7F820083C700 TRACE NAS-EM openair-mme/src/nas/emm/Attach.c:1532    Leaving _emm_attach_run_procedure() (rc=0)
 000684 00199:811075 7F820083C700 TRACE NAS-EM openair-mme/src/nas/emm/Attach.c:0609    Leaving emm_proc_attach_request() (rc=0)
 000685 00199:811079 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/sap/emm_recv.c:0364    Leaving emm_recv_attach_request() (rc=0)
@@ -776,9 +774,9 @@ the UE shall connect quickly:
 000889 00199:834112 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/nas_emm_proc.c:0329    Leaving nas_proc_authentication_info_answer() (rc=0)
 000890 00199:834122 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0051    Entering mme_app_handle_nas_dl_req()
 000891 00199:834129 7F81F9704700 DEBUG MME-AP /src/mme_app/mme_app_transport.c:0064    DOWNLINK NAS TRANSPORT Found enb_ue_s1ap_id 06692d mme_ue_s1ap_id 1
-000892 00199:834136 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d. 
+000892 00199:834136 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d.
 000893 00199:834141 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0189    Leaving mme_app_handle_nas_dl_req() (rc=0)
-000894 00199:834151 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584. 
+000894 00199:834151 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584.
 000895 00199:834180 7F81F9FFB700 NOTIC S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0543    Send S1AP DOWNLINK_NAS_TRANSPORT message ue_id = 1 MME_UE_S1AP_ID = 1 eNB_UE_S1AP_ID = 06692d
 000896 00199:834199 7F81FB7FE700 DEBUG SCTP   rc/sctp/sctp_primitives_server.c:0283    [48][1] Sending buffer 0x7f8168003cf0 of 62 bytes on stream 1 with ppid 18
 000897 00199:834244 7F81FB7FE700 DEBUG SCTP   rc/sctp/sctp_primitives_server.c:0296    Successfully sent 62 bytes on stream 1
@@ -841,7 +839,7 @@ the UE shall connect quickly:
 000954 00199:927972 7F820083C700 TRACE NAS-EM mme/src/nas/emm/Authentication.c:0374    Leaving _start_authentication_information_procedure() (rc=0)
 000955 00199:927977 7F820083C700 TRACE NAS-EM mme/src/nas/emm/Authentication.c:0392    Leaving _start_authentication_information_procedure_synch() (rc=0)
 000956 00199:927982 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0387    ue_id=1 clear security context vector index
-000957 00199:927987 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0317    ue_id=1 cleared auth vectors 
+000957 00199:927987 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0317    ue_id=1 cleared auth vectors
 000958 00199:927992 7F820083C700 TRACE NAS-EM mme/src/nas/emm/Authentication.c:0648    Leaving emm_proc_authentication_failure() (rc=0)
 000959 00199:927997 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/sap/emm_recv.c:1112    Leaving emm_recv_authentication_failure() (rc=0)
 000960 00199:928002 7F820083C700 TRACE NAS-ES ir-mme/src/nas/emm/msg/emm_msg.c:0483    Entering emm_msg_free()
@@ -853,7 +851,7 @@ the UE shall connect quickly:
 000965 00199:928023 7F81A2FFD700 DEBUG S6A    nair-mme/src/s6a/s6a_auth_info.c:0382    s6a_generate_authentication_info_req plmn: 02F859
 000967 00199:928033 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/nas_emm_proc.c:0270    Leaving nas_proc_ul_transfer_ind() (rc=0)
 000968 00199:928053 7F81A2FFD700 DEBUG S6A    nair-mme/src/s6a/s6a_auth_info.c:0384    s6a_generate_authentication_info_req visited_plmn: 02F859
-000969 00199:928073 7F81A2FFD700 DEBUG S6A    nair-mme/src/s6a/s6a_auth_info.c:0417    Added Re-Synchronistaion for UE 
+000969 00199:928073 7F81A2FFD700 DEBUG S6A    nair-mme/src/s6a/s6a_auth_info.c:0417    Added Re-Synchronistaion for UE
 000970 00199:931362 7F81F17FA700 DEBUG S6A    nair-mme/src/s6a/s6a_auth_info.c:0202    Received S6A Authentication Information Answer (AIA)
 000971 00199:931388 7F81F17FA700 DEBUG S6A    nair-mme/src/s6a/s6a_auth_info.c:0234    Received S6A Result code 2001:DIAMETER_SUCCESS
 000972 00199:931443 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/nas_emm_proc.c:0275    Entering nas_proc_authentication_info_answer()
@@ -938,11 +936,11 @@ the UE shall connect quickly:
 001051 00199:932091 7F81F9704700 DEBUG MME-AP /src/mme_app/mme_app_transport.c:0064    DOWNLINK NAS TRANSPORT Found enb_ue_s1ap_id 06692d mme_ue_s1ap_id 1
 001052 00199:932096 7F820083C700 TRACE NAS-EM mme/src/nas/emm/Authentication.c:1144    Leaving _authentication_request() (rc=0)
 001053 00199:932105 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_sap.c:0109    Entering emm_sap_send()
-001054 00199:932106 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d. 
+001054 00199:932106 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d.
 001055 00199:932113 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_reg.c:0104    Entering emm_reg_send()
 001056 00199:932116 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0189    Leaving mme_app_handle_nas_dl_req() (rc=0)
 001057 00199:932126 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_fsm.c:0274    Entering emm_fsm_process()
-001058 00199:932133 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584. 
+001058 00199:932133 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584.
 001059 00199:932141 7F820083C700 INFO  NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0872    EMM-CTX - get UE id 1 context 0x7f81680011b0
 001060 00199:932163 7F820083C700 INFO  NAS-EM ir-mme/src/nas/emm/sap/emm_fsm.c:0282    EMM-FSM   - Received event COMMON_PROC_REQ (1) in state EMM-DEREGISTERED
 001061 00199:932176 7F820083C700 TRACE NAS-EM rc/nas/emm/sap/EmmDeregistered.c:0097    Entering EmmDeregistered()
@@ -1035,7 +1033,7 @@ the UE shall connect quickly:
 001148 00200:078332 7F820083C700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:1726    Hit 3GPP TS 24_301R10_5_5_1_2_3__1 : EMM common procedure initiation during attach procedure
 001149 00200:078343 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0368    ue_id=1 set security context security type 0
 001150 00200:078360 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0377    ue_id=1 set security context eksi 7
-001151 00200:078370 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0358    ue_id=1 cleared security context 
+001151 00200:078370 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0358    ue_id=1 cleared security context
 001152 00200:078381 7F820083C700 TRACE NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0377    ue_id=1 set security context eksi 2
 001153 00200:078421 7F820083C700 TRACE NAS-EM rc/nas/emm/SecurityModeControl.c:0165    Entering emm_proc_security_mode_control()
 001154 00200:078434 7F820083C700 INFO  NAS-EM rc/nas/emm/SecurityModeControl.c:0177    EMM-PROC  - Initiate security mode control procedure KSI = 2
@@ -1113,11 +1111,11 @@ the UE shall connect quickly:
 001225 00200:079487 7F81F9704700 DEBUG MME-AP /src/mme_app/mme_app_transport.c:0064    DOWNLINK NAS TRANSPORT Found enb_ue_s1ap_id 06692d mme_ue_s1ap_id 1
 001227 00200:079514 7F820083C700 TRACE NAS-EM rc/nas/emm/SecurityModeControl.c:0752    Leaving _security_request() (rc=0)
 001228 00200:079559 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_sap.c:0109    Entering emm_sap_send()
-001229 00200:079562 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d. 
+001229 00200:079562 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d.
 001230 00200:079571 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_reg.c:0104    Entering emm_reg_send()
 001231 00200:079577 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0189    Leaving mme_app_handle_nas_dl_req() (rc=0)
 001232 00200:079582 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_fsm.c:0274    Entering emm_fsm_process()
-001233 00200:079604 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584. 
+001233 00200:079604 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584.
 001234 00200:079607 7F820083C700 INFO  NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0872    EMM-CTX - get UE id 1 context 0x7f81680011b0
 001235 00200:079653 7F820083C700 INFO  NAS-EM ir-mme/src/nas/emm/sap/emm_fsm.c:0282    EMM-FSM   - Received event COMMON_PROC_REQ (1) in state EMM-DEREGISTERED
 001236 00200:079667 7F820083C700 TRACE NAS-EM rc/nas/emm/sap/EmmDeregistered.c:0097    Entering EmmDeregistered()
@@ -1199,7 +1197,7 @@ the UE shall connect quickly:
 001312 00200:105315 7F820083C700 TRACE NAS-EM rc/nas/emm/SecurityModeControl.c:0390    Entering emm_proc_security_mode_complete()
 001313 00200:105325 7F820083C700 INFO  NAS-EM rc/nas/emm/SecurityModeControl.c:0398    EMM-PROC  - Security mode complete (ue_id=1)
 001314 00200:105336 7F820083C700 INFO  NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0872    EMM-CTX - get UE id 1 context 0x7f81680011b0
-001315 00200:105347 7F820083C700 NOTIC NAS    rc/nas/emm/SecurityModeControl.c:0414    Hit 3GPP TS 24_301R10_5_4_3_4__1 : SMC completion, stop T3460, 
+001315 00200:105347 7F820083C700 NOTIC NAS    rc/nas/emm/SecurityModeControl.c:0414    Hit 3GPP TS 24_301R10_5_4_3_4__1 : SMC completion, stop T3460,
 001316 00200:105363 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:1433    T3460 stopped UE 1
 001317 00200:105391 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0266    ue_id=1 set IMEI_SV (valid)
 001318 00200:105403 7F820083C700 NOTIC NAS    rc/nas/emm/SecurityModeControl.c:0464    Hit 3GPP TS 24_301R10_5_4_3_4__2 : SMC completion, integ. cipher. all messages
@@ -1243,7 +1241,7 @@ the UE shall connect quickly:
 001356 00200:105854 7F81FBFFF700 TRACE MME-AP mme_app/mme_app_esm_procedures.c:0300    Entering mme_app_nas_esm_get_bearer_context_procedure()
 001357 00200:105865 7F81FBFFF700 TRACE MME-AP mme_app/mme_app_esm_procedures.c:0325    Leaving mme_app_nas_esm_get_bearer_context_procedure() (rc=0)
 001358 00200:105876 7F81FBFFF700 TRACE MME-AP /mme_app/mme_app_apn_selection.c:0051    Entering mme_app_select_apn()
-001359 00200:105892 7F81FBFFF700 INFO  MME-AP /mme_app/mme_app_apn_selection.c:0061    No subscription data is received for IMSI 208950000000004. 
+001359 00200:105892 7F81FBFFF700 INFO  MME-AP /mme_app/mme_app_apn_selection.c:0061    No subscription data is received for IMSI 208950000000004.
 001360 00200:105907 7F81FBFFF700 TRACE MME-AP /mme_app/mme_app_apn_selection.c:0062    Leaving mme_app_select_apn() (rc=0)
 001361 00200:105918 7F81FBFFF700 DEBUG NAS-ES r-mme/src/nas/esm/sap/esm_recv.c:0345    ESM-SAP   - No ESM procedure for UE 1 exists. Proceeding with handling the new ESM request (pti=45) for PDN connectivity.
 001362 00200:105929 7F81FBFFF700 TRACE MME-AP mme_app/mme_app_esm_procedures.c:0081    Entering mme_app_nas_esm_create_pdn_connectivity_procedure()
@@ -1313,9 +1311,9 @@ the UE shall connect quickly:
 001426 00200:106790 7F81FBFFF700 TRACE NAS-ES r-mme/src/nas/esm/nas_esm_proc.c:0178    Leaving nas_esm_proc_data_ind() (rc=0)
 001427 00200:106794 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0051    Entering mme_app_handle_nas_dl_req()
 001428 00200:106817 7F81F9704700 DEBUG MME-AP /src/mme_app/mme_app_transport.c:0064    DOWNLINK NAS TRANSPORT Found enb_ue_s1ap_id 06692d mme_ue_s1ap_id 1
-001429 00200:106850 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d. 
+001429 00200:106850 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0095     MME_APP:DOWNLINK NAS TRANSPORT. MME_UE_S1AP_ID 1 and ENB_UE_S1AP_ID 06692d.
 001430 00200:106866 7F81F9704700 TRACE MME-AP /src/mme_app/mme_app_transport.c:0189    Leaving mme_app_handle_nas_dl_req() (rc=0)
-001431 00200:106870 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584. 
+001431 00200:106870 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0452    SEARCHING UE REFERENCE for SCTP association id 1,  enbUeS1apId 06692d and enbId 3584.
 001432 00200:106929 7F81F9FFB700 NOTIC S1AP   c/s1ap/s1ap_mme_nas_procedures.c:0543    Send S1AP DOWNLINK_NAS_TRANSPORT message ue_id = 1 MME_UE_S1AP_ID = 1 eNB_UE_S1AP_ID = 06692d
 001433 00200:106981 7F81FB7FE700 DEBUG SCTP   rc/sctp/sctp_primitives_server.c:0283    [48][1] Sending buffer 0x7f81680026f0 of 35 bytes on stream 1 with ppid 18
 001434 00200:107078 7F81FB7FE700 DEBUG SCTP   rc/sctp/sctp_primitives_server.c:0296    Successfully sent 35 bytes on stream 1
@@ -1366,7 +1364,7 @@ the UE shall connect quickly:
 001479 00200:128121 7F81FBFFF700 INFO  NAS-EM r-mme/src/nas/esm/nas_esm_proc.c:0084    ESM_TIMER stopped UE 1
 001480 00200:128132 7F81FBFFF700 TRACE NAS-ES me/src/nas/esm/esm_information.c:0182    Leaving esm_proc_esm_information_response()
 001481 00200:128142 7F81FBFFF700 TRACE MME-AP /mme_app/mme_app_apn_selection.c:0051    Entering mme_app_select_apn()
-001482 00200:128152 7F81FBFFF700 INFO  MME-AP /mme_app/mme_app_apn_selection.c:0061    No subscription data is received for IMSI 208950000000004. 
+001482 00200:128152 7F81FBFFF700 INFO  MME-AP /mme_app/mme_app_apn_selection.c:0061    No subscription data is received for IMSI 208950000000004.
 001483 00200:128161 7F81FBFFF700 TRACE MME-AP /mme_app/mme_app_apn_selection.c:0062    Leaving mme_app_select_apn() (rc=0)
 001484 00200:128170 7F81FBFFF700 INFO  NAS-ES r-mme/src/nas/esm/sap/esm_recv.c:0629    ESM-SAP   - Getting subscription profile for IMSI 208950000000004. (ue_id=1, pti=45)
 001485 00200:128182 7F81FBFFF700 TRACE NAS    mme/src/nas/nas_itti_messaging.c:0356    Entering nas_itti_pdn_config_req()
@@ -1399,7 +1397,7 @@ the UE shall connect quickly:
 001512 00200:134429 7F81F9704700 WARNI MME-AP me/src/mme_app/mme_app_context.c:0983    No subscription data was found for IMSI 208950000000004 in the subscription profile cache.001513 00200:134437 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0984    Leaving mme_remove_subscription_profile() (rc=0)
 001514 00200:134445 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0932    Entering mme_insert_subscription_profile()
 001515 00200:134466 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0958    Leaving mme_insert_subscription_profile() (rc=0)
-001516 00200:134477 7F81F9704700 INFO  MME-AP e/src/mme_app/mme_app_location.c:0096    Updated the subscription profile for IMSI 208950000000004 in the cache. 
+001516 00200:134477 7F81F9704700 INFO  MME-AP e/src/mme_app/mme_app_location.c:0096    Updated the subscription profile for IMSI 208950000000004 in the cache.
 001517 00200:134485 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0997    Entering mme_app_update_ue_subscription()
 001518 00200:134495 7F81F9704700 TRACE MME-AP me/src/mme_app/mme_app_context.c:1062    Leaving mme_app_update_ue_subscription() (rc=0)
 001519 00200:134517 7F81F9704700 TRACE MME-AP e/src/mme_app/mme_app_location.c:0147    Leaving mme_app_handle_s6a_update_location_ans() (rc=0)
@@ -1413,15 +1411,15 @@ the UE shall connect quickly:
 001527 00200:134617 7F81FBFFF700 DEBUG MME-AP /mme_app/mme_app_apn_selection.c:0101    Selected APN oai.ipv4 for UE 208950000000004
 001528 00200:134636 7F81FBFFF700 TRACE MME-AP /mme_app/mme_app_apn_selection.c:0104    Leaving mme_app_select_apn() (rc=0)
 001529 00200:134645 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0062    Entering mme_app_get_pdn_context()
-001530 00200:134654 7F81FBFFF700 WARNI MME-AP rc/mme_app/mme_app_pdn_context.c:0100    No PDN context for (ebi=0,cid=100,apn="oai.ipv4") was found for UE: 1. 
+001530 00200:134654 7F81FBFFF700 WARNI MME-AP rc/mme_app/mme_app_pdn_context.c:0100    No PDN context for (ebi=0,cid=100,apn="oai.ipv4") was found for UE: 1.
 001531 00200:134666 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0101    Leaving mme_app_get_pdn_context()
 001532 00200:134674 7F81FBFFF700 TRACE NAS-ES me/src/nas/esm/PdnConnectivity.c:0213    Entering esm_proc_pdn_connectivity_request()
-001533 00200:134682 7F81FBFFF700 INFO  NAS-ES me/src/nas/esm/PdnConnectivity.c:0221    ESM-PROC  - PDN connectivity requested by the UE (ue_id=1, pti=45) PDN type = (1), APN = oai.ipv4 
+001533 00200:134682 7F81FBFFF700 INFO  NAS-ES me/src/nas/esm/PdnConnectivity.c:0221    ESM-PROC  - PDN connectivity requested by the UE (ue_id=1, pti=45) PDN type = (1), APN = oai.ipv4
 001534 00200:134694 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0110    Entering mme_app_esm_create_pdn_context()
 001535 00200:134702 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0062    Entering mme_app_get_pdn_context()
-001536 00200:134712 7F81FBFFF700 WARNI MME-AP rc/mme_app/mme_app_pdn_context.c:0100    No PDN context for (ebi=0,cid=0,apn="oai.ipv4") was found for UE: 1. 
+001536 00200:134712 7F81FBFFF700 WARNI MME-AP rc/mme_app/mme_app_pdn_context.c:0100    No PDN context for (ebi=0,cid=0,apn="oai.ipv4") was found for UE: 1.
 001537 00200:134721 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0101    Leaving mme_app_get_pdn_context()
-001538 00200:134729 7F81FBFFF700 INFO  MME-AP rc/mme_app/mme_app_pdn_context.c:0217    Received first default bearer context 0x5570b5af3894 with ebi 5 for apn "oai.ipv4" of UE: 1. 
+001538 00200:134729 7F81FBFFF700 INFO  MME-AP rc/mme_app/mme_app_pdn_context.c:0217    Received first default bearer context 0x5570b5af3894 with ebi 5 for apn "oai.ipv4" of UE: 1.
 001539 00200:134745 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0308    Leaving mme_app_esm_create_pdn_context() (rc=0)
 001540 00200:134754 7F81FBFFF700 TRACE MME-AP mme_app/mme_app_itti_messaging.c:0237    Entering mme_app_send_s11_create_session_req()
 001541 00200:134763 7F81FBFFF700 DEBUG MME-AP mme_app/mme_app_itti_messaging.c:0274    Sending CSR for imsi 208950000000004
@@ -1454,7 +1452,7 @@ the UE shall connect quickly:
 001569 00200:135125 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2300    Leaving nwGtpv2cStartTimer() (rc=0)
 001567 00200:135107 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0077    Looking for task 9
 001570 00200:135135 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:0770    Leaving nwGtpv2cHandleUlpInitialReq() (rc=0)
-001571 00200:135141 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0093    Found matching port with high port 46468. 
+001571 00200:135141 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0093    Found matching port with high port 46468.
 001572 00200:135144 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2074    Leaving nwGtpv2cProcessUlpReq() (rc=0)
 001573 00200:135151 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0446    [39] Sending message of size 162 to 192.168.61.196 and port 2123
 001574 00200:135156 7F81FA7FC700 TRACE S11    rc/s11/s11_mme_session_manager.c:0175    Leaving s11_mme_create_session_request() (rc=0)
@@ -1465,7 +1463,7 @@ the UE shall connect quickly:
 001579 00200:137395 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0192    Msg of length 97 received from 192.168.61.196:2123
 001580 00200:137409 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1874    Entering nwGtpv2cProcessUdpReq()
 001581 00200:137415 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1468    RECEIVED GTPV2c  response message of type 33, length 97 and seqNum 8690.
-001582 00200:137418 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1492    Not removing the initial request transaction for message type 33, seqNo 8690 (altough remove flag set). 
+001582 00200:137418 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1492    Not removing the initial request transaction for message type 33, seqNo 8690 (altough remove flag set).
 001583 00200:137423 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0132    Created message 0x7f81600043a0!
 001584 00200:137430 7F81FA7FC700 DEBUG GTPv2- .11/src/NwGtpv2cMsgIeParseInfo.c:1314    Received IE 2 with instance 0 of length 2 in msg-type 33!
 001585 00200:137433 7F81FA7FC700 DEBUG GTPv2- .11/src/NwGtpv2cMsgIeParseInfo.c:1314    Received IE 87 with instance 0 of length 9 in msg-type 33!
@@ -1495,26 +1493,26 @@ the UE shall connect quickly:
 001609 00200:137546 7F81FA7FC700 DEBUG GTPv2- matter/src/gtpv2c_ie_formatter.c:0237    	- TEID/GRE    00000001
 001610 00200:137549 7F81FA7FC700 DEBUG GTPv2- matter/src/gtpv2c_ie_formatter.c:0249    	- IPv4 addr   192.168.61.197
 001611 00200:137554 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0144    Purging message 0x7f81600043a0!
-001612 00200:137557 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f81600043a0! Next element 0! 
+001612 00200:137557 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f81600043a0! Next element 0!
 001613 00200:137565 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1154    Leaving nwGtpv2cSendTriggeredRspIndToUlp() (rc=0)
-001614 00200:137570 7F81FA7FC700 WARNI GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1535    Removing the initial request transaction for message type 33, seqNo 8690 in conclusion (not late response). 
+001614 00200:137570 7F81FA7FC700 WARNI GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1535    Removing the initial request transaction for message type 33, seqNo 8690 in conclusion (not late response).
 001615 00200:137575 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2392    Entering nwGtpv2cStopTimer()
 001616 00200:137580 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2406    Stopping active timer 0x7f81600041a0 for info 0x0x7f81600042e0!
 001617 00200:137587 7F81FA7FC700 INFO  GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2418    Stopped active timer 0x7f81600041a0 for info 0x0x7f81600042e0!
 001618 00200:137591 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2445    Leaving nwGtpv2cStopTimer() (rc=0)
 001619 00200:137595 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0144    Purging message 0x7f8160000d50!
-001620 00200:137598 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f8160000d50! Next element 7f81600043a0! 
-001621 00200:137601 7F81FA7FC700 DEBUG GTPv2- nwgtpv2c-0.11/src/NwGtpv2cTrxn.c:0422    Purging  transaction 0x7f81600041c0 with seqNum 34448. (before) Head (nil), Next (nil). 
+001620 00200:137598 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f8160000d50! Next element 7f81600043a0!
+001621 00200:137601 7F81FA7FC700 DEBUG GTPv2- nwgtpv2c-0.11/src/NwGtpv2cTrxn.c:0422    Purging  transaction 0x7f81600041c0 with seqNum 34448. (before) Head (nil), Next (nil).
 001622 00200:137605 7F81FA7FC700 DEBUG GTPv2- nwgtpv2c-0.11/src/NwGtpv2cTrxn.c:0429    After purging  transaction 0x7f81600041c0, Head 0x7f81600041c0, Next (nil)
 001623 00200:137609 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2014    Leaving nwGtpv2cProcessUdpReq() (rc=0)
 001624 00200:137628 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:1783    Entering mme_app_handle_create_sess_resp()
 001625 00200:137637 7F81F9704700 INFO  NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0872    EMM-CTX - get UE id 1 context 0x7f81680011b0
 001626 00200:137641 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0374    Entering mme_app_pdn_process_session_creation()
-001627 00200:137649 7F81F9704700 DEBUG MME-AP me_app/mme_app_session_context.c:0638    Received new valid APN_AMBR for APN "oai.ipv4" (ctx_id=0) for UE 1. Updating APN ambr. 
-001628 00200:137654 7F81F9704700 INFO  MME-AP me_app/mme_app_session_context.c:0736    Processed all 1 bearer contexts for APN "oai.ipv4" for ue_id 1. 
+001627 00200:137649 7F81F9704700 DEBUG MME-AP me_app/mme_app_session_context.c:0638    Received new valid APN_AMBR for APN "oai.ipv4" (ctx_id=0) for UE 1. Updating APN ambr.
+001628 00200:137654 7F81F9704700 INFO  MME-AP me_app/mme_app_session_context.c:0736    Processed all 1 bearer contexts for APN "oai.ipv4" for ue_id 1.
 001629 00200:137659 7F81F9704700 TRACE MME-AP me_app/mme_app_session_context.c:0737    Leaving mme_app_pdn_process_session_creation() (rc=0)
 001630 00200:137664 7F81F9704700 TRACE MME-AP mme_app/mme_app_itti_messaging.c:1264    Entering mme_app_itti_nas_pdn_connectivity_response()
-001631 00200:137668 7F81F9704700 INFO  MME-AP mme_app/mme_app_itti_messaging.c:1271    Informing the NAS layer about the received CREATE_SESSION_RESPONSE for UE 1. 
+001631 00200:137668 7F81F9704700 INFO  MME-AP mme_app/mme_app_itti_messaging.c:1271    Informing the NAS layer about the received CREATE_SESSION_RESPONSE for UE 1.
 001632 00200:137676 7F81F9704700 TRACE MME-AP mme_app/mme_app_itti_messaging.c:1288    Leaving mme_app_itti_nas_pdn_connectivity_response()
 001633 00200:137680 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:1867    Leaving mme_app_handle_create_sess_resp() (rc=0)
 001634 00200:137690 7F81FBFFF700 TRACE NAS-ES r-mme/src/nas/esm/nas_esm_proc.c:0278    Entering nas_esm_proc_pdn_connectivity_res()
@@ -1530,7 +1528,7 @@ the UE shall connect quickly:
 001644 00200:137732 7F81FBFFF700 TRACE NAS-ES me/src/nas/esm/PdnConnectivity.c:0422    Leaving esm_proc_pdn_connectivity_res() (rc=-1)
 001645 00200:137736 7F81FBFFF700 TRACE NAS-ES aultEpsBearerContextActivation.c:0238    Entering esm_proc_default_eps_bearer_context()
 001646 00200:137739 7F81FBFFF700 INFO  NAS-ES aultEpsBearerContextActivation.c:0245    ESM-PROC  - Default EPS bearer context activation (ue_id=1, context_identifier=0, bc_status 0)
-001647 00200:137743 7F81FBFFF700 NOTIC NAS    aultEpsBearerContextActivation.c:0246    Hit 3GPP TS 24_301R10_6_4_1_2 : 
+001647 00200:137743 7F81FBFFF700 NOTIC NAS    aultEpsBearerContextActivation.c:0246    Hit 3GPP TS 24_301R10_6_4_1_2 :
 001648 00200:137748 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0062    Entering mme_app_get_pdn_context()
 001649 00200:137752 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0082    Leaving mme_app_get_pdn_context()
 001650 00200:137755 7F81FBFFF700 TRACE NAS-ES aultEpsBearerContextActivation.c:0130    Entering esm_send_activate_default_eps_bearer_context_request()
@@ -1559,7 +1557,7 @@ the UE shall connect quickly:
 001673 00200:137862 7F81FBFFF700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0521    ue_id=1 set current DRX parameter (valid)
 001674 00200:137865 7F81FBFFF700 TRACE NAS-EM openair-mme/src/nas/emm/Attach.c:2754    Leaving _emm_attach_update() (rc=0)
 001675 00200:137869 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2060    #NOT IMPLEMENTED 3GPP TS 24_301R10_5_5_1_2_4__3 : Attach accepted by the network, delete the stored UE radio capability information.
-001676 00200:137874 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2065    Hit 3GPP TS 24_301R10_5_5_1_2_4__9 : 
+001676 00200:137874 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2065    Hit 3GPP TS 24_301R10_5_5_1_2_4__9 :
 001677 00200:137877 7F81FBFFF700 TRACE NAS    ir-mme/src/nas/api/mme/mme_api.c:0454    Entering mme_api_new_guti()
 001678 00200:137881 7F81FBFFF700 TRACE NAS    ir-mme/src/nas/api/mme/mme_api.c:0416    Entering mme_api_notify_new_guti()
 001679 00200:137886 7F81FBFFF700 TRACE MME-AP me/src/mme_app/mme_app_context.c:0325    Entering mme_ue_context_update_coll_keys()
@@ -1570,10 +1568,10 @@ the UE shall connect quickly:
 001684 00200:137911 7F81FBFFF700 INFO  NAS    ir-mme/src/nas/api/mme/mme_api.c:0495    UE 1  with GUTI 208.95 |8000|03|00000001 will only receive its TAC 0x1 in the TAI list to enforce TAU.
 001685 00200:137916 7F81FBFFF700 TRACE NAS    ir-mme/src/nas/api/mme/mme_api.c:0520    Leaving mme_api_new_guti() (rc=0)
 001686 00200:137920 7F81FBFFF700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0118    ue_id=1 set GUTI 208.95 |8000|03|00000001 (present)
-001687 00200:137925 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2085    Hit 3GPP TS 24_301R10_5_5_1_2_4__6 : 
-001688 00200:137927 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2086    Hit 3GPP TS 24_301R10_5_5_1_2_4__10 : 
+001687 00200:137925 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2085    Hit 3GPP TS 24_301R10_5_5_1_2_4__6 :
+001688 00200:137927 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2086    Hit 3GPP TS 24_301R10_5_5_1_2_4__10 :
 001689 00200:137932 7F81FBFFF700 INFO  NAS-EM openair-mme/src/nas/emm/Attach.c:2122    ue_id=1 EMM-PROC  - Include the new assigned GUTI in the Attach Accept message
-001690 00200:137936 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2128    Hit 3GPP TS 24_301R10_5_5_1_2_4__14 : 
+001690 00200:137936 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2128    Hit 3GPP TS 24_301R10_5_5_1_2_4__14 :
 001691 00200:137939 7F81FBFFF700 TRACE NAS-EM air-mme/src/nas/emm/LowerLayer.c:0670    Entering emm_as_set_security_data()
 001692 00200:137945 7F81FBFFF700 INFO  NAS-EM air-mme/src/nas/emm/LowerLayer.c:0688    EPS security context exists is new 0 KSI 2 SQN 1 count 16777216
 001693 00200:137949 7F81FBFFF700 DEBUG NAS-EM air-mme/src/nas/emm/LowerLayer.c:0690    hex stream knas_int: 3d 40 c1 8e 32 36 d6 3a a0 21 09 07 3a dd 31 2f
@@ -1582,8 +1580,8 @@ the UE shall connect quickly:
 001696 00200:137971 7F81FBFFF700 TRACE NAS-EM air-mme/src/nas/emm/LowerLayer.c:0734    Leaving emm_as_set_security_data()
 001697 00200:137975 7F81FBFFF700 DEBUG NAS-EM openair-mme/src/nas/emm/Attach.c:2153    ue_id=1 EMM-PROC  - encryption = 0x0 (0x0)
 001698 00200:137978 7F81FBFFF700 DEBUG NAS-EM openair-mme/src/nas/emm/Attach.c:2158    ue_id=1 EMM-PROC  - integrity  = 0x2 (0x2)
-001699 00200:137983 7F81FBFFF700 TRACE NAS-EM openair-mme/src/nas/emm/Attach.c:2169    ue_id=1 EMM-PROC  - nas_msg  src size = 42 nas_msg  dst size = 42 
-001700 00200:137986 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2177    Hit 3GPP TS 24_301R10_5_5_1_2_4__2 : 
+001699 00200:137983 7F81FBFFF700 TRACE NAS-EM openair-mme/src/nas/emm/Attach.c:2169    ue_id=1 EMM-PROC  - nas_msg  src size = 42 nas_msg  dst size = 42
+001700 00200:137986 7F81FBFFF700 NOTIC NAS    openair-mme/src/nas/emm/Attach.c:2177    Hit 3GPP TS 24_301R10_5_5_1_2_4__2 :
 001701 00200:137990 7F81FBFFF700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_sap.c:0109    Entering emm_sap_send()
 001702 00200:137993 7F81FBFFF700 TRACE NAS-EM air-mme/src/nas/emm/sap/emm_as.c:0190    Entering emm_as_send()
 001703 00200:137998 7F81FBFFF700 INFO  NAS-EM air-mme/src/nas/emm/sap/emm_as.c:0197    EMMAS-SAP - Received primitive EMMAS_ESTABLISH_CNF (206)
@@ -1645,9 +1643,9 @@ the UE shall connect quickly:
 001759 00200:138271 7F81FBFFF700 DEBUG NAS-EM air-mme/src/nas/emm/sap/emm_as.c:1291    EMMAS-SAP - Sending nas_itti_establish_cnf to S1AP UE ID 0x1 sea 0x0000 sia 0x0040, uplink count 0
 001760 00200:138274 7F81FBFFF700 TRACE NAS    mme/src/nas/nas_itti_messaging.c:0571    Entering nas_itti_establish_cnf()
 001761 00200:138277 7F81FBFFF700 INFO  NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:0872    EMM-CTX - get UE id 1 context 0x7f81680011b0
-001762 00200:138281 7F81FBFFF700 DEBUG NAS-EM mme/src/nas/nas_itti_messaging.c:0616    EMM-PROC  - KeNB with UL Count 0 for UE 1. 
+001762 00200:138281 7F81FBFFF700 DEBUG NAS-EM mme/src/nas/nas_itti_messaging.c:0616    EMM-PROC  - KeNB with UL Count 0 for UE 1.
 001763 00200:138291 7F81FBFFF700 DEBUG NAS    mme/src/nas/nas_itti_messaging.c:0627    hex stream KENB:  d4 18 fa 6d 1e 24 c7 fa 32 a5 72 98 bd 83 fa a8 84 53 e6 bc 61 03 6b 6f b7 0b e0 5f 05 a4 76 07
-001764 00200:138304 7F81FBFFF700 DEBUG NAS-EM mme/src/nas/nas_itti_messaging.c:0636    EMM-PROC  - NH value is 0 as expected. Setting kEnb as NH0  
+001764 00200:138304 7F81FBFFF700 DEBUG NAS-EM mme/src/nas/nas_itti_messaging.c:0636    EMM-PROC  - NH value is 0 as expected. Setting kEnb as NH0
 001765 00200:138307 7F81FBFFF700 DEBUG NAS    mme/src/nas/nas_itti_messaging.c:0647    hex stream New NH_CONJ of emmCtx:  d4 18 fa 6d 1e 24 c7 fa 32 a5 72 98 bd 83 fa a8 84 53 e6 bc 61 03 6b 6f b7 0b e0 5f 05 a4 76 07
 001766 00200:138325 7F81FBFFF700 TRACE NAS    mme/src/nas/nas_itti_messaging.c:0672    Leaving nas_itti_establish_cnf()
 001767 00200:138328 7F81FBFFF700 TRACE NAS-EM air-mme/src/nas/emm/sap/emm_as.c:1302    Leaving _emm_as_send() (rc=0)
@@ -1677,7 +1675,7 @@ the UE shall connect quickly:
 001791 00200:138427 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0272    Received NAS_CONNECTION_ESTABLISHMENT_CNF from NAS
 001792 00200:138431 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0320    security_capabilities_encryption_algorithms 0x00E0
 001793 00200:138434 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0323    security_capabilities_integrity_algorithms  0x00E0
-001794 00200:138445 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0499    MME APP : Sent Initial context Setup Request and Started guard timer for UE id  1 
+001794 00200:138445 7F81F9704700 DEBUG MME-AP mme/src/mme_app/mme_app_bearer.c:0499    MME APP : Sent Initial context Setup Request and Started guard timer for UE id  1
 001795 00200:138449 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:0501    Leaving mme_app_handle_conn_est_cnf()
 001796 00200:138517 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:1360    security_capabilities_encryption_algorithms 0x00E0
 001797 00200:138523 7F81F9FFB700 DEBUG S1AP   c/s1ap/s1ap_mme_nas_procedures.c:1371    security_capabilities_integrity_algorithms 0x00E0
@@ -1700,12 +1698,12 @@ the UE shall connect quickly:
 001814 00200:379067 7F81F9704700 TRACE MME-AP mme_app/mme_app_bearer_context.c:0555    Entering mme_app_release_bearers()
 001815 00200:379077 7F81F9704700 TRACE MME-AP mme_app/mme_app_esm_procedures.c:0300    Entering mme_app_nas_esm_get_bearer_context_procedure()
 001816 00200:379084 7F81F9704700 TRACE MME-AP mme_app/mme_app_esm_procedures.c:0325    Leaving mme_app_nas_esm_get_bearer_context_procedure() (rc=0)
-001817 00200:379089 7F81F9704700 INFO  MME-AP mme_app/mme_app_bearer_context.c:0658    Returning 0 bearer ready to be released for ue_id 1. 
+001817 00200:379089 7F81F9704700 INFO  MME-AP mme_app/mme_app_bearer_context.c:0658    Returning 0 bearer ready to be released for ue_id 1.
 001818 00200:379097 7F81F9704700 TRACE MME-AP mme_app/mme_app_bearer_context.c:0659    Leaving mme_app_release_bearers()
 001819 00200:379105 7F81F9704700 TRACE MME-AP mme_app/mme_app_bearer_context.c:0422    Entering mme_app_modify_bearers()
 001820 00200:379114 7F81F9704700 TRACE MME-AP mme_app/mme_app_bearer_context.c:0486    Leaving mme_app_modify_bearers() (rc=0)
 001821 00200:379138 7F81F9704700 TRACE MME-AP mme_app/mme_app_itti_messaging.c:0452    Entering mme_app_send_s11_modify_bearer_req()
-001822 00200:379147 7F81F9704700 DEBUG MME-AP mme_app/mme_app_itti_messaging.c:0511    Adding EBI 5 as bearer context to be modified for UE 1. 
+001822 00200:379147 7F81F9704700 DEBUG MME-AP mme_app/mme_app_itti_messaging.c:0511    Adding EBI 5 as bearer context to be modified for UE 1.
 001823 00200:379166 7F81F9704700 TRACE MME-AP mme_app/mme_app_itti_messaging.c:0598    Leaving mme_app_send_s11_modify_bearer_req()
 001824 00200:379189 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:2741    Leaving mme_app_handle_initial_context_setup_rsp()
 001825 00200:379201 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0092    Created message 0x7f8160000d50!
@@ -1721,7 +1719,7 @@ the UE shall connect quickly:
 001837 00200:379355 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:0770    Leaving nwGtpv2cHandleUlpInitialReq() (rc=0)
 001838 00200:379361 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2074    Leaving nwGtpv2cProcessUlpReq() (rc=0)
 001834 00200:379301 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0077    Looking for task 9
-001839 00200:379395 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0093    Found matching port with high port 46468. 
+001839 00200:379395 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0093    Found matching port with high port 46468.
 001840 00200:379408 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0446    [39] Sending message of size 47 to 192.168.61.196 and port 2123
 001835 00200:379319 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_sap.c:0109    Entering emm_sap_send()
 001841 00200:379465 7F81FAFFD700 DEBUG UDP    /src/udp/udp_primitives_server.c:0122    Received 1 events
@@ -1786,9 +1784,9 @@ the UE shall connect quickly:
 001900 00200:380221 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_fsm.c:0213    Leaving emm_fsm_set_state() (rc=0)
 001901 00200:380230 7F820083C700 TRACE NAS-EM src/nas/emm/nas_emm_procedures.c:0516    UE 1 Delete ATTACH procedure
 001902 00200:380244 7F820083C700 DEBUG NAS-EM r-mme/src/nas/emm/emm_data_ctx.c:1420    T3450 stopped UE 1
-001903 00200:380438 7F820083C700 DEBUG NAS-EM src/nas/emm/nas_emm_procedures.c:0534    EMM-PROC (NASx)  -  * * * * * (2) ueREF 0x7f8164009a00 has mmeId 1, enbId 06692d state 2 and eNB_ref 0x7f8164000d50. 
+001903 00200:380438 7F820083C700 DEBUG NAS-EM src/nas/emm/nas_emm_procedures.c:0534    EMM-PROC (NASx)  -  * * * * * (2) ueREF 0x7f8164009a00 has mmeId 1, enbId 06692d state 2 and eNB_ref 0x7f8164000d50.
 001904 00200:380459 7F820083C700 TRACE NAS-EM src/nas/emm/nas_emm_procedures.c:0543    UE 1 stopped the retry timer for attach procedure
-001905 00200:380468 7F820083C700 DEBUG NAS-EM src/nas/emm/nas_emm_procedures.c:0550    EMM-PROC (NASx)  -  * * * * * (2.5) ueREF 0x7f8164009a00 has mmeId 1, enbId 06692d state 2 and eNB_ref 0x7f8164000d50 
+001905 00200:380468 7F820083C700 DEBUG NAS-EM src/nas/emm/nas_emm_procedures.c:0550    EMM-PROC (NASx)  -  * * * * * (2.5) ueREF 0x7f8164009a00 has mmeId 1, enbId 06692d state 2 and eNB_ref 0x7f8164000d50
 001906 00200:380479 7F820083C700 TRACE NAS-EM ap/EmmCommonProcedureInitiated.c:0577    Leaving EmmCommonProcedureInitiated() (rc=0)
 001907 00200:380488 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_fsm.c:0293    Leaving emm_fsm_process() (rc=0)
 001908 00200:380497 7F820083C700 TRACE NAS-EM ir-mme/src/nas/emm/sap/emm_reg.c:0117    Leaving emm_reg_send() (rc=0)
@@ -1818,7 +1816,7 @@ the UE shall connect quickly:
 001932 00200:380793 7F81FBFFF700 TRACE MME-AP mme_app/mme_app_bearer_context.c:0385    Entering mme_app_esm_update_ebr_state()
 001933 00200:380810 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1468    RECEIVED GTPV2c  response message of type 35, length 46 and seqNum 8691.
 001934 00200:380825 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0062    Entering mme_app_get_pdn_context()
-001935 00200:380826 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1492    Not removing the initial request transaction for message type 35, seqNo 8691 (altough remove flag set). 
+001935 00200:380826 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1492    Not removing the initial request transaction for message type 35, seqNo 8691 (altough remove flag set).
 001936 00200:380842 7F81FBFFF700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0082    Leaving mme_app_get_pdn_context()
 001937 00200:380848 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0132    Created message 0x7f81600043a0!
 001938 00200:380852 7F81FBFFF700 TRACE MME-AP mme_app/mme_app_bearer_context.c:0414    Leaving mme_app_esm_update_ebr_state() (rc=0)
@@ -1842,9 +1840,9 @@ the UE shall connect quickly:
 001956 00200:380972 7F81FA7FC700 DEBUG GTPv2- matter/src/gtpv2c_ie_formatter.c:0237    	- TEID/GRE    00000001
 001957 00200:380979 7F81FA7FC700 DEBUG GTPv2- matter/src/gtpv2c_ie_formatter.c:0249    	- IPv4 addr   192.168.61.197
 001958 00200:380989 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0144    Purging message 0x7f81600043a0!
-001959 00200:380994 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f81600043a0! Next element 0! 
+001959 00200:380994 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f81600043a0! Next element 0!
 001960 00200:381027 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1154    Leaving nwGtpv2cSendTriggeredRspIndToUlp() (rc=0)
-001961 00200:381036 7F81FA7FC700 WARNI GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1535    Removing the initial request transaction for message type 35, seqNo 8691 in conclusion (not late response). 
+001961 00200:381036 7F81FA7FC700 WARNI GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:1535    Removing the initial request transaction for message type 35, seqNo 8691 in conclusion (not late response).
 001962 00200:381043 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2392    Entering nwGtpv2cStopTimer()
 001963 00200:381044 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:2008    Entering mme_app_handle_modify_bearer_resp()
 001964 00200:381048 7F81FA7FC700 DEBUG GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2406    Stopping active timer 0x7f81600041a0 for info 0x0x7f81600042e0!
@@ -1854,11 +1852,11 @@ the UE shall connect quickly:
 001968 00200:381093 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2445    Leaving nwGtpv2cStopTimer() (rc=0)
 001969 00200:381108 7F81F9704700 TRACE MME-AP rc/mme_app/mme_app_pdn_context.c:0082    Leaving mme_app_get_pdn_context()
 001970 00200:381111 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0144    Purging message 0x7f8160000d50!
-001971 00200:381122 7F81F9704700 INFO  MME-AP mme/src/mme_app/mme_app_bearer.c:2329    No pending removal of bearers for ueId: 1. Checking any pending bearer requests. 
-001972 00200:381123 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f8160000d50! Next element 7f81600043a0! 
+001971 00200:381122 7F81F9704700 INFO  MME-AP mme/src/mme_app/mme_app_bearer.c:2329    No pending removal of bearers for ueId: 1. Checking any pending bearer requests.
+001972 00200:381123 7F81FA7FC700 DEBUG GTPv2- /nwgtpv2c-0.11/src/NwGtpv2cMsg.c:0149    Message pool 7f8160000d50! Next element 7f81600043a0!
 001973 00200:381137 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:0904    Entering mme_app_handle_bearer_ctx_retry()
-001974 00200:381143 7F81FA7FC700 DEBUG GTPv2- nwgtpv2c-0.11/src/NwGtpv2cTrxn.c:0422    Purging  transaction 0x7f81600041c0 with seqNum 34449. (before) Head (nil), Next (nil). 
-001975 00200:381147 7F81F9704700 INFO  MME-AP mme/src/mme_app/mme_app_bearer.c:1135    No S11 procedure could be found for UE 1. 
+001974 00200:381143 7F81FA7FC700 DEBUG GTPv2- nwgtpv2c-0.11/src/NwGtpv2cTrxn.c:0422    Purging  transaction 0x7f81600041c0 with seqNum 34449. (before) Head (nil), Next (nil).
+001975 00200:381147 7F81F9704700 INFO  MME-AP mme/src/mme_app/mme_app_bearer.c:1135    No S11 procedure could be found for UE 1.
 001976 00200:381154 7F81FA7FC700 DEBUG GTPv2- nwgtpv2c-0.11/src/NwGtpv2cTrxn.c:0429    After purging  transaction 0x7f81600041c0, Head 0x7f81600041c0, Next (nil)
 001977 00200:381156 7F81F9704700 TRACE MME-AP mme/src/mme_app/mme_app_bearer.c:1136    Leaving mme_app_handle_bearer_ctx_retry()
 001978 00200:381162 7F81FA7FC700 TRACE GTPv2- 2-c/nwgtpv2c-0.11/src/NwGtpv2c.c:2014    Leaving nwGtpv2cProcessUdpReq() (rc=0)
@@ -1899,7 +1897,7 @@ the UE shall connect quickly:
 add new uid is 0 18b8
 
 [PDCP]   [FRAME 00128][eNB][MOD 00][RNTI 18b8][SRB 01]  Action ADD  LCID 1 (SRB id 1) configured with SN size 5 bits and RLC AM
-[MAC]   generate_Msg4 ra->Msg4_frame SFN/SF: 128.4,  frameP SFN/SF: 128.4 FOR eNB_Mod: 0 
+[MAC]   generate_Msg4 ra->Msg4_frame SFN/SF: 128.4,  frameP SFN/SF: 128.4 FOR eNB_Mod: 0
 [MAC]   [eNB 0][RAPROC] CC_id 0 Frame 128, subframeP 4: Generating Msg4 with RRC Piggyback (RNTI 18b8)
 [RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] [RAPROC] Logical Channel UL-DCCH, processing LTE_RRCConnectionSetupComplete from UE (SRB1 Active)
 [NAS]    AttachRequest.c:40  EMM  - attach_request len = 85
@@ -1913,7 +1911,7 @@ add new uid is 0 18b8
 [NAS]    UeNetworkCapability.c:86  uenetworkcapability then decoded=6
 
 [S1AP]   [eNB 0] Build S1AP_NAS_FIRST_REQ adding in s_TMSI: GUMMEI mme_code 1 mme_group_id 4 ue 18b8
-[RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] UE State = RRC_CONNECTED 
+[RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] UE State = RRC_CONNECTED
 [S1AP]   [eNB 0] Chose MME '(null)' (assoc_id 1) through selected PLMN Identity index 0 MCC 208 MNC 95
 [S1AP]   Found usable eNB_ue_s1ap_id: 0x06692d 420141(10)
 [S1AP]   GUMMEI_ID_PRESENT
@@ -1949,15 +1947,15 @@ add new uid is 0 18b8
 [RRC]   [eNB 0] Received S1AP_INITIAL_CONTEXT_SETUP_REQ: ue_initial_id 1, eNB_ue_s1ap_id 420141, nb_of_e_rabs 1
 [GTPV1U]   Configured GTPu address : 1e3da8c0
 [GTPV1U]   Copied to create_tunnel_resp tunnel: index 0 target gNB ip 192.168.61.30 length 4 gtp teid 3396329693
-[RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] rrc_eNB_process_GTPV1U_CREATE_TUNNEL_RESP tunnel (3396329693, 3396329693) bearer UE context index 0, msg index 0, id 5, gtp addr len 4 
+[RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] rrc_eNB_process_GTPV1U_CREATE_TUNNEL_RESP tunnel (3396329693, 3396329693) bearer UE context index 0, msg index 0, id 5, gtp addr len 4
 [RRC]   [eNB 0][UE 18b8] Selected security algorithms (0x7f9e34005e50): 0, 2, changed
 [RRC]   [eNB 0][UE 18b8] Saved security key D418FA6D1E24C7FA32A57298BD83FAA88453E6BC61036B6FB70BE05F05A47607
-[RRC]   
-KeNB:d4 18 fa 6d 1e 24 c7 fa 32 a5 72 98 bd 83 fa a8 84 53 e6 bc 61 03 6b 6f b7 0b e0 5f 05 a4 76 07 
-[RRC]   
-KRRCenc:8e a8 01 00 44 4a dd 08 03 8c e5 f7 6e 42 14 68 8a 06 73 56 5e f4 79 8d f0 81 08 29 29 b6 b4 79 
-[RRC]   
-KRRCint:8e 8c 7d 76 61 99 e4 da 35 62 96 69 e7 a7 42 8f a5 f7 79 c5 76 24 ec 64 84 78 e6 5b d7 a6 78 db 
+[RRC]
+KeNB:d4 18 fa 6d 1e 24 c7 fa 32 a5 72 98 bd 83 fa a8 84 53 e6 bc 61 03 6b 6f b7 0b e0 5f 05 a4 76 07
+[RRC]
+KRRCenc:8e a8 01 00 44 4a dd 08 03 8c e5 f7 6e 42 14 68 8a 06 73 56 5e f4 79 8d f0 81 08 29 29 b6 b4 79
+[RRC]
+KRRCint:8e 8c 7d 76 61 99 e4 da 35 62 96 69 e7 a7 42 8f a5 f7 79 c5 76 24 ec 64 84 78 e6 5b d7 a6 78 db
 [RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] Logical Channel DL-DCCH, Generate SecurityModeCommand (bytes 3)
 [RRC]   calling rrc_data_req :securityModeCommand
 [RRC]   sent RRC_DCCH_DATA_REQ to TASK_PDCP_ENB
@@ -1966,11 +1964,11 @@ KRRCint:8e 8c 7d 76 61 99 e4 da 35 62 96 69 e7 a7 42 8f a5 f7 79 c5 76 24 ec 64 
         <bandInformationEUTRA>
             <bandEUTRA>7</bandEUTRA>
         </bandInformationEUTRA>
-    
+
         <bandInformationNR>
             <bandNR>78</bandNR>
         </bandInformationNR>
-    
+
 </FreqBandList>
 [RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] Logical Channel DL-DCCH, Generate UECapabilityEnquiry (bytes 10)
 [RRC]   sent RRC_DCCH_DATA_REQ to TASK_PDCP_ENB
@@ -1985,14 +1983,14 @@ KRRCint:8e 8c 7d 76 61 99 e4 da 35 62 96 69 e7 a7 42 8f a5 f7 79 c5 76 24 ec 64 
 [SCTP]   Successfully sent 75 bytes on stream 1 for assoc_id 1
 [PDCP]   [FRAME 00000][eNB][MOD 00][RNTI 18b8][DRB 01]  Action ADD  LCID 3 (DRB id 1) configured with SN size 12 bits and RLC AM
 [RRC]   [FRAME 00000][eNB][MOD 00][RNTI 18b8] UE State = RRC_RECONFIGURED (default DRB, xid 0)
-[PDCP]   [FRAME 00000][eNB][MOD 00][RNTI 18b8][SRB 02]  Action MODIFY LCID 2 RB id 2 reconfigured with SN size 5 and RLC AM 
-[PDCP]   [FRAME 00000][eNB][MOD 00][RNTI 18b8][DRB 01]  Action MODIFY LCID 3 RB id 1 reconfigured with SN size 1 and RLC AM 
+[PDCP]   [FRAME 00000][eNB][MOD 00][RNTI 18b8][SRB 02]  Action MODIFY LCID 2 RB id 2 reconfigured with SN size 5 and RLC AM
+[PDCP]   [FRAME 00000][eNB][MOD 00][RNTI 18b8][DRB 01]  Action MODIFY LCID 3 RB id 1 reconfigured with SN size 1 and RLC AM
 [RRC]   [eNB 0] Frame  0 CC 0 : SRB2 is now active
 [RRC]   [eNB 0] Frame  0 : Logical Channel UL-DCCH, Received LTE_RRCConnectionReconfigurationComplete from UE rnti 18b8, reconfiguring DRB 1/LCID 3
 [RRC]   [eNB 0] Frame  0 : Logical Channel UL-DCCH, Received LTE_RRCConnectionReconfigurationComplete from UE 0, reconfiguring DRB 1/LCID 3
 [MAC]   UE 0 RNTI 18b8 adding LC 3 idx 2 to scheduling control (total 3)
 [MAC]   Added physicalConfigDedicated 0x7f9e1c1ca6b0 for 0.0
-[S1AP]   initial_ctxt_resp_p: e_rab ID 5, enb_addr 192.168.61.30, SIZE 4 
+[S1AP]   initial_ctxt_resp_p: e_rab ID 5, enb_addr 192.168.61.30, SIZE 4
 [SCTP]   Successfully sent 40 bytes on stream 1 for assoc_id 1
 [SCTP]   Successfully sent 61 bytes on stream 1 for assoc_id 1
 ```
@@ -2018,6 +2016,7 @@ rtt min/avg/max/mdev = 35.178/41.006/47.583/5.097 ms
 ```
 
 ___
+
 # Properly disconnect
 
 ```console
