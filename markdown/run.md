@@ -57,7 +57,6 @@ require_login: true
     Object.assign(livemap_options, {
       space_x : 72,
       space_y : 87,
-      radius_unavailable : 21,
       radius_ok : 16,
       radius_pinging : 10,
       radius_warming : 4,

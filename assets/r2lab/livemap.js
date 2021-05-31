@@ -8,7 +8,7 @@ load_css("/assets/r2lab/livemap.css");
 
 import {Sidecar} from "/assets/r2lab/sidecar.js";
 
-////////// configurable
+// re-configurable from the markdown
 export let livemap_options = {
 
     // just set this if you need scaling
@@ -25,7 +25,7 @@ export let livemap_options = {
     // pillars - derived from the walls
     pillar_radius : 16,
     // size for rendering nodes status
-    radius_unavailable : 24,
+    radius_unavailable : 18,
     radius_ok : 18,
     radius_pinging : 12,
     radius_warming : 6,
