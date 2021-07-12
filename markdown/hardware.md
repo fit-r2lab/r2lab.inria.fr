@@ -195,12 +195,22 @@ With the above assumptions, these tags can be interpreted as follows:
 The testbed currently includes 4 Huawei LTE sticks: 
 
 * Two <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on nodes fit02 (with SIM # 07) and fit26 (with SIM #05).
-* One <a href="https://www.4gltemall.com/blog/wp-content/uploads/2012/11/HUAWEI_E392_TDD_LTE_USB_Stick_Product_Description-Specification-and-datasheet.pdf" target="_blank">Huawei E392 stick</a> (with SIM #09) on node fit09, loaned by Eurecom.
+* One <a href="https://www.4gltemall.com/blog/wp-content/uploads/2012/11/HUAWEI_E392_TDD_LTE_USB_Stick_Product_Description-Specification-and-datasheet.pdf" target="_blank">Huawei E392 stick</a> (with SIM #09) on node fit17, loaned by Eurecom.
 * One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM #10) on node fit29, loaned by Eurecom.
 
 ###Commercial Bluetooth 4.2/5.0 Low Energy (BLE) devices
 
 * Two <a href="https://www.sparkfun.com/products/retired/14154" target="_blank">RedBearLab BLE Nano Kit v2 devicess</a> on nodes fit01 anf fit03, loaned by Eurecom.
+
+### Commercial 4G/5G Quectel RM 500Q-GL USB3 modules 
+
+The testbed currently includes 4 <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
+
+* One attached to fit09 with SIM #14
+* One attached to fit18 with SIM #13
+* One attached to fit32 with SIM #11
+* One attached to fit35 with SIM #12
+
 
 ###Commercial 4G Phones
 
