@@ -9,4 +9,6 @@
     font-size: 0.9em;
 }
 
-
+td.os.ko, td.image.ko {
+    opacity: 0.5;
+}

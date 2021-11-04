@@ -73,7 +73,7 @@ require_login: true
 </div>
 
   <hr/>
-  See also <a href="status.md#livetable:legend">this page for a legend</a>; try clicking anywhere in the header or footer to focus on nodes of interest.
+  See also <a href="status.md#livetable:legend">this page for a legend</a>; try clicking <span data-toggle="tooltip" title="YES">anywhere in the header or footer</span> to focus on nodes of interest.
 
   <div class="row" markdown="0">
     <div class="col-md-12">

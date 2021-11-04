@@ -19,8 +19,5 @@
   -- it does not seem right to call tooltip() several times
   -->
 <script>
-$(function () {
-    let tooltips = $('[data-toggle="tooltip"]');
-    tooltips.tooltip();
-})
+$(() => $('[data-toggle="tooltip"]').tooltip())
 </script>

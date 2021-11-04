@@ -36,7 +36,7 @@ export class LiveTableNode extends LiveColumnsNode {
             undefined,                          // ping
             undefined,                          // ssh
             undefined,                          // os_release
-            undefined,                          // uname
+//            undefined,                          // uname
             undefined,                          // image_radical
         ];
     }
@@ -73,34 +73,35 @@ export class LiveTableNode extends LiveColumnsNode {
             this.control_ssh == 'on' ? [ span_html('', 'fa fa-circle'), 'ok' ]
             : [ span_html('', 'fa fa-circle-o'), 'ko' ];
         //
-        this.cells_data[col++] = this.cell_release(this.os_release);
-        this.cells_data[col++] = this.cell_uname(this.uname);
-        this.cells_data[col++] = this.cell_image(this.image_radical);
+        this.cells_data[col++] = this.cell_release(
+            this.os_release, this.uname, this.control_ssh)
+//        this.cells_data[col++] = this.cell_uname(this.uname);
+        this.cells_data[col++] = this.cell_image(this.image_radical, this.control_ssh);
     }
 
-    cell_release(os_release) {
+    cell_release(os_release, uname, control_ssh) {
         // use a single css class for now
-        let klass = 'os';
+        let klass = control_ssh == 'on' ? 'os ok' : 'os ko'
+        function tooltip(main) {
+            return `<span data-toggle="tooltip" title="last uname=${uname}">${main}</span>`
+        }
         if (os_release == undefined)
             return [ "n/a", klass ];
         if (os_release.startsWith('fedora'))
-            return [ `${livetable_options.fedora_badge} ${os_release}`, klass ];
+            return [ tooltip(`${livetable_options.fedora_badge} ${os_release}`), klass ];
         else if (os_release.startsWith('centos'))
-            return [ `${livetable_options.centos_badge} ${os_release}`, klass ];
+            return [ tooltip(`${livetable_options.centos_badge} ${os_release}`), klass ];
         else if (os_release.startsWith('ubuntu'))
-            return [ `${livetable_options.ubuntu_badge} ${os_release}`, klass ];
+            return [ tooltip(`${livetable_options.ubuntu_badge} ${os_release}`), klass ];
         else if (os_release == 'other')
-            return [ `${livetable_options.other_badge} (ssh OK)`,  klass ];
+            return [ tooltip(`${livetable_options.other_badge} (ssh OK)`),  klass ];
         else
             return [ 'n/a', klass ];
-    }
+      }
 
-    cell_uname(uname) {
-        return [ uname, 'os' ];
-    }
 
-    cell_image(image_radical) {
-        let klass = 'image';
+    cell_image(image_radical, control_ssh) {
+        let klass = control_ssh == 'on' ? 'image ok' : 'image ko'
         if (image_radical == undefined)
             return [ "n/a", klass ];
         return [ image_radical, klass ];
@@ -117,15 +118,20 @@ export class LiveTable extends LiveColumns{
 
 
     init_headers(header) {
-        header.append('th').html('node');
-        header.append('th').html('avail.');
-        header.append('th').html('on/off');
-        header.append('th').html('sdr');
-        header.append('th').html('ping');
-        header.append('th').html('ssh');
-        header.append('th').html('last O.S.');
-        header.append('th').html('last uname');
-        header.append('th').html('last image');
+        header.append('th').html('#')
+            .attr('data-toggle', 'tooltip').attr('title', 'node #')
+        header.append('th').html('<span class="fa fa-check-square-o"></span>')
+            .attr('data-toggle', 'tooltip').attr('title', 'availability')
+        header.append('th').html('<span class="fa fa-toggle-off"></span>')
+            .attr('data-toggle', 'tooltip').attr('title', 'on/off')
+        header.append('th').html('sdr')
+        header.append('th').html('<span class="fa fa-link"></span>')
+            .attr('data-toggle', 'tooltip').attr('title', 'ping')
+        header.append('th').html('<span class="fa fa-circle-o"></span>')
+            .attr('data-toggle', 'tooltip').attr('title', 'ssh')
+        header.append('th').html('last O.S.')
+//        header.append('th').html('last uname')
+        header.append('th').html('last image')
     }
 
     init_nodes() {

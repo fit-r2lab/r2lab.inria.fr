@@ -146,6 +146,9 @@ export class LiveColumns {
         // needs to be written
         this.init_nodes();
         this.init_sidecar();
+        // re-trigger tooltip behaviour
+        // xxx should be limited to our own scope
+        $('[data-toggle="tooltip"]').tooltip()
     }
 
 
