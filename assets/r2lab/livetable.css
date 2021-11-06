@@ -1,14 +1,35 @@
-/* some space for the OS badges */
-.livecolumns_body td.os img {
+/* some space for the metal badges */
+.livecolumns_body td.metal img {
     height : 20px;
 }
 
-/* last OS, last uname & last image */
-.livecolumns_body td.os, .livecolumns_body td.image {
+/* last metal, last uname & last image */
+.livecolumns_body td.metal, .livecolumns_body td.image {
     color: navy;
     font-size: 0.9em;
 }
 
-td.os.ko, td.image.ko {
+td.metal.ko, td.docker.ko {
     opacity: 0.5;
+}
+
+thead.livecolumns_header th,
+tfoot.livecolumns_header th {
+    text-align: center;
+}
+
+tbody.livecolumns_body td.docker-ko {
+    color: red;
+}
+
+tbody.livecolumns_body td.docker-ok.running {
+    color: green;
+}
+
+.docker.docker-ko {
+    text-align: center;
+}
+
+.docker.running {
+    color: green;
 }

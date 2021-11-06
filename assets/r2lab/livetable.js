@@ -29,15 +29,15 @@ export class LiveTableNode extends LiveColumnsNode {
         super(id);
 
         this.cells_data = [
-            [ span_html(id, 'badge pointer'), '' ],     // id
-            undefined,                          // avail
-            undefined,                          // on/off
-            undefined,                          // usrp-on-off
-            undefined,                          // ping
-            undefined,                          // ssh
-            undefined,                          // os_release
-//            undefined,                          // uname
-            undefined,                          // image_radical
+            [ span_html(id, 'badge pointer'), '' ], // id
+            undefined,                              // avail
+            undefined,                              // on/off
+            undefined,                              // usrp-on-off
+            undefined,                              // ping
+            undefined,                              // ssh
+            undefined,                              // metal_info
+            undefined,                              // docker_info
+            [ span_html(id, 'badge pointer'), '' ], // id
         ];
     }
 
@@ -64,47 +64,85 @@ export class LiveTableNode extends LiveColumnsNode {
         // usrp
         this.cells_data[col++] = this.cell_sdr(true);
         // ping
-        this.cells_data[col++] =
-            (this.control_ping == 'on')
-            ? [ span_html('', 'fa fa-link'), 'ok' ]
-            : [ span_html('', 'fa fa-unlink'), 'ko' ];
+        this.cells_data[col++] = this.cell_ping()
         // ssh
-        this.cells_data[col++] =
-            this.control_ssh == 'on' ? [ span_html('', 'fa fa-circle'), 'ok' ]
-            : [ span_html('', 'fa fa-circle-o'), 'ko' ];
-        //
-        this.cells_data[col++] = this.cell_release(
-            this.os_release, this.uname, this.control_ssh)
-//        this.cells_data[col++] = this.cell_uname(this.uname);
-        this.cells_data[col++] = this.cell_image(this.image_radical, this.control_ssh);
+        this.cells_data[col++] = this.cell_ssh()
+        // image name, OS, uname
+        this.cells_data[col++] = this.cell_metal_info()
+        // docker-ready, container running, image name...
+        this.cells_data[col++] = this.cell_docker_info()
     }
 
-    cell_release(os_release, uname, control_ssh) {
+    cell_ping() {
+        return (this.control_ping == 'on')
+            ? [ span_html('', 'fa fa-link'), 'ok' ]
+            : [ span_html('', 'fa fa-unlink'), 'ko' ]
+    }
+
+    cell_ssh() {
+        return this.control_ssh == 'on'
+            ? [ span_html('', 'fa fa-circle'), 'ok' ]
+            : [ span_html('', 'far fa-circle'), 'ko' ]
+
+    }
+
+    cell_metal_info() {
         // use a single css class for now
-        let klass = control_ssh == 'on' ? 'os ok' : 'os ko'
+        let klass = this.control_ssh == 'on' ? 'metal ok' : 'metal ko'
+        let uname = this.uname
+        let control_ssh = this.control_ssh == 'on'
+        let os_release = this.os_release
         function tooltip(main) {
-            return `<span data-toggle="tooltip" title="last uname=${uname}">${main}</span>`
+            let title = ""
+            if (! control_ssh) title += `last seen<br>`
+            title += `uname=${uname}<br>`
+            title += `os-release=${os_release}`
+            return `<span data-toggle="tooltip" data-html="true" title="${title}">${main}</span>`
         }
-        if (os_release == undefined)
+        if (this.os_release == undefined)
             return [ "n/a", klass ];
-        if (os_release.startsWith('fedora'))
-            return [ tooltip(`${livetable_options.fedora_badge} ${os_release}`), klass ];
-        else if (os_release.startsWith('centos'))
-            return [ tooltip(`${livetable_options.centos_badge} ${os_release}`), klass ];
-        else if (os_release.startsWith('ubuntu'))
-            return [ tooltip(`${livetable_options.ubuntu_badge} ${os_release}`), klass ];
-        else if (os_release == 'other')
+        if (this.os_release.startsWith('fedora'))
+            return [ tooltip(`${livetable_options.fedora_badge} ${this.image_radical}`), klass ];
+        else if (this.os_release.startsWith('centos'))
+            return [ tooltip(`${livetable_options.centos_badge} ${this.image_radical}`), klass ];
+        else if (this.os_release.startsWith('ubuntu'))
+            return [ tooltip(`${livetable_options.ubuntu_badge} ${this.image_radical}`), klass ];
+        else if (this.os_release == 'other')
             return [ tooltip(`${livetable_options.other_badge} (ssh OK)`),  klass ];
         else
             return [ 'n/a', klass ];
       }
 
 
-    cell_image(image_radical, control_ssh) {
-        let klass = control_ssh == 'on' ? 'image ok' : 'image ko'
-        if (image_radical == undefined)
-            return [ "n/a", klass ];
-        return [ image_radical, klass ];
+    cell_docker_info() {
+        // console.log(`${this.id} v=${this.docker_version} r=${this.container_running}`
+        // `i=${this.container_image} s=${this.control_ssh}`)
+        let klass = 'docker'
+        klass += (this.control_ssh == 'on') ? ' ok' : ' ko'
+        klass += (this.docker_version && this.container_running == 'true') ? ' docker-ok' : ' docker-ko'
+        let control_ssh = this.control_ssh
+        let docker_version = this.docker_version
+        let container_running = this.container_running
+        function tooltip(main, title) {
+            return `<span data-toggle="tooltip" data-html="true" title="${title}">${main}</span>`
+        }
+        function tooltip_details(main) {
+            let title = ""
+            if (! control_ssh) title += `last seen<br>`
+            title += `docker-version=${docker_version}<br>`
+            title += `container-running=${container_running}`
+            return tooltip(main, title)
+        }
+        if (! this.docker_version) {
+            let title = ""
+            title += "no docker found in image"
+            return [ tooltip('<span class="fa fa-times"></span>', title),
+                     klass]
+        }
+        if (this.container_running)
+            klass += ' running'
+            let display = this.container_image || '?'
+            return [tooltip_details(display), klass]
     }
 }
 
@@ -120,18 +158,24 @@ export class LiveTable extends LiveColumns{
     init_headers(header) {
         header.append('th').html('#')
             .attr('data-toggle', 'tooltip').attr('title', 'node #')
-        header.append('th').html('<span class="fa fa-check-square-o"></span>')
+        header.append('th').html('<span class="far fa-check-square"></span>')
             .attr('data-toggle', 'tooltip').attr('title', 'availability')
         header.append('th').html('<span class="fa fa-toggle-off"></span>')
             .attr('data-toggle', 'tooltip').attr('title', 'on/off')
-        header.append('th').html('sdr')
+        header.append('th').html('<span class="fas fa-wifi"></span>')
+            .attr('data-toggle', 'tooltip').attr('title', 'sdr device')
         header.append('th').html('<span class="fa fa-link"></span>')
             .attr('data-toggle', 'tooltip').attr('title', 'ping')
-        header.append('th').html('<span class="fa fa-circle-o"></span>')
+        header.append('th').html('<span class="far fa-circle"></span>')
             .attr('data-toggle', 'tooltip').attr('title', 'ssh')
-        header.append('th').html('last O.S.')
-//        header.append('th').html('last uname')
-        header.append('th').html('last image')
+        header.append('th').html('metal O.S.')
+            .attr('data-toggle', 'tooltip').attr('data-html', 'true')
+            .attr('title', '(ndz) image name<br>& details on the host OS')
+        header.append('th').html('<span class="fab fa-docker"></span>')
+            .attr('data-toggle', 'tooltip').attr('data-html', 'true')
+            .attr('title', '(docker) image name<br>& other details on<br>the docker subsystem')
+        header.append('th').html('#')
+            .attr('data-toggle', 'tooltip').attr('title', 'node #')
     }
 
     init_nodes() {

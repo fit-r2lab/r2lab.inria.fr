@@ -46,7 +46,7 @@ export let livemap_options = {
     usrp_delta_x : 2,
     usrp_delta_y : 3,
 
-
+    // still using font-awesome v4 for the symbols inside a svg/d3 area
     // see http://stackoverflow.com/questions/14984007/how-do-i-include-a-font-awesome-icon-in-my-svg
     // and http://stackoverflow.com/questions/12882885/how-to-add-nbsp-using-d3-js-selection-text-method/12883617#12883617
     // parmentelat ~/git/Font-Awesome/less $ grep 'fa-var-plane' variables.less
@@ -54,6 +54,13 @@ export let livemap_options = {
     icon_plane_content : "\uf072",
     icon_phone_content : "\uf095",
     icon_question_content : "\uf128",
+    // using font-awesome v5 is problematic here
+    // most of the icons we need seem to be part of the 'Font Awesome 5 Pro'
+    // font-family, while only the 'Free' and 'Brands' font-families are available to us
+    // for the record though
+    // icon_plane_content : "\uf5b0",
+    // icon_phone_content : "\uf095",
+    // icon_question_content : "\uf128",
 
     icon_sidecar_ok : "\uf14a",
     icon_sidecar_ko : "\uf057",
