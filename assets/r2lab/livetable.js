@@ -87,14 +87,14 @@ export class LiveTableNode extends LiveColumnsNode {
     }
 
     cell_metal_info() {
-        // use a single css class for now
-        let klass = this.control_ssh == 'on' ? 'metal ok' : 'metal ko'
+        let klass = 'metal'
+        let reachable_ssh = this.control_ssh == 'on'
+        klass += reachable_ssh ? ' ok' : ' ko'
         let uname = this.uname
-        let control_ssh = this.control_ssh == 'on'
         let os_release = this.os_release
         function tooltip(main) {
             let title = ""
-            if (! control_ssh) title += `last seen<br>`
+            if (! reachable_ssh) title += `last seen:<br>`
             title += `uname=${uname}<br>`
             title += `os-release=${os_release}`
             return `<span data-toggle="tooltip" data-html="true" title="${title}">${main}</span>`
@@ -118,9 +118,9 @@ export class LiveTableNode extends LiveColumnsNode {
         // console.log(`${this.id} v=${this.docker_version} r=${this.container_running}`
         // `i=${this.container_image} s=${this.control_ssh}`)
         let klass = 'docker'
-        klass += (this.control_ssh == 'on') ? ' ok' : ' ko'
+        let reachable_ssh = this.control_ssh == 'on'
+        klass += reachable_ssh ? ' ok' : ' ko'
         klass += (this.docker_version && this.container_running == 'true') ? ' docker-ok' : ' docker-ko'
-        let control_ssh = this.control_ssh
         let docker_version = this.docker_version
         let container_running = this.container_running
         function tooltip(main, title) {
@@ -128,7 +128,7 @@ export class LiveTableNode extends LiveColumnsNode {
         }
         function tooltip_details(main) {
             let title = ""
-            if (! control_ssh) title += `last seen<br>`
+            if (! reachable_ssh) title += `last seen:<br>`
             title += `docker-version=${docker_version}<br>`
             title += `container-running=${container_running}`
             return tooltip(main, title)
