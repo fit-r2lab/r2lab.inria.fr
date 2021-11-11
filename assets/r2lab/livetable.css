@@ -16,6 +16,8 @@ td.metal.ko, td.docker.ko {
 thead.livecolumns_header th,
 tfoot.livecolumns_header th {
     text-align: center;
+    padding-top: 8px;
+    padding-bottom: 6px;
 }
 
 tbody.livecolumns_body td.docker-ko {
@@ -26,10 +28,20 @@ tbody.livecolumns_body td.docker-ok.running {
     color: green;
 }
 
-.docker.docker-ko {
+.docker.running {
+    color: green;
+}
+
+.docker {
     text-align: center;
 }
 
-.docker.running {
-    color: green;
+tbody>tr>td:nth-child(1),
+tbody>tr>td:nth-child(2),
+tbody>tr>td:nth-child(3),
+tbody>tr>td:nth-child(5),
+tbody>tr>td:nth-child(6),
+tbody>tr>td:nth-child(9)
+{
+    text-align: center;
 }
