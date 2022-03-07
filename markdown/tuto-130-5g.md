@@ -49,7 +49,7 @@ There currently are 2 phones available in the room named `macphone1` and `macpho
 <thead><tr><th>Phone #</th><th>Model</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>Nexus 5</td></tr>
-<tr><td>2</td><td>Moto E</td></tr>
+<tr><td>2</td><td>Nexus 5</td></tr>
 </tbody>
 </table>
 

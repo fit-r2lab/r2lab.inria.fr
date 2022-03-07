@@ -6,6 +6,14 @@ skip_news: yes
 # Most recent first&nbsp;: (see also our [list of papers](papers.md))
 
 ****
+## 2022
+****
+
+### March 2022
+
+* macphone2, that used to be a Motorola Moto 2nd Gen, is replaced by a Nexus 5
+
+****
 ## 2021
 ****
 
