@@ -1,4 +1,9 @@
-Django
+# 2022 03 08:
+# getting Django4.0 on fedora10 breaks our code with
+# ImportError: cannot import name 'url' from 'django.conf.urls' after
+# upgrading to Django 4.0
+# to be fixed one day...
+Django<4.0
 markdown2
 rhubarbe
 pyparsing
