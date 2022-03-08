@@ -204,7 +204,7 @@ if not PRODUCTION:
 # transitioning to plcauthbackend
 AUTHENTICATION_BACKENDS = (
     'plc.plcauthbackend.PlcAuthBackend',
-    'mfauth.mfbackend.ManifoldBackend',
+#    'mfauth.mfbackend.ManifoldBackend',
 )
 
 X_FRAME_OPTIONS = 'ALLOWALL'
