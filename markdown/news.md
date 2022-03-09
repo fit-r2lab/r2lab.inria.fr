@@ -12,6 +12,7 @@ skip_news: yes
 ### March 2022
 
 * macphone2, that used to be a Motorola Moto 2nd Gen, is replaced by a Nexus 5
+* the whole testbed infrastructure now runs on Fedora 35 + MacOS monterey
 
 ****
 ## 2021
