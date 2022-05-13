@@ -228,6 +228,13 @@ This command, like all the `rhubarbe`-related commands, has a default timeout, t
 
     rwait --timeout 30
 
+### Using Docker containers with baleine
+
+Baleine is a CLI tool allowing you to deploy Docker images to nodes running on the R2Lab testbed.
+The default disk image to use with all the Docker configuration already done is the `baleine` image.
+
+If you want exhaustive information about the different options available in the `baleine` CLI, please check out the [official docs](https://github.com/haysberg/baleine/wiki) on GitHub.
+
 
 ### `ssh`-ing into nodes
 
@@ -245,6 +252,10 @@ You can run a command on all selected nodes with
 
 this time of course, you cannot specify another set of nodes than the selection.
 
+If you want to directly access a Bash prompt **inside a Docker container** please choose the username `container`, like this :
+
+    ssh container@fit25
+
 ### Saving images
 
 You have the ablility to save the image - this now of course applies only to **one node** at a time. To save node 25
@@ -254,6 +265,12 @@ You have the ablility to save the image - this now of course applies only to **o
 This ends up in the common repository `/var/lib/rhubarbe-images`, under a name that holds the hostname and saving time. You can also provide an extra name to `rsave` with the `-o` option.
 
 Images that may be of common interest usually needto be renamed; get in touch with the admins if you need to do this.
+
+### Saving Docker images
+
+If you want to save a Docker container that you may have modified from its base image, you can use the [baleine save](https://github.com/haysberg/baleine/wiki/Save-a-custom-container) command.
+
+    baleine save --node 1 --name mycustomimage:1.0 
 
 </div>
 
