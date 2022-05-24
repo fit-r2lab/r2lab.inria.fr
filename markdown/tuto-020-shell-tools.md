@@ -260,7 +260,7 @@ If you want to directly access a Bash prompt **inside a Docker container** pleas
 
 You have the ablility to save the image - this now of course applies only to **one node** at a time. To save node 25
 
-    rsave 25 -o my-imge-name
+    rsave 25 -o my-image-name
 
 This ends up in the common repository `/var/lib/rhubarbe-images`, under a name that holds the hostname and saving time. You can also provide an extra name to `rsave` with the `-o` option.
 
