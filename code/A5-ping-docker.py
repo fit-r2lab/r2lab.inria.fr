@@ -27,9 +27,9 @@ verbose_ssh = args.verbose_ssh
 faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "container",
+node1 = SshNode(gateway = faraday, hostname = "fit35", username = "container",
                 verbose = verbose_ssh)
-node2 = SshNode(gateway = faraday, hostname = "fit02", username = "container",
+node2 = SshNode(gateway = faraday, hostname = "fit36", username = "container",
                 verbose = verbose_ssh)
 
 ##########

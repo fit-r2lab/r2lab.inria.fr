@@ -29,6 +29,7 @@ faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
 # saying gateway = faraday means to tunnel ssh through the gateway
+# using the container username allows us to forward the command directly inside the container
 node1 = SshNode(gateway = faraday, hostname = "fit01", username = "container",
                 verbose = verbose_ssh)
 ##########
