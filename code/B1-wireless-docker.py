@@ -9,7 +9,7 @@ from apssh import Run, RunString
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
-gateway_username  = 'inria_r2lab.tutorial'
+gateway_username  = 'root'
 verbose_ssh = False
 wireless_driver="ath9k"
 wireless_interface="atheros"
