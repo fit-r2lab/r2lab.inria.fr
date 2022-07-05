@@ -32,9 +32,10 @@ export class LiveTableNode extends LiveColumnsNode {
             [ span_html(id, 'badge pointer'), '' ], // id
             undefined,                              // avail
             undefined,                              // on/off
-            undefined,                              // usrp-on-off
             undefined,                              // ping
             undefined,                              // ssh
+            undefined,                              // data-interface
+            undefined,                              // usrp-on-off
             undefined,                              // metal_info
             undefined,                              // docker_info
             [ span_html(id, 'badge pointer'), '' ], // id
@@ -61,12 +62,14 @@ export class LiveTableNode extends LiveColumnsNode {
         this.cells_data[col++] = this.cell_available();
         // on/off
         this.cells_data[col++] = this.cell_on_off();
-        // usrp
-        this.cells_data[col++] = this.cell_sdr(true);
         // ping
         this.cells_data[col++] = this.cell_ping()
         // ssh
         this.cells_data[col++] = this.cell_ssh()
+        // data-interface
+        this.cells_data[col++] = this.cell_data_interface()
+        // usrp
+        this.cells_data[col++] = this.cell_sdr(true);
         // image name, OS, uname
         this.cells_data[col++] = this.cell_metal_info()
         // docker-ready, container running, image name...
@@ -162,12 +165,14 @@ export class LiveTable extends LiveColumns{
             .attr('data-toggle', 'tooltip').attr('title', 'availability')
         header.append('th').html('<span class="fa fa-toggle-off"></span>')
             .attr('data-toggle', 'tooltip').attr('title', 'on/off')
-        header.append('th').html('<span class="fas fa-wifi"></span>')
-            .attr('data-toggle', 'tooltip').attr('title', 'sdr device')
         header.append('th').html('<span class="fa fa-link"></span>')
             .attr('data-toggle', 'tooltip').attr('title', 'ping')
         header.append('th').html('<span class="far fa-circle"></span>')
             .attr('data-toggle', 'tooltip').attr('title', 'ssh')
+        header.append('th').html('<span class="fas fa-align-justify"></span>')
+            .attr('data-toggle', 'tooltip').attr('title', 'data interface')
+        header.append('th').html('<span class="fas fa-wifi"></span>')
+            .attr('data-toggle', 'tooltip').attr('title', 'sdr device')
         header.append('th').html('metal O.S.')
             .attr('data-toggle', 'tooltip').attr('data-html', 'true')
             .attr('title', '(ndz) image name<br>& details on the host OS')

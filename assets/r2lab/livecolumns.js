@@ -92,6 +92,21 @@ export class LiveColumnsNode {
             : [ span_html('', 'fa fa-toggle-off'), 'ko' ];
     }
 
+    cell_data_interface() {
+        // the sidecar field is named 'data_interface'
+        // it can be
+        // true: answer is yes
+        // false: answer is no
+        // undefined: answer is yes
+        console.log('cell_has_data_interface', this)
+        console.log(this.data_interface)
+        if (! this.data_interface) {
+            return [ span_html('', 'far fa-hdd'), 'no-data']
+        } else {
+            return [ span_html('', 'fas fa-grip-lines'), 'data']
+        }
+    }
+
 
     cell_sdr(mention_duplexer) {
         let alt_text = "";

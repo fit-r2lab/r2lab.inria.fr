@@ -39,9 +39,11 @@ tbody.livecolumns_body td.docker-ok.running {
 tbody>tr>td:nth-child(1),
 tbody>tr>td:nth-child(2),
 tbody>tr>td:nth-child(3),
+tbody>tr>td:nth-child(4),
 tbody>tr>td:nth-child(5),
 tbody>tr>td:nth-child(6),
-tbody>tr>td:nth-child(9)
+tbody>tr>td:nth-child(9),
+tbody>tr>td:nth-child(10)
 {
     text-align: center;
 }
