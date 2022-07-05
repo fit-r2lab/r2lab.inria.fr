@@ -29,6 +29,8 @@ export class LiveTableNode extends LiveColumnsNode {
         super(id);
 
         this.cells_data = [
+            // each cell data can be either a couple (html + class) or a triple (add a tooltip)
+            // see livecolumns for details
             [ span_html(id, 'badge pointer'), '' ], // id
             undefined,                              // avail
             undefined,                              // on/off
@@ -78,14 +80,14 @@ export class LiveTableNode extends LiveColumnsNode {
 
     cell_ping() {
         return (this.control_ping == 'on')
-            ? [ span_html('', 'fa fa-link'), 'ok' ]
-            : [ span_html('', 'fa fa-unlink'), 'ko' ]
+            ? [ span_html('', 'fa fa-link'), 'ok', 'ping OK' ]
+            : [ span_html('', 'fa fa-unlink'), 'ko', 'no ping' ]
     }
 
     cell_ssh() {
         return this.control_ssh == 'on'
-            ? [ span_html('', 'fa fa-circle'), 'ok' ]
-            : [ span_html('', 'far fa-circle'), 'ko' ]
+            ? [ span_html('', 'fa fa-circle'), 'ok', 'ssh OK' ]
+            : [ span_html('', 'far fa-circle'), 'ko', 'no ssh' ]
 
     }
 
