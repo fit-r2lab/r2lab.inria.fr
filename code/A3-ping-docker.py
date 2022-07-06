@@ -30,7 +30,7 @@ faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
 
 # saying gateway = faraday means to tunnel ssh through the gateway
 # using the container username allows us to forward the command directly inside the container
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "container",
+node1 = SshNode(gateway = faraday, hostname = "fit01", username = "container", port = 2222,
                 verbose = verbose_ssh)
 ##########
 # create an orchestration scheduler
@@ -49,7 +49,7 @@ ping = SshJob(
 ##########
 # how to run the same directly with ssh - for troubleshooting
 print("""--- for troubleshooting:
-ssh -i /dev/null {}@{} ssh container@fit01 ping -c1 google.fr
+ssh -i /dev/null {}@{} ssh container@fit01 -P 2222 ping -c1 google.fr
 ---""".format(gateway_username, gateway_hostname))
 
 ##########

@@ -3,6 +3,8 @@
 from argparse import ArgumentParser
 
 from asynciojobs import Scheduler
+from asynciojobs import Job
+from asynciojobs import Watch
 
 from apssh import SshNode, SshJob
 from apssh import Run, RunString, RunScript
@@ -55,21 +57,13 @@ check_lease = SshJob(
     scheduler = scheduler,
 )
 
-# the shell script has gone into B3-wireless.sh
-####################
-
 ##########
 # setting up the wireless interface on both fit01 and fit02
 init_node_01 = SshJob(
     node = node1,
-    # RunString is replaced with RunScript
     command = RunScript(
-        # first argument is the local filename
-        # where to find the script to run remotely
         "B3-wireless.sh",
-        # then its arguments
         "init-ad-hoc-network", wireless_driver, "foobar", 2412,
-        # no need to set remote_name with RunScript
     ),
     required = check_lease,
     scheduler = scheduler,
@@ -79,8 +73,7 @@ init_node_02 = SshJob(
     command = RunScript(
         "B3-wireless.sh",
         "init-ad-hoc-network", wireless_driver, "foobar", 2412,
-        # setting a label to gain space in the graphical output
-        label="ditto",
+        label = "ditto",
     ),
     required = check_lease,
     scheduler = scheduler,
@@ -97,6 +90,31 @@ ping = SshJob(
     scheduler = scheduler,
 )
 
+########
+# for the fun of it, let's add a job that runs forever and writes
+# current time every second
+import time
+import asyncio
+
+
+async def infinite_clock(watch):
+    while True:
+        print("--- TICK - {}".format(watch.elapsed()))
+        await asyncio.sleep(1)
+
+# create a Watch instance for keeping track of elapsed time
+watch = Watch()
+
+# a forever job is not expected to end, instead
+# it gets killed when the rest of the flock is done with
+clock_job = Job(
+    infinite_clock(watch),
+    forever=True,
+    scheduler = scheduler,
+    # for the illustrated graph
+    label = "infinite stopwatch",
+)
+
 ##########
 # run the scheduler
 ok = scheduler.orchestrate()
@@ -107,7 +125,7 @@ ok or scheduler.debrief()
 success = ok and ping.result() == 0
 
 # producing a dot file for illustration
-scheduler.export_as_dotfile("B3.dot")
+scheduler.export_as_dotfile("B5.dot")
 
 # return something useful to your OS
 exit(0 if success else 1)

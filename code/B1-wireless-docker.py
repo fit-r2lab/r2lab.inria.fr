@@ -9,7 +9,7 @@ from apssh import Run, RunString
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
-gateway_username  = 'root'
+gateway_username  = 'inria_r2lab.tutorial'
 verbose_ssh = False
 wireless_driver="ath9k"
 wireless_interface="atheros"
@@ -29,9 +29,9 @@ verbose_ssh = args.verbose_ssh
 faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "container",
+node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root", port = 2222,
                 verbose = verbose_ssh)
-node2 = SshNode(gateway = faraday, hostname = "fit02", username = "container",
+node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root", port = 2222,
                 verbose = verbose_ssh)
 
 ##########
@@ -131,10 +131,10 @@ init_node_02 = SshJob(
 
 # the command we want to run in node1 is as simple as it gets
 ping = SshJob(
-    node = faraday,
+    node = node1,
     required = (init_node_01, init_node_02),
     command = Run(
-        'baleine', 'deploy', '--nodes', node1.hostname, '--image', 'ghcr.io/haysberg/baleine:main', '--command', 'ping -c20 10.0.0.2 -I', wireless_interface
+        'ping -c20 10.0.0.2 -I', wireless_interface
 #        verbose=True,
     ),
     scheduler = scheduler,

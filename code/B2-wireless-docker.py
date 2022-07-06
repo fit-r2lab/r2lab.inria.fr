@@ -33,10 +33,10 @@ faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh,
                   formatter = TimeColonFormatter())
 
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
+node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root", port = 2222,
                 verbose = verbose_ssh,
                 formatter = TimeColonFormatter())
-node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
+node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root", port = 2222,
                 verbose = verbose_ssh,
                 formatter = TimeColonFormatter())
 
@@ -137,10 +137,10 @@ init_node_02 = SshJob(
 
 # the command we want to run in node1 is as simple as it gets
 ping = SshJob(
-    node = faraday,
+    node = node1,
     required = (init_node_01, init_node_02),
     command = Run(
-        'baleine', 'deploy', '--nodes', node1.hostname, '--image', 'ghcr.io/haysberg/baleine:main', '--command', 'ping -c20 10.0.0.2',
+        'ping', '-c', '20', '10.0.0.2',
 #        verbose=True,
     ),
     scheduler = scheduler,
