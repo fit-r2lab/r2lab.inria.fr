@@ -235,10 +235,6 @@ Once you have loaded an image, you can enter all nodes by just doing
 
     ssh root@fit25
 
-or just, if you're really lazy
-
-    ss 25
-
 You can run a command on all selected nodes with
 
     map ip addr show
@@ -251,9 +247,9 @@ You have the ablility to save the image - this now of course applies only to **o
 
     rsave 25 -o my-imge-name
 
-This ends up in the common repository `/var/lib/rhubarbe-images`, under a name that holds the hostname and saving time. You can also provide an extra name to `rsave` with the `-o` option.
+This ends up in the $HOME repository `/home/"your_slicename"`, under a name that holds the hostname and saving time. You can also provide an extra name to `rsave` with the `-o` option.
 
-Images that may be of common interest usually needto be renamed; get in touch with the admins if you need to do this.
+Images that may be of common interest usually need to be renamed; get in touch with the admins if you need to do this. In such a case, the command rshare will be helpful to push privately-stored images into the global images repo.
 
 </div>
 
