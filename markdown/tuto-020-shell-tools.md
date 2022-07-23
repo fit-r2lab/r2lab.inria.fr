@@ -52,7 +52,7 @@ From the gateway, you can use the following hostnames to refer to nodes
 
 Here's an example of how these names resolve. Beware that the IP
 address of the reboot interface might occassionnally not be directly
-to the node index, but this is seldom used by experiments.
+bound to the node index.
 
     your_slicename@faraday:~$ host fit08
     fit08 has address 192.168.3.8
@@ -235,6 +235,14 @@ Once you have loaded an image, you can enter all nodes by just doing
 
     ssh root@fit25
 
+or just, if you're really lazy
+
+    s1 25
+
+> *note* this shortcut used to be called `ss`, but `ss` is also the name of a
+standard linux tool for inspecting sockets; the name `s1` stands for **s**sh
+into the **1**st selected node
+
 You can run a command on all selected nodes with
 
     map ip addr show
@@ -245,11 +253,16 @@ this time of course, you cannot specify another set of nodes than the selection.
 
 You have the ablility to save the image - this now of course applies only to **one node** at a time. To save node 25
 
-    rsave 25 -o my-imge-name
+    rsave 25 -o my-image-name
 
-This ends up in the $HOME repository `/home/"your_slicename"`, under a name that holds the hostname and saving time. You can also provide an extra name to `rsave` with the `-o` option.
+Your slice can then later on re-use this image using e.g. a simple
 
-Images that may be of common interest usually need to be renamed; get in touch with the admins if you need to do this. In such a case, the command rshare will be helpful to push privately-stored images into the global images repo.
+    rload -i my-image-name 12-15
+
+The image file ends up in your slice's home directory, under a temporary name
+starting in `saving__`; if you need to publish these into the common repository
+`/var/lib/rhubarbe-images`, get in touch with the admins, who can grant you the
+right to use `rhubarbe-share` (not documented here)
 
 </div>
 
