@@ -295,4 +295,22 @@ to get a reminder.
 
 </div>
 
+
+<!-- ------- BALEINE ------------>
+<div id="BALEINE" class="tab-pane fade" markdown="1">
+
+## Baleine
+
+Baleine allows you to deploy Docker containers instead of disk images. You can use it on Faraday.
+
+You can use five different commands to deploy containers. Here is a simple command, which we will explain :
+
+```
+baleine deploy
+```
+
+[Please refer to this page](/tuto-130-5g.md#PHONES) for more details on this offering, and how to manage these phones e.g. through a VNC session.
+
+</div>
+
 </div> <!-- end div contents -->
