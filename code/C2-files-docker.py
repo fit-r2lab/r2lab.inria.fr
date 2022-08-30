@@ -9,7 +9,7 @@ from argparse import ArgumentParser
 from asynciojobs import Scheduler, Sequence
 
 from apssh import SshNode, SshJob, LocalNode
-from apssh import Run, RunString, Push, Pull
+from apssh import Run, RunString, Push
 
 ##########
 
@@ -37,11 +37,13 @@ faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
 # saying gateway = faraday means to tunnel ssh through the gateway
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
+node1 = SshNode(gateway = faraday, hostname = "fit20", username = "root", port = 2222,
                 verbose = verbose_ssh)
-node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
+node2 = SshNode(gateway = faraday, hostname = "fit21", username = "root", port = 2222,
                 verbose = verbose_ssh)
 
+# for convenience, a collection of the nodes
+# that we need to initialize
 nodes = (node1, node2)
 
 ########## create the scheduler instance upfront
@@ -137,29 +139,6 @@ transfer_job = Sequence(
     scheduler = scheduler,
 )
 
-########## finally : let's complete the loop and
-########## retrieve RANDOM from node2 back on local laptop
-
-Sequence(
-    SshJob( node = node2,
-            commands = [
-                Run("echo the Pull command runs on $(hostname)"),
-                Pull(remotepaths = "RANDOM",
-                     localpath = "RANDOM.loopback"),
-            ]),
-    # make sure the file we receive at the end of the loop
-    # is identical to the original
-    SshJob( node = LocalNode(),
-            commands = [
-                Run("ls -l RANDOM.loopback", verbose=True),
-                # this is a python trick to concatenate 2 strings
-                Run("diff RANDOM RANDOM.loopback "
-                    "&& echo RANDOM.loopback identical to RANDOM"),
-            ]),
-    scheduler = scheduler,
-    required = transfer_job
-)
-
 ##########
 # run the scheduler
 ok = scheduler.orchestrate()
@@ -168,7 +147,7 @@ ok = scheduler.orchestrate()
 ok or scheduler.debrief()
 
 # producing a dot file for illustration
-scheduler.export_as_dotfile("C3.dot")
+scheduler.export_as_dotfile("C2.dot")
 
 # return something useful to your OS
 exit(0 if ok else 1)

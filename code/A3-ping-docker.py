@@ -12,6 +12,7 @@ gateway_hostname  = 'faraday.inria.fr'
 gateway_username  = 'inria_r2lab.tutorial'
 verbose_ssh = False
 
+# this time we want to be able to specify username and verbose_ssh
 parser = ArgumentParser()
 parser.add_argument("-s", "--slice", default=gateway_username,
                     help="specify an alternate slicename, default={}"
@@ -27,37 +28,29 @@ verbose_ssh = args.verbose_ssh
 faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
+# saying gateway = faraday means to tunnel ssh through the gateway
+# using the container username allows us to forward the command directly inside the container
+node1 = SshNode(gateway = faraday, hostname = "fit01", username = "container", port = 2222,
                 verbose = verbose_ssh)
-node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
-                verbose = verbose_ssh)
-
 ##########
 # create an orchestration scheduler
 scheduler = Scheduler()
 
 ##########
-check_lease = SshJob(
-    # checking the lease is done on the gateway
-    node = faraday,
-    # this means that a failure in any of the commands
-    # will cause the scheduler to bail out immediately
-    critical = True,
-    command = Run("rhubarbe leases --check"),
-    scheduler = scheduler,
-)
-
 # the command we want to run in node1 is as simple as it gets
 ping = SshJob(
     node = node1,
-    # wait for the 2 init jobs instead
-    # check_release is guaranteed to have completed anyway
-    required = (check_lease),
     # let's be more specific about what to run
     # we will soon see other things we can do on an ssh connection
-    command = Run('ping', '-c1', 'fit02'),
+    command = Run('ping', '-c1',  'google.fr'),
     scheduler = scheduler,
 )
+
+##########
+# how to run the same directly with ssh - for troubleshooting
+print("""--- for troubleshooting:
+ssh -i /dev/null {}@{} ssh container@fit01 -P 2222 ping -c1 google.fr
+---""".format(gateway_username, gateway_hostname))
 
 ##########
 # run the scheduler
@@ -66,14 +59,5 @@ ok = scheduler.orchestrate()
 # give details if it failed
 ok or scheduler.debrief()
 
-# we say this is a success if the ping command succeeded
-# the result() of the SshJob is the value that the command
-# returns to the OS
-# so it's a success if this value is 0
-success = ok and ping.result() == 0
-
-# producing a dot file for illustration
-scheduler.export_as_dotfile("A5.dot")
-
 # return something useful to your OS
-exit(0 if success else 1)
+exit(0 if ok else 1)

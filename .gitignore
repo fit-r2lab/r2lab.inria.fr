@@ -3,3 +3,6 @@ venv/
 assets/unwrap/
 *.dot
 manifold/
+RANDOM
+db.sqlite3
+django.log

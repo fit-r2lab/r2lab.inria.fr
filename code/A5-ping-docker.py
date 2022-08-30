@@ -9,7 +9,7 @@ from apssh import Run
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
-gateway_username  = 'inria_r2lab.tutorial'
+gateway_username  = 'root'
 verbose_ssh = False
 
 parser = ArgumentParser()
@@ -27,9 +27,9 @@ verbose_ssh = args.verbose_ssh
 faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
+node1 = SshNode(gateway = faraday, hostname = "fit01", username = "container", port = 2222,
                 verbose = verbose_ssh)
-node2 = SshNode(gateway = faraday, hostname = "fit02", username = "root",
+node2 = SshNode(gateway = faraday, hostname = "fit02", username = "container", port = 2222,
                 verbose = verbose_ssh)
 
 ##########
