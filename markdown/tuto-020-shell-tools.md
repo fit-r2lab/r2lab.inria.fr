@@ -266,12 +266,6 @@ This ends up in the common repository `/var/lib/rhubarbe-images`, under a name t
 
 Images that may be of common interest usually needto be renamed; get in touch with the admins if you need to do this.
 
-### Saving Docker images
-
-If you want to save a Docker container that you may have modified from its base image, you can use the [baleine save](https://github.com/haysberg/baleine/wiki/Save-a-custom-container) command.
-
-    baleine save --node 1 --name mycustomimage:1.0 
-
 </div>
 
 <!-- ------- PHONES ------------>
@@ -311,9 +305,15 @@ baleine deploy --image faraday.repo/tutorial --nodes 1 2 --options -t -d
 The `deploy` subcommand allows you to pull and deploy the docker image selected with `--image` on the nodes selected with `--nodes`.
 The `--options` option allows you to give an array of argument to pass directly to the Docker Runtime.
 
-The `faraday.repo/tutorial` image is based on Ubuntu, so the `-t` and `-d` options are necessary for the Docker image to continue running.
+The `faraday.repo/tutorial` docker image is based on Ubuntu, so the `-t` and `-d` options are necessary for the Docker image to continue running after initial launch.
 
 To use the Docker container as your server to run the tutorials, please use port `2222` for SSH as `22` is reserved for the host OS.
+
+### Saving Docker images
+
+If you want to save a Docker container that you may have modified from its base image, you can use the [baleine save](https://github.com/haysberg/baleine/wiki/Save-a-custom-container) command.
+
+    baleine save --node 1 --name mycustomimage:1.0 
 
 [Check out the wiki](https://github.com/haysberg/baleine/wiki) for exhaustive information on the different commands and options available.
 

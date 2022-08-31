@@ -87,7 +87,7 @@ explained [in the previous tutorial](tuto-020-shell-tools.md):
     # select nodes 1 and 2
     n 1 2
     # load the default image (on the selected nodes)
-    rload baleine
+    rload -i baleine
     # wait for ssh to be up (still on the selected nodes)
     rwait
 
