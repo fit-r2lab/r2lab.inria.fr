@@ -47,30 +47,15 @@ check_lease = SshJob(
     scheduler = scheduler,
 )
 
-##########
-# setting up the data interface on both fit01 and fit02
-init_node_01 = SshJob(
-    node = node1,
-    command = Run("turn-on-data"),
-    required = check_lease,
-    scheduler = scheduler,
-)
-init_node_02 = SshJob(
-    node = node2,
-    command = Run("turn-on-data"),
-    required = check_lease,
-    scheduler = scheduler,
-)
-
 # the command we want to run in node1 is as simple as it gets
 ping = SshJob(
     node = node1,
     # wait for the 2 init jobs instead
     # check_release is guaranteed to have completed anyway
-    required = (init_node_01, init_node_02),
+    required = (check_lease),
     # let's be more specific about what to run
     # we will soon see other things we can do on an ssh connection
-    command = Run('ping', '-c1', '-I', 'data', 'data02'),
+    command = Run('ping', '-c1', 'fit02'),
     scheduler = scheduler,
 )
 

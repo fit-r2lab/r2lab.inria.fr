@@ -68,6 +68,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'r2lab.inria.fr',
     'localhost',
+    '127.0.0.1'
 ]
 
 # Application definition

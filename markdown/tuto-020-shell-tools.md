@@ -7,7 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<< tuto_tabs "LOG IN":LOGIN  "SELECT NODES":NODES "IMAGES": "PHONES": >>
+<< tuto_tabs "LOG IN":LOGIN  "SELECT NODES":NODES "IMAGES": "PHONES": "BALEINE": >>
 
 <div id="contents" class="tab-content" markdown="1">
 
@@ -228,6 +228,13 @@ This command, like all the `rhubarbe`-related commands, has a default timeout, t
 
     rwait --timeout 30
 
+### Using Docker containers with baleine
+
+Baleine is a CLI tool allowing you to deploy Docker images to nodes running on the R2Lab testbed.
+The default disk image to use with all the Docker configuration already done is the `baleine` image.
+
+If you want exhaustive information about the different options available in the `baleine` CLI, please check out the [official docs](https://github.com/haysberg/baleine/wiki) on GitHub.
+
 
 ### `ssh`-ing into nodes
 
@@ -248,6 +255,10 @@ You can run a command on all selected nodes with
     map ip addr show
 
 this time of course, you cannot specify another set of nodes than the selection.
+
+If you want to directly access a Bash prompt **inside a Docker container** please connect through port `2222`, like this :
+
+    ssh -p 2222 root@fit25
 
 ### Saving images
 
@@ -284,6 +295,36 @@ and from then, as usual
 to get a reminder.
 
 [Please refer to this page](/tuto-130-5g.md#PHONES) for more details on this offering, and how to manage these phones e.g. through a VNC session.
+
+</div>
+
+<!-- ------- BALEINE ------------>
+<div id="BALEINE" class="tab-pane fade" markdown="1">
+
+## Baleine
+
+Baleine is a gateway tool allowing you to deploy Docker containers inside the R2Lab testbed.
+
+We will now demonstrate the deploy subcommand that will be very useful to you :
+
+```
+baleine deploy --image faraday.repo/tutorial --nodes 1 2 --options -t -d
+```
+
+The `deploy` subcommand allows you to pull and deploy the docker image selected with `--image` on the nodes selected with `--nodes`.
+The `--options` option allows you to give an array of argument to pass directly to the Docker Runtime.
+
+The `faraday.repo/tutorial` docker image is based on Ubuntu, so the `-t` and `-d` options are necessary for the Docker image to continue running after initial launch.
+
+To use the Docker container as your server to run the tutorials, please use port `2222` for SSH as `22` is reserved for the host OS.
+
+### Saving Docker images
+
+If you want to save a Docker container that you may have modified from its base image, you can use the [baleine save](https://github.com/haysberg/baleine/wiki/Save-a-custom-container) command.
+
+    baleine save --node 1 --name mycustomimage:1.0 
+
+[Check out the wiki](https://github.com/haysberg/baleine/wiki) for exhaustive information on the different commands and options available.
 
 </div>
 

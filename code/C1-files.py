@@ -37,7 +37,7 @@ faraday = SshNode(hostname = gateway_hostname, username = gateway_username,
                   verbose = verbose_ssh)
 
 # saying gateway = faraday means to tunnel ssh through the gateway
-node1 = SshNode(gateway = faraday, hostname = "fit01", username = "root",
+node1 = SshNode(gateway = faraday, hostname = "fit20", username = "root", port = 2222,
                 verbose = verbose_ssh)
 
 ########## create the scheduler instance upfront

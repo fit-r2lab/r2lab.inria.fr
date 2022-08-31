@@ -36,9 +36,10 @@ in each tutorial.
 Before we can run these experiments however, we need to have
 
 * a valid lease set in the booking system
-* the 2 nodes `fit01` and `fit02` up and running
+* the 2 nodes `fit01` and `fit02` up and running with the `baleine` disk image
+* the `faraday.repo/tutorial` Docker image running on the fit nodes
 
-For this first tutorial we will assume that these 2 steps have been
+For this first tutorial we will assume that these 3 steps have been
 performed manually, and here is how to proceed with that.
 
 ### Getting a reservation
@@ -60,7 +61,7 @@ The code in this tutorial assumes you have a slice named
 replace with your actual slice name when trying to run the code
 yourself.
 
-### Loading images
+### Loading disk images
 
 For loading the images manually on the 2 nodes needed here, please do
 this (as usual, make sure to use **your slice name** instead of
@@ -86,7 +87,7 @@ explained [in the previous tutorial](tuto-020-shell-tools.md):
     # select nodes 1 and 2
     n 1 2
     # load the default image (on the selected nodes)
-    rload
+    rload -i baleine
     # wait for ssh to be up (still on the selected nodes)
     rwait
 
@@ -119,26 +120,48 @@ should look like
     export NBNODES=2
 
     your_slicename@faraday:~$ rload
-    16:12:42 - +000s: Selection: fit01 fit02
-    16:12:42 - +000s: Loading image /var/lib/rhubarbe-images/default.ndz
-    16:12:42 - +000s: AUTH: checking for a valid lease
-    16:12:42 - +000s: AUTH: access granted
-    16:12:42 - +000s: fit02 reboot = Sending message 'on' to CMC reboot02
-    16:12:42 - +000s: fit01 reboot = Sending message 'on' to CMC reboot01
-    16:12:43 - +001s: fit02 reboot = idling for 15s
-    16:12:43 - +001s: fit01 reboot = idling for 15s
-    16:12:59 - +017s: started <frisbeed@234.5.6.1:10001 on default.ndz at 500 Mibps>
-    16:12:59 - +017s: fit01 frisbee_status = trying to telnet..
-    16:12:59 - +017s: fit02 frisbee_status = trying to telnet..
-    ... <snip>
-    |############################################################################################|100% |29.56s|Time: 0:00:29
-    16:13:44 - +062s: fit02 Uploading successful
-    16:13:44 - +062s: fit02 reboot = Sending message 'reset' to CMC reboot02
-    16:13:46 - +064s: stopped <frisbeed@234.5.6.1:10001 on default.ndz at 500 Mibps>
+    Found binary frisbeed as /usr/sbin/frisbeed
+    Found binary nc as /usr/bin/nc
+    09:38:23 - +000s: Selection: fit01 fit02
+    09:38:23 - +000s: Loading image /var/lib/rhubarbe-images/baleine.ndz
+    09:38:23 - +000s: AUTH: checking for a valid lease
+    09:38:23 - +000s: AUTH: access granted
+    09:38:23 - +000s: fit01 reboot = Sending message 'on' to CMC reboot01
+    09:38:23 - +000s: fit02 reboot = Sending message 'on' to CMC reboot02
+    09:38:24 - +001s: fit02 reboot = idling for 30s
+    09:38:24 - +001s: fit01 reboot = idling for 30s
+    09:38:55 - +032s: started <frisbeed@234.5.6.1:10001 on baleine.ndz at 500 Mibps>
+    09:38:55 - +032s: fit01 frisbee_status = trying to telnet..
+    09:38:55 - +032s: fit02 frisbee_status = trying to telnet..
+    09:38:56 - +032s: fit01 frisbee_status = backing off for 4.22s
+    09:38:56 - +032s: fit02 frisbee_status = backing off for 3.07s
+    09:38:59 - +035s: fit02 frisbee_status = trying to telnet..
+    09:38:59 - +036s: fit02 frisbee_status = backing off for 1.61s
+    09:39:00 - +036s: fit01 frisbee_status = trying to telnet..
+    09:39:00 - +037s: fit01 frisbee_status = starting frisbee client
+    09:39:01 - +037s: fit02 frisbee_status = trying to telnet..                  |  0% |0.00s|ETA:  --:--:--
+    09:39:01 - +038s: fit02 frisbee_status = starting frisbee client
+    09:40:00 - +096s: fit02 reboot = Sending message 'reset' to CMC reboot02#### | 99% |59.46s|ETA:  0:00:00
+    |############################################################################|100% |59.81s|Time: 0:00:59
+    09:40:00 - +097s: fit01 reboot = Sending message 'reset' to CMC reboot01
+    09:40:02 - +099s: stopped <frisbeed@234.5.6.1:10001 on baleine.ndz at 500 Mibps>
 
     your_slicename@faraday:~$ rwait
     <Node fit01>:ssh OK
     <Node fit02>:ssh OK
+
+### Loading the Tutorial Docker image
+
+To load Docker image on the fit nodes, we will now use the `baleine` command :
+
+    baleine deploy --nodes 1 2 --image faraday.repo/tutorial --options -t -d
+
+Let's give a brief explanation of what we just wrote :
+* The `deploy` subcommand allows us to pull an image from a Docker repository and create/launch a container on a fit node.
+* The `--nodes` option allows us to mention what nodes we want to target. You can format the nodes just like with the `nodes` command you used before.
+* The `--image` argument is the url to pull the image from. This can be from the Faraday repository, GitHub, DockerHub or any public repository. Please not that `faraday.repo` is reachable **ONLY** from the fit nodes.
+* The `--options` argument allows to pass specific arguments directly to the Docker daemon running on the fit nodes. By default, if you give no command the `ubuntu` Docker image will stop instantly. To prevent that, we use the `-t -d` options. You can get more details about them [here](https://docs.docker.com/engine/reference/run/). 
+
 
 At this point, both nodes have been loaded with the default image. So
 you can log out of `faraday.inria.fr` and go back to your laptop to
@@ -257,11 +280,13 @@ This materializes the fact that we reach node `fit01` through the
 gateway. It also ensures that only one ssh connection gets established
 to the gateway, regardless of the number of nodes actually controlled.
 
+Please note that we are using the `container` user in the script to directly connect to the Docker container shell.
+
 **Double check:** Remember that for this to work, you need to have a currently valid slice (and to use it with the `--slice` option if needed), and you need `fit01` to be up and running.
 
 ### The code
 
-<< codeview A3 A3-ping.py previous=A2-ping.py >>
+<< codeview A3 A3-ping-docker.py previous=A2-ping.py >>
 
 ### Sample output
 
@@ -349,7 +374,7 @@ for an example of that feature.
 
 ### The code
 
-<< codeview A4 A4-ping.py previous=A3-ping.py graph=A4.png >>
+<< codeview A4 A4-ping-docker.py previous=A3-ping-docker.py graph=A4.png >>
 
 ### Sample output
 
