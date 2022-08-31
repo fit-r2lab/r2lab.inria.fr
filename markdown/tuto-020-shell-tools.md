@@ -252,9 +252,9 @@ You can run a command on all selected nodes with
 
 this time of course, you cannot specify another set of nodes than the selection.
 
-If you want to directly access a Bash prompt **inside a Docker container** please choose the username `container`, like this :
+If you want to directly access a Bash prompt **inside a Docker container** please connect through port `2222`, like this :
 
-    ssh container@fit25
+    ssh -p 2222 root@fit25
 
 ### Saving images
 
