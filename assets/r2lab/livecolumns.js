@@ -81,15 +81,28 @@ export class LiveColumnsNode {
 
     cell_available() {
         return (this.available == 'ko') ?
-            [ span_html('', 'fa fa-ban'), 'error' ] :
-            [ span_html('', 'fa fa-check'), 'ok' ];
+            [ span_html('', 'fa fa-ban'), 'error', 'unavailable' ] :
+            [ span_html('', 'fa fa-check'), 'ok', 'node is OK for exps' ];
     }
 
 
     cell_on_off() {
-        return (this.cmc_on_off == 'fail') ? [ 'N/A', 'error' ]
-            : this.cmc_on_off == 'on' ? [ span_html('', 'fa fa-toggle-on'), 'ok' ]
-            : [ span_html('', 'fa fa-toggle-off'), 'ko' ];
+        return (this.cmc_on_off == 'fail') ? [ 'N/A', 'error', 'unavailable - DO NOT USE' ]
+            : this.cmc_on_off == 'on' ? [ span_html('', 'fa fa-toggle-on'), 'ok', 'ON']
+            : [ span_html('', 'fa fa-toggle-off'), 'ko', 'OFF' ];
+    }
+
+    cell_data_interface() {
+        // the sidecar field is named 'data_interface'
+        // it can be
+        // true: answer is yes
+        // false: answer is no
+        // undefined: answer is yes
+        if (! this.data_interface) {
+            return [ span_html('', 'far fa-hdd'), 'no-data', 'no data interface']
+        } else {
+            return [ span_html('', 'fas fa-grip-lines'), '', 'data interface available']
+        }
     }
 
 
@@ -216,6 +229,9 @@ export class LiveColumns {
           .merge(cells)
             .html(LiveColumns.get_html)
             .attr('class', LiveColumns.get_class)
+            .attr('data-toggle', 'tooltip')
+            .attr('title', '')
+            .attr('data-original-title', LiveColumns.get_tooltip)
             .each(function(d, i) {
                 // attach a click event on the first column only
                 if (i == 0) {
@@ -230,9 +246,13 @@ export class LiveColumns {
     // related helpers
     static get_node_id(node)  {return node.id;}
     static get_node_data(node){return node.cells_data;}
+    // the data associated to a given cell can be either 
+    // (*) a couple (html + class)
+    // (*) a triple (html + class + tooltip)
     // rewriting info should happen in update_from_news
-    static get_html(tuple)    {return (tuple === undefined) ? 'n/a' : tuple[0];}
-    static get_class(tuple)   {return (tuple === undefined) ? '' : tuple[1];}
+    static get_html(tuple)    {return (tuple === undefined) ? 'n/a' : tuple[0]}
+    static get_class(tuple)   {return (tuple === undefined) ? '' : tuple[1]}
+    static get_tooltip(triple) {return (triple === undefined) ? '' : (triple[2] === undefined) ? '' : triple[2]}
 
 
     ////////// socket.io business
@@ -246,7 +266,9 @@ export class LiveColumns {
             else
                 console.log(`livecolumns: could not locate node id ${id} - ignored`);
         });
-        this.animate_changes(infos);
+        this.animate_changes(infos)
+        // animate_changes messes with tooltips
+        $('[data-toggle="tooltip"]').tooltip()
     }
 
     init_sidecar() {

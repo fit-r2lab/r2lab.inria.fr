@@ -39,3 +39,8 @@ tbody.livecolumns_body>tr>td {
 span.fa-camera {
     color: blue;
 }
+
+td.no-data span {
+    opacity: 0.5;
+    color: #ccc;
+}
