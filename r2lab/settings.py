@@ -67,6 +67,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'r2lab.inria.fr',
+    'fit-r2lab.inria.fr',
     'localhost',
 ]
 
