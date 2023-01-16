@@ -38,9 +38,9 @@ circle.node-status {
     opacity:      .8;
 }
 
-circle.unavailable {
-    fill:	  #c00;
-    opacity:	  .7;
+rect.unavailable {
+    fill:	  #f00;
+    opacity:	  .5;
     stroke-width: 0;
 }
 

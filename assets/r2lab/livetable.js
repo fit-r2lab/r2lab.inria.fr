@@ -16,7 +16,7 @@ export let livetable_options = {
     fedora_badge : '<img src="/assets/img/fedora-logo.png">',
     centos_badge : '<img src="/assets/img/centos-logo.png">',
     ubuntu_badge : '<img src="/assets/img/ubuntu-logo.png">',
-    other_badge : '<img src="/assets/img/other-logo.png">',
+    other_badge : '<img src="/assets/img/other-logo.svg">',
 
 }
 

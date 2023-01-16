@@ -25,7 +25,7 @@ export let livemap_options = {
     // pillars - derived from the walls
     pillar_radius : 16,
     // size for rendering nodes status
-    radius_unavailable : 18,
+    halfside_unavailable : 18,
     radius_ok : 18,
     radius_pinging : 12,
     radius_warming : 6,
@@ -36,8 +36,8 @@ export let livemap_options = {
 
     // usrp thingy
     // full size for the usrp-icon; this is arbitrary but has the right width/height ratio
-    usrp_width : 13,
-    usrp_height : 23,
+    usrp_width : 15,
+    usrp_height : 25,
     // on and off units get rendered each at their size
     usrp_on_ratio : .90,
     usrp_off_ratio : .70,
@@ -79,6 +79,7 @@ function livemap_debug(...args) {
 
 
 function scale_options() {
+    // do it just once
     if (livemap_options._scaled)
         return;
     let ratio = livemap_options.ratio;
@@ -89,7 +90,7 @@ function scale_options() {
     livemap_options.padding_x *= ratio;
     livemap_options.padding_y *= ratio;
     livemap_options.pillar_radius *= ratio,
-    livemap_options.radius_unavailable *= ratio,
+    livemap_options.halfside_unavailable *= ratio,
     livemap_options.radius_ok *= ratio,
     livemap_options.radius_pinging *= ratio,
     livemap_options.radius_warming *= ratio,
@@ -285,14 +286,13 @@ class MapNode {
     }
 
     is_available() {
-        return this.available != 'ko';
+        return this.available != 'ko'
     }
 
-    is_alive() {
+    fully_booted() {
         return this.cmc_on_off == 'on'
             && this.control_ping == 'on'
             && this.control_ssh != 'off'
-            && this.available != 'ko';
     }
 
     // shift label south-east a little
@@ -356,12 +356,12 @@ class MapNode {
     node_status_filter() {
         let filter_name;
         // only set a filter with full-fledged nodes
-        if (! this.is_alive())
+        if (! this.fully_booted())
             return undefined;
         // remember infos might be incomplete
-        else if (this.os_release == undefined)
+        if (this.os_release == undefined)
             return undefined;
-        else if (this.os_release.indexOf('other') >= 0)
+        if (this.os_release.indexOf('other') >= 0)
             filter_name = 'other-logo';
         else if (this.os_release.indexOf('fedora') >= 0)
             filter_name = 'fedora-logo';
@@ -396,11 +396,11 @@ class MapNode {
         if ( ! this.has_usrp() )
             return undefined;
         else if (this.usrp_on_off == 'on')
-            filter_name = 'gnuradio-logo-icon-green';
+            filter_name = 'gnuradio-logo-icon-green'
         else if (this.usrp_on_off == 'off')
-            filter_name = 'gnuradio-logo-icon-red';
+            filter_name = 'gnuradio-logo-icon-gray'
         else
-            return 'gnuradio-logo-icon-black';
+            filter_name = 'gnuradio-logo-icon-red'
         return `url(#${filter_name})`;
     }
 
@@ -494,10 +494,10 @@ export class LiveMap {
         this.declare_image_filter('fedora-logo', 'png');
         this.declare_image_filter('centos-logo', 'png');
         this.declare_image_filter('ubuntu-logo', 'png');
-        this.declare_image_filter('other-logo', 'png');
+        this.declare_image_filter('other-logo', 'svg');
         this.declare_image_filter('gnuradio-logo-icon-green', 'svg');
+        this.declare_image_filter('gnuradio-logo-icon-gray', 'svg');
         this.declare_image_filter('gnuradio-logo-icon-red', 'svg');
-        this.declare_image_filter('gnuradio-logo-icon-black', 'svg');
     }
 
     init() {
@@ -627,17 +627,18 @@ export class LiveMap {
 
 
         // how to display unavailable nodes
-        let unavailables = svg.selectAll('circle.unavailable')
+        const halfside = livemap_options.halfside_unavailable
+        let unavailables = svg.selectAll('rect.unavailable')
             .data(this.nodes, obj => obj.id);
         unavailables
           .enter()
-            .append('circle')
+            .append('rect')
             .attr('class', 'unavailable')
-        .attr('id', node => node.id)
-        .attr('cx', node => node.x)
-        .attr('cy', node => node.y)
-
-            .attr('r', () => livemap_options.radius_unavailable)
+            .attr('id', node => node.id)
+            .attr('x', node => node.x-halfside)
+            .attr('y', node => node.y-halfside)
+            .attr('width', 2*halfside)
+            .attr('height', 2*halfside)
             .on('click', node => node.clicked())
           .merge(unavailables)
             .transition()

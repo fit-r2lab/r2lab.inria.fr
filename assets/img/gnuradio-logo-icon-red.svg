@@ -6,8 +6,8 @@
    height="150"
    id="svg3965"
    version="1.1"
-   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="gnuradio_logo_icon.svg"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   sodipodi:docname="gnuradio-logo-icon-red.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="128.54191"
-     inkscape:cy="76.392786"
+     inkscape:cx="124.62757"
+     inkscape:cy="77.276669"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -34,12 +34,14 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2558"
-     inkscape:window-height="1414"
-     inkscape:window-x="2560"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1"
-     inkscape:pagecheckerboard="0" />
+     inkscape:window-width="1398"
+     inkscape:window-height="1112"
+     inkscape:window-x="452"
+     inkscape:window-y="205"
+     inkscape:window-maximized="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <metadata
      id="metadata3970">
     <rdf:RDF>
@@ -56,6 +58,13 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-57.226591,-6.6600272)">
+    <rect
+       style="fill:#cccccc;fill-opacity:1"
+       id="rect907"
+       width="78.034286"
+       height="134.85536"
+       x="63.792583"
+       y="13.731095" />
     <g
        id="g4684">
       <path

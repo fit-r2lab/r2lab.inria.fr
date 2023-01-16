@@ -10,13 +10,38 @@
    sodipodi:docname="gnuradio-logo-icon-green.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
-     id="defs3967" />
+     id="defs3967">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient241">
+      <stop
+         style="stop-color:#5eedb2;stop-opacity:1;"
+         offset="0"
+         id="stop237" />
+      <stop
+         style="stop-color:#7ed685;stop-opacity:0.03773585;"
+         offset="1"
+         id="stop239" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient241"
+       id="radialGradient1009"
+       cx="103.44106"
+       cy="82.168922"
+       fx="103.44106"
+       fy="82.168922"
+       r="37.880714"
+       gradientTransform="matrix(1.3466479,0.01511273,-0.0375569,3.3465802,-32.77162,-194.37924)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,8 +50,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="129.8046"
-     inkscape:cy="77.529207"
+     inkscape:cx="84.979082"
+     inkscape:cy="76.013978"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -36,8 +61,8 @@
      fit-margin-bottom="0"
      inkscape:window-width="1314"
      inkscape:window-height="778"
-     inkscape:window-x="221"
-     inkscape:window-y="148"
+     inkscape:window-x="1806"
+     inkscape:window-y="212"
      inkscape:window-maximized="0"
      inkscape:pagecheckerboard="0"
      inkscape:showpageshadow="2"
@@ -58,6 +83,13 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-57.226591,-6.6600272)">
+    <rect
+       style="fill:url(#radialGradient1009);fill-opacity:1"
+       id="rect167"
+       width="75.761429"
+       height="134.35028"
+       x="65.560349"
+       y="14.993786" />
     <g
        id="g4684"
        style="fill:#008080">
