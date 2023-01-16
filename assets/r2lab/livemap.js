@@ -400,7 +400,7 @@ class MapNode {
         else if (this.usrp_on_off == 'off')
             filter_name = 'gnuradio-logo-icon-red';
         else
-            return undefined;
+            return 'gnuradio-logo-icon-black';
         return `url(#${filter_name})`;
     }
 
@@ -497,6 +497,7 @@ export class LiveMap {
         this.declare_image_filter('other-logo', 'png');
         this.declare_image_filter('gnuradio-logo-icon-green', 'svg');
         this.declare_image_filter('gnuradio-logo-icon-red', 'svg');
+        this.declare_image_filter('gnuradio-logo-icon-black', 'svg');
     }
 
     init() {
