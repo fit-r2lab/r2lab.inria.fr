@@ -7,14 +7,14 @@
 // inspired from
 // https://github.com/websockets/ws/wiki/Websocket-client-implementation-for-auto-reconnect
 
-let sidecar_debug = false;
+let sidecar_debug = false
 
 function debug(...args) {
     if(sidecar_debug) {
-        let now = new Date();
-        let nowstring = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+        let now = new Date()
+        let nowstring = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
 
-        console.log(`${nowstring} - sidecar`,...args);
+        console.log(`${nowstring} - sidecar`,...args)
     }
 }
 
@@ -22,87 +22,87 @@ function debug(...args) {
 class WebSocketReconnectable {
 
     constructor(url) {
-        this.url = url;
-        this.number = 0;                        // Message number
-        this.autoReconnectInterval = 5*1000;    // ms
+        this.url = url
+        this.number = 0                        // Message number
+        this.autoReconnectInterval = 5*1000    // ms
     }
 
     connect() {
-        this.websocket = new WebSocket(this.url);
-        let reconnectable = this;
+        this.websocket = new WebSocket(this.url)
+        let reconnectable = this
         this.websocket.onopen =
             function() { reconnectable.onopen()
-            };
+            }
         this.websocket.onmessage =
             function(data, flags) {
-                reconnectable.number ++;
-                reconnectable.onmessage(data, flags, this.number);
-            };
+                reconnectable.number ++
+                reconnectable.onmessage(data, flags, this.number)
+            }
         this.websocket.onclose =
             function(event) {
                 switch (event.code) {
                 case 1000:      // CLOSE_NORMAL
-                    debug("WebSocket: closed normally - stopping");
-                    break;
+                    debug("WebSocket: closed normally - stopping")
+                    break
                 default:
-                    debug("WebSocket: abnormal close - reconnecting");
-                    reconnectable.reconnect(event);
-                    break;
+                    debug("WebSocket: abnormal close - reconnecting")
+                    reconnectable.reconnect(event)
+                    break
                 }
-                reconnectable.onclose(event);
-            };
+                reconnectable.onclose(event)
+            }
         this.websocket.onerror =
             function(event) {
                 switch (event.code){
                 case 'ECONNREFUSED':
-                    reconnectable.reconnect(event);
-                    break;
+                    reconnectable.reconnect(event)
+                    break
                 default:
-                    reconnectable.onerror(event);
-                    break;
+                    reconnectable.onerror(event)
+                    break
                 }
-            };
+            }
     }
 
     send(data, option) {
         if (this.websocket == null) {
-            console.log("Trying to send on idle websocket - dropped", data);
-            return;
+            console.log("Trying to send on idle websocket - dropped", data)
+            return
         }
         try {
-            this.websocket.send(data, option);
+            this.websocket.send(data, option)
         } catch (event) {
-            console.log('OOPS', event);
-            this.websocket.emit('error', event);
+            console.log('OOPS', event)
+            this.websocket.emit('error', event)
         }
     }
 
     reconnect(event){
-        let reconnectable = this;
-        console.log(`websocket retry ${this.url} in ${this.autoReconnectInterval}ms`);
-        debug(event);
+        let reconnectable = this
+        console.log(`websocket retry ${this.url} in ${this.autoReconnectInterval}ms`)
+        debug(event)
         // would make sense to do something like this
-        // this.websocket.removeAllListeners();
+        // this.websocket.removeAllListeners()
         setTimeout(
             function(){
-                debug("WebSocketClient: reconnecting...");
-                reconnectable.connect();
+                debug("WebSocketClient: reconnecting...")
+                reconnectable.connect()
             },
-            reconnectable.autoReconnectInterval);
+            reconnectable.autoReconnectInterval)
     }
 
     // overwrite on instances to suit your needs
     onopen(event) {
-        console.log(`onopen`, event);
+        console.log(`onopen`, event)
     }
     onmessage(data, flags, number) {
-        console.log(`websocket: message`, data, flags, number);
+        console.log(`websocket: message`, data, flags, number)
     }
     onerror(event) {
-        console.log(`websocket: error`, event);
+        console.log(`websocket: error`, event)
     }
     onclose(event) {
-        console.log(`websocket: closed`, event);
+        console.log(`websocket: closed`, event)
     }
 }
 
@@ -112,10 +112,10 @@ class SidecarImplementation {
 
     // see liveleases for an example of callbacks_map
     constructor() {
-        this.url = sidecar_url;
-        this.callbacks_map = {};
-        this.categories = [];
-        this.reconnectable = null;
+        this.url = sidecar_url
+        this.callbacks_map = {}
+        this.categories = []
+        this.reconnectable = null
     }
 
     // <key> is typically a sidecar category, which
@@ -124,9 +124,9 @@ class SidecarImplementation {
     // happens to the connection
     register_callback(key, callback) {
         if (! (key in this.callbacks_map)) {
-            this.callbacks_map[key] = [];
+            this.callbacks_map[key] = []
         }
-        this.callbacks_map[key].push(callback);
+        this.callbacks_map[key].push(callback)
     }
 
     // same but from a key -> callback map
@@ -139,9 +139,9 @@ class SidecarImplementation {
     register_categories(categories) {
         for (let category of categories) {
             if (this.ready()) {
-                this.request(category);
+                this.request(category)
             } else if (! (category in this.categories)) {
-                this.categories.push(category);
+                this.categories.push(category)
             }
         }
     }
@@ -158,101 +158,101 @@ class SidecarImplementation {
 
     state() {
         try {
-            return this.reconnectable.websocket.readyState;
+            return this.reconnectable.websocket.readyState
         } catch(e) {
-            return WebSocket.CONNECTING;
+            return WebSocket.CONNECTING
         }
     }
 
     ready() {
-        return this.state() == WebSocket.OPEN ;
+        return this.state() == WebSocket.OPEN 
     }
 
     /*
      * in case of reconnections, we may receive events
      * relative to other connections, hence the
-     * if (event.target != websocket) return;
+     * if (event.target != websocket) return
      */
 
     open() {
         if (this.reconnectable != null) {
-            return;
+            return
         }
-        let reconnectable = new WebSocketReconnectable(this.url);
+        let reconnectable = new WebSocketReconnectable(this.url)
         reconnectable.onmessage =
-            ((event, flags, number) => this.handle_incoming_json(event.data, number));
-        reconnectable.onopen = ((event) => this.handle_connection_open(event));
-        reconnectable.onerror = ((event) => this.handle_connection_error(event));
-        reconnectable.onclose = ((event) => this.handle_status_changed(event));
-        reconnectable.connect(this.url);
-        this.reconnectable = reconnectable;
+            ((event, flags, number) => this.handle_incoming_json(event.data, number))
+        reconnectable.onopen = ((event) => this.handle_connection_open(event))
+        reconnectable.onerror = ((event) => this.handle_connection_error(event))
+        reconnectable.onclose = ((event) => this.handle_status_changed(event))
+        reconnectable.connect(this.url)
+        this.reconnectable = reconnectable
     }
 
     handle_status_changed() {
-        let status_changed_list = this.callbacks_map.status_changed;
+        let status_changed_list = this.callbacks_map.status_changed
         if (status_changed_list)
             for (let status_changed of status_changed_list)
-                status_changed(this.state());
+                status_changed(this.state())
     }
 
     handle_connection_open() {
-        console.log(`websocket opened: ${this.url}`);
+        console.log(`websocket opened: ${this.url}`)
         for (let category of this.categories) {
-            this.request(category);
+            this.request(category)
         }
-        this.handle_status_changed();
+        this.handle_status_changed()
     }
 
     handle_connection_error() {
-        console.log(`websocket error: ${this.url}`);
-        this.handle_status_changed();
+        console.log(`websocket error: ${this.url}`)
+        this.handle_status_changed()
     }
 
     handle_connection_close(event) {
-        console.log(`websocket close: ${this.url}`);
-        debug(`close event`, event);
-        this.handle_status_changed();
+        console.log(`websocket close: ${this.url}`)
+        debug(`close event`, event)
+        this.handle_status_changed()
     }
 
     handle_incoming_json(json, number) {
         try {
-            let umbrella = JSON.parse(json);
+            let umbrella = JSON.parse(json)
             debug(`sidecar [${number}]: incoming umbrella`, umbrella)
-            let category = umbrella.category;
-            let action = umbrella.action;
-            let infos = umbrella.message;
+            let category = umbrella.category
+            let action = umbrella.action
+            let infos = umbrella.message
             // xxx somehow we get noise in the mix
             if (json == "" || json == null) {
-                console.log(`sidecar json fragment is empty..`);
-                return;
+                console.log(`sidecar json fragment is empty..`)
+                return
             }
             if (action != "info") {
-                debug(`sidecar action ${action} on category ${category} ignored`);
-                return;
+                debug(`sidecar action ${action} on category ${category} ignored`)
+                return
             }
-            debug(`*** recv info about ${infos.length} ${category}`, infos);
-            let callbacks = this.callbacks_map[category];
+            debug(`*** recv info about ${infos.length} ${category}`, infos)
+            let callbacks = this.callbacks_map[category]
             if (callbacks == undefined) {
                 // ignore categories not present in callbacks
-                return;
+                return
             }
             for (let callback of callbacks)
-                callback(infos);
+                callback(infos)
         } catch(err) {
-            console.log(`*** Could not handle news - ignored JSON is ${json.length} chars long`);
-            console.log(json);
-            console.log(err.stack);
-            console.log("***");
+            console.log(`*** Could not handle news - ignored JSON is ${json.length} chars long`)
+            console.log(json)
+            console.log(err.stack)
+            console.log("***")
         }
     }
 
 }
 
-let sidecar_singleton = null;
+let sidecar_singleton = null
 
 export function Sidecar() {
     if (sidecar_singleton === null) {
-        sidecar_singleton = new SidecarImplementation();
+        sidecar_singleton = new SidecarImplementation()
     }
-    return sidecar_singleton;
+    return sidecar_singleton
 }
