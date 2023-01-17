@@ -21,10 +21,10 @@
 /* for eslint */
 /*global $ */
 
-$(function() {
-    $("a[tab]").map(function() {
-	let $this = $(this);
-	if ( `tab-${$this.attr('tab')}` == this.id)
-	    $this.addClass('current');
-    })
+$(function () {
+  $("a[tab]").map(function () {
+    let $this = $(this)
+    if (`tab-${$this.attr('tab')}` == this.id)
+      $this.addClass('current')
+  })
 })
