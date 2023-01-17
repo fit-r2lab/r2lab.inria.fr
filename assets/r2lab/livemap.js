@@ -25,7 +25,7 @@ export let livemap_options = {
     // pillars - derived from the walls
     pillar_radius : 16,
     // size for rendering nodes status
-    halfside_unavailable : 18,
+    radius_unavailable : 18,
     radius_ok : 18,
     radius_pinging : 12,
     radius_warming : 6,
@@ -90,7 +90,7 @@ function scale_options() {
     livemap_options.padding_x *= ratio
     livemap_options.padding_y *= ratio
     livemap_options.pillar_radius *= ratio,
-    livemap_options.halfside_unavailable *= ratio,
+    livemap_options.radius_unavailable *= ratio,
     livemap_options.radius_ok *= ratio,
     livemap_options.radius_pinging *= ratio,
     livemap_options.radius_warming *= ratio,
@@ -406,9 +406,9 @@ class MapNode {
 
     // the radius of the circle that we need to leave free
     overall_radius() {
-        let r = this.node_status_radius()
         if (! this.is_available())
-            return r
+            return livemap_options.radius_unavailable
+        let r = this.node_status_radius()
         // node is off, we need to keep space for the label
         if (r == 0)
             return 10
@@ -496,6 +496,7 @@ export class LiveMap {
         this.declare_image_filter('gnuradio-logo-icon-green', 'svg')
         this.declare_image_filter('gnuradio-logo-icon-gray', 'svg')
         this.declare_image_filter('gnuradio-logo-icon-red', 'svg')
+        this.declare_image_filter('forbidden', 'svg')
     }
 
     init() {
@@ -621,18 +622,18 @@ export class LiveMap {
 
 
         // how to display unavailable nodes
-        const halfside = livemap_options.halfside_unavailable
-        let unavailables = svg.selectAll('rect.unavailable')
+        const {radius_unavailable} = livemap_options
+        let unavailables = svg.selectAll('circle.unavailable')
             .data(this.nodes, obj => obj.id)
         unavailables
           .enter()
-            .append('rect')
+            .append('circle')
             .attr('class', 'unavailable')
             .attr('id', node => node.id)
-            .attr('x', node => node.x-halfside)
-            .attr('y', node => node.y-halfside)
-            .attr('width', 2*halfside)
-            .attr('height', 2*halfside)
+            .attr('cx', node => node.x)
+            .attr('cy', node => node.y)
+            .attr('r', radius_unavailable)
+            .attr('filter', () => `url(#forbidden)`)
             .on('click', node => node.clicked())
           .merge(unavailables)
             .transition()

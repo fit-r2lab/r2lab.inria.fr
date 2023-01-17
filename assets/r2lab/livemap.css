@@ -38,10 +38,8 @@ circle.node-status {
     opacity:      .8;
 }
 
-rect.unavailable {
-    fill:	  #f00;
-    opacity:	  .5;
-    stroke-width: 0;
+circle.unavailable {
+    opacity:	  .3;
 }
 
 text.node-label {
