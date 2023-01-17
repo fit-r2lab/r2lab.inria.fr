@@ -44,15 +44,6 @@ export class LiveTableNode extends LiveColumnsNode {
     ]
   }
 
-  // nodes worth being followed when clicking on the table banner
-  is_worth() {
-    return (this.cmc_on_off == 'on'
-      || this.usrp_on_off == 'on'
-      || this.control_ping == 'on'
-      || this.control_ssh == 'on')
-      && this.available != 'ko'
-  }
-
 
   // after the internal properties are updated from the incoming JSON message
   // we need to rewrite actual representation in cells_data
@@ -165,12 +156,16 @@ export class LiveTable extends LiveColumns {
       .attr('data-toggle', 'tooltip').attr('title', 'node #')
     header.append('th').html('<span class="far fa-check-square"></span>')
       .attr('data-toggle', 'tooltip').attr('title', 'availability')
+      .on('click', () => { d3.event.stopPropagation(); this.set_filter_mode('available')})
     header.append('th').html('<span class="fa fa-toggle-off"></span>')
       .attr('data-toggle', 'tooltip').attr('title', 'on/off')
+      .on('click', () => { d3.event.stopPropagation(); this.set_filter_mode('cmc_on_off')})
     header.append('th').html('<span class="fa fa-link"></span>')
       .attr('data-toggle', 'tooltip').attr('title', 'ping')
+      .on('click', () => { d3.event.stopPropagation(); this.set_filter_mode('control_ping')})
     header.append('th').html('<span class="far fa-circle"></span>')
       .attr('data-toggle', 'tooltip').attr('title', 'ssh')
+      .on('click', () => { d3.event.stopPropagation(); this.set_filter_mode('control_ssh')})
     header.append('th').html('<span class="fas fa-align-justify"></span>')
       .attr('data-toggle', 'tooltip').attr('title', 'data interface')
     header.append('th').html('<span class="fas fa-wifi"></span>')

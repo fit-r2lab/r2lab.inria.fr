@@ -27,11 +27,11 @@ class LiveHardwareNode extends LiveColumnsNode {
     ]
   }
 
-  // nodes worth being followed when clicking on the hardware banner
-  is_worth() {
-    return ((this.usrp_type || 'none') != 'none')
+  /* uing the generic behaviour for now
+  is_filtered(mode) {
   }
-
+  */
+  
   // after the internal properties are updated from the incoming JSON message
   // we need to rewrite actual representation in cells_data
   // that will contain a list of ( html_text, class )

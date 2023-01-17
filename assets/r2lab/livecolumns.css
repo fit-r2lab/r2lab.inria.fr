@@ -1,9 +1,9 @@
 /* alternate colors when headers are clicked */
-.livecolumns_header tr.all {
+.livecolumns_header tr.unfiltered {
     background-color: rgba(204, 199, 205, 0.63);
 }
 
-.livecolumns_header tr:not(.all) {
+.livecolumns_header tr:not(.unfiltered) {
     background-color: rgba(0, 200, 73, 0.26);
 }
 

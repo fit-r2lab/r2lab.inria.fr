@@ -24,6 +24,7 @@ export let livecolumns_options = {
   nb_nodes: 37,
 
   debug: false,
+//  debug: true,
 }
 
 function livecolumns_debug(...args) {
@@ -36,8 +37,8 @@ function livecolumns_debug(...args) {
 // quick'n dirty helper to create <span> tags inside the <td>
 // d3 should allow us to do that more nicely but I could not figure it out yet
 export function span_html(text, cls) {
-  let tag = cls ? ` class='${cls}'` : ""
-  return `<span${tag}>${text}</span>`
+  let attr = cls ? ` class='${cls}'` : ""
+  return `<span${attr}>${text}</span>`
 }
 
 //////////////////////////////
@@ -125,16 +126,40 @@ export class LiveColumnsNode {
   }
 
 
-  // used to find out which entries are worth being kept
-  // when clicking the header area
-  is_worth() {
-    return true
+  // used to define which entries are worth being kept
+  // when changing the filter mode - like clicking the header area
+  // may be redefined on subclasses if needed
+  is_filtered(filter) {
+    // this is for filtering on one specific column
+    if (filter in this) {
+      const value = this[filter]
+      return (value.search('on') >= 0) || (value.search('ok') >= 0)
+    }
+    // otherwise, the hard-wired filters are
+    switch (filter) {
+      // show all
+      case 'all':
+        return 'true'
+      // another interesting filter is to
+      // show the ones that are ON and not marked unavailable
+      case 'alive':
+        return (this.cmc_on_off == 'on'
+          || this.usrp_on_off == 'on'
+          || this.control_ping == 'on'
+          || this.control_ssh == 'on')
+          && this.available != 'ko'
+      // experimental - the idea is to start from nothing
+      // and add nodes one by one from the map
+      default:
+        return false
+    }
   }
 
 
   set_display(display) {
     let selector = `tbody.livecolumns_body #row${this.id}`
-    display ? $(selector).show() : $(selector).hide()
+    for (let element of document.querySelectorAll(selector))
+      element.style.display = display ? "table-row" : "none"
   }
 
 
@@ -147,8 +172,11 @@ export class LiveColumns {
 
   constructor() {
     this.nodes = []
-    /* mode is either 'all' or 'worth' */
-    this.view_mode = 'all'
+    /* filter_mode can also be
+       'alive' (anythong is turned on)
+       or the name of a column
+    */
+    this.filter_mode = 'all'
   }
 
 
@@ -172,9 +200,10 @@ export class LiveColumns {
     containers.append('tfoot').attr('class', 'livecolumns_header')
 
     let self = this
-    let headers = d3.selectAll('.livecolumns_header').append('tr')
-      .attr('class', 'all')
-      .on('click', function () { self.toggle_view_mode() })
+    let headers = d3.selectAll('.livecolumns_header')
+      .append('tr')
+      .attr('class', 'unfiltered')
+      .on('click', () => self.toggle_filter_mode())
 
     return headers
   }
@@ -185,18 +214,27 @@ export class LiveColumns {
   }
 
 
-  toggle_view_mode() {
-    livecolumns_debug(`display_nodes ${this.view_mode}`)
-    this.view_mode = (this.view_mode == 'all') ? 'worth' : 'all'
-    this.display_nodes(this.view_mode)
-    $(".livecolumns_header tr").toggleClass('all')
+  set_filter_mode(filter_mode) {
+    this.filter_mode = filter_mode
+    this.display_nodes()
+    // show that the display is being filtered
+    for (let element of document.querySelectorAll(".livecolumns_header tr")) {
+      if (filter_mode == 'all')
+        element.classList.add("unfiltered")
+      else
+        element.classList.remove("unfiltered")
+    }
   }
 
 
-  display_nodes(mode) {
+  toggle_filter_mode() {
+    this.set_filter_mode((this.filter_mode == 'all') ? 'alive' : 'all')
+  }
+
+
+  display_nodes() {
     for (let node of this.nodes) {
-      let display = (mode == 'all') ? true : (node.is_worth())
-      node.set_display(display)
+      node.set_display(node.is_filtered(this.filter_mode))
     }
   }
 
