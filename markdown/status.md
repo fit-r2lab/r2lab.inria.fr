@@ -44,13 +44,14 @@ Object.assign(livemap_options, {
   * a slightly larger and green-ish bullet means the node answers to ping but cannot be
   reached through ssh yet (usually this means an image is being
   loaded).
-* Finally, if a node is hidden behind a large red circle, it means it
+* Finally, if a node is hidden behind a large forbidden sign like <img height=40px src=assets/img/forbidden.svg>, it means it
   is out of order, and altogether unavailable.
 
 In addition, you will find the following symbols close to some nodes
 
-* <img src="/assets/img/gnuradio-logo-icon-red.svg" height=20px> when the node has a USRP device, that is turned OFF
-* <img src="/assets/img/gnuradio-logo-icon-green.svg" height=20px> when the node has a USRP device, that is turned ON
+* <img src="/assets/img/gnuradio-logo-icon-gray.svg" height=25px> when the node has a USRP device, that is turned OFF
+* <img src="/assets/img/gnuradio-logo-icon-green.svg" height=25px> when the node has a USRP device, that is turned ON
+* <img src="/assets/img/gnuradio-logo-icon-red.svg" height=25px> when the node's USRP device is in unknown state
 
 ##### Phone
 * Phones in the testbed appear as either
@@ -94,8 +95,10 @@ Object.assign(livetable_options, {
 
 Also please note that
 
- * Clicking anywhere in the header will focus on the nodes that are currently up; a second click returns to full mode.
+ * Clicking anywhere in the header will focus on the nodes that are currently up; a second click returns to full mode
+   * except in some column headers (like availability or on/off); clicking there will filter on nodes that are available, or turned on, etc..
  * Clicking a node badge will take it off the list
+ * Clicking a node in the map will take it back into the list, or off the list if it was present
 
 ***
 
