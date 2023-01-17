@@ -440,7 +440,18 @@ class MapNode {
     }
 
     clicked() {
-        console.log(`in clicked ${this.id}`)
+        console.log(`clicked on ${this.id}`)
+        // toggle this node in the live column if present
+        const row = `row${this.id}`
+        document.querySelectorAll(`.livecolumns_body>#${row}`).forEach(
+            (elt) => {
+                if (elt.style.display === "none") {
+                    elt.style.display = "table-row";
+                } else {
+                    elt.style.display = "none";
+                }
+            }
+        )
     }
 
     tooltip() {
