@@ -3,12 +3,12 @@
 /* for eslint */
 /*global $*/
 
-"use strict";
+"use strict"
 
-import {load_css} from "/assets/r2lab/load-css.js";
-load_css("/assets/r2lab/livetable.css");
+import {load_css} from "/assets/r2lab/load-css.js"
+load_css("/assets/r2lab/livetable.css")
 
-import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' ;
+import {LiveColumnsNode, LiveColumns, livecolumns_options, span_html} from '/assets/r2lab/livecolumns.js' 
 
 ////////// configurable
 export let livetable_options = {
@@ -26,7 +26,7 @@ export let livetable_options = {
 export class LiveTableNode extends LiveColumnsNode {
 
     constructor(id) {
-        super(id);
+        super(id)
 
         this.cells_data = [
             // each cell data can be either a couple (html + class) or a triple (add a tooltip)
@@ -41,7 +41,7 @@ export class LiveTableNode extends LiveColumnsNode {
             undefined,                              // metal_info
             undefined,                              // docker_info
             [ span_html(id, 'badge pointer'), '' ], // id
-        ];
+        ]
     }
 
     // nodes worth being followed when clicking on the table banner
@@ -50,7 +50,7 @@ export class LiveTableNode extends LiveColumnsNode {
                 || this.usrp_on_off == 'on'
                 || this.control_ping == 'on'
                 || this.control_ssh == 'on' )
-                && this.available != 'ko';
+                && this.available != 'ko'
     }
 
 
@@ -61,9 +61,9 @@ export class LiveTableNode extends LiveColumnsNode {
     compute_cells_data () {
         let col = 1
         // available
-        this.cells_data[col++] = this.cell_available();
+        this.cells_data[col++] = this.cell_available()
         // on/off
-        this.cells_data[col++] = this.cell_on_off();
+        this.cells_data[col++] = this.cell_on_off()
         // ping
         this.cells_data[col++] = this.cell_ping()
         // ssh
@@ -71,7 +71,7 @@ export class LiveTableNode extends LiveColumnsNode {
         // data-interface
         this.cells_data[col++] = this.cell_data_interface()
         // usrp
-        this.cells_data[col++] = this.cell_sdr(true);
+        this.cells_data[col++] = this.cell_sdr(true)
         // image name, OS, uname
         this.cells_data[col++] = this.cell_metal_info()
         // docker-ready, container running, image name...
@@ -105,17 +105,17 @@ export class LiveTableNode extends LiveColumnsNode {
             return `<span data-toggle="tooltip" data-html="true" title="${title}">${main}</span>`
         }
         if (this.os_release == undefined)
-            return [ "n/a", klass ];
+            return [ "n/a", klass ]
         if (this.os_release.startsWith('fedora'))
-            return [ tooltip(`${livetable_options.fedora_badge} ${this.image_radical}`), klass ];
+            return [ tooltip(`${livetable_options.fedora_badge} ${this.image_radical}`), klass ]
         else if (this.os_release.startsWith('centos'))
-            return [ tooltip(`${livetable_options.centos_badge} ${this.image_radical}`), klass ];
+            return [ tooltip(`${livetable_options.centos_badge} ${this.image_radical}`), klass ]
         else if (this.os_release.startsWith('ubuntu'))
-            return [ tooltip(`${livetable_options.ubuntu_badge} ${this.image_radical}`), klass ];
+            return [ tooltip(`${livetable_options.ubuntu_badge} ${this.image_radical}`), klass ]
         else if (this.os_release == 'other')
-            return [ tooltip(`${livetable_options.other_badge} (ssh OK)`),  klass ];
+            return [ tooltip(`${livetable_options.other_badge} (ssh OK)`),  klass ]
         else
-            return [ 'n/a', klass ];
+            return [ 'n/a', klass ]
       }
 
 
@@ -155,8 +155,8 @@ export class LiveTableNode extends LiveColumnsNode {
 export class LiveTable extends LiveColumns{
 
     constructor(domid) {
-        super();
-        this.domid = domid;
+        super()
+        this.domid = domid
     }
 
 
@@ -187,7 +187,7 @@ export class LiveTable extends LiveColumns{
 
     init_nodes() {
         for (let i=0; i < livecolumns_options.nb_nodes; i++) {
-            this.nodes[i] = new LiveTableNode(i+1);
+            this.nodes[i] = new LiveTableNode(i+1)
         }
     }
 }
@@ -195,6 +195,6 @@ export class LiveTable extends LiveColumns{
 ////////// autoload
 $(function() {
     // name it for debugging from the console
-    let livetable = new LiveTable("livetable_container");
-    livetable.init();
+    let livetable = new LiveTable("livetable_container")
+    livetable.init()
 })
