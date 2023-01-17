@@ -1,12 +1,12 @@
 /* for eslint */
 /*global $ d3 */
 
-"use strict";
+"use strict"
 
-import {load_css} from "/assets/r2lab/load-css.js";
-load_css("/assets/r2lab/livemap.css");
+import {load_css} from "/assets/r2lab/load-css.js"
+load_css("/assets/r2lab/livemap.css")
 
-import {Sidecar} from "/assets/r2lab/sidecar.js";
+import {Sidecar} from "/assets/r2lab/sidecar.js"
 
 // re-configurable from the markdown
 export let livemap_options = {
@@ -35,7 +35,7 @@ export let livemap_options = {
     phone_size : 20,
 
     // usrp thingy
-    // full size for the usrp-icon; this is arbitrary but has the right width/height ratio
+    // full size for the usrp-icon - this is arbitrary but has the right width/height ratio
     usrp_width : 15,
     usrp_height : 25,
     // on and off units get rendered each at their size
@@ -74,21 +74,21 @@ export let livemap_options = {
 
 function livemap_debug(...args) {
     if (livemap_options.debug)
-        console.log(`${new Date()}`,...args);
+        console.log(`${new Date()}`,...args)
 }
 
 
 function scale_options() {
     // do it just once
     if (livemap_options._scaled)
-        return;
-    let ratio = livemap_options.ratio;
-    livemap_options.margin_x *= ratio;
-    livemap_options.margin_y *= ratio;
-    livemap_options.space_x *= ratio;
-    livemap_options.space_y *= ratio;
-    livemap_options.padding_x *= ratio;
-    livemap_options.padding_y *= ratio;
+        return
+    const ratio = livemap_options.ratio
+    livemap_options.margin_x *= ratio
+    livemap_options.margin_y *= ratio
+    livemap_options.space_x *= ratio
+    livemap_options.space_y *= ratio
+    livemap_options.padding_x *= ratio
+    livemap_options.padding_y *= ratio
     livemap_options.pillar_radius *= ratio,
     livemap_options.halfside_unavailable *= ratio,
     livemap_options.radius_ok *= ratio,
@@ -99,7 +99,7 @@ function scale_options() {
     livemap_options.font_size *= ratio,
     livemap_options.phone_size  *= ratio,
 
-    livemap_options._scaled = true;
+    livemap_options._scaled = true
 }
 
 ////////// status details
@@ -186,7 +186,7 @@ let livemap_geometry = {
         return [ i * livemap_options.space_x
                + livemap_options.margin_x + livemap_options.padding_x,
                 (this.steps_y-j) * livemap_options.space_y
-               + livemap_options.margin_y + livemap_options.padding_y];
+               + livemap_options.margin_y + livemap_options.padding_y]
     },
 
     //////////////////////////////
@@ -198,19 +198,19 @@ let livemap_geometry = {
     line_y : y => `l 0 ${-y} `,
 
     walls_path : function() {
-        let path="";
-        path += `M ${this.room_x()+livemap_options.margin_x} ${this.room_y()+livemap_options.margin_y} `;
-        path += this.line_x(-(7*livemap_options.space_x+2*livemap_options.padding_x));
-        path += this.line_y(3*livemap_options.space_y);
-        path += this.line_x(-1*livemap_options.space_x);
-        path += this.line_y(livemap_options.space_y+2*livemap_options.padding_y);
-        path += this.line_x(2*livemap_options.space_x+2*livemap_options.padding_x);
-        path += this.line_y(-livemap_options.space_y);
-        path += this.line_x(4*livemap_options.space_x-2*livemap_options.padding_x);
-        path += this.line_y(livemap_options.space_y);
-        path += this.line_x(2*livemap_options.space_x+2*livemap_options.padding_x);
-        path += "Z";
-        return path;
+        let path=""
+        path += `M ${this.room_x()+livemap_options.margin_x} ${this.room_y()+livemap_options.margin_y} `
+        path += this.line_x(-(7*livemap_options.space_x+2*livemap_options.padding_x))
+        path += this.line_y(3*livemap_options.space_y)
+        path += this.line_x(-1*livemap_options.space_x)
+        path += this.line_y(livemap_options.space_y+2*livemap_options.padding_y)
+        path += this.line_x(2*livemap_options.space_x+2*livemap_options.padding_x)
+        path += this.line_y(-livemap_options.space_y)
+        path += this.line_x(4*livemap_options.space_x-2*livemap_options.padding_x)
+        path += this.line_y(livemap_options.space_y)
+        path += this.line_x(2*livemap_options.space_x+2*livemap_options.padding_x)
+        path += "Z"
+        return path
     },
 
 }
@@ -221,10 +221,10 @@ let livemap_geometry = {
 function locate_by_id (list_objs, id) {
     for (let obj of list_objs) {
         if (obj.id == id) {
-            return obj;
+            return obj
         }
     }
-    console.log(`ERROR: livemap: locate_by_id: id= ${id} was not found`);
+    console.log(`ERROR: livemap: locate_by_id: id= ${id} was not found`)
 }
 
 
@@ -232,35 +232,35 @@ function locate_by_id (list_objs, id) {
 // simply copy the fieds present in this dict in the local object
 // for further usage in animate_nodes_changes
 function update_obj_from_info(obj, obj_info){
-    let modified = false;
+    let modified = false
     for (let prop in obj_info) {
         if (obj_info[prop] != obj[prop]) {
-            obj[prop] = obj_info[prop];
-            modified = true;
+            obj[prop] = obj_info[prop]
+            modified = true
         }
     }
-    return modified;
+    return modified
 }
 
 //////////////////////////////
 class MapPhone {
 
     constructor(phone_spec) {
-        this.id = phone_spec['id'];
-        this.i = phone_spec['i'];
-        this.j = phone_spec['j'];
-        let coords = livemap_geometry.grid_to_canvas(this.i, this.j);
-        this.x = coords[0];
-        this.y = coords[1];
+        this.id = phone_spec['id']
+        this.i = phone_spec['i']
+        this.j = phone_spec['j']
+        let [x, y] = livemap_geometry.grid_to_canvas(this.i, this.j)
+        this.x = x
+        this.y = y
     }
 
     text() {
         if (this.airplane_mode == 'on')
-            return livemap_options.icon_plane_content;
+            return livemap_options.icon_plane_content
         else if (this.airplane_mode == 'off')
-            return livemap_options.icon_phone_content;
+            return livemap_options.icon_phone_content
         else
-            return livemap_options.icon_question_content;
+            return livemap_options.icon_question_content
     }
 
 }
@@ -271,17 +271,17 @@ class MapPhone {
 class MapNode {
 
     constructor (node_spec) {
-        this.id = node_spec['id'];
+        this.id = node_spec['id']
         // i and j refer to a logical grid
-        this.i = node_spec['i'];
-        this.j = node_spec['j'];
+        this.i = node_spec['i']
+        this.j = node_spec['j']
         // compute actual coordinates
-        let coords = livemap_geometry.grid_to_canvas(this.i, this.j);
-        this.x = coords[0];
-        this.y = coords[1];
+        let [x, y] = livemap_geometry.grid_to_canvas(this.i, this.j)
+        this.x = x
+        this.y = y
 
         if (livemap_options.colormap) {
-            this.group_color = livemap_options.colormap.color(this.id);
+            this.group_color = livemap_options.colormap.color(this.id)
         }
     }
 
@@ -298,20 +298,20 @@ class MapNode {
     // shift label south-east a little
     // we cannot just add a constant to the radius
     text_offset(radius) {
-        return Math.max(5, 12-radius/2);
+        return Math.max(5, 12-radius/2)
     }
     text_x() {
-        if ( ! this.is_available()) return this.x;
-        let radius = this.node_status_radius();
-        let delta = this.text_offset(radius);
-        return this.x + ((radius == 0) ? 0 : (radius + delta));
+        if ( ! this.is_available()) return this.x
+        const radius = this.node_status_radius()
+        const delta = this.text_offset(radius)
+        return this.x + ((radius == 0) ? 0 : (radius + delta))
     }
 
     text_y() {
-        if ( ! this.is_available()) return this.y;
-        let radius = this.node_status_radius();
-        let delta = this.text_offset(radius);
-        return this.y + ((radius == 0) ? 0 : (radius + delta));
+        if ( ! this.is_available()) return this.y
+        const radius = this.node_status_radius()
+        const delta = this.text_offset(radius)
+        return this.y + ((radius == 0) ? 0 : (radius + delta))
     }
 
 
@@ -325,128 +325,129 @@ class MapNode {
     node_status_radius() {
         // completely off
         if (this.cmc_on_off != 'on')
-            return livemap_options.radius_ko;
+            return livemap_options.radius_ko
         // does not even ping
         else if (this.control_ping != 'on')
-            return livemap_options.radius_warming;
+            return livemap_options.radius_warming
         // pings but cannot get ssh
         else if (this.control_ssh != 'on')
-            return livemap_options.radius_pinging;
+            return livemap_options.radius_pinging
         // ssh is answering
         else
-            return livemap_options.radius_ok;
+            return livemap_options.radius_ok
     }
 
     // right now this is visible only for intermediate radius
     // let's show some lightgreen for the 2/3 radius (ssh is up)
     text_color() {
-        return '#555';
+        return '#555'
     }
 
     // luckily this is not rendered when a filter is at work
     node_status_color() {
-        let radius = this.node_status_radius();
+        let radius = this.node_status_radius()
         return (radius == livemap_options.radius_pinging) ? d3.rgb('#71edb0').darker() :
             (radius == livemap_options.radius_warming) ? d3.rgb('#f7d8dd').darker() :
-            '#bbb';
+            '#bbb'
     }
 
     // showing an image (or not, if filter is undefined)
     // depending on the OS
     node_status_filter() {
-        let filter_name;
+        let filter_name
         // only set a filter with full-fledged nodes
         if (! this.fully_booted())
-            return undefined;
+            return undefined
         // remember infos might be incomplete
         if (this.os_release == undefined)
-            return undefined;
+            return undefined
         if (this.os_release.indexOf('other') >= 0)
-            filter_name = 'other-logo';
+            filter_name = 'other-logo'
         else if (this.os_release.indexOf('fedora') >= 0)
-            filter_name = 'fedora-logo';
+            filter_name = 'fedora-logo'
         else if (this.os_release.indexOf('centos') >= 0)
-            filter_name = 'centos-logo';
+            filter_name = 'centos-logo'
         else if (this.os_release.indexOf('ubuntu') >= 0)
-            filter_name = 'ubuntu-logo';
+            filter_name = 'ubuntu-logo'
         else
-            return undefined;
-        return `url(#${filter_name})`;
+            return undefined
+        return `url(#${filter_name})`
     }
 
     // a missing 'available' means the node is OK
     unavailable_display() {
         if ((this.available == undefined)
             || (this.available == "ok"))
-            return "none";
+            return "none"
         else
-            return "on";
+            return "on"
     }
 
     ////////// show an icon only if usrp_type is defined
     has_usrp() {
-        return (this.usrp_type || 'none') != 'none';
+        return (this.usrp_type || 'none') != 'none'
     }
     usrp_status_display() {
-        return (this.has_usrp()) ? "on" : "none";
+        return (this.has_usrp()) ? "on" : "none"
     }
 
     usrp_status_filter() {
-        let filter_name;
+        let filter_name
         if ( ! this.has_usrp() )
-            return undefined;
+            return undefined
         else if (this.usrp_on_off == 'on')
             filter_name = 'gnuradio-logo-icon-green'
         else if (this.usrp_on_off == 'off')
             filter_name = 'gnuradio-logo-icon-gray'
         else
             filter_name = 'gnuradio-logo-icon-red'
-        return `url(#${filter_name})`;
+        return `url(#${filter_name})`
     }
 
     // the radius of the circle that we need to leave free
     overall_radius() {
-        let r = this.node_status_radius();
+        let r = this.node_status_radius()
         if (! this.is_available())
-            return r;
+            return r
         // node is off, we need to keep space for the label
         if (r == 0)
-            return 10;
-        return r;
+            return 10
+        return r
     }
 
     // 0.7 stands for sin(pi/2)
     usrp_offset_x() {
-        let {usrp_delta_x} = livemap_options;
-        return this.overall_radius() * 0.7 + usrp_delta_x;
+        let {usrp_delta_x} = livemap_options
+        return this.overall_radius() * 0.7 + usrp_delta_x
     }
     usrp_offset_y() {
-        let {usrp_delta_y} = livemap_options;
-        return this.overall_radius() * 0.7 + usrp_delta_y;
+        let {usrp_delta_y} = livemap_options
+        return this.overall_radius() * 0.7 + usrp_delta_y
     }
     usrp_x() {
-        return this.x + this.usrp_offset_x();
+        return this.x + this.usrp_offset_x()
     }
     usrp_y() {
-        return this.y - (this.usrp_offset_y() + this.usrp_h());
+        return this.y - (this.usrp_offset_y() + this.usrp_h())
     }
     usrp_w() {
-        let {usrp_width, usrp_on_ratio, usrp_off_ratio} = livemap_options;
-        return usrp_width * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio);
+        let {usrp_width, usrp_on_ratio, usrp_off_ratio} = livemap_options
+        return usrp_width * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio)
     }
     usrp_h() {
-        let {usrp_height, usrp_on_ratio, usrp_off_ratio} = livemap_options;
-        return usrp_height * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio); }
+        let {usrp_height, usrp_on_ratio, usrp_off_ratio} = livemap_options
+        return usrp_height * (this.usrp_on_off == "on" ? usrp_on_ratio : usrp_off_ratio)
+    }
 
     clicked() {
-        console.log(`in clicked ${this.id}`);
+        console.log(`in clicked ${this.id}`)
     }
 
     tooltip() {
         if (this.has_usrp())
-            return `${this.id} : SDR is ${this.usrp_type}`;
+            return `${this.id} : SDR is ${this.usrp_type}`
         else
-            return `${this.id} - no SDR`;
+            return `${this.id} - no SDR`
     }
 
 }
@@ -455,79 +456,76 @@ class MapNode {
 export class LiveMap {
 
     constructor() {
-        let canvas_x = livemap_geometry.room_x() + 2 * livemap_options.margin_x;
-        let canvas_y = livemap_geometry.room_y() + 2 * livemap_options.margin_y;
+        const canvas_x = livemap_geometry.room_x() + 2 * livemap_options.margin_x
+        const canvas_y = livemap_geometry.room_y() + 2 * livemap_options.margin_y
         let svg =
             d3.select('div#livemap_container')
             .append('svg')
             .attr('width', canvas_x)
             .attr('height', canvas_y)
-        ;
+
         // we insert a g to flip the walls upside down
         // too lazy to rewrite this one
         let g =
             svg.append('g')
             .attr('id', 'walls_upside_down')
             .attr('transform', `translate(${canvas_x},${canvas_y}) rotate(180)`)
-        ;
 
         // walls
         g.append('path')
             .attr('class', 'walls')
             .attr('d', livemap_geometry.walls_path())
                 //.attr('id', 'walls')
-        ;
 
-        let {pillar_radius} = livemap_options;
+        const {pillar_radius} = livemap_options
 
         livemap_geometry.pillar_specs.forEach(function(spec) {
-            let coords = livemap_geometry.grid_to_canvas(spec.i, spec.j);
+            let [x ,y] = livemap_geometry.grid_to_canvas(spec.i, spec.j)
             svg.append('rect')
                 .attr('id', `pillar-${spec.id}`)
                 .attr('class', 'pillar walls')
-                .attr('x', coords[0] - pillar_radius)
-                .attr('y', coords[1] - pillar_radius)
+                .attr('x', x - pillar_radius)
+                .attr('y', y - pillar_radius)
                 .attr('width', 2*pillar_radius)
                 .attr('height', 2*pillar_radius)
-            ;
-        });
-        this.declare_image_filter('fedora-logo', 'png');
-        this.declare_image_filter('centos-logo', 'png');
-        this.declare_image_filter('ubuntu-logo', 'png');
-        this.declare_image_filter('other-logo', 'svg');
-        this.declare_image_filter('gnuradio-logo-icon-green', 'svg');
-        this.declare_image_filter('gnuradio-logo-icon-gray', 'svg');
-        this.declare_image_filter('gnuradio-logo-icon-red', 'svg');
+        })
+        this.declare_image_filter('fedora-logo', 'png')
+        this.declare_image_filter('centos-logo', 'png')
+        this.declare_image_filter('ubuntu-logo', 'png')
+        this.declare_image_filter('other-logo', 'svg')
+        this.declare_image_filter('gnuradio-logo-icon-green', 'svg')
+        this.declare_image_filter('gnuradio-logo-icon-gray', 'svg')
+        this.declare_image_filter('gnuradio-logo-icon-red', 'svg')
     }
 
     init() {
-        this.init_nodes();
-        this.init_phones();
-        this.init_sidecar();
+        this.init_nodes()
+        this.init_phones()
+        this.init_sidecar()
     }
 
     //////////////////// nodes
     init_nodes() {
-        this.nodes = [];
+        this.nodes = []
         for (let mapnode_spec of livemap_geometry.mapnode_specs) {
-            this.nodes.push(new MapNode(mapnode_spec));
+            this.nodes.push(new MapNode(mapnode_spec))
         }
     }
 
     //////////////////// phones
     init_phones () {
-        this.phones = [];
+        this.phones = []
         for (let mapphone_spec of livemap_geometry.mapphone_specs) {
-            this.phones.push(new MapPhone(mapphone_spec));
+            this.phones.push(new MapPhone(mapphone_spec))
         }
     }
 
     //////////////////// the nodes graphical layout
     animate_nodes_changes () {
-        let svg = d3.select('div#livemap_container svg');
-        let animation_duration = 750;
+        let svg = d3.select('div#livemap_container svg')
+        let animation_duration = 750
         let circles = svg.selectAll('circle.node-status')
-            .data(this.nodes, obj => obj.id);
+            .data(this.nodes, obj => obj.id)
         // circles show the overall status of the node
         circles
           .enter()
@@ -548,15 +546,14 @@ export class LiveMap {
             .attr('r', node => node.node_status_radius())
             .attr('fill', node => node.node_status_color())
             .attr('filter', node => node.node_status_filter())
-        ;
 
         if (livemap_options.colormap) {
-            let size_x = livemap_options.space_x * .72;
-            let size_y = livemap_options.space_y * .64;
-            let offset_x = size_x / 2;
-            let offset_y = size_y / 2;
+            let size_x = livemap_options.space_x * .72
+            let size_y = livemap_options.space_y * .64
+            let offset_x = size_x / 2
+            let offset_y = size_y / 2
             let group_squares = svg.selectAll('rect.node-group')
-                        .data(this.nodes, obj => obj.id);
+                        .data(this.nodes, obj => obj.id)
             group_squares
               .enter()
                 .append('rect')
@@ -566,12 +563,11 @@ export class LiveMap {
                 .attr('width', size_x)
                 .attr('height', size_y)
                 .attr('style', node => `fill:${node.group_color}`)
-            ;
         }
 
         // labels show the nodes numbers
         let labels = svg.selectAll('text')
-            .data(this.nodes, obj => obj.id);
+            .data(this.nodes, obj => obj.id)
 
         labels
           .enter()
@@ -594,12 +590,11 @@ export class LiveMap {
             .attr('fill', node => node.text_color())
             .attr('x', node => node.text_x())
             .attr('y', node => node.text_y())
-        ;
 
         // these rectangles are placeholders for the various icons
         // that are meant to show usrp status
         let usrp_rects = svg.selectAll('rect.usrp-status')
-            .data(this.nodes, obj => obj.id);
+            .data(this.nodes, obj => obj.id)
         usrp_rects
           .enter()
             .append('rect')
@@ -623,13 +618,12 @@ export class LiveMap {
             .attr('y', node => node.usrp_y())
             .attr('width', node => node.usrp_w())
             .attr('height', node => node.usrp_h())
-        ;
 
 
         // how to display unavailable nodes
         const halfside = livemap_options.halfside_unavailable
         let unavailables = svg.selectAll('rect.unavailable')
-            .data(this.nodes, obj => obj.id);
+            .data(this.nodes, obj => obj.id)
         unavailables
           .enter()
             .append('rect')
@@ -644,7 +638,6 @@ export class LiveMap {
             .transition()
             .duration(animation_duration)
             .attr('display', node => node.unavailable_display())
-        ;
 
     }
 
@@ -653,33 +646,33 @@ export class LiveMap {
     declare_image_filter (id_filename, suffix) {
         // create defs element if not yet present
         if ( ! $('#livemap_container svg defs').length) {
-            d3.select('#livemap_container svg').append('defs');
+            d3.select('#livemap_container svg').append('defs')
         }
         // create filter in there
-        let defs = d3.select("#livemap_container svg defs");
+        let defs = d3.select("#livemap_container svg defs")
         let filter = defs.append("filter")
             .attr('id', id_filename)
             .attr('x', '0%')
             .attr('y', '0%')
             .attr('width', '100%')
             .attr('height', '100%')
-        ;
+
         filter.append("feImage")
-            .attr("xlink:href", `../assets/img/${id_filename}.${suffix}`);
+            .attr("xlink:href", `../assets/img/${id_filename}.${suffix}`)
     }
 
 
     //////////////////// phones graphical layout
     animate_phones_changes() {
-        livemap_debug("in animate_phones_changes");
-        let svg = d3.select('div#livemap_container svg');
-        let animation_duration = 750;
+        livemap_debug("in animate_phones_changes")
+        let svg = d3.select('div#livemap_container svg')
+        let animation_duration = 750
 
-        let w = livemap_options.phone_size;
-        let h = w;
+        let w = livemap_options.phone_size
+        let h = w
 
         let squares = svg.selectAll('rect.phone-status')
-            .data(this.phones, obj => obj.id);
+            .data(this.phones, obj => obj.id)
         // simple square repr. for now, with an airplane in the middle
         squares
           .enter()
@@ -690,10 +683,9 @@ export class LiveMap {
             .attr('y', phone => phone.y - h/2)
             .attr('width', w)
             .attr('height', h)
-        ;
 
         let texts = svg.selectAll('text.phone-status')
-            .data(this.phones, obj => obj.id);
+            .data(this.phones, obj => obj.id)
 
         texts
           .enter()
@@ -710,7 +702,6 @@ export class LiveMap {
             .transition()
             .duration(animation_duration)
             .text(phone => phone.text())
-        ;
 
     }
 
@@ -718,35 +709,42 @@ export class LiveMap {
 
     // the sidecar area
     animate_sidecar_status_changes () {
-        livemap_debug("animate_sidecar_status_changes");
-        let svg = d3.select('div#livemap_container svg');
-        let status = this.sidecar.state();
-        let details = livemap_geometry.sidecar_details;
-        let [x, y] = livemap_geometry.grid_to_canvas(
-            details.i, details.j);
-        let radius = details.radius;
+        livemap_debug("animate_sidecar_status_changes")
+        let svg = d3.select('div#livemap_container svg')
+        let status = this.sidecar.state()
+        let details = livemap_geometry.sidecar_details
+        let [x, y] = livemap_geometry.grid_to_canvas(details.i, details.j)
+        let radius = details.radius
 
-        let color;
-        let text = livemap_options.icon_sidecar_ko;
+        let color
+        let text = livemap_options.icon_sidecar_ko
         let tooltip = `<span>data is not updated<br/>sidecar is down`
-                    + `<br/>${sidecar_url}</span>`;
+                    + `<br/>${sidecar_url}</span>`
         switch (status) {
-            case undefined: color='gray'; break;
-            case WebSocket.CONNECTING: color='orange'; break;
+            case undefined:
+                color='gray'
+                break
+            case WebSocket.CONNECTING:
+                color='orange'
+                break
             case WebSocket.OPEN:
-                color='green'; text = livemap_options.icon_sidecar_ok;
+                color='green'
+                text = livemap_options.icon_sidecar_ok
                 tooltip = `<span>data from sidecar is live<br/>connection is OK`
-                        + `<br/>${sidecar_url}</span>`; break;
+                        + `<br/>${sidecar_url}</span>`
+                break
             case WebSocket.CLOSING:
-            case WebSocket.CLOSED:     color='red'; break;
+            case WebSocket.CLOSED:
+                color='red'
+                break
         }
-        let animation_duration = 750;
+        const animation_duration = 750
 
         let texts = svg.selectAll('text.sidecar-status')
-            .data([status]);
+            .data([status])
 
-        let h = radius*2.;
-        let w = h;
+        const h = radius*2.
+        const w = h
         texts
           .enter()
             .append('text')
@@ -772,38 +770,37 @@ export class LiveMap {
                 $(this)
                     .attr('data-original-title', tooltip)
             })
-        ;
     }
 
     //////////////////// specific way to handle incoming json
     // apply changes to internal data and then apply callback
     // that will reflect the changes visually
     nodes_callback (infos) {
-        let livemap = this;
+        let livemap = this
         // first we write this data into the MapNode structures
         infos.forEach(function(info) {
-            let id = info['id'];
-            let obj = locate_by_id(livemap.nodes, id);
+            let id = info['id']
+            let obj = locate_by_id(livemap.nodes, id)
             if (obj != undefined)
-                update_obj_from_info(obj, info);
+                update_obj_from_info(obj, info)
             else
-                console.log(`livemap: could not locate node ${id} - ignored`);
-        });
-        livemap.animate_nodes_changes();
+                console.log(`livemap: could not locate node ${id} - ignored`)
+        })
+        livemap.animate_nodes_changes()
     }
 
     phones_callback (infos) {
-        let livemap = this;
+        let livemap = this
         // first we write this data into the MapNode structures
         infos.forEach(function(info) {
-            let id = info['id'];
-            let obj = locate_by_id(livemap.phones, id);
+            let id = info['id']
+            let obj = locate_by_id(livemap.phones, id)
             if (obj != undefined)
-                update_obj_from_info(obj, info);
+                update_obj_from_info(obj, info)
             else
-                console.log(`livemap: could not locate phone id ${id} - ignored`);
-        });
-        livemap.animate_phones_changes();
+                console.log(`livemap: could not locate phone id ${id} - ignored`)
+        })
+        livemap.animate_phones_changes()
     }
 
     //////////////////// websockets business
@@ -812,20 +809,20 @@ export class LiveMap {
             status_changed: () => this.animate_sidecar_status_changes(),
             nodes:  (infos) => this.nodes_callback(infos),
             phones: (infos) => this.phones_callback(infos),
-        };
-        let categories = ['nodes', 'phones'];
+        }
+        let categories = ['nodes', 'phones']
         // this actually is a singleton
-        this.sidecar = Sidecar();
-        this.sidecar.register_callbacks_map(callbacks_map);
-        this.sidecar.register_categories(categories);
-        this.sidecar.open();
+        this.sidecar = Sidecar()
+        this.sidecar.register_callbacks_map(callbacks_map)
+        this.sidecar.register_categories(categories)
+        this.sidecar.open()
     }
 
 }
 
 // autoload
 $(function() {
-    scale_options();
-    let livemap = new LiveMap();
-    livemap.init();
+    scale_options()
+    let livemap = new LiveMap()
+    livemap.init()
 })
