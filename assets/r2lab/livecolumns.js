@@ -3,12 +3,12 @@
 /* for eslint */
 /*global $ d3 */
 
-"use strict";
+"use strict"
 
-import {load_css} from "/assets/r2lab/load-css.js";
-load_css("/assets/r2lab/livecolumns.css");
+import {load_css} from "/assets/r2lab/load-css.js"
+load_css("/assets/r2lab/livecolumns.css")
 
-import {Sidecar} from "/assets/r2lab/sidecar.js";
+import {Sidecar} from "/assets/r2lab/sidecar.js"
 
 
 //
@@ -28,7 +28,7 @@ export let livecolumns_options = {
 
 function livecolumns_debug(...args) {
     if (livecolumns_options.debug)
-        console.log(...args);
+        console.log(...args)
 }
 
 
@@ -36,8 +36,8 @@ function livecolumns_debug(...args) {
 // quick'n dirty helper to create <span> tags inside the <td>
 // d3 should allow us to do that more nicely but I could not figure it out yet
 export function span_html(text, cls) {
-    let tag = cls ? ` class='${cls}'` : "";
-    return `<span${tag}>${text}</span>`;
+    let tag = cls ? ` class='${cls}'` : ""
+    return `<span${tag}>${text}</span>`
 }
 
 //////////////////////////////
@@ -47,49 +47,49 @@ export class LiveColumnsNode {
 
 
     constructor(id) {
-        this.id = id;
+        this.id = id
     }
 
 
     // node_info is a dict coming through socket.io in JSON
     // simply copy the fields present in this dict in the local object
-    // for further usage in animate_changes;
+    // for further usage in animate_changes
     // don't bother if no change is detected
     update_from_news(node_info) {
-        let modified = false;
+        let modified = false
         for (let prop in node_info) {
             if (node_info[prop] != this[prop]) {
-                this[prop] = node_info[prop];
-                modified = true;
-                livecolumns_debug(`node_info[${prop}] = ${node_info[prop]}`);
+                this[prop] = node_info[prop]
+                modified = true
+                livecolumns_debug(`node_info[${prop}] = ${node_info[prop]}`)
             }
         }
 
         if (! modified) {
-            // livecolumns_debug(`no change on ${node_info.id} - exiting`);
-            return;
+            // livecolumns_debug(`no change on ${node_info.id} - exiting`)
+            return
         } else {
-            livecolumns_debug(`id = ${node_info.id} ->`, node_info);
+            livecolumns_debug(`id = ${node_info.id} ->`, node_info)
         }
 
         // this must be implemented for each view, and adjust this.cells_data
-        this.compute_cells_data();
+        this.compute_cells_data()
         livecolumns_debug(`after update_from_news on id=${node_info.id} -> `,
-                          this.cells_data);
+                          this.cells_data)
     }
 
 
     cell_available() {
         return (this.available == 'ko') ?
             [ span_html('', 'fa fa-ban'), 'error', 'unavailable' ] :
-            [ span_html('', 'fa fa-check'), 'ok', 'node is OK for exps' ];
+            [ span_html('', 'fa fa-check'), 'ok', 'node is OK for exps' ]
     }
 
 
     cell_on_off() {
         return (this.cmc_on_off == 'fail') ? [ 'N/A', 'error', 'unavailable - DO NOT USE' ]
             : this.cmc_on_off == 'on' ? [ span_html('', 'fa fa-toggle-on'), 'ok', 'ON']
-            : [ span_html('', 'fa fa-toggle-off'), 'ko', 'OFF' ];
+            : [ span_html('', 'fa fa-toggle-off'), 'ko', 'OFF' ]
     }
 
     cell_data_interface() {
@@ -107,34 +107,34 @@ export class LiveColumnsNode {
 
 
     cell_sdr(mention_duplexer) {
-        let alt_text = "";
+        let alt_text = ""
         alt_text += (this.gnuradio_release)
             ? `gnuradio_release = ${this.gnuradio_release}`
-            : `no gnuradio installed`;
-        let text = this.usrp_type || '-';
+            : `no gnuradio installed`
+        let text = this.usrp_type || '-'
         if (mention_duplexer && this.usrp_duplexer)
-            text += `/${this.usrp_duplexer}`;
-        text += ' ';
+            text += `/${this.usrp_duplexer}`
+        text += ' '
         text += (this.usrp_on_off == 'on')
             ? span_html('', 'fa fa-toggle-on')
-            : span_html('', 'fa fa-toggle-off') ;
-        let cell = `<span title="${alt_text}">${text}</span>`;
+            : span_html('', 'fa fa-toggle-off') 
+        let cell = `<span title="${alt_text}">${text}</span>`
         let klass = (this.usrp_on_off == 'on') ? 'ok'
-            : (this.usrp_on_off == 'off') ? 'ko' : 'error';
-        return [cell, klass];
+            : (this.usrp_on_off == 'off') ? 'ko' : 'error'
+        return [cell, klass]
     }
 
 
     // used to find out which entries are worth being kept
     // when clicking the header area
     is_worth() {
-        return true;
+        return true
     }
 
 
     set_display(display) {
-        let selector = `tbody.livecolumns_body #row${this.id}`;
-        display ? $(selector).show() : $(selector).hide();
+        let selector = `tbody.livecolumns_body #row${this.id}`
+        display ? $(selector).show() : $(selector).hide()
     }
 
 
@@ -146,19 +146,19 @@ export class LiveColumns {
 
 
     constructor() {
-        this.nodes = [];
+        this.nodes = []
         /* mode is either 'all' or 'worth' */
-        this.view_mode = 'all';
+        this.view_mode = 'all'
     }
 
 
     init() {
-        let headers = this.init_table();
+        let headers = this.init_table()
         // needs to be written
-        this.init_headers(headers);
+        this.init_headers(headers)
         // needs to be written
-        this.init_nodes();
-        this.init_sidecar();
+        this.init_nodes()
+        this.init_sidecar()
         // re-trigger tooltip behaviour
         // xxx should probably be limited to our own scope
         $('[data-toggle="tooltip"]').tooltip()
@@ -166,37 +166,37 @@ export class LiveColumns {
 
 
     init_table() {
-        let containers = d3.selectAll(`#${this.domid}`);
-        containers.append('thead').attr('class', 'livecolumns_header');
-        containers.append('tbody').attr('class', 'livecolumns_body');
-        containers.append('tfoot').attr('class', 'livecolumns_header');
+        let containers = d3.selectAll(`#${this.domid}`)
+        containers.append('thead').attr('class', 'livecolumns_header')
+        containers.append('tbody').attr('class', 'livecolumns_body')
+        containers.append('tfoot').attr('class', 'livecolumns_header')
 
-        let self = this;
+        let self = this
         let headers = d3.selectAll('.livecolumns_header').append('tr')
             .attr('class', 'all')
-            .on('click', function(){self.toggle_view_mode();})
-        ;
-        return headers;
+            .on('click', function(){self.toggle_view_mode()})
+        
+        return headers
     }
 
 
     locate_node_by_id(id) {
-        return this.nodes[id-1];
+        return this.nodes[id-1]
     }
 
 
     toggle_view_mode () {
-        livecolumns_debug(`display_nodes ${this.view_mode}`);
-        this.view_mode = (this.view_mode == 'all') ? 'worth' : 'all';
-        this.display_nodes(this.view_mode);
-        $(".livecolumns_header tr").toggleClass('all');
+        livecolumns_debug(`display_nodes ${this.view_mode}`)
+        this.view_mode = (this.view_mode == 'all') ? 'worth' : 'all'
+        this.display_nodes(this.view_mode)
+        $(".livecolumns_header tr").toggleClass('all')
     }
 
 
     display_nodes(mode) {
         for (let node of this.nodes) {
-            let display = (mode=='all') ? true : (node.is_worth());
-            node.set_display(display);
+            let display = (mode=='all') ? true : (node.is_worth())
+            node.set_display(display)
         }
     }
 
@@ -206,22 +206,22 @@ export class LiveColumns {
     // http://stackoverflow.com/questions/39861603/d3-js-v4-nested-selections
     // not that I have understood the bottom of it, but it works again..
     animate_changes(/*nodes_info*/) {
-        livecolumns_debug("animate_changes");
-        let tbody = d3.select("tbody.livecolumns_body");
+        livecolumns_debug("animate_changes")
+        let tbody = d3.select("tbody.livecolumns_body")
         // row update selection
         let rows = tbody.selectAll('tr')
-            .data(this.nodes, LiveColumns.get_node_id);
+            .data(this.nodes, LiveColumns.get_node_id)
         ////////// create rows as needed
         let rowsenter = rows.enter()
             .append('tr')
-            .attr('id', function(node){ return 'row' + node.id;})
-        ;
+            .attr('id', function(node){ return 'row' + node.id})
+        
         // the magic here is to pass rowsenter to the merge method
         // instead of rows
         let cells =
             rows.merge(rowsenter)
             .selectAll('td')
-            .data(LiveColumns.get_node_data);
+            .data(LiveColumns.get_node_data)
 
         cells
           .enter()
@@ -236,16 +236,16 @@ export class LiveColumns {
                 // attach a click event on the first column only
                 if (i == 0) {
                     $(this).click(function() {
-                        $(this).parent().attr('style', 'display:none');
+                        $(this).parent().attr('style', 'display:none')
                     })
                 }
-                $(this).find('[data-toggle="tooltip"]').tooltip();
-            });
+                $(this).find('[data-toggle="tooltip"]').tooltip()
+            })
     }
 
     // related helpers
-    static get_node_id(node)  {return node.id;}
-    static get_node_data(node){return node.cells_data;}
+    static get_node_id(node)  {return node.id}
+    static get_node_data(node){return node.cells_data}
     // the data associated to a given cell can be either 
     // (*) a couple (html + class)
     // (*) a triple (html + class + tooltip)
@@ -257,15 +257,15 @@ export class LiveColumns {
 
     ////////// socket.io business
     nodes_callback(infos) {
-        let livecolumns = this;
+        let livecolumns = this
         infos.forEach(function(node_info) {
-            let id = node_info['id'];
-            let node = livecolumns.locate_node_by_id(id);
+            let id = node_info['id']
+            let node = livecolumns.locate_node_by_id(id)
             if (node != undefined)
-                node.update_from_news(node_info);
+                node.update_from_news(node_info)
             else
-                console.log(`livecolumns: could not locate node id ${id} - ignored`);
-        });
+                console.log(`livecolumns: could not locate node id ${id} - ignored`)
+        })
         this.animate_changes(infos)
         // animate_changes messes with tooltips
         $('[data-toggle="tooltip"]').tooltip()
@@ -275,12 +275,12 @@ export class LiveColumns {
         let callbacks_map = {
             nodes:  (infos) => this.nodes_callback(infos),
         }
-        let categories = ['nodes'];
+        let categories = ['nodes']
         // this actually is a singleton
-        this.sidecar = Sidecar();
-        this.sidecar.register_callbacks_map(callbacks_map);
-        this.sidecar.register_categories(categories);
-        this.sidecar.open();
+        this.sidecar = Sidecar()
+        this.sidecar.register_callbacks_map(callbacks_map)
+        this.sidecar.register_categories(categories)
+        this.sidecar.open()
     }
 
 }
