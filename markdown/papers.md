@@ -2,11 +2,34 @@ title: Publications related to R2lab
 tab: papers
 
 ****
-Nota: If you are using R2lab for in your publications, please add the following text in the Acknowledgment section of your papers/reports:
 
-*We would like to thank the FIT R2lab team from Inria, Sophia Antipolis, for their help in using the FIT-R2lab testbed (\url{https://fit-r2lab.inria.fr/}) [Ref]*.
+<style>
+.helper {
+    background-color: #eee;
+    border: 1px solid blue;
+    border-radius: 5px;
+    padding: 8px;
+}
+</style>
 
-[Ref]: T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). ``A step towards runnable papers using R2lab", INRIA Research Report, June 2019.
+<div class=helper>
+<p>
+<b>Note:</b> If you are using R2lab for in your publications, please add the following text in the Acknowledgment section of your papers/reports:
+</p>
+<p>
+<i>We would like to thank the FIT R2lab team from Inria, Sophia Antipolis, for their help in using the FIT-R2lab testbed <a href="https://fit-r2lab.inria.fr/">https://fit-r2lab.inria.fr/</a>[r2lab].</i>
+</p>
+<p>
+and then please add in your references the following entry
+</p>
+<ul>
+<li>
+[r2lab] T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). <a href="https://hal.archives-ouvertes.fr/hal-02167086v2">A step towards runnable papers using R2lab</a>, INRIA Research Report, June 2019.
+</li>
+</ul>
+</p>
+
+</div>
 
 
 ****
