@@ -16,7 +16,7 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 ### Workshops
 
-* H. Elbouanani, C. Barakat, W. Dabbous and T. Turletti. ‘Delay-based Fidelity Monitoring of Distributed Network Emulation’. In: Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
+* H. Elbouanani, C. Barakat, W. Dabbous and T. Turletti. [Delay-based Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03909929). In: Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
 
 ### PhD
 
@@ -28,19 +28,19 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 ### Conference Papers
 
-* M. Lahsini, T. Parmentelat, T. Turletti, W. Dabbous and D. Saucez, "Sophia-node: A Cloud-Native Mobile Network Testbed," 2022 IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN), Phoenix, AZ, USA, 2022, pp. 96-97.
+* M. Lahsini, T. Parmentelat, T. Turletti, W. Dabbous and D. Saucez, [Sophia-node: A Cloud-Native Mobile Network Testbed](https://hal.science/hal-03907719/), in 2022 IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN), Phoenix, AZ, USA, 2022, pp. 96-97.
 
-* P. Olivier, X. -H. Ngo and A. Francillon, "BEERR: Bench of Embedded system Experiments for Reproducible Research," 2022 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW), Genoa, Italy, 2022, pp. 332-339.
+* P. Olivier, X. -H. Ngo and A. Francillon, [BEERR: Bench of Embedded system Experiments for Reproducible Research](https://ieeexplore.ieee.org/abstract/document/9799409), in 2022 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW), Genoa, Italy, 2022, pp. 332-339.
 
-* H. Elbouanani, C. Barakat, T. Turletti and W. Dabbous. ‘Demo paper : Fidelity-aware Distributed Network Emulation’. In: IEEE Conference on Standards for Communications and Networking. Thessaloniki, Greece, 28th November 2022
+* H. Elbouanani, C. Barakat, T. Turletti and W. Dabbous. [Demo paper : Fidelity-aware Distributed Network Emulation](https://hal.science/hal-03857802), In: IEEE Conference on Standards for Communications and Networking. Thessaloniki, Greece, 28th November 2022
 
 ### Journals
 
-* Serge Fdida, Nikos Makris, Thanasis Korakis, Raffaele Bruno, Andrea Passarella, Panayiotis Andreou, Bartosz Belter, Cédric Crettaz, Walid Dabbous, Yuri Demchenko, Raymond Knopp, SLICES, a scientific instrument for the networking community, Computer Communications, Volume 193, 2022, Pages 189-203.
+* Serge Fdida, Nikos Makris, Thanasis Korakis, Raffaele Bruno, Andrea Passarella, Panayiotis Andreou, Bartosz Belter, Cédric Crettaz, Walid Dabbous, Yuri Demchenko, Raymond Knopp, [SLICES, a scientific instrument for the networking community](https://www.sciencedirect.com/science/article/pii/S0140366422002663), Computer Communications, Volume 193, 2022, Pages 189-203.
 
-* H. Elbouanani, T. Turletti, W. Dabbous and C. Barakat. ‘Passive Delay Measurement for Fidelity Monitoring of Distributed Network Emulation’. In: Computer Communications, Volume 195, November 2022, Pages 40-48.
+* H. Elbouanani, T. Turletti, W. Dabbous and C. Barakat. [Passive Delay Measurement for Fidelity Monitoring of Distributed Network Emulation](https://hal.science/hal-03727246), In: Computer Communications, Volume 195, November 2022, Pages 40-48.
 
-* M. Diarra, W. Dabbous, A. Ismail, B. Tetu and T. Turletti. ‘RAPID: a RAN-aware Performance Enhancing Proxy for High Throughput Low Delay Flows in MEC Networks’. In: Computer Networks, Volume 218,December 2022.
+* M. Diarra, W. Dabbous, A. Ismail, B. Tetu and T. Turletti. [RAPID: a RAN-aware Performance Enhancing Proxy for High Throughput Low Delay Flows in MEC Networks](https://hal.inria.fr/hal-03905784), In: Computer Networks, Volume 218,December 2022.
 
 ### PhD
 
@@ -52,7 +52,7 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 ### PhD
 
-* Rémy Grünblatt. From WiFi performance evaluation to controlled mobility in drone networks, PhD Thesis, Université de Lyon, 2021.
+* Rémy Grünblatt. [From WiFi performance evaluation to controlled mobility in drone networks](https://theses.hal.science/tel-03602476/), PhD Thesis, Université de Lyon, 2021.
 
 ****
 # 2020
@@ -68,7 +68,7 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 * Mamoutou Diarra, Thierry Turletti, Walid Dabbous, Amine Ismail, [Cross-layer Loss Discrimination Algorithms for MEC in 4G networks](https://hal.inria.fr/hal-03001893), Research Report, November 2020.
 * Houssam Elbouanani, Walid Dabbous, Chadi Barakat, Thierry Turletti, [Passive Delay Measurement for Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03001876), Research Report, November 2020.
-* Thierry Parmentelat, Thierry Turletti, Walid Dabbous, [Reproducible 5G network automation with Kube5G in R2lab](https://www.youtube.com/watch?v=b_oB9z7jflg),  [Mosaic 2020 Workshop](https://mosaic5g.io/workshop-2020/) online, December 2020.
+* Thierry Parmentelat, Thierry Turletti, Walid Dabbous, [Reproducible 5G network automation with Kube5G in R2lab](https://www.youtube.com/watch?v=b_oB9z7jflg),  [Mosaic 2020 Workshop](https://mosaic5g.io/workshop-2020/), online, December 2020.
 
 ### PFE / B.T. / BSc. / MSc. Thesis
 
@@ -78,9 +78,9 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 ### PhD
 
-* Imane Oussakel. 4G/5G cellular networks metrology and management. PhD Thesis, Université Paul Sabatier - Toulouse III, 2020.
+* Imane Oussakel. [4G/5G cellular networks metrology and management](https://theses.hal.science/tel-03236078/), PhD Thesis, Université Paul Sabatier - Toulouse III, 2020.
 
-* Giovanni Camurati. Security Threats Emerging from the Interaction Between Digital Activity and Radio Transceiver. PhD Thesis, Sorbonne Université, 2020.
+* Giovanni Camurati. [Security Threats Emerging from the Interaction Between Digital Activity and Radio Transceiver](https://theses.hal.science/tel-03414339/), PhD Thesis, Sorbonne Université, 2020.
 
 ****
 # 2019
@@ -98,7 +98,6 @@ Nota: If you are using R2lab for in your publications, please add the following 
 * Lucas Nussbaum. [An overview of Fed4FIRE testbeds -- and beyond?](https://hal.inria.fr/hal-02401738/),  GEFI - Global Experimentation for Future Internet Workshop, Nov 2019, Coimbra, Portugal.
 * M. J. Khokhar, T. Ehlinger and C. Barakat, [From Network Traffic Measurements to QoE for Internet Video](https://doi.org/10.23919/IFIPNetworking.2019.8816854), IFIP Networking Conference, Warsaw, Poland, 2019, pp. 1-9.
 * I. Oussakel, P. Owezarski and P. Berthou, [Experimental Estimation of LTE-A Performance](https://doi.org/10.23919/CNSM46954.2019.9012663), 15th International Conference on Network and Service Management (CNSM), Halifax, NS, Canada, 2019, pp. 1-9.
-
 
 ### Posters / Demos / Reports / Presentations / Videos
 
@@ -128,7 +127,7 @@ Nota: If you are using R2lab for in your publications, please add the following 
 ). In International Telecommunication Networks and Applications Conference (ITNAC), November 21-23, 2018, Sydney, Australia.
 * Camurati, G., Poeplau, S., Muench, M., Hayes, T., & Francillon, A. [Screaming Channels: When Electromagnetic Side Channels Meet Radio Transceivers](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiJ-N_J68HdAhUCr6QKHfeqDB8QFjAAegQIARAC&url=http%3A%2F%2Fs3.eurecom.fr%2Fdocs%2Fccs18_camurati_preprint.pdf&usg=AOvVaw0QGoGtX0JBkp0xnLDnzT1S). 25th ACM conference on Computer and communications security (CCS), 15-19 October 2018, Toronto, Canada. Additonal material: [Detailed presentation slides](https://www.cryptacus.eu/en/wp-content/uploads/ScreamingFixSplit.pdf).
 * Khokhar, M., Spetebroot, T., & Barakat, C. (2018, October). [A Methodology for Performance Benchmarking of Mobile Networks for Internet Video Streaming](https://hal.inria.fr/hal-01855264/). In the 21st ACM International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems (MSWIM), Oct. 28 - Nov. 2, 2018, Montreal, Canada.
-* Camurati, G., Poeplau, S., Muench, M., Hayes, T., & Francillon, A. (2018, October). [Screaming channels: When electromagnetic side channels meet radio transceivers.](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=25&ved=2ahUKEwjz7cfd5cPkAhUTrHEKHVllCz84FBAWMAR6BAgFEAI&url=http%3A%2F%2F193.55.114.4%2Fdocs%2Fccs18_camurati.pdf&usg=AOvVaw21FsBSRvPeLFEHYB4lXPbj) In Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security (pp. 163-177). ACM.
+* Camurati, G., Poeplau, S., Muench, M., Hayes, T., & Francillon, A. (2018, October). [Screaming channels: When electromagnetic side channels meet radio transceivers.](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=25&ved=2ahUKEwjz7cfd5cPkAhUTrHEKHVllCz84FBAWMAR6BAgFEAI&url=http%3A%2F%2F193.55.114.4%2Fdocs%2Fccs18_camurati.pdf&usg=AOvVaw21FsBSRvPeLFEHYB4lXPbj), In Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security (pp. 163-177). ACM.
 * Cedric Adjih, Vinod Kumar, Amira Alloum, [Experimenting Coded Slotted Aloha (Work-In-Progress)](https://www.silecs.net/1st-grid5000-fit-school/program/experimenting-coded-slotted-aloha-work-in-progress/), First Grid’5000-FIT school, Sophia Antipolis, April 2018.
 * Xenofon Foukas, Fragkiskos Sardis, Fox Foster, Mahesh K. Marina, Maria A. Lema, and Mischa Dohler, [Experience Building a Prototype 5G Testbed](https://doi.org/10.1145/3286680.3286683), in Proceedings of the Workshop on Experimentation and Measurements in 5G (EM-5G'18). Association for Computing Machinery, New York, NY, USA, 13–18.
 
@@ -139,7 +138,7 @@ Nota: If you are using R2lab for in your publications, please add the following 
 * Baron, L., Klacza, R., Gaudet-Chardonnet, P., Bradai, A., Scognamiglio, C., & Fdida, S. [Next generation portal for federated testbeds MySlice v2: from prototype to production](https://arxiv.org/abs/1806.04467). Poster at Fed4FIRE Engineering Conference - FEC2, June 2018, Volos, Greece.
 * Ayoub Bousselmi, Sofiane Imadali, Marion Duprez, [Plug’in: A 5G Experimentation Platform for Collaborative and Reproducible Research](https://pluginthefuture.eu/files/1570456751.pdf), EuCNC 2018, Poster session 2, Ljubljana, Slovenia, June 2018.
 * Cardoso L.S., Oubejja O., Villemaud G., Risset T., Gorce J.M., [Reliable and Reproducible Radio Experiments in FIT/CorteXlab SDR Testbed: Initial Findings](https://doi.org/10.1007/978-3-319-76207-4_19), In: Marques P., Radwan A., Mumtaz S., Noguet D., Rodriguez J., Gundlach M. (eds) Cognitive Radio Oriented Wireless Networks. CrownCom 2017. Lecture Notes of the Institute for Computer Sciences, Social Informatics and Telecommunications Engineering, vol 228. Springer, Cham.
-* Pouria Sayyad Khodashenas, Carolina Fernandez, Dani Guija, August Betzler, Marisa Catalan, [D3.6: FIRE+ Technology Assessment](https://ict-flame.eu/wp-content/uploads/sites/3/2018/07/D3.6-FIRE-Technology-Assessment-v1.0.pdf), H2020 [ICT-Flame](https://www.ict-flame.eu/) project deliverable.
+* Pouria Sayyad Khodashenas, Carolina Fernandez, Dani Guija, August Betzler, Marisa Catalan, [D3.6: FIRE+ Technology Assessment](https://ict-flame.eu/wp-content/uploads/sites/3/2018/07/D3.6-FIRE-Technology-Assessment-v1.0.pdf), H2020 [ICT-Flame](https://www.ict-flame.eu/), project deliverable.
 
 
 
