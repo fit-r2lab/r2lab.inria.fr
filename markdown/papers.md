@@ -15,8 +15,8 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 ### Conferences / Workshops
 
-* Joe Breen et al. [POWDER: Platform for Open Wireless Data-driven Experimental Research](https://doi.org/10.1145/3411276.3412204), In Proceedings of the 14th International Workshop on Wireless Network Testbeds, Experimental evaluation & Characterization (WiNTECH'20). Association for Computing Machinery, New York, NY, USA, 17–24. 
-* Kazuhisa Matsuzono, Hitoshi Asaeda, Indukala Naladala, Thierry Turletti, [Efficient Pull-based Mobile Video Streaming leveraging In-Network Functions](https://hal.inria.fr/hal-02359569/). IEEE - CCNC 2020 - Consumer Communications & Networking Conference, Jan 2020, Las Vegas, United States. 
+* Joe Breen et al. [POWDER: Platform for Open Wireless Data-driven Experimental Research](https://doi.org/10.1145/3411276.3412204), In Proceedings of the 14th International Workshop on Wireless Network Testbeds, Experimental evaluation & Characterization (WiNTECH'20). Association for Computing Machinery, New York, NY, USA, 17–24.
+* Kazuhisa Matsuzono, Hitoshi Asaeda, Indukala Naladala, Thierry Turletti, [Efficient Pull-based Mobile Video Streaming leveraging In-Network Functions](https://hal.inria.fr/hal-02359569/). IEEE - CCNC 2020 - Consumer Communications & Networking Conference, Jan 2020, Las Vegas, United States.
 
 
 ### Posters / Demos / Reports / Presentations / Videos
@@ -36,14 +36,14 @@ Nota: If you are using R2lab for in your publications, please add the following 
 ****
 ### Journals
 
-* Mohamed Naoufal Mahfoudi, Gayatri Sivadoss, Othmane Bensouda Korachi, Thierry Turletti, Walid Dabbous, [Joint range extension and localization for LPWAN](https://hal.archives-ouvertes.fr/hal-02170466), Internet Technology Letters, Wiley, 2019, pp.e120. 
+* Mohamed Naoufal Mahfoudi, Gayatri Sivadoss, Othmane Bensouda Korachi, Thierry Turletti, Walid Dabbous, [Joint range extension and localization for LPWAN](https://hal.archives-ouvertes.fr/hal-02170466), Internet Technology Letters, Wiley, 2019, pp.e120.
 
 ### Conferences / Workshops
 
-* Giuseppe Di Lena, Andrea Tomassilli, Damien Saucez, Frédéric Giroire, Thierry Turletti, Chidung Lac, Walid Dabbous, [Distributed Network Experiment Emulation](https://hal.inria.fr/hal-02359801), Global Experimentation for Future Internet Workshop, GEFI’19, Nov 2019, Coimbra, Portugal. 
+* Giuseppe Di Lena, Andrea Tomassilli, Damien Saucez, Frédéric Giroire, Thierry Turletti, Chidung Lac, Walid Dabbous, [Distributed Network Experiment Emulation](https://hal.inria.fr/hal-02359801), Global Experimentation for Future Internet Workshop, GEFI’19, Nov 2019, Coimbra, Portugal.
 * Louiza Yala, Marius Iordache, Ayoub Bousselmi, Sofiane Imadali, [Testbed Federation for 5G Experimentation: Review and Guidelines](https://doi.org/10.1109/CSCN.2019.8931406), IEEE Conference on Standards for Communications and Networking (CSCN), GRANADA, Spain, 2019, pp. 1-6, doi: 10.1109/CSCN.2019.8931406.
 * Fontes, Ramon dos Reis; Esteve Rothenberg, Christian. [Mininet-WiFi: Plataforma de Emulação para Redes sem Fio Definidas por Software](https://sol.sbc.org.br/index.php/sbrc_estendido/article/view/7788/7662), in: Dissertation Digest - Brazilian Symposium on Computer Networks and Distributed Systems (SBRC), 2. , 2019, Gramado.
-* Lucas Nussbaum. [An overview of Fed4FIRE testbeds -- and beyond?](https://hal.inria.fr/hal-02401738/),  GEFI - Global Experimentation for Future Internet Workshop, Nov 2019, Coimbra, Portugal. 
+* Lucas Nussbaum. [An overview of Fed4FIRE testbeds -- and beyond?](https://hal.inria.fr/hal-02401738/),  GEFI - Global Experimentation for Future Internet Workshop, Nov 2019, Coimbra, Portugal.
 * M. J. Khokhar, T. Ehlinger and C. Barakat, [From Network Traffic Measurements to QoE for Internet Video](https://doi.org/10.23919/IFIPNetworking.2019.8816854), IFIP Networking Conference, Warsaw, Poland, 2019, pp. 1-9.
 * I. Oussakel, P. Owezarski and P. Berthou, [Experimental Estimation of LTE-A Performance](https://doi.org/10.23919/CNSM46954.2019.9012663), 15th International Conference on Network and Service Management (CNSM), Halifax, NS, Canada, 2019, pp. 1-9.
 
@@ -68,7 +68,7 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 ### Journals
 
-* Hardein, P., Primananda, R., & Basuki, A., [Analysis of Wireless Network Node Mobility in Software Defined Wireless Network (SDWN)](http://j-ptiik.ub.ac.id/index.php/j-ptiik/article/view/2798/1092), Jurnal Pengembangan Teknologi Informasi dan Ilmu Komputer, vol. 2, no. 10, p. 4116-4124, 2018. 
+* Hardein, P., Primananda, R., & Basuki, A., [Analysis of Wireless Network Node Mobility in Software Defined Wireless Network (SDWN)](http://j-ptiik.ub.ac.id/index.php/j-ptiik/article/view/2798/1092), Jurnal Pengembangan Teknologi Informasi dan Ilmu Komputer, vol. 2, no. 10, p. 4116-4124, 2018.
 
 ### Conferences / Workshops
 
@@ -85,9 +85,9 @@ Nota: If you are using R2lab for in your publications, please add the following 
 ### Posters / Demos / Reports / Presentations / Videos
 
 * Bleyfuesz, Y., Parmentelat, T., Turletti, T., Pakzad, F., Mahfoudi, M., & Dabbous, W. (2018, November). [Using nepi-ng for Mesh Networks Experiments](https://hal.inria.fr/hal-01869979v2). In the 12th ACM International Workshop on Wireless Network Testbeds, Experimental evaluation & CHaracterization (WINTECH), November 2, 2018, New Delhi, India.
-* Baron, L., Klacza, R., Gaudet-Chardonnet, P., Bradai, A., Scognamiglio, C., & Fdida, S. [Next generation portal for federated testbeds MySlice v2: from prototype to production](https://arxiv.org/abs/1806.04467). Poster at Fed4FIRE Engineering Conference - FEC2, June 2018, Volos, Greece. 
+* Baron, L., Klacza, R., Gaudet-Chardonnet, P., Bradai, A., Scognamiglio, C., & Fdida, S. [Next generation portal for federated testbeds MySlice v2: from prototype to production](https://arxiv.org/abs/1806.04467). Poster at Fed4FIRE Engineering Conference - FEC2, June 2018, Volos, Greece.
 * Ayoub Bousselmi, Sofiane Imadali, Marion Duprez, [Plug’in: A 5G Experimentation Platform for Collaborative and Reproducible Research](https://pluginthefuture.eu/files/1570456751.pdf), EuCNC 2018, Poster session 2, Ljubljana, Slovenia, June 2018.
-* Cardoso L.S., Oubejja O., Villemaud G., Risset T., Gorce J.M., [Reliable and Reproducible Radio Experiments in FIT/CorteXlab SDR Testbed: Initial Findings](https://doi.org/10.1007/978-3-319-76207-4_19), In: Marques P., Radwan A., Mumtaz S., Noguet D., Rodriguez J., Gundlach M. (eds) Cognitive Radio Oriented Wireless Networks. CrownCom 2017. Lecture Notes of the Institute for Computer Sciences, Social Informatics and Telecommunications Engineering, vol 228. Springer, Cham. 
+* Cardoso L.S., Oubejja O., Villemaud G., Risset T., Gorce J.M., [Reliable and Reproducible Radio Experiments in FIT/CorteXlab SDR Testbed: Initial Findings](https://doi.org/10.1007/978-3-319-76207-4_19), In: Marques P., Radwan A., Mumtaz S., Noguet D., Rodriguez J., Gundlach M. (eds) Cognitive Radio Oriented Wireless Networks. CrownCom 2017. Lecture Notes of the Institute for Computer Sciences, Social Informatics and Telecommunications Engineering, vol 228. Springer, Cham.
 * Pouria Sayyad Khodashenas, Carolina Fernandez, Dani Guija, August Betzler, Marisa Catalan, [D3.6: FIRE+ Technology Assessment](https://ict-flame.eu/wp-content/uploads/sites/3/2018/07/D3.6-FIRE-Technology-Assessment-v1.0.pdf), H2020 [ICT-Flame](https://www.ict-flame.eu/) project deliverable.
 
 
@@ -123,8 +123,8 @@ Nota: If you are using R2lab for in your publications, please add the following 
 ### Posters / Demos / Reports / Presentations / Videos
 
 * Mahfoudi, M. N., Parmentelat, T., Turletti, T., Dabbous, W., & Knopp, R. (2017, August). [Deploy a 5G network in less than 5 minutes: Demo Abstract](https://hal.inria.fr/hal-01580065). In ACM SIGCOMM Posters and Demos.
-* Lucas Nussbaum. [Testbeds in Computer Science](https://hal.inria.fr/hal-01538683). Presentation, Reproducible Research Webinars, Jun 2017, Grenoble, France. 
-* Lucas Nussbaum. [Scaling your experiments](https://hal.inria.fr/hal-01577847). Presentation, École RESCOM 2017, Jun 2017, Le Croisic, France. 
+* Lucas Nussbaum. [Testbeds in Computer Science](https://hal.inria.fr/hal-01538683). Presentation, Reproducible Research Webinars, Jun 2017, Grenoble, France.
+* Lucas Nussbaum. [Scaling your experiments](https://hal.inria.fr/hal-01577847). Presentation, École RESCOM 2017, Jun 2017, Le Croisic, France.
 
 ### PhD Thesis
 
