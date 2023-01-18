@@ -8,10 +8,55 @@ Nota: If you are using R2lab for in your publications, please add the following 
 
 [Ref]: T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). ``A step towards runnable papers using R2lab", INRIA Research Report, June 2019.
 
+
+****
+# 2023
+****
+
+
+### Workshops
+
+* H. Elbouanani, C. Barakat, W. Dabbous and T. Turletti. ‘Delay-based Fidelity Monitoring of Distributed Network Emulation’. In: Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
+
+### PhD
+
+* Houssam Elbouanani, Introducing Fidelity into Network Emulation, PhD Thesis, Université Côte d’Azur, expected on March 2023.
+
+****
+# 2022
+****
+
+### Conference Papers
+
+* M. Lahsini, T. Parmentelat, T. Turletti, W. Dabbous and D. Saucez, "Sophia-node: A Cloud-Native Mobile Network Testbed," 2022 IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN), Phoenix, AZ, USA, 2022, pp. 96-97.
+
+* P. Olivier, X. -H. Ngo and A. Francillon, "BEERR: Bench of Embedded system Experiments for Reproducible Research," 2022 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW), Genoa, Italy, 2022, pp. 332-339.
+
+* H. Elbouanani, C. Barakat, T. Turletti and W. Dabbous. ‘Demo paper : Fidelity-aware Distributed Network Emulation’. In: IEEE Conference on Standards for Communications and Networking. Thessaloniki, Greece, 28th November 2022
+
+### Journals
+
+* Serge Fdida, Nikos Makris, Thanasis Korakis, Raffaele Bruno, Andrea Passarella, Panayiotis Andreou, Bartosz Belter, Cédric Crettaz, Walid Dabbous, Yuri Demchenko, Raymond Knopp, SLICES, a scientific instrument for the networking community, Computer Communications, Volume 193, 2022, Pages 189-203.
+
+* H. Elbouanani, T. Turletti, W. Dabbous and C. Barakat. ‘Passive Delay Measurement for Fidelity Monitoring of Distributed Network Emulation’. In: Computer Communications, Volume 195, November 2022, Pages 40-48.
+
+* M. Diarra, W. Dabbous, A. Ismail, B. Tetu and T. Turletti. ‘RAPID: a RAN-aware Performance Enhancing Proxy for High Throughput Low Delay Flows in MEC Networks’. In: Computer Networks, Volume 218,December 2022.
+
+### PhD
+
+* Mamoutou Diarra, Enhanced Transport-Layer Mechanisms for MEC-Assisted Cellular Networks, PhD Thesis, Université Côte d’Azur, December 2022.
+
+****
+# 2021
+****
+
+### PhD
+
+* Rémy Grünblatt. From WiFi performance evaluation to controlled mobility in drone networks, PhD Thesis, Université de Lyon, 2021.
+
 ****
 # 2020
 ****
-
 
 ### Conferences / Workshops
 
@@ -31,9 +76,16 @@ Nota: If you are using R2lab for in your publications, please add the following 
 * Florinda Fragassi (PFE Ubinet 2019-20) on Cooperative Localization in LoRa Low Power Wide Area Network.
 * Adeel Siddiqui (PFE Ubinet 2019-20) on Realistic Emulation of Mobile Edge Computing and Vehicular Networks.
 
+### PhD
+
+* Imane Oussakel. 4G/5G cellular networks metrology and management. PhD Thesis, Université Paul Sabatier - Toulouse III, 2020.
+
+* Giovanni Camurati. Security Threats Emerging from the Interaction Between Digital Activity and Radio Transceiver. PhD Thesis, Sorbonne Université, 2020.
+
 ****
 # 2019
 ****
+
 ### Journals
 
 * Mohamed Naoufal Mahfoudi, Gayatri Sivadoss, Othmane Bensouda Korachi, Thierry Turletti, Walid Dabbous, [Joint range extension and localization for LPWAN](https://hal.archives-ouvertes.fr/hal-02170466), Internet Technology Letters, Wiley, 2019, pp.e120.
@@ -48,13 +100,12 @@ Nota: If you are using R2lab for in your publications, please add the following 
 * I. Oussakel, P. Owezarski and P. Berthou, [Experimental Estimation of LTE-A Performance](https://doi.org/10.23919/CNSM46954.2019.9012663), 15th International Conference on Network and Service Management (CNSM), Halifax, NS, Canada, 2019, pp. 1-9.
 
 
-
 ### Posters / Demos / Reports / Presentations / Videos
 
 * Mohamed Naoufal Mahfoudi, Thierry Parmentelat, Thierry Turletti, Walid Dabbous, [Towards Reproducible Wireless Experiments Using R2lab](https://hal.archives-ouvertes.fr/hal-02167090), Research Report, June 2019.
 * Thierry Parmentelat, Mohamed Naoufal Mahfoudi, Thierry Turletti, Walid Dabbous, [A step towards runnable papers using R2lab](https://hal.archives-ouvertes.fr/hal-02167086v2), Research Report, June 2019.
 * Damien Saucez, Giuseppe Di Lena, Video demo, [4-Fat-Tree running a Hadoop cluster of 15 nodes and one streaming server](https://www.youtube.com/watch?v=ONfEdcwUZiA&feature=youtu.be), March 2019.
- 
+
 
 ### PFE / B.T. / BSc. / MSc. Thesis
 
