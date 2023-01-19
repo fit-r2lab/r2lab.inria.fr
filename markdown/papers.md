@@ -10,6 +10,9 @@ tab: papers
     border-radius: 5px;
     padding: 8px;
 }
+ul li {
+    font-size: 17px;
+}
 </style>
 
 <div class=helper>
@@ -52,17 +55,13 @@ and then please add in your references the following entry
 ### Conference Papers
 
 * M. Lahsini, T. Parmentelat, T. Turletti, W. Dabbous and D. Saucez, [Sophia-node: A Cloud-Native Mobile Network Testbed](https://hal.science/hal-03907719/), in 2022 IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN), Phoenix, AZ, USA, 2022, pp. 96-97.
-
 * P. Olivier, X. -H. Ngo and A. Francillon, [BEERR: Bench of Embedded system Experiments for Reproducible Research](https://ieeexplore.ieee.org/abstract/document/9799409), in 2022 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW), Genoa, Italy, 2022, pp. 332-339.
-
 * H. Elbouanani, C. Barakat, T. Turletti and W. Dabbous. [Demo paper : Fidelity-aware Distributed Network Emulation](https://hal.science/hal-03857802), In: IEEE Conference on Standards for Communications and Networking. Thessaloniki, Greece, 28th November 2022
 
 ### Journals
 
 * Serge Fdida, Nikos Makris, Thanasis Korakis, Raffaele Bruno, Andrea Passarella, Panayiotis Andreou, Bartosz Belter, Cédric Crettaz, Walid Dabbous, Yuri Demchenko, Raymond Knopp, [SLICES, a scientific instrument for the networking community](https://www.sciencedirect.com/science/article/pii/S0140366422002663), Computer Communications, Volume 193, 2022, Pages 189-203.
-
 * H. Elbouanani, T. Turletti, W. Dabbous and C. Barakat. [Passive Delay Measurement for Fidelity Monitoring of Distributed Network Emulation](https://hal.science/hal-03727246), In: Computer Communications, Volume 195, November 2022, Pages 40-48.
-
 * M. Diarra, W. Dabbous, A. Ismail, B. Tetu and T. Turletti. [RAPID: a RAN-aware Performance Enhancing Proxy for High Throughput Low Delay Flows in MEC Networks](https://hal.inria.fr/hal-03905784), In: Computer Networks, Volume 218,December 2022.
 
 ### PhD
@@ -102,7 +101,6 @@ and then please add in your references the following entry
 ### PhD
 
 * Imane Oussakel. [4G/5G cellular networks metrology and management](https://theses.hal.science/tel-03236078/), PhD Thesis, Université Paul Sabatier - Toulouse III, 2020.
-
 * Giovanni Camurati. [Security Threats Emerging from the Interaction Between Digital Activity and Radio Transceiver](https://theses.hal.science/tel-03414339/), PhD Thesis, Sorbonne Université, 2020.
 
 ****
@@ -181,6 +179,7 @@ and then please add in your references the following entry
 
 
 ### Journals
+
 * Fontes, R. D. R., Mahfoudi, M., Dabbous, W., Turletti, T., & Rothenberg, C. (2017). [How far can we go? Towards realistic software-defined wireless networking experiments](https://hal.inria.fr/hal-01480973). The Computer Journal, 60(10), 1458-1471.
 
 ### Conferences / Workshops
