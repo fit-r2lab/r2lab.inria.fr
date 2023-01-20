@@ -33,7 +33,7 @@
 }
 
 div.row.run #my-slices {
-  height: 378px;
+  height: 400px;
 }
 
 div.row.book #manage-slices-keys {
@@ -118,7 +118,7 @@ div.leases-run-width {
 /* ----- layout in the page */
 #liveleases_container.run {
     max-width: 200px;
-    line-height: 1.24;
+    line-height: 1.5;
 }
 
 #liveleases_container.book {

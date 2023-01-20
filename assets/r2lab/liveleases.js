@@ -109,7 +109,7 @@ export class LiveLeases {
     // Create the calendar
     let calendar_args = {
       // all the other sizes are liveleases.css
-      height: run_mode ? 455 : 762,
+      height: run_mode ? 480 : 762,
       // no header in run mode
       header:
         run_mode
