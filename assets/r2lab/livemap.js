@@ -198,18 +198,39 @@ let livemap_geometry = {
   line_y: y => `l 0 ${-y} `,
 
   walls_path: function () {
-    let path = ""
-    path += `M ${this.room_x() + livemap_options.margin_x} ${this.room_y() + livemap_options.margin_y} `
-    path += this.line_x(-(7 * livemap_options.space_x + 2 * livemap_options.padding_x))
-    path += this.line_y(3 * livemap_options.space_y)
-    path += this.line_x(-1 * livemap_options.space_x)
-    path += this.line_y(livemap_options.space_y + 2 * livemap_options.padding_y)
-    path += this.line_x(2 * livemap_options.space_x + 2 * livemap_options.padding_x)
-    path += this.line_y(-livemap_options.space_y)
-    path += this.line_x(4 * livemap_options.space_x - 2 * livemap_options.padding_x)
-    path += this.line_y(livemap_options.space_y)
-    path += this.line_x(2 * livemap_options.space_x + 2 * livemap_options.padding_x)
-    path += "Z"
+    const {margin_x, margin_y, space_x, space_y, padding_x, padding_y} = livemap_options
+    const moves = [
+      // start in X; define the direction, number of space_ and of padding_
+      [1, 7, 2],
+      [1, 3, 0],    // now in Y
+                    // and so on
+      [1, 1, 0],    // x
+      [1, 1, 2],    // y
+      [-1, 2, 2],   // x
+      [-1, 1, 0],   // y
+      [-1, 4, -2],  // x
+      [1, 1, 0],    // y
+      [-1, 2, 2],   // x
+      [-1, 4, 2],   // y
+     ]
+    let x_y = 0
+    let path = `M ${margin_x} ${margin_y} `
+
+    for (let [direction, spaces, paddings] of moves) {
+      if (x_y == 0) {
+        let length = (spaces * space_x + paddings * padding_x) * direction
+        path += this.line_x(length)
+      } else {
+        // svg is supposed to have the y axis go from top to bottom
+        // weird that the Y axis seems to be that way..
+        let length = (spaces * space_y + paddings * padding_y) * -1 * direction
+        path += this.line_y(length)
+      }
+      x_y = (x_y+1)%2
+    }
+//  no need, already closed
+//  path += "Z"
+    console.log("path", path)
     return path
   },
 
@@ -478,15 +499,8 @@ export class LiveMap {
         .attr('width', canvas_x)
         .attr('height', canvas_y)
 
-    // we insert a g to flip the walls upside down
-    // too lazy to rewrite this one
     let g =
-      svg.append('g')
-        .attr('id', 'walls_upside_down')
-        .attr('transform', `translate(${canvas_x},${canvas_y}) rotate(180)`)
-
-    // walls
-    g.append('path')
+      svg.append('path')
       .attr('class', 'walls')
       .attr('d', livemap_geometry.walls_path())
     //.attr('id', 'walls')
