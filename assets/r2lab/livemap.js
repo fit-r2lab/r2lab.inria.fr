@@ -18,12 +18,15 @@ export let livemap_options = {
 
   // the space around the walls in the canvas
   margin_x: 50, margin_y: 50,
+  // the space for drawing antennas
+  antennas_x: 100, antennas_y: 0,
   // distance between nodes
   space_x: 80, space_y: 80,
   // distance between nodes and walls
   padding_x: 40, padding_y: 40,
   // pillars - derived from the walls
   pillar_radius: 16,
+
   // size for rendering nodes status
   radius_unavailable: 18,
   radius_ok: 18,
@@ -85,6 +88,8 @@ function scale_options() {
   const ratio = livemap_options.ratio
   livemap_options.margin_x *= ratio
   livemap_options.margin_y *= ratio
+  livemap_options.antennas_x *= ratio
+  livemap_options.antennas_y *= ratio
   livemap_options.space_x *= ratio
   livemap_options.space_y *= ratio
   livemap_options.padding_x *= ratio
@@ -114,58 +119,58 @@ let livemap_geometry = {
 
   ////////// nodes positions - originally output from livemap-prep.py
   mapnode_specs: [
-    { id: 1, i: 0, j: 4 },
-    { id: 2, i: 0, j: 3 },
-    { id: 3, i: 0, j: 2 },
-    { id: 4, i: 0, j: 1 },
-    { id: 5, i: 0, j: 0 },
-    { id: 6, i: 1, j: 4 },
-    { id: 7, i: 1, j: 3 },
-    { id: 8, i: 1, j: 2 },
-    { id: 9, i: 1, j: 1 },
-    { id: 10, i: 1, j: 0 },
-    { id: 11, i: 2, j: 4 },
-    { id: 12, i: 2, j: 3 },
+    { id:  1, i: 0, j: 0 },
+    { id:  2, i: 0, j: 1 },
+    { id:  3, i: 0, j: 2 },
+    { id:  4, i: 0, j: 3 },
+    { id:  5, i: 0, j: 4 },
+    { id:  6, i: 1, j: 0 },
+    { id:  7, i: 1, j: 1 },
+    { id:  8, i: 1, j: 2 },
+    { id:  9, i: 1, j: 3 },
+    { id: 10, i: 1, j: 4 },
+    { id: 11, i: 2, j: 0 },
+    { id: 12, i: 2, j: 1 },
     { id: 13, i: 2, j: 2 },
-    { id: 14, i: 2, j: 1 },
-    { id: 15, i: 2, j: 0 },
-    { id: 16, i: 3, j: 4 },
+    { id: 14, i: 2, j: 3 },
+    { id: 15, i: 2, j: 4 },
+    { id: 16, i: 3, j: 0 },
     { id: 17, i: 3, j: 2 },
-    { id: 18, i: 3, j: 1 },
-    { id: 19, i: 4, j: 4 },
-    { id: 20, i: 4, j: 3 },
+    { id: 18, i: 3, j: 3 },
+    { id: 19, i: 4, j: 0 },
+    { id: 20, i: 4, j: 1 },
     { id: 21, i: 4, j: 2 },
-    { id: 22, i: 4, j: 1 },
-    { id: 23, i: 5, j: 4 },
+    { id: 22, i: 4, j: 3 },
+    { id: 23, i: 5, j: 0 },
     { id: 24, i: 5, j: 2 },
-    { id: 25, i: 5, j: 1 },
-    { id: 26, i: 6, j: 4 },
-    { id: 27, i: 6, j: 3 },
+    { id: 25, i: 5, j: 3 },
+    { id: 26, i: 6, j: 0 },
+    { id: 27, i: 6, j: 1 },
     { id: 28, i: 6, j: 2 },
-    { id: 29, i: 6, j: 1 },
-    { id: 30, i: 6, j: 0 },
-    { id: 31, i: 7, j: 4 },
-    { id: 32, i: 7, j: 3 },
+    { id: 29, i: 6, j: 3 },
+    { id: 30, i: 6, j: 4 },
+    { id: 31, i: 7, j: 0 },
+    { id: 32, i: 7, j: 1 },
     { id: 33, i: 7, j: 2 },
-    { id: 34, i: 7, j: 1 },
-    { id: 35, i: 7, j: 0 },
-    { id: 36, i: 8, j: 1 },
-    { id: 37, i: 8, j: 0 },
+    { id: 34, i: 7, j: 3 },
+    { id: 35, i: 7, j: 4 },
+    { id: 36, i: 8, j: 3 },
+    { id: 37, i: 8, j: 4 },
   ],
 
   ////////// the  two pillars - this is manual
   pillar_specs: [
-    { id: 'left', i: 3, j: 3 },
-    { id: 'right', i: 5, j: 3 },
+    { id: 'left', i: 3, j: 1 },
+    { id: 'right', i: 5, j: 1 },
   ],
 
   mapphone_specs: [
-    { id: 1, i: 0.5, j: 4.2 },
-    { id: 2, i: 8., j: 0.5 },
+    { id: 1, i: 0.5, j: -0.2 },
+    { id: 2, i: 8., j: 3.5 },
   ],
 
   sidecar_details: {
-    i: 8, j: 4, radius: 20,
+    i: 8.25, j: 0, radius: 20,
   },
 
   //////////////////// configuration
@@ -183,10 +188,13 @@ let livemap_geometry = {
 
   // translate i, j into actual coords
   grid_to_canvas: function (i, j) {
-    return [i * livemap_options.space_x
-      + livemap_options.margin_x + livemap_options.padding_x,
-    (this.steps_y - j) * livemap_options.space_y
-    + livemap_options.margin_y + livemap_options.padding_y]
+    const {margin_x, margin_y, antennas_x, antennas_y,
+           padding_x, padding_y, space_x, space_y} = livemap_options
+    return [
+      margin_x + antennas_x + padding_x + i * space_x
+      ,
+      margin_y + antennas_y + padding_y + j * space_y
+    ]
   },
 
   //////////////////////////////
@@ -198,7 +206,8 @@ let livemap_geometry = {
   line_y: y => `l 0 ${-y} `,
 
   walls_path: function () {
-    const {margin_x, margin_y, space_x, space_y, padding_x, padding_y} = livemap_options
+    const {margin_x, margin_y, antennas_x, antennas_y,
+      padding_x, padding_y, space_x, space_y, } = livemap_options
     const moves = [
       // start in X; define the direction, number of space_ and of padding_
       [1, 7, 2],
@@ -214,7 +223,7 @@ let livemap_geometry = {
       [-1, 4, 2],   // y
      ]
     let x_y = 0
-    let path = `M ${margin_x} ${margin_y} `
+    let path = `M ${margin_x + antennas_x} ${margin_y+antennas_y} `
 
     for (let [direction, spaces, paddings] of moves) {
       if (x_y == 0) {
@@ -492,8 +501,9 @@ class MapPhone {
 export class LiveMap {
 
   constructor() {
-    const canvas_x = livemap_geometry.room_x() + 2 * livemap_options.margin_x
-    const canvas_y = livemap_geometry.room_y() + 2 * livemap_options.margin_y
+    const {antennas_x, antennas_y, margin_x, margin_y} = livemap_options
+    const canvas_x = margin_x + antennas_x + livemap_geometry.room_x() + margin_x
+    const canvas_y = margin_y + antennas_y + livemap_geometry.room_y() + margin_y
     let svg =
       d3.select('div#livemap_container')
         .append('svg')
