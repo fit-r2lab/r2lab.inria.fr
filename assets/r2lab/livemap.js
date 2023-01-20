@@ -11,24 +11,20 @@ import { Sidecar } from "/assets/r2lab/sidecar.js"
 // re-configurable from the markdown
 export let livemap_options = {
 
-  // just set this if you need scaling
-  ratio: 1.,
-  // don't touch this one
-  _scaled: false,
-
-  // the space around the walls in the canvas
-  margin_x: 50, margin_y: 50,
-  // the space for drawing antennas
   antennas_x: 100, antennas_y: 0,
-  // distance between nodes
-  space_x: 80, space_y: 80,
-  // distance between nodes and walls
-  padding_x: 40, padding_y: 40,
-  // pillars - derived from the walls
-  pillar_radius: 16,
+  ratio: 1.,                        // just set this if you need scaling
+  _scaled: false,                   // don't touch this one
 
-  // size for rendering nodes status
-  radius_unavailable: 18,
+  // overall layout
+  margin_x: 50, margin_y: 50,       // the space around the walls in the canvas
+  space_x: 80, space_y: 80,         // distance between nodes
+  padding_x: 40, padding_y: 40,     // distance between nodes and walls
+
+  // pillars
+  pillar_radius: 16,                // pillars - derived from the walls
+
+  // nodes
+  radius_unavailable: 18,           // size for rendering nodes status
   radius_ok: 18,
   radius_pinging: 12,
   radius_warming: 6,
@@ -94,17 +90,16 @@ function scale_options() {
   livemap_options.space_y *= ratio
   livemap_options.padding_x *= ratio
   livemap_options.padding_y *= ratio
-  livemap_options.pillar_radius *= ratio,
-    livemap_options.radius_unavailable *= ratio,
-    livemap_options.radius_ok *= ratio,
-    livemap_options.radius_pinging *= ratio,
-    livemap_options.radius_warming *= ratio,
-    livemap_options.radius_ko *= ratio,
+  livemap_options.pillar_radius *= ratio
+  livemap_options.radius_unavailable *= ratio
+  livemap_options.radius_ok *= ratio
+  livemap_options.radius_pinging *= ratio
+  livemap_options.radius_warming *= ratio
+  livemap_options.radius_ko *= ratio
+  livemap_options.font_size *= ratio
+  livemap_options.phone_size *= ratio
 
-    livemap_options.font_size *= ratio,
-    livemap_options.phone_size *= ratio,
-
-    livemap_options._scaled = true
+  livemap_options._scaled = true
 }
 
 ////////// status details
@@ -174,7 +169,7 @@ let livemap_geometry = {
   },
 
   //////////////////// configuration
-  // total number of rows and columns
+  // max i and j
   steps_x: 8, steps_y: 4,
 
   // the overall room size
@@ -280,10 +275,10 @@ function update_obj_from_info(obj, obj_info) {
 class MapNode {
 
   constructor(node_spec) {
-    this.id = node_spec['id']
+    this.id = node_spec.id
     // i and j refer to a logical grid
-    this.i = node_spec['i']
-    this.j = node_spec['j']
+    this.i = node_spec.i
+    this.j = node_spec.j
     // compute actual coordinates
     let [x, y] = livemap_geometry.grid_to_canvas(this.i, this.j)
     this.x = x
@@ -477,9 +472,9 @@ class MapNode {
 class MapPhone {
 
   constructor(phone_spec) {
-    this.id = phone_spec['id']
-    this.i = phone_spec['i']
-    this.j = phone_spec['j']
+    this.id = phone_spec.id
+    this.i = phone_spec.i
+    this.j = phone_spec.j
     let [x, y] = livemap_geometry.grid_to_canvas(this.i, this.j)
     this.x = x
     this.y = y
@@ -823,7 +818,7 @@ export class LiveMap {
     let livemap = this
     // first we write this data into the MapNode structures
     infos.forEach(function (info) {
-      let id = info['id']
+      let id = info.id
       let obj = locate_by_id(livemap.nodes, id)
       if (obj != undefined)
         update_obj_from_info(obj, info)
@@ -837,7 +832,7 @@ export class LiveMap {
     let livemap = this
     // first we write this data into the MapNode structures
     infos.forEach(function (info) {
-      let id = info['id']
+      let id = info.id
       let obj = locate_by_id(livemap.phones, id)
       if (obj != undefined)
         update_obj_from_info(obj, info)
