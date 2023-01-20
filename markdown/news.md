@@ -9,6 +9,11 @@ skip_news: yes
 ## 2022
 ****
 
+### Novembre 2022
+
+* running on fedora 37
+* image available for ubuntu-22
+
 ### March 2022
 
 * macphone2, that used to be a Motorola Moto 2nd Gen, is replaced by a Nexus 5
