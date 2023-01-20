@@ -242,28 +242,6 @@ function update_obj_from_info(obj, obj_info) {
   return modified
 }
 
-//////////////////////////////
-class MapPhone {
-
-  constructor(phone_spec) {
-    this.id = phone_spec['id']
-    this.i = phone_spec['i']
-    this.j = phone_spec['j']
-    let [x, y] = livemap_geometry.grid_to_canvas(this.i, this.j)
-    this.x = x
-    this.y = y
-  }
-
-  text() {
-    if (this.airplane_mode == 'on')
-      return livemap_options.icon_plane_content
-    else if (this.airplane_mode == 'off')
-      return livemap_options.icon_phone_content
-    else
-      return livemap_options.icon_question_content
-  }
-
-}
 
 //////////////////////////////
 // nodes are dynamic
@@ -462,6 +440,31 @@ class MapNode {
   }
 
 }
+
+
+//////////////////////////////
+class MapPhone {
+
+  constructor(phone_spec) {
+    this.id = phone_spec['id']
+    this.i = phone_spec['i']
+    this.j = phone_spec['j']
+    let [x, y] = livemap_geometry.grid_to_canvas(this.i, this.j)
+    this.x = x
+    this.y = y
+  }
+
+  text() {
+    if (this.airplane_mode == 'on')
+      return livemap_options.icon_plane_content
+    else if (this.airplane_mode == 'off')
+      return livemap_options.icon_phone_content
+    else
+      return livemap_options.icon_question_content
+  }
+
+}
+
 
 //////////////////////////////
 export class LiveMap {
