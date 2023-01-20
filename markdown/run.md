@@ -10,7 +10,7 @@ require_login: true
 <script type="module"> import "/assets/r2lab/chat.js" </script>
 <div id="chat-container"></div>
 
-<div class="container">
+<div class="container-fluid">
  <div class="row">
   <div class="col-md-12">
    <div id='messages' style="display: none" class="" role="alert">
@@ -46,10 +46,29 @@ require_login: true
    <div id="current-slice" data-current-slice-color="#000"></div>
   </div>
 
+  <style>
+    .vertical {
+      display: flex;
+      flex-direction: column;
+    }
+    .horizontal {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+  </style>
+
   <div class="col-md-8">
-   <div id="livemap_container">Click a node for more details;
-    see also <a href="status.md#livemap:legend">this page for a legend</a>
-    <span id="chat-button"></span>
+    <div class="vertical">
+      <div class="horizontal">
+        <span>
+          Click a node for more details;
+          see also <a href="status.md#livemap:legend">this page for a legend</a>
+        </span>
+        <span id="chat-button"></span>
+      </div>
+      <div id="livemap_container">
+    </div>
    </div>
    <script type="module">
     import {livemap_options} from "/assets/r2lab/livemap.js";
@@ -63,8 +82,8 @@ require_login: true
       radius_ko : 0,
       margin_x : 5,
       margin_y : 20,
-      padding_x : 35,
-      padding_y : 35,
+      padding_x : 45,
+      padding_y : 45,
 //    debug : true,
    });
   </script>

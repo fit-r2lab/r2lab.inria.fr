@@ -228,8 +228,9 @@ let livemap_geometry = {
       }
       x_y = (x_y+1)%2
     }
-//  no need, already closed
-//  path += "Z"
+  //  the path is already closed but without the Z
+  //  the initial corner is not well finished
+    path += "Z"
     console.log("path", path)
     return path
   },
