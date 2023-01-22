@@ -263,7 +263,6 @@ let livemap_geometry = {
   //  the path is already closed but without the Z
   //  the initial corner is not well finished
     path += "Z"
-    console.log("path", path)
     return path
   },
 
@@ -472,7 +471,6 @@ class MapNode {
   }
 
   clicked() {
-    console.log(`clicked on ${this.id}`)
     // toggle this node in the live column if present
     const row = `row${this.id}`
     document.querySelectorAll(`.livecolumns_body>#${row}`).forEach(
@@ -508,6 +506,9 @@ class MapPhone {
     let [x, y] = livemap_geometry.antennas_to_canvas(this.i, this.j)
     this.x = x
     this.y = y
+    // will contain the <line> (or other) svg elements
+    // that build the phone's annotations
+    this._annotations = undefined
   }
 
   text() {
@@ -517,6 +518,49 @@ class MapPhone {
       return livemap_options.icon_phone_content
     else
       return livemap_options.icon_question_content
+  }
+
+  tooltip_text() {
+    return `macphone${this.id}`
+  }
+
+  // the purpose of the location annotations is to
+  // help pinpoint where the device is located on the map
+  // returns a - cached - iterable on the DOM element.s
+  // inside the SVG.s
+  // this will be used below in show_ and hide_ methods
+  // ths incoming parameter is a d3.select object
+  location_annotation(svgSelect) {
+    if (this._annotations === undefined) {
+      let  annotations = []
+      const svgNS = "http://www.w3.org/2000/svg"
+      // to keep a ref to the MapPhone instance
+      const self = this
+      svgSelect.each( function() {
+        // when iterating over a d3 selection, the this parameter
+        // refers to the DOM element, so here the <svg>
+        const line = document.createElementNS(svgNS, 'line')
+        line.classList.add("location-annotation")
+        const [lx, ly] = livemap_geometry.grid_to_canvas(self.node_i, self.node_j)
+        line.setAttribute('x1', self.x)
+        line.setAttribute('y1', self.y)
+        line.setAttribute('x2', lx)
+        line.setAttribute('y2', ly)
+        this.append(line)
+        annotations.push(line)
+      })
+      this._annotations = annotations
+    }
+    return this._annotations
+  }
+
+  show_location_annotation(svgSelect) {
+    for (let elt of this.location_annotation(svgSelect))
+      elt.style.display = "inline"
+  }
+  hide_location_annotation(svgSelect) {
+    for (let elt of this.location_annotation(svgSelect))
+      elt.style.display = "none"
   }
 
 }
@@ -766,6 +810,18 @@ export class LiveMap {
       .attr('font-size', h * 1)
       .attr('textLength', w * .8)
       .attr('lengthAdjust', 'spacingAndGlyphs')
+      .each(function(phone) {
+        // this is the DOM element, so here the <text>
+        $(this).tooltip({
+          title: phone.tooltip_text(), delay: 250, placement: 'left'
+        })
+      })
+      .on('mouseover', function(d, i) {
+        d.show_location_annotation(svg)
+      })
+      .on('mouseout', function(d, i) {
+        d.hide_location_annotation(svg)
+      })
       .merge(texts)
       .transition()
       .duration(animation_duration)
