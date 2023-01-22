@@ -97,6 +97,7 @@ div.row.book #my-slices {
 /* used in run.md to hard-wire calendar width */
 div.leases-run-width {
   width: 220px;
+  padding-right: 0px;
 }
 /* likewise, in book.md and run.md, to keep the slices column tight */
 .no-padding {
