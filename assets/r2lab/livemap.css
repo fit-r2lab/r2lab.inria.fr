@@ -45,7 +45,7 @@ circle.unavailable {
 text.node-label {
     font-family:	consolas, monaco, times-new-roman;
     text-anchor:	middle;
-    alignment-baseline:	middle;
+    dominant-baseline:	middle;
 }
 
 circle.node-status:hover, circle.unavailable:hover, text.node-label:hover {
@@ -63,14 +63,19 @@ rect.phone-status {
 
 text.phone-status {
     text-anchor:	    middle;
-    alignment-baseline:	middle;
+    dominant-baseline:  middle;
     stroke:		        blue;
     stroke-width:	    1px;
 }
 /* ---------- */
 text.sidecar-status {
     text-anchor:	    middle;
-    alignment-baseline:	middle;
+    dominant-baseline:	middle;
     stroke:		        blue;
     stroke-width:	    1px;
+}
+
+line.location-annotation {
+    stroke-width: 3px;
+    stroke: red;
 }
