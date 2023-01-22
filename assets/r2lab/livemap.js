@@ -11,12 +11,16 @@ import { Sidecar } from "/assets/r2lab/sidecar.js"
 // re-configurable from the markdown
 export let livemap_options = {
 
-  antennas_x: 100, antennas_y: 0,
   ratio: 1.,                        // just set this if you need scaling
   _scaled: false,                   // don't touch this one
 
   // overall layout
   margin_x: 50, margin_y: 50,       // the space around the walls in the canvas
+  antennas_margin_x: 70,            // the space for drawing antennas
+  antennas_margin_y: 0,             // the y would come in handy if we had another row
+                                    // of extra space on top of the map
+  antennas_space_x: 60,
+  antennas_space_y: 60,             // distance between antennas
   space_x: 80, space_y: 80,         // distance between nodes
   padding_x: 40, padding_y: 40,     // distance between nodes and walls
 
@@ -31,7 +35,7 @@ export let livemap_options = {
   radius_ko: 0,
 
   font_size: 16,
-  phone_size: 20,
+  phone_size: 30,
 
   // usrp thingy
   // full size for the usrp-icon - this is arbitrary but has the right width/height ratio
@@ -84,8 +88,8 @@ function scale_options() {
   const ratio = livemap_options.ratio
   livemap_options.margin_x *= ratio
   livemap_options.margin_y *= ratio
-  livemap_options.antennas_x *= ratio
-  livemap_options.antennas_y *= ratio
+  livemap_options.antennas_margin_x *= ratio
+  livemap_options.antennas_margin_y *= ratio
   livemap_options.space_x *= ratio
   livemap_options.space_y *= ratio
   livemap_options.padding_x *= ratio
@@ -159,14 +163,19 @@ let livemap_geometry = {
     { id: 'right', i: 5, j: 1 },
   ],
 
-  mapphone_specs: [
-    { id: 1, i: 0.5, j: -0.2 },
-    { id: 2, i: 8., j: 3.5 },
-  ],
-
   sidecar_details: {
     i: 8.25, j: 0, radius: 20,
   },
+
+  // here we have i and j refer to the antennas grid/space
+  // i = 0 means in the vertical space at the left of the walls
+  // j = 0 will be for the horizontal space on top, if/when needed
+  //
+  // on the other hand the node_i and node_j coords refer to the walls grid
+  mapphone_specs: [
+    { id: 1, i: 0, j: 1, node_i: 0.5, node_j: -0.2},
+    { id: 2, i: 0, j: 2, node_i: 8,   node_j: 3.5},
+  ],
 
   //////////////////// configuration
   // max i and j
@@ -183,13 +192,32 @@ let livemap_geometry = {
 
   // translate i, j into actual coords
   grid_to_canvas: function (i, j) {
-    const {margin_x, margin_y, antennas_x, antennas_y,
+    const {margin_x, margin_y, antennas_margin_x, antennas_margin_y,
            padding_x, padding_y, space_x, space_y} = livemap_options
     return [
-      margin_x + antennas_x + padding_x + i * space_x
+      margin_x + antennas_margin_x + padding_x + i * space_x
       ,
-      margin_y + antennas_y + padding_y + j * space_y
+      margin_y + antennas_margin_y + padding_y + j * space_y
     ]
+  },
+
+  // translate an antennas j into actual coords
+  antennas_to_canvas: function(i, j) {
+    const {margin_x, margin_y, padding_x, padding_y,
+           antennas_margin_x, antennas_margin_y,
+           antennas_space_x, antennas_space_y} = livemap_options
+    if (i == 0)
+      return [
+        margin_x + antennas_margin_x / 2
+        ,
+        margin_y + antennas_margin_y + j * antennas_space_y
+      ]
+    else
+      return [
+        margin_x + antennas_margin_x + i * antennas_space_x
+        ,
+        margin_y + antennas_margin_y / 2
+      ]
   },
 
   //////////////////////////////
@@ -201,7 +229,7 @@ let livemap_geometry = {
   line_y: y => `l 0 ${-y} `,
 
   walls_path: function () {
-    const {margin_x, margin_y, antennas_x, antennas_y,
+    const {margin_x, margin_y, antennas_margin_x, antennas_margin_y,
       padding_x, padding_y, space_x, space_y, } = livemap_options
     const moves = [
       // start in X; define the direction, number of space_ and of padding_
@@ -218,7 +246,7 @@ let livemap_geometry = {
       [-1, 4, 2],   // y
      ]
     let x_y = 0
-    let path = `M ${margin_x + antennas_x} ${margin_y+antennas_y} `
+    let path = `M ${margin_x + antennas_margin_x} ${margin_y+antennas_margin_y} `
 
     for (let [direction, spaces, paddings] of moves) {
       if (x_y == 0) {
@@ -475,7 +503,9 @@ class MapPhone {
     this.id = phone_spec.id
     this.i = phone_spec.i
     this.j = phone_spec.j
-    let [x, y] = livemap_geometry.grid_to_canvas(this.i, this.j)
+    this.node_i = phone_spec.node_i
+    this.node_j = phone_spec.node_j
+    let [x, y] = livemap_geometry.antennas_to_canvas(this.i, this.j)
     this.x = x
     this.y = y
   }
@@ -496,9 +526,9 @@ class MapPhone {
 export class LiveMap {
 
   constructor() {
-    const {antennas_x, antennas_y, margin_x, margin_y} = livemap_options
-    const canvas_x = margin_x + antennas_x + livemap_geometry.room_x() + margin_x
-    const canvas_y = margin_y + antennas_y + livemap_geometry.room_y() + margin_y
+    const {antennas_margin_x, antennas_margin_y, margin_x, margin_y} = livemap_options
+    const canvas_x = margin_x + antennas_margin_x + livemap_geometry.room_x() + margin_x
+    const canvas_y = margin_y + antennas_margin_y + livemap_geometry.room_y() + margin_y
     let svg =
       d3.select('div#livemap_container')
         .append('svg')
