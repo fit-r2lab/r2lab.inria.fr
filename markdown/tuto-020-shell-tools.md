@@ -79,7 +79,7 @@ Note also that this is in fact equivalent to
 
     rhubarbe leases
 
-`rhubarbe` [(see it on github)](https://github.com/parmentelat/rhubarbe)
+`rhubarbe` [(see it on github)](https://github.com/fit-r2lab/rhubarbe)
 being the set of tools that help us run the testbed. Indeed many of the convenience
 functions starting with `r` in fact are aliases to a `rhubarbe`
 subcommand.
@@ -202,7 +202,7 @@ The tool for loading images is called `rload`. It is in fact a shortcut for `rhu
 
     rhubarbe --help
 
-See [the source code for `rhubarbe` for more details](https://github.com/parmentelat/rhubarbe).
+See [the source code for `rhubarbe` for more details](https://github.com/fit-r2lab/rhubarbe).
 
 Back to image loading, you will first want to know which images are available:
 

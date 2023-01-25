@@ -46,6 +46,6 @@ the nodes to show up, or switch off the testbed when you leave (but
 don't worry if you forget, it's taken care of).
 
 More details on `rhubarbe` can be found [on its github
-repository](https://github.com/parmentelat/rhubarbe).
+repository](https://github.com/fit-r2lab/rhubarbe).
 
 

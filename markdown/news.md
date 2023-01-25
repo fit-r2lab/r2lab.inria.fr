@@ -6,6 +6,14 @@ skip_news: yes
 # Most recent first&nbsp;: (see also our [list of papers](papers.md))
 
 ****
+## 2023
+****
+
+### January 2023
+
+* the `rhubarbe` git repo gets transferred under the `fit-r2lab` umbrella, at <https://github.com/fit-r2lab/rhubarbe>
+
+****
 ## 2022
 ****
 
