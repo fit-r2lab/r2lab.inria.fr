@@ -19,8 +19,8 @@ export let livemap_options = {
   antennas_margin_x: 70,            // the space for drawing antennas
   antennas_margin_y: 0,             // the y would come in handy if we had another row
                                     // of extra space on top of the map
-  antennas_space_x: 60,
-  antennas_space_y: 60,             // distance between antennas
+  antennas_space_x: 20,
+  antennas_space_y: 35,             // distance between antennas
   space_x: 80, space_y: 80,         // distance between nodes
   padding_x: 40, padding_y: 40,     // distance between nodes and walls
 
@@ -36,6 +36,7 @@ export let livemap_options = {
 
   font_size: 16,
   phone_size: 30,
+  pdu_size: 25,
 
   // usrp thingy
   // full size for the usrp-icon - this is arbitrary but has the right width/height ratio
@@ -102,6 +103,7 @@ function scale_options() {
   livemap_options.radius_ko *= ratio
   livemap_options.font_size *= ratio
   livemap_options.phone_size *= ratio
+  livemap_options.pdu_size *= ratio
 
   livemap_options._scaled = true
 }
@@ -175,6 +177,14 @@ let livemap_geometry = {
   mapphone_specs: [
     { id: 1, i: 0, j: 1, node_i: 0.5, node_j: -0.2},
     { id: 2, i: 0, j: 2, node_i: 8,   node_j: 3.5},
+  ],
+
+  mappdu_specs: [
+    { id: "n300", i: 0, j: 3, node_i: 0, node_j: 0},       // fit01
+    { id: "x310", i: 0, j: 4, node_i: 0.5, node_j: 0},  // rack between 1 and 6
+    { id: "n320", i: 0, j: 5, node_i: 0, node_j: 2},       // fit03
+    { id: "panther", i: 0, j: 6, node_i: 2, node_j: 0},    // fit11
+    { id: "jaguar", i: 0, j: 7, node_i: 1, node_j: 2},     // fit08
   ],
 
   //////////////////// configuration
@@ -277,7 +287,7 @@ function locate_by_id(list_objs, id) {
       return obj
     }
   }
-  console.log(`ERROR: livemap: locate_by_id: id= ${id} was not found`)
+  livemap_debug(`ERROR: livemap: locate_by_id: id= ${id} was not found`)
 }
 
 
@@ -495,33 +505,20 @@ class MapNode {
 
 
 //////////////////////////////
-class MapPhone {
+// the root class for MapPhone and MapPdu
+class MapAntenna {
 
-  constructor(phone_spec) {
-    this.id = phone_spec.id
-    this.i = phone_spec.i
-    this.j = phone_spec.j
-    this.node_i = phone_spec.node_i
-    this.node_j = phone_spec.node_j
+  constructor(antenna_spec) {
+    this.i = antenna_spec.i
+    this.j = antenna_spec.j
+    this.node_i = antenna_spec.node_i
+    this.node_j = antenna_spec.node_j
     let [x, y] = livemap_geometry.antennas_to_canvas(this.i, this.j)
     this.x = x
     this.y = y
     // will contain the <line> (or other) svg elements
     // that build the phone's annotations
     this._annotations = undefined
-  }
-
-  text() {
-    if (this.airplane_mode == 'on')
-      return livemap_options.icon_plane_content
-    else if (this.airplane_mode == 'off')
-      return livemap_options.icon_phone_content
-    else
-      return livemap_options.icon_question_content
-  }
-
-  tooltip_text() {
-    return `macphone${this.id}`
   }
 
   // the purpose of the location annotations is to
@@ -534,7 +531,7 @@ class MapPhone {
     if (this._annotations === undefined) {
       let  annotations = []
       const svgNS = "http://www.w3.org/2000/svg"
-      // to keep a ref to the MapPhone instance
+      // to keep a ref to the mapantenna instance
       const self = this
       svgSelect.each( function() {
         // when iterating over a d3 selection, the this parameter
@@ -565,6 +562,45 @@ class MapPhone {
 
 }
 
+class MapPhone extends MapAntenna{
+
+  constructor(phone_spec) {
+    super(phone_spec)
+    this.id = phone_spec.id
+  }
+
+  text() {
+    if (this.airplane_mode == 'on')
+      return livemap_options.icon_plane_content
+    else if (this.airplane_mode == 'off')
+      return livemap_options.icon_phone_content
+    else
+      return livemap_options.icon_question_content
+  }
+
+  tooltip_text() {
+    return `macphone${this.id}`
+  }
+
+}
+
+class MapPdu extends MapAntenna{
+
+  constructor(pdu_spec) {
+    super(pdu_spec)
+    this.id = pdu_spec.id
+  }
+
+  status_filter() {
+    if (this.on_off == 'on')
+      return `url(#antenna-on)`
+    else
+      return `url(#antenna-off)`
+  }
+  tooltip_text() {
+    return `antenna ${this.id}`
+  }
+}
 
 //////////////////////////////
 export class LiveMap {
@@ -605,11 +641,14 @@ export class LiveMap {
     this.declare_image_filter('gnuradio-logo-icon-gray', 'svg')
     this.declare_image_filter('gnuradio-logo-icon-red', 'svg')
     this.declare_image_filter('forbidden', 'svg')
+    this.declare_image_filter('antenna-on', 'svg')
+    this.declare_image_filter('antenna-off', 'svg')
   }
 
   init() {
     this.init_nodes()
     this.init_phones()
+    this.init_pdus()
     this.init_sidecar()
   }
 
@@ -629,11 +668,19 @@ export class LiveMap {
     }
   }
 
+  //////////////////// pdus
+  init_pdus() {
+    this.pdus = []
+    for (let mappdu_spec of livemap_geometry.mappdu_specs) {
+      this.pdus.push(new MapPdu(mappdu_spec))
+    }
+  }
+
   //////////////////// the nodes graphical layout
   animate_nodes_changes() {
-    let svg = d3.select('div#livemap_container svg')
-    let animation_duration = 750
-    let circles = svg.selectAll('circle.node-status')
+    const svg = d3.select('div#livemap_container svg')
+    const animation_duration = 750
+    const circles = svg.selectAll('circle.node-status')
       .data(this.nodes, obj => obj.id)
     // circles show the overall status of the node
     circles
@@ -776,14 +823,13 @@ export class LiveMap {
 
   //////////////////// phones graphical layout
   animate_phones_changes() {
-    livemap_debug("in animate_phones_changes")
-    let svg = d3.select('div#livemap_container svg')
-    let animation_duration = 750
+    const svg = d3.select('div#livemap_container svg')
+    const animation_duration = 750
 
-    let w = livemap_options.phone_size
-    let h = w
+    const w = livemap_options.phone_size
+    const h = w
 
-    let squares = svg.selectAll('rect.phone-status')
+    const squares = svg.selectAll('rect.phone-status')
       .data(this.phones, obj => obj.id)
     // simple square repr. for now, with an airplane in the middle
     squares
@@ -796,7 +842,7 @@ export class LiveMap {
       .attr('width', w)
       .attr('height', h)
 
-    let texts = svg.selectAll('text.phone-status')
+    const texts = svg.selectAll('text.phone-status')
       .data(this.phones, obj => obj.id)
 
     texts
@@ -829,6 +875,38 @@ export class LiveMap {
 
   }
 
+  animate_pdus_changes() {
+    console.log("animate_pdu_changes")
+    const svg = d3.select('div#livemap_container svg')
+    const r = livemap_options.pdu_size
+    const animation_duration = 750
+    const circles = svg.selectAll('circle.pdu-status')
+      .data(this.pdus, (obj) => obj.id)
+    circles
+      .enter()
+      .append('circle')
+      .attr('class', 'pdu-status')
+      .attr('id', (pdu) => pdu.id)
+      .attr('cx', (pdu)=> pdu.x)
+      .attr('cy', (pdu)=> pdu.y)
+      .attr('r', r)
+      .each(function(pdu) {
+        $(this).tooltip({
+          title: pdu.tooltip_text(), delay: 250, placement: 'left'
+        })
+      })
+      .on('mouseover', function(d, i) {
+        d.show_location_annotation(svg)
+      })
+      .on('mouseout', function(d, i) {
+        d.hide_location_annotation(svg)
+      })
+      // .attr('color') xxx
+      .merge(circles)
+      .transition()
+      .duration(animation_duration)
+      .attr('filter', (pdu) => pdu.status_filter())
+  }
 
 
   // the sidecar area
@@ -909,7 +987,7 @@ export class LiveMap {
       if (obj != undefined)
         update_obj_from_info(obj, info)
       else
-        console.log(`livemap: could not locate node ${id} - ignored`)
+        livemap_debug(`livemap: could not locate node ${id} - ignored`)
     })
     livemap.animate_nodes_changes()
   }
@@ -923,9 +1001,23 @@ export class LiveMap {
       if (obj != undefined)
         update_obj_from_info(obj, info)
       else
-        console.log(`livemap: could not locate phone id ${id} - ignored`)
+        livemap_debug(`livemap: could not locate phone id ${id} - ignored`)
     })
     livemap.animate_phones_changes()
+  }
+
+  pdus_callback(infos) {
+    let livemap = this
+    // first we write this data into the MapNode structures
+    infos.forEach(function (info) {
+      let id = info.id
+      let obj = locate_by_id(livemap.pdus, id)
+      if (obj != undefined)
+        update_obj_from_info(obj, info)
+      else
+        livemap_debug(`livemap: could not locate pdu id ${id} - ignored`)
+    })
+    livemap.animate_pdus_changes()
   }
 
   //////////////////// websockets business
@@ -934,8 +1026,9 @@ export class LiveMap {
       status_changed: () => this.animate_sidecar_status_changes(),
       nodes: (infos) => this.nodes_callback(infos),
       phones: (infos) => this.phones_callback(infos),
+      pdus: (infos) => this.pdus_callback(infos),
     }
-    let categories = ['nodes', 'phones']
+    let categories = ['nodes', 'phones', 'pdus']
     // this actually is a singleton
     this.sidecar = Sidecar()
     this.sidecar.register_callbacks_map(callbacks_map)
