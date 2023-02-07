@@ -181,9 +181,9 @@ let livemap_geometry = {
 
   mappdu_specs: [
     { id: "n300", i: 0, j: 2, node_i: 0, node_j: 0},       // fit01
-    { id: "x310", i: 0, j: 3, node_i: 0.5, node_j: 0},  // rack between 1 and 6
-    { id: "n320", i: 0, j: 4, node_i: 0, node_j: 2},       // fit03
-    { id: "panther", i: 0, j: 5, node_i: 2, node_j: 0},    // fit11
+    { id: "x310", i: 0, j: 3, node_i: 0.5, node_j: 0},     // rack between 1 and 6
+    { id: "panther", i: 0, j: 4, node_i: 2, node_j: 0},    // fit11
+    { id: "n320", i: 0, j: 5, node_i: 0, node_j: 2},       // fit03
     { id: "jaguar", i: 0, j: 6, node_i: 1, node_j: 2},     // fit08
   ],
 
