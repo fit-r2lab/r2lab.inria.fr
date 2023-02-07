@@ -19,8 +19,8 @@ export let livemap_options = {
   antennas_margin_x: 70,            // the space for drawing antennas
   antennas_margin_y: 0,             // the y would come in handy if we had another row
                                     // of extra space on top of the map
-  antennas_space_x: 20,
-  antennas_space_y: 35,             // distance between antennas
+  antennas_space_x: 45,
+  antennas_space_y: 45,             // distance between antennas
   space_x: 80, space_y: 80,         // distance between nodes
   padding_x: 40, padding_y: 40,     // distance between nodes and walls
 
@@ -36,7 +36,7 @@ export let livemap_options = {
 
   font_size: 16,
   phone_size: 30,
-  pdu_size: 25,
+  pdu_radius: 20,
 
   // usrp thingy
   // full size for the usrp-icon - this is arbitrary but has the right width/height ratio
@@ -103,7 +103,7 @@ function scale_options() {
   livemap_options.radius_ko *= ratio
   livemap_options.font_size *= ratio
   livemap_options.phone_size *= ratio
-  livemap_options.pdu_size *= ratio
+  livemap_options.pdu_radius *= ratio
 
   livemap_options._scaled = true
 }
@@ -176,15 +176,15 @@ let livemap_geometry = {
   // on the other hand the node_i and node_j coords refer to the walls grid
   mapphone_specs: [
     { id: 1, i: 0, j: 1, node_i: 0.5, node_j: -0.2},
-    { id: 2, i: 0, j: 2, node_i: 8,   node_j: 3.5},
+    { id: 2, i: 0, j: 7, node_i: 8,   node_j: 3.5},
   ],
 
   mappdu_specs: [
-    { id: "n300", i: 0, j: 3, node_i: 0, node_j: 0},       // fit01
-    { id: "x310", i: 0, j: 4, node_i: 0.5, node_j: 0},  // rack between 1 and 6
-    { id: "n320", i: 0, j: 5, node_i: 0, node_j: 2},       // fit03
-    { id: "panther", i: 0, j: 6, node_i: 2, node_j: 0},    // fit11
-    { id: "jaguar", i: 0, j: 7, node_i: 1, node_j: 2},     // fit08
+    { id: "n300", i: 0, j: 2, node_i: 0, node_j: 0},       // fit01
+    { id: "x310", i: 0, j: 3, node_i: 0.5, node_j: 0},  // rack between 1 and 6
+    { id: "n320", i: 0, j: 4, node_i: 0, node_j: 2},       // fit03
+    { id: "panther", i: 0, j: 5, node_i: 2, node_j: 0},    // fit11
+    { id: "jaguar", i: 0, j: 6, node_i: 1, node_j: 2},     // fit08
   ],
 
   //////////////////// configuration
@@ -878,7 +878,7 @@ export class LiveMap {
   animate_pdus_changes() {
     console.log("animate_pdu_changes")
     const svg = d3.select('div#livemap_container svg')
-    const r = livemap_options.pdu_size
+    const r = livemap_options.pdu_radius
     const animation_duration = 750
     const circles = svg.selectAll('circle.pdu-status')
       .data(this.pdus, (obj) => obj.id)
