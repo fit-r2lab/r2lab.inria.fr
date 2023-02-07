@@ -1,0 +1,19 @@
+[Unit]
+Description=the r2lab django app as a gunicorn instance
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/r2lab.inria.fr
+ExecStart=/usr/local/bin/gunicorn r2lab.wsgi \
+--name r2lab \
+--workers 16 \
+--timeout 10 \
+--user=root --group=root \
+--bind unix:/run/django.sock \
+--log-level debug \
+--access-logfile - \
+--log-file -
+
+
+[Install]
+WantedBy=multi-user.target
