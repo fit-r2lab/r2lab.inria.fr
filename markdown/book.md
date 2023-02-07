@@ -47,10 +47,20 @@ Object.assign(liveleases_options, {
 });
 </script>
 
-<div class="row book" id="all">
+<style>
+  .book-top {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+  }
+</style>
+
+<div class="book-top book" id="all">
  <!-- the left pane with the slices & keys button, and the slices list, on 2 columns -->
- << include r2lab/slices-left-pane.html >>
- <div class="col-md-10">
+  <div id="book-slices" class="no-padding"> <!-- 2 columns -->
+    << include r2lab/slices-left-pane.html >>
+  </div>
+
+ <div id="book-leases">
   <div id="liveleases_container" class="book"></div>
    <script src="assets/js/jquery-ui-custom-1.12.1.min.js"></script>
    <style> @import url("assets/css/jquery-ui-custom-1.12.1.min.css"); </style>

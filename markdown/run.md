@@ -26,10 +26,45 @@ require_login: true
 
   <br>
 
-  <div class="row run" id="all">
+  <style>
+    #run-map {
+      align-items: center;
+    }
+    .vertical {
+      display: flex;
+      flex-direction: column;
+    }
+    .horizontal {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    .run-top {
+      display: grid;
+      grid-template-columns: 190px 220px 1fr;
+      grid-template-areas: "slices leases map";
+    }
+    #run-slices { grid-area: slices; }
+    #run-leases { grid-area: leases; }
+    #run-map { grid-area: map; }
+    @media only screen and (max-width: 1200px) {
+      .run-top.run {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "slices leases"
+          "map map";
+      }
+      #run-legend {
+        margin-top: 30px;
+      }
+    }
+  </style>
+  <div class="run-top run" id="all">
     <!-- the left pane with the slices & keys button, and the slices list, on 2 columns -->
-    << include r2lab/slices-left-pane.html >>
-    <div class="col-md-2 leases-run-width">
+    <div id="run-slices">
+      << include r2lab/slices-left-pane.html >>
+    </div>
+    <div id="run-leases" class="leases-run-width">
       <div id="liveleases_container" class="run"></div>
       <script src="assets/js/jquery-ui-custom-1.12.1.min.js"></script>
       <style> @import url("assets/css/jquery-ui-custom-1.12.1.min.css"); </style>
@@ -45,21 +80,10 @@ require_login: true
       <script type="module"> import "/assets/r2lab/liveleases.js" </script>
       <div id="current-slice" data-current-slice-color="#000"></div>
     </div>
-    <style>
-      .vertical {
-        display: flex;
-        flex-direction: column;
-      }
-      .horizontal {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-      }
-    </style>
-    <div class="col-md-8">
+    <div id="run-map" class="vertical>
       <div class="vertical">
         <div class="horizontal">
-          <span>
+          <span id="run-legend">
             Click a node for more details;
             see also <a href="status.md#livemap:legend">this page for a legend</a>
           </span>
