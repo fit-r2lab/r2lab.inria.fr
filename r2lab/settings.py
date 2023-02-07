@@ -182,7 +182,7 @@ STATICFILES_DIRS = [
 ]
 
 manifold_url = "https://portal.onelab.eu:7080/"
-sidecar_url = "wss://r2lab.inria.fr:999/"
+sidecar_url = "wss://r2lab-sidecar.inria.fr:443/"
 
 # IMPORTANT NOTE.
 # not specifying either http: or https: here is the right thing to do
