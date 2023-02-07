@@ -1,0 +1,58 @@
+# Pseudo service that allows to add a secondary IP address to a network
+# interface without bothering with NetworkManager.
+#
+#   - Copy this file to /lib/systemd/system/ (or /etc/systemd/system/)
+#     with the name you want
+#   - Adjust the Description and Environment below.
+#   - systemctl daemon-reload
+#   - Enable/Disable this service with systemctl
+#   - Suppress this comment
+#
+# It may be an improvement to send one (many?) gratuitous arp
+# to make the "network" aware of this secondary IP as soon as
+# possible.
+#
+#  ExecStartPost=/sbin/arping -A -I $DEV $ADDR
+#
+#  Ref: http://www.cyberciti.biz/faq/linux-networking-sending-gratuitous-arps/
+
+# Beware: you should enable NetworkManager-wait-online with:
+#
+#   systemctl enable NetworkManager-wait-online.service
+#
+# otherwise NetworkManager will fail to initialise the main IP address.
+
+[Unit]
+Description=r2lab-sidecar-addr
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Environment="DEV=eth0" "ADDR=138.96.119.6"
+Environment="PREFIX=21" BROADCAST="138.96.119.255"
+
+Type=oneshot
+RemainAfterExit=yes
+
+# Delete without failing in case of a previous failure on start
+ExecStartPre=-/sbin/ip address del ${ADDR}/${PREFIX} dev ${DEV}
+
+# Duplicate address detection. One fails if some other machine answers
+ExecStartPre= /sbin/arping -c 2 -w 3 -D -I ${DEV} ${ADDR}
+
+# Add the wanted IP
+ExecStart=    /sbin/ip address add ${ADDR}/${PREFIX} brd ${BROADCAST} dev ${DEV}
+
+# Set its lifetimes
+ExecStartPost=/sbin/ip addr change ${ADDR}/${PREFIX} dev ${DEV} \
+		       valid_lft forever preferred_lft forever
+
+# Gratuitous ARP REQUEST then REPLY. One seems enough.
+ExecStartPost=/sbin/arping -q -U -c 1 -I ${DEV} ${ADDR}
+ExecStartPost=/sbin/arping -q -A -c 1 -I ${DEV} ${ADDR}
+
+# Delete on stop
+ExecStop=/sbin/ip address del ${ADDR}/${PREFIX} dev ${DEV}
+
+[Install]
+WantedBy=multi-user.target
