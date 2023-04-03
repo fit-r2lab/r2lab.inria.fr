@@ -206,8 +206,8 @@ The testbed currently includes 4 Huawei LTE sticks:
 
 The testbed currently includes 6 <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
-* One attached to fit07 with SIM #15, IMSI: <208950000000015>
-* One attached to fit09 with SIM #14, IMSI: <208950000000014>
+* One attached to fit07 with SIM #14, IMSI: <208950000000014>
+* One attached to fit09 with SIM #15, IMSI: <208950000000015>
 * One attached to fit18 with SIM #13, IMSI: <208950000000013>
 * One attached to fit31 with SIM #10, IMSI: <208950000000010>
 * One attached to fit32 with SIM #11, IMSI: <208950000000011>
