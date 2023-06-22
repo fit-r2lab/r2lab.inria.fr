@@ -56,6 +56,7 @@ tab: platform
 <div class="container" markdown="1">
   <div class="row">
     <div class="col-md-8 new_pad">
+
 ### All nodes
 
 All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> and feature
@@ -154,6 +155,7 @@ Please note the following specifics about the additional SDR devices:
 
     <div class="col-md-8">
 
+
 ### Duplexers
 
 Some USRP devices, like the `B210`, have their Tx and Rx SMA
@@ -194,29 +196,41 @@ With the above assumptions, these tags can be interpreted as follows:
 
 The testbed currently includes 4 Huawei LTE sticks: 
 
-* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26 (with SIM #05).
-* One <a href="https://www.4gltemall.com/blog/wp-content/uploads/2012/11/HUAWEI_E392_TDD_LTE_USB_Stick_Product_Description-Specification-and-datasheet.pdf" target="_blank">Huawei E392 stick</a> (with SIM #09) on node fit17, loaned by Eurecom.
-* One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM #10) on node fit29, loaned by Eurecom.
+* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26 (with SIM IMSI <208950000000005>).
+* One <a href="https://www.4gltemall.com/blog/wp-content/uploads/2012/11/HUAWEI_E392_TDD_LTE_USB_Stick_Product_Description-Specification-and-datasheet.pdf" target="_blank">Huawei E392 stick</a> (with SIM IMSI <208950000000009>) on node fit17, loaned by Eurecom.
+* One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM IMSI <208950000000010>) on node fit29, loaned by Eurecom.
 
 ###Commercial Bluetooth 4.2/5.0 Low Energy (BLE) devices
 
 * Two <a href="https://www.sparkfun.com/products/retired/14154" target="_blank">RedBearLab BLE Nano Kit v2 devicess</a> on nodes fit01 anf fit03, loaned by Eurecom.
 
-### Commercial 4G/5G Quectel RM 500Q-GL USB3 modules 
+###Commercial 5G Quectel RM 500Q-GL modules connected via USB3 to fit nodes
 
-The testbed currently includes 6 <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
+The testbed includes six <a href="https://www.aliexpress.com/item/1005005558446531.html?spm=a2g0o.productlist.main.1.6e69BpxmBpxmuL&algo_pvid=b261d5d1-18bb-4499-8d37-2052dd8c03d9&algo_exp_id=b261d5d1-18bb-4499-8d37-2052dd8c03d9-0&pdp_npi=3%40dis%21EUR%21135.53%2167.76%21%21%21%21%21%400b0a558a16874405389097628d0778%2112000033537063819%21sea%21FR%21138377779&curPageLogUid=e3UH3n3cs5i0" target="_blank">5G modules with M.2 to USB3.0 adapter enclosure</a> for
+<a href="https://www.quectel.com/product/5g-rm500q-gl/" target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
-* One attached to fit07 with SIM #14, IMSI: <208950000000014>
-* One attached to fit09 with SIM #15, IMSI: <208950000000015>
-* One attached to fit18 with SIM #13, IMSI: <208950000000013>
+* One attached to fit07 with SIM #03, IMSI: <001010000000003>
+* One attached to fit09 with SIM #04, IMSI: <001010000000004>
+* One attached to fit18 with SIM #05, IMSI: <001010000000005>
 * One attached to fit31 with SIM #10, IMSI: <208950000000010>
 * One attached to fit32 with SIM #11, IMSI: <208950000000011>
 * One attached to fit34 with SIM #12, IMSI: <208950000000012>
 
 
-###Commercial 4G Phones
+###Commercial Raspberry Pi4 with 5G Quectel RM 500Q-GL 
 
-The testbed offers a couple of commercial phones right inside the chamber:
+The testbed includes three other 5G modules composed of a Raspberry Pi4 device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
+
+* qhat01 with SIM #06, IMSI: <001010000000006>
+* qhat02 with SIM #07, IMSI: <001010000000007>
+* qhat03 with SIM #08, IMSI: <001010000000008>
+
+Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface. 
+
+###Commercial 4G/5G Phones
+
+The testbed offers a couple of commercial smartphones right inside the chamber:
+
 
 * Each phone is reachable through a Mac (that also sits in the room) that has
   its wireless card physically disabled, and that has a USB cable to
@@ -230,6 +244,12 @@ The testbed offers a couple of commercial phones right inside the chamber:
   (VNC-compliant), pointing directly at <code>faraday-macphone1.inria.fr</code>
 * You will find more details about controlling the phone [in the
   tutorials section](/tuto-130-5g.md#PHONE).
+
+The two smartphones are:
+
+* phone1: HUAWEI P40 Pro attached to macphone1, with SIM #01, IMSI: <001010000000001>
+
+* phone2: Google Pixel 7 attached to macphone2, with SIM #02, IMSI: <001010000000002>
 
     </div>
     <div class="col-md-4">
