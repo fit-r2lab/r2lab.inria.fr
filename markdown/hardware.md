@@ -106,10 +106,11 @@ Make sure [to read the additional notes below](#gory-details) that cover some sp
 
 
 Also, two more powerful USRP devices are currently available:
+
   * <a href="https://www.ettus.com/all-products/usrp-n320/" target="_blank"> USRP N320</a> 
   * <a href="https://www.ettus.com/all-products/usrp-n300/" target="_blank"> USRP N300</a>
 
-  Each one is connected through 2x10Gbps SFP+ fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> demonstrate how to use those devices (e.g. using `-R N300`option) to set up a 5G demo with <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
+  Each one is connected through 2x10Gbps SFP+ fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> demonstrate how to use those devices (e.g. using `-R N300` option) to set up a 5G demo with <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
 
   </div>
  </div>
@@ -119,7 +120,7 @@ Also, two more powerful USRP devices are currently available:
   <div class="row">
     <div class="col-md-8 new_pad">
     
-###AW2S 5G RRH / RRU Radio Units (RUs)
+###AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs) 
 
 Two 5G RUs are available:
 
