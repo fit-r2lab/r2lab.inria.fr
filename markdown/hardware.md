@@ -90,17 +90,26 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
   </div>
   <div class="col-md-8 new_pad">
 
-### USRP nodes
+### USRP devices
 
 Some nodes are equipped with USRP devices from <a href="http://www.ettus.com" target="_blank">ETTUS</a> to run SDR-based experiments such as spectrum analyzer or 4G/5G OpenAirInterface scenarios. All these devices can be remotely-controlled through the `ust`/`uon`/`uoff` utilities.
 
 Currently, our deployment features the following types of USRP devices :
-  <a href="http://www.ettus.com/product/details/UB210-KIT" target="_blank">USRP B210</a>,
-  <a href="http://www.ettus.com/product/details/UN210-KIT" target="_blank">USRP N210</a>,
-  <a href="http://files.ettus.com/manual/page_usrp2.html" target="_blank">USRP 2</a>, and
-  <a href="https://www.ettus.com/product/details/USRPPKG" target="_blank">USRP 1</a> (see detailed mapping in the table below).
+
+  * <a href="http://www.ettus.com/product/details/UB210-KIT" target="_blank">USRP B210</a>,
+  * <a href="https://www.ettus.com/all-products/usrp-b205mini-i/" target="_blank">USRP B205mini</a>,
+  * <a href="http://www.ettus.com/product/details/UN210-KIT" target="_blank">USRP N210</a>,
+  * <a href="http://files.ettus.com/manual/page_usrp2.html" target="_blank">USRP 2</a>, and
+  * <a href="https://www.ettus.com/product/details/USRPPKG" target="_blank">USRP 1</a> (see detailed mapping in the table below).
 
 Make sure [to read the additional notes below](#gory-details) that cover some specifics of these devices.
+
+
+Also, two more powerful USRP devices are currently available:
+  * <a href="https://www.ettus.com/all-products/usrp-n320/" target="_blank"> USRP N320</a> 
+  * <a href="https://www.ettus.com/all-products/usrp-n300/" target="_blank"> USRP N300</a>
+
+  Each one is connected through 2x10Gbps SFP+ fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> demonstrate how to use those devices (e.g. using `-R N300`option) to set up a 5G demo with <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
 
   </div>
  </div>
@@ -109,6 +118,18 @@ Make sure [to read the additional notes below](#gory-details) that cover some sp
 <div class="container" markdown="1">
   <div class="row">
     <div class="col-md-8 new_pad">
+    
+###AW2S 5G RRH / RRU Radio Units (RUs)
+
+Two 5G RUs are available:
+
+* <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> JAGUAR 2T2R</a> RUs (CPRI Split 8), IBUmax 50MHz, MIMO 2x2
+* <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> PANTHER 4T4R</a> RUs (CPRI Split 8), IBUmax 100MHz, MIMO 4x4
+
+As for USRP N3XX devices, each AW2S RU is connected through either 2x10Gbps or 2x25Gbps fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The same <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> can be used with e.g., `-R jaguar` option to demonstrate how to use a AW2S RU to set up a 5G demo using <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
+
+Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 2x2</a> 5G omnidirectional antennas, while the N320 USRP device and the PANTHER RU use <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 4x4</a> 5G omnidirectional antennas.
+
 ###Lime SDR devices
 
 Here are the detailed specifications for the LimeSDR devices deployed in the chamber (see table below for the details on which nodes host such devices)
