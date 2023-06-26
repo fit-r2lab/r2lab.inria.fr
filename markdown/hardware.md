@@ -120,7 +120,7 @@ Also, two more powerful USRP devices are currently available:
   <div class="row">
     <div class="col-md-8 new_pad">
     
-###AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs) 
+### AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs) 
 
 Two 5G RUs are available:
 
@@ -131,7 +131,7 @@ As for USRP N3XX devices, each AW2S RU is connected through either 2x10Gbps or 2
 
 Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 2x2</a> 5G omnidirectional antennas, while the N320 USRP device and the PANTHER RU use <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 4x4</a> 5G omnidirectional antennas.
 
-###Lime SDR devices
+### Lime SDR devices
 
 Here are the detailed specifications for the LimeSDR devices deployed in the chamber (see table below for the details on which nodes host such devices)
 
@@ -160,7 +160,7 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
 <div class="container" markdown="1">
   <div class="row">
     <div class="col-md-4 new_pad" id="gory-details">
-###Important notes on SDR devices
+### Important notes on SDR devices
 Please note the following specifics about the additional SDR devices:
 
 * the following table shows in the **sdr** columns the type of the
@@ -214,7 +214,7 @@ With the above assumptions, these tags can be interpreted as follows:
   <div class="row">
     <div class="col-md-8 new_pad">
     
-###Commercial Huawei LTE Sticks
+### Huawei LTE Sticks
 
 The testbed currently includes 4 Huawei LTE sticks: 
 
@@ -222,11 +222,11 @@ The testbed currently includes 4 Huawei LTE sticks:
 * One <a href="https://www.4gltemall.com/blog/wp-content/uploads/2012/11/HUAWEI_E392_TDD_LTE_USB_Stick_Product_Description-Specification-and-datasheet.pdf" target="_blank">Huawei E392 stick</a> (with SIM IMSI <208950000000009>) on node fit17, loaned by Eurecom.
 * One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM IMSI <208950000000010>) on node fit29, loaned by Eurecom.
 
-###Commercial Bluetooth 4.2/5.0 Low Energy (BLE) devices
+### Bluetooth 4.2/5.0 Low Energy (BLE) devices
 
 * Two <a href="https://www.sparkfun.com/products/retired/14154" target="_blank">RedBearLab BLE Nano Kit v2 devicess</a> on nodes fit01 anf fit03, loaned by Eurecom.
 
-###Commercial 5G Quectel RM 500Q-GL modules connected via USB3 to fit nodes
+### 5G Quectel RM 500Q-GL modules connected via USB3 to fit nodes
 
 The testbed includes six <a href="https://www.aliexpress.com/item/1005005558446531.html?spm=a2g0o.productlist.main.1.6e69BpxmBpxmuL&algo_pvid=b261d5d1-18bb-4499-8d37-2052dd8c03d9&algo_exp_id=b261d5d1-18bb-4499-8d37-2052dd8c03d9-0&pdp_npi=3%40dis%21EUR%21135.53%2167.76%21%21%21%21%21%400b0a558a16874405389097628d0778%2112000033537063819%21sea%21FR%21138377779&curPageLogUid=e3UH3n3cs5i0" target="_blank">5G modules with M.2 to USB3.0 adapter enclosure</a> for
 <a href="https://www.quectel.com/product/5g-rm500q-gl/" target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
@@ -239,7 +239,7 @@ The testbed includes six <a href="https://www.aliexpress.com/item/10050055584465
 * One attached to fit34 with SIM #12, IMSI: <208950000000012>
 
 
-###Commercial Raspberry Pi4 with 5G Quectel RM 500Q-GL 
+### Raspberry Pi4 with 5G Quectel RM 500Q-GL 
 
 The testbed includes three other 5G modules composed of a Raspberry Pi4 device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
@@ -249,15 +249,20 @@ The testbed includes three other 5G modules composed of a Raspberry Pi4 device w
 
 Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface. 
 
-###Commercial 4G/5G Phones
+### 5G Phones
 
 The testbed offers a couple of commercial smartphones right inside the chamber:
 
+* HUAWEI P40 Pro attached to macphone1, with SIM #01, IMSI: <001010000000001> (called phone1)
+
+* Google Pixel 7 attached to macphone2, with SIM #02, IMSI: <001010000000002> (called phone2)
+
+Note that:
 
 * Each phone is reachable through a Mac (that also sits in the room) that has
   its wireless card physically disabled, and that has a USB cable to
   the phone.
-* The Mac can be reached from the gateway as e.g. `ssh tester@macphone1` (or
+* The mac can be reached from the gateway as e.g., `ssh tester@macphone1` (or
   the <code>macphone1</code> convenience shell shortcut)
 * Once logged in the Mac you can use convenience helpers to manage the
   phone (type <code>help</code> for details), or use <code>adb</code>
@@ -267,11 +272,6 @@ The testbed offers a couple of commercial smartphones right inside the chamber:
 * You will find more details about controlling the phone [in the
   tutorials section](/tuto-130-5g.md#PHONE).
 
-The two smartphones are:
-
-* phone1: HUAWEI P40 Pro attached to macphone1, with SIM #01, IMSI: <001010000000001>
-
-* phone2: Google Pixel 7 attached to macphone2, with SIM #02, IMSI: <001010000000002>
 
     </div>
     <div class="col-md-4">
