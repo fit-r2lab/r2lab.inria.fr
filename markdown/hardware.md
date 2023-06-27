@@ -216,11 +216,10 @@ With the above assumptions, these tags can be interpreted as follows:
     
 ### Huawei LTE Sticks
 
-The testbed currently includes 4 Huawei LTE sticks: 
+The testbed currently includes 2 Huawei LTE sticks: 
 
 * One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26 (with SIM IMSI <208950000000005>).
-* One <a href="https://www.4gltemall.com/blog/wp-content/uploads/2012/11/HUAWEI_E392_TDD_LTE_USB_Stick_Product_Description-Specification-and-datasheet.pdf" target="_blank">Huawei E392 stick</a> (with SIM IMSI <208950000000009>) on node fit17, loaned by Eurecom.
-* One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM IMSI <208950000000010>) on node fit29, loaned by Eurecom.
+* One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM IMSI <208950000000010>) on node fit09, loaned by Eurecom.
 
 ### Bluetooth 4.2/5.0 Low Energy (BLE) devices
 
@@ -232,8 +231,8 @@ The testbed includes six <a href="https://www.aliexpress.com/item/10050055584465
 <a href="https://www.quectel.com/product/5g-rm500q-gl/" target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
 * One attached to fit07 with SIM #03, IMSI: <001010000000003>
-* One attached to fit09 with SIM #04, IMSI: <001010000000004>
 * One attached to fit18 with SIM #05, IMSI: <001010000000005>
+* One attached to fit29 with SIM #15, IMSI: <208950000000015>
 * One attached to fit31 with SIM #10, IMSI: <208950000000010>
 * One attached to fit32 with SIM #11, IMSI: <208950000000011>
 * One attached to fit34 with SIM #12, IMSI: <208950000000012>
