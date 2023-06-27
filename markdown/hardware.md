@@ -234,7 +234,7 @@ The testbed includes six <a href="https://www.aliexpress.com/item/10050055584465
 * One attached to fit29 with SIM IMSI: <208950000000005>
 * One attached to fit31 with SIM IMSI: <208950000000010>
 * One attached to fit32 with SIM IMSI: <208950000000011>
-* One attached to fit34 with SIM IMSI: <208950000000010>
+* One attached to fit34 with SIM IMSI: <208950000000009>
 
 
 ### Raspberry Pi4 with 5G Quectel RM 500Q-GL 
