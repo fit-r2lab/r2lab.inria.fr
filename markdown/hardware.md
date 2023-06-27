@@ -214,12 +214,11 @@ With the above assumptions, these tags can be interpreted as follows:
   <div class="row">
     <div class="col-md-8 new_pad">
     
-### Huawei LTE Sticks
+### Huawei LTE Stick
 
-The testbed currently includes 2 Huawei LTE sticks: 
+The testbed currently includes 1 Huawei LTE stick: 
 
-* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26 (with SIM IMSI <208950000000005>).
-* One <a href="https://www.4gltemall.com/blog/huawei-e3276s-151-4g-lte-cat4-usb-stick-specifications/" target="_blank">Huawei E3276 stick</a> (with SIM IMSI <208950000000010>) on node fit09, loaned by Eurecom.
+* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26 (with SIM IMSI <208950000000015>).
 
 ### Bluetooth 4.2/5.0 Low Energy (BLE) devices
 
@@ -230,21 +229,21 @@ The testbed currently includes 2 Huawei LTE sticks:
 The testbed includes six <a href="https://www.aliexpress.com/item/1005005558446531.html?spm=a2g0o.productlist.main.1.6e69BpxmBpxmuL&algo_pvid=b261d5d1-18bb-4499-8d37-2052dd8c03d9&algo_exp_id=b261d5d1-18bb-4499-8d37-2052dd8c03d9-0&pdp_npi=3%40dis%21EUR%21135.53%2167.76%21%21%21%21%21%400b0a558a16874405389097628d0778%2112000033537063819%21sea%21FR%21138377779&curPageLogUid=e3UH3n3cs5i0" target="_blank">5G modules with M.2 to USB3.0 adapter enclosure</a> for
 <a href="https://www.quectel.com/product/5g-rm500q-gl/" target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
-* One attached to fit07 with SIM #03, IMSI: <001010000000003>
-* One attached to fit18 with SIM #05, IMSI: <001010000000005>
-* One attached to fit29 with SIM #15, IMSI: <208950000000015>
-* One attached to fit31 with SIM #10, IMSI: <208950000000010>
-* One attached to fit32 with SIM #11, IMSI: <208950000000011>
-* One attached to fit34 with SIM #12, IMSI: <208950000000012>
+* One attached to fit07 with SIM IMSI: <001010000000003>
+* One attached to fit18 with SIM IMSI: <001010000000005>
+* One attached to fit29 with SIM IMSI: <208950000000005>
+* One attached to fit31 with SIM IMSI: <208950000000010>
+* One attached to fit32 with SIM IMSI: <208950000000011>
+* One attached to fit34 with SIM IMSI: <208950000000010>
 
 
 ### Raspberry Pi4 with 5G Quectel RM 500Q-GL 
 
 The testbed includes three other 5G modules composed of a Raspberry Pi4 device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
-* qhat01 with SIM #06, IMSI: <001010000000006>
-* qhat02 with SIM #07, IMSI: <001010000000007>
-* qhat03 with SIM #08, IMSI: <001010000000008>
+* qhat01 with SIM IMSI: <001010000000006>
+* qhat02 with SIM IMSI: <001010000000007>
+* qhat03 with SIM IMSI: <001010000000008>
 
 Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface. 
 
@@ -252,9 +251,9 @@ Those three Raspberry Pi4 devices are also connected via Ethernet port to the `c
 
 The testbed offers a couple of commercial smartphones right inside the chamber:
 
-* HUAWEI P40 Pro attached to macphone1, with SIM #01, IMSI: <001010000000001> (called phone1)
+* HUAWEI P40 Pro attached to macphone1, with SIM IMSI: <001010000000001> (called phone1)
 
-* Google Pixel 7 attached to macphone2, with SIM #02, IMSI: <001010000000002> (called phone2)
+* Google Pixel 7 attached to macphone2, with SIM IMSI: <001010000000002> (called phone2)
 
 Note that:
 
