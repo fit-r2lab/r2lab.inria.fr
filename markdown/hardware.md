@@ -230,8 +230,8 @@ The testbed includes six <a href="https://www.aliexpress.com/item/10050055584465
 <a href="https://www.quectel.com/product/5g-rm500q-gl/" target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
 * One attached to fit07 with SIM IMSI: <001010000000003>
+* One attached to fit09 with SIM IMSI: <001010000000004>
 * One attached to fit18 with SIM IMSI: <001010000000005>
-* One attached to fit29 with SIM IMSI: <208950000000005>
 * One attached to fit31 with SIM IMSI: <208950000000010>
 * One attached to fit32 with SIM IMSI: <208950000000011>
 * One attached to fit34 with SIM IMSI: <208950000000009>
