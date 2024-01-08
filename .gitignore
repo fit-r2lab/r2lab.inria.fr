@@ -3,3 +3,7 @@ venv/
 assets/unwrap/
 *.dot
 manifold/
+.vscode/
+trash/
+foo*
+TAGS
