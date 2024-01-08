@@ -521,6 +521,13 @@ class MapNodePc extends MapNode {
       this.usrp_type = node_spec.usrp_type
     }
 
+    tooltip() {
+      if (this.has_usrp())
+        return `PC ${this.id} : SDR is ${this.usrp_type} (${this.usrp_name})`
+      else
+        return `${this.id} - no SDR`
+    }
+
 }
 
 
