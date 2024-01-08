@@ -528,6 +528,12 @@ class MapNodePc extends MapNode {
         return `${this.id} - no SDR`
     }
 
+    node_status_fill() {
+      return (this.on_off == 'on') ? '#DCF2F188' : '#00000000'
+    }
+    node_status_stroke_width() {
+      return (this.on_off == 'on') ? 0 : 0.5
+    }
 }
 
 
@@ -741,7 +747,7 @@ export class LiveMap {
     const squares = svg.selectAll('rect.nodepc-status')
       .data(this.nodepcs, obj => obj.id)
     // squares show the overall status of the nodepc
-    const [sqw, sqh, sqr] = [30, 30, 4]
+    const [sqw, sqh, sqr] = [22, 22, 4]
     squares
       .enter()
       .append('rect')
@@ -762,7 +768,11 @@ export class LiveMap {
         })
       })
       .merge(squares)
-      // xxx squares not animated yet
+      .transition()
+      .duration(animation_duration)
+      .attr('fill', node => node.node_status_fill())
+      .attr('stroke-width', nodepc => nodepc.node_status_stroke_width())
+      .attr('stroke', 'rgba(4,4,4,8)')
 
 
     if (livemap_options.colormap) {
@@ -937,7 +947,7 @@ export class LiveMap {
   }
 
   animate_pdus_changes() {
-    console.log("animate_pdu_changes")
+    // console.log("animate_pdu_changes")
     const svg = d3.select('div#livemap_container svg')
     const r = livemap_options.pdu_radius
     const animation_duration = 750
@@ -1067,18 +1077,34 @@ export class LiveMap {
     livemap.animate_phones_changes()
   }
 
+  // pc... entries in the pdus area are mapped to corresponding nodepcs
   pdus_callback(infos) {
-    let livemap = this
+    const NODEPC_PATTERN = /^pc(\d+)$/
+    console.log("pdus_callback")
+    console.log(infos)
+    const livemap = this
     // first we write this data into the MapNode structures
     infos.forEach(function (info) {
-      let id = info.id
-      let obj = locate_by_id(livemap.pdus, id)
-      if (obj != undefined)
-        update_obj_from_info(obj, info)
-      else
-        livemap_debug(`livemap: could not locate pdu id ${id} - ignored`)
+      const {id} = info
+      if (id.match(NODEPC_PATTERN)) {
+        const nodepc_id = parseInt(id.match(NODEPC_PATTERN)[1])
+        const obj = locate_by_id(livemap.nodepcs, nodepc_id)
+        if (obj != undefined) {
+          update_obj_from_info(obj, info)
+        } else {
+          livemap_debug(`livemap: could not locate nodepc id ${nodepc_id} - ignored`)
+        }
+      } else {
+        const obj = locate_by_id(livemap.pdus, id)
+        // not all known pdus are present on the map, so ignore if not found
+        if (obj != undefined) {
+          update_obj_from_info(obj, info)
+        }
+      }
     })
     livemap.animate_pdus_changes()
+    // because nodepcs are not in the pdus area, we need to animate them
+    livemap.animate_nodes_changes()
   }
 
   //////////////////// websockets business
