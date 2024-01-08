@@ -296,7 +296,7 @@ function locate_by_id(list_objs, id) {
       return obj
     }
   }
-  livemap_debug(`ERROR: livemap: locate_by_id: id= ${id} was not found`)
+  // livemap_debug(`ERROR: livemap: locate_by_id: id= ${id} was not found`)
 }
 
 
@@ -690,11 +690,17 @@ export class LiveMap {
   init_nodes() {
     this.nodes = []
     this.nodepcs = []
+    // this map contains the names of the usrps attached to nodepc's
+    this.nodepc_usrpnames_to_nodes = new Map()
     for (let mapnode_spec of livemap_geometry.mapnode_specs) {
       if (mapnode_spec.nodepc) {
-        this.nodepcs.push(new MapNodePc(mapnode_spec))
+        const nodepc = new MapNodePc(mapnode_spec)
+        this.nodepcs.push(nodepc)
+        if (mapnode_spec.usrp_name) {
+          this.nodepc_usrpnames_to_nodes.set(mapnode_spec.usrp_name, nodepc)
+        }
       } else {
-      this.nodes.push(new MapNode(mapnode_spec))
+        this.nodes.push(new MapNode(mapnode_spec))
       }
     }
     this.all_nodes = this.nodes.concat(this.nodepcs)
@@ -718,6 +724,7 @@ export class LiveMap {
 
   //////////////////// the nodes graphical layout
   animate_nodes_changes() {
+    // console.log("animate_nodes_changes")
     const svg = d3.select('div#livemap_container svg')
     const animation_duration = 750
     const circles = svg.selectAll('circle.node-status')
@@ -1077,16 +1084,23 @@ export class LiveMap {
     livemap.animate_phones_changes()
   }
 
+  // usrp.. entries will be found in livemap.nodepc_usrpnames_to_nodes
   // pc... entries in the pdus area are mapped to corresponding nodepcs
   pdus_callback(infos) {
     const NODEPC_PATTERN = /^pc(\d+)$/
     console.log("pdus_callback")
     console.log(infos)
     const livemap = this
-    // first we write this data into the MapNode structures
     infos.forEach(function (info) {
       const {id} = info
-      if (id.match(NODEPC_PATTERN)) {
+      // usrps attached to nodepc's
+      let nodepc
+      if (nodepc = livemap.nodepc_usrpnames_to_nodes.get(id)) {
+        console.log('nodepc', nodepc)
+        console.log(`found nodepc ${nodepc.id} for usrp ${id}`)
+        nodepc.usrp_on_off = info.on_off
+      // pc.. are recognized by a hard-wired pattern
+      } else if (id.match(NODEPC_PATTERN)) {
         const nodepc_id = parseInt(id.match(NODEPC_PATTERN)[1])
         const obj = locate_by_id(livemap.nodepcs, nodepc_id)
         if (obj != undefined) {
@@ -1094,6 +1108,7 @@ export class LiveMap {
         } else {
           livemap_debug(`livemap: could not locate nodepc id ${nodepc_id} - ignored`)
         }
+      // otherwise we search them in the pdus area
       } else {
         const obj = locate_by_id(livemap.pdus, id)
         // not all known pdus are present on the map, so ignore if not found
@@ -1103,7 +1118,8 @@ export class LiveMap {
       }
     })
     livemap.animate_pdus_changes()
-    // because nodepcs are not in the pdus area, we need to animate them
+    // this is needed because of the changes made to nodepcs
+    // or their attached usrps
     livemap.animate_nodes_changes()
   }
 
