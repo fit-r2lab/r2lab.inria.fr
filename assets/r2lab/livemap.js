@@ -183,14 +183,15 @@ let livemap_geometry = {
   ],
 
   mappdu_specs: [
-    { id: "n300", i: 0, j: 1, node_i: 0, node_j: 0},       // fit01
-    { id: "n320", i: 0, j: 2.5, node_i: 0, node_j: 2},       // fit03
-    { id: "qhat01", i: 0, j: 3.5, node_i: 0, node_j: 3},     // fit04 ie pc01
-    { id: "qhat02", i: 0, j: 4.5, node_i: 0, node_j: 3},     // fit04 ie pc01
-    { id: "x310", i: 2, j: 0, node_i: 0.5, node_j: 0},     // rack between 1 and 6
-    { id: "jaguar", i: 3, j: 0, node_i: 1, node_j: 2},     // fit08
-    { id: "panther", i: 4, j: 0, node_i: 2, node_j: 0},    // fit11
-    { id: "qhat03", i: 5, j: 0, node_i: 2, node_j: 2},     // fit13 ie pc02
+    // by default label is 'antenna' - set in class MapPdu below
+    { id: "n300", i: 0, j: 1, node_i: 0, node_j: 0},                  // fit01
+    { id: "n320", i: 0, j: 2.5, node_i: 0, node_j: 2},                // fit03
+    { id: "qhat01", i: 0, j: 3.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
+    { id: "qhat02", i: 0, j: 4.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
+    { id: "x310", i: 2, j: 0, node_i: 0.5, node_j: 0},                // rack between 1 and 6
+    { id: "jaguar", i: 3, j: 0, node_i: 1, node_j: 2},                // fit08
+    { id: "panther", i: 4, j: 0, node_i: 2, node_j: 0},               // fit11
+    { id: "qhat03", i: 5, j: 0, node_i: 2, node_j: 2, label: "UE"},   // fit13 ie pc02
   ],
 
   //////////////////// configuration
@@ -608,6 +609,7 @@ class MapPdu extends MapAntenna {
   constructor(pdu_spec) {
     super(pdu_spec)
     this.id = pdu_spec.id
+    this.label = pdu_spec.label || "antenna"
   }
 
   status_filter() {
@@ -617,7 +619,7 @@ class MapPdu extends MapAntenna {
       return `url(#antenna-off)`
   }
   tooltip_text() {
-    return `antenna ${this.id}`
+    return `${this.label} ${this.id}`
   }
 }
 
