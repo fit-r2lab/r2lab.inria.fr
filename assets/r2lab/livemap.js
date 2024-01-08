@@ -17,10 +17,9 @@ export let livemap_options = {
   // overall layout
   margin_x: 50, margin_y: 50,       // the space around the walls in the canvas
   antennas_margin_x: 70,            // the space for drawing antennas
-  antennas_margin_y: 0,             // the y would come in handy if we had another row
+  antennas_margin_y: 70,            // the y would come in handy if we had another row
                                     // of extra space on top of the map
-  antennas_space_x: 45,
-  antennas_space_y: 45,             // distance between antennas
+  // antennas use the same spacing as nodes
   space_x: 80, space_y: 80,         // distance between nodes
   padding_x: 40, padding_y: 40,     // distance between nodes and walls
 
@@ -123,7 +122,9 @@ let livemap_geometry = {
     { id:  1, i: 0, j: 0 },
     { id:  2, i: 0, j: 1 },
     { id:  3, i: 0, j: 2 },
-    { id:  4, i: 0, j: 3 },
+    { id:  1, i: 0, j: 3, nodepc: true,         // formerly node4
+      // xxx would be nicer to fetch this from the database...
+      usrp_name: "usrp01", usrp_type: "b210"},
     { id:  5, i: 0, j: 4 },
     { id:  6, i: 1, j: 0 },
     { id:  7, i: 1, j: 1 },
@@ -132,7 +133,9 @@ let livemap_geometry = {
     { id: 10, i: 1, j: 4 },
     { id: 11, i: 2, j: 0 },
     { id: 12, i: 2, j: 1 },
-    { id: 13, i: 2, j: 2 },
+    { id: 2, i: 2, j: 2, nodepc: true,          // formerly node13
+      // xxx would be nicer to fetch this from the database...
+      usrp_name: "usrp02", usrp_type: "b210"},
     { id: 14, i: 2, j: 3 },
     { id: 15, i: 2, j: 4 },
     { id: 16, i: 3, j: 0 },
@@ -175,16 +178,19 @@ let livemap_geometry = {
   //
   // on the other hand the node_i and node_j coords refer to the walls grid
   mapphone_specs: [
-    { id: 1, i: 0, j: 1, node_i: 0.5, node_j: -0.2},
-    { id: 2, i: 0, j: 7, node_i: 8,   node_j: 3.5},
+    { id: 1, i: 1, j: 0, node_i: 0.5, node_j: -0.2},
+    { id: 2, i: 8, j: 0, node_i: 8,   node_j: 3.5},
   ],
 
   mappdu_specs: [
-    { id: "n300", i: 0, j: 2, node_i: 0, node_j: 0},       // fit01
-    { id: "x310", i: 0, j: 3, node_i: 0.5, node_j: 0},     // rack between 1 and 6
-    { id: "panther", i: 0, j: 4, node_i: 2, node_j: 0},    // fit11
-    { id: "n320", i: 0, j: 5, node_i: 0, node_j: 2},       // fit03
-    { id: "jaguar", i: 0, j: 6, node_i: 1, node_j: 2},     // fit08
+    { id: "n300", i: 0, j: 1, node_i: 0, node_j: 0},       // fit01
+    { id: "n320", i: 0, j: 2.5, node_i: 0, node_j: 2},       // fit03
+    { id: "qhat01", i: 0, j: 3.5, node_i: 0, node_j: 3},     // fit04 ie pc01
+    { id: "qhat02", i: 0, j: 4.5, node_i: 0, node_j: 3},     // fit04 ie pc01
+    { id: "x310", i: 2, j: 0, node_i: 0.5, node_j: 0},     // rack between 1 and 6
+    { id: "jaguar", i: 3, j: 0, node_i: 1, node_j: 2},     // fit08
+    { id: "panther", i: 4, j: 0, node_i: 2, node_j: 0},    // fit11
+    { id: "qhat03", i: 5, j: 0, node_i: 2, node_j: 2},     // fit13 ie pc02
   ],
 
   //////////////////// configuration
@@ -211,20 +217,22 @@ let livemap_geometry = {
     ]
   },
 
-  // translate an antennas j into actual coords
+  // translate an antennas ixj into actual coords
+  // use same spacing as nodes for easier alignments
   antennas_to_canvas: function(i, j) {
-    const {margin_x, margin_y, padding_x, padding_y,
+    const {margin_x, margin_y,
            antennas_margin_x, antennas_margin_y,
-           antennas_space_x, antennas_space_y} = livemap_options
+           space_x, space_y
+          } = livemap_options
     if (i == 0)
       return [
         margin_x + antennas_margin_x / 2
         ,
-        margin_y + antennas_margin_y + j * antennas_space_y
+        margin_y + antennas_margin_y + (j-1/2) * space_y
       ]
     else
       return [
-        margin_x + antennas_margin_x + i * antennas_space_x
+        margin_x + antennas_margin_x + (i-1/2) * space_x
         ,
         margin_y + antennas_margin_y / 2
       ]
@@ -503,6 +511,17 @@ class MapNode {
 
 }
 
+class MapNodePc extends MapNode {
+
+    constructor(node_spec) {
+      super(node_spec)
+      // see xxx above
+      this.usrp_name = node_spec.usrp_name
+      this.usrp_type = node_spec.usrp_type
+    }
+
+}
+
 
 //////////////////////////////
 // the root class for MapPhone and MapPdu
@@ -562,7 +581,7 @@ class MapAntenna {
 
 }
 
-class MapPhone extends MapAntenna{
+class MapPhone extends MapAntenna {
 
   constructor(phone_spec) {
     super(phone_spec)
@@ -584,7 +603,7 @@ class MapPhone extends MapAntenna{
 
 }
 
-class MapPdu extends MapAntenna{
+class MapPdu extends MapAntenna {
 
   constructor(pdu_spec) {
     super(pdu_spec)
@@ -655,9 +674,15 @@ export class LiveMap {
   //////////////////// nodes
   init_nodes() {
     this.nodes = []
+    this.nodepcs = []
     for (let mapnode_spec of livemap_geometry.mapnode_specs) {
+      if (mapnode_spec.nodepc) {
+        this.nodepcs.push(new MapNodePc(mapnode_spec))
+      } else {
       this.nodes.push(new MapNode(mapnode_spec))
+      }
     }
+    this.all_nodes = this.nodes.concat(this.nodepcs)
   }
 
   //////////////////// phones
@@ -704,6 +729,33 @@ export class LiveMap {
       .attr('fill', node => node.node_status_color())
       .attr('filter', node => node.node_status_filter())
 
+    const squares = svg.selectAll('rect.nodepc-status')
+      .data(this.nodepcs, obj => obj.id)
+    // squares show the overall status of the nodepc
+    const [sqw, sqh, sqr] = [30, 30, 4]
+    squares
+      .enter()
+      .append('rect')
+      .attr('class', 'nodepc-status')
+      .attr('id', nodepc => nodepc.id)
+      .attr('width', sqw)
+      .attr('height', sqh)
+      .attr('rx', sqr)
+      .attr('ry', sqr)
+      .attr('fill', nodepc => nodepc.node_status_color())
+      .attr('x', nodepc => nodepc.x - sqw / 2)
+      .attr('y', nodepc => nodepc.y - sqh / 2)
+      .on('click', nodepc => nodepc.clicked())
+      .each(function (nodepc) {
+        $(this).tooltip({
+          title: nodepc.tooltip(),
+          delay: 250, placement: "bottom"
+        })
+      })
+      .merge(squares)
+      // xxx squares not animated yet
+
+
     if (livemap_options.colormap) {
       let size_x = livemap_options.space_x * .72
       let size_y = livemap_options.space_y * .64
@@ -724,7 +776,7 @@ export class LiveMap {
 
     // labels show the nodes numbers
     let labels = svg.selectAll('text')
-      .data(this.nodes, obj => obj.id)
+      .data(this.all_nodes, obj => obj.id)
 
     labels
       .enter()
@@ -752,7 +804,7 @@ export class LiveMap {
     // these rectangles are placeholders for the various icons
     // that are meant to show usrp status
     let usrp_rects = svg.selectAll('rect.usrp-status')
-      .data(this.nodes, obj => obj.id)
+      .data(this.all_nodes, obj => obj.id)
     usrp_rects
       .enter()
       .append('rect')

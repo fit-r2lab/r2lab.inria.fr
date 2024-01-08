@@ -8,7 +8,7 @@ skip_footer: yes
 
 <script type="module">
     import {livemap_options} from "/assets/r2lab/livemap.js";
-    let ratio = 2/3;
+    let ratio = 3/4;
     Object.assign(livemap_options, {
         ratio : ratio,
         // if we do set values from options in addition
