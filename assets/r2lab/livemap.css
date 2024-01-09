@@ -77,6 +77,8 @@ text.sidecar-status {
 }
 
 line.location-annotation {
+    stroke: rgb(80, 193, 65);
+    stroke-opacity: .3;
     stroke-width: 3px;
-    stroke: red;
+    stroke-linecap: round;
 }

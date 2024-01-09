@@ -625,11 +625,9 @@ class MapPdu extends MapAntenna {
     this.label = pdu_spec.label || "antenna"
   }
 
-  status_filter() {
-    if (this.on_off == 'on')
-      return `url(#antenna-on)`
-    else
-      return `url(#antenna-off)`
+  antenna_status_url() {
+    const name = (this.on_off == 'on') ? "antenna-on" : "antenna-off"
+    return `../assets/img/${name}.svg`
   }
   tooltip_text() {
     return `${this.label} ${this.id}`
@@ -954,36 +952,38 @@ export class LiveMap {
   }
 
   animate_pdus_changes() {
-    // console.log("animate_pdu_changes")
+    // console.log("animate_pdus_changes")
     const svg = d3.select('div#livemap_container svg')
     const r = livemap_options.pdu_radius
     const animation_duration = 750
-    const circles = svg.selectAll('circle.pdu-status')
+    const images = svg.selectAll('image.pdu-status')
       .data(this.pdus, (obj) => obj.id)
-    circles
+    images
       .enter()
-      .append('circle')
+      .append('image')
       .attr('class', 'pdu-status')
-      .attr('id', (pdu) => pdu.id)
-      .attr('cx', (pdu)=> pdu.x)
-      .attr('cy', (pdu)=> pdu.y)
-      .attr('r', r)
+      .attr('id', pdu => pdu.id)
+      .attr('x', pdu => pdu.x - r)
+      .attr('y', pdu => pdu.y - r)
+      .attr('width', r * 2)
+      .attr('height', r * 2)
+      // .attr('r', r)
       .each(function(pdu) {
         $(this).tooltip({
           title: pdu.tooltip_text(), delay: 250, placement: 'left'
         })
       })
-      .on('mouseover', function(d, i) {
+      .on('mouseover', function(d) {
         d.show_location_annotation(svg)
       })
-      .on('mouseout', function(d, i) {
+      .on('mouseout', function(d) {
         d.hide_location_annotation(svg)
       })
       // .attr('color') xxx
-      .merge(circles)
+      .merge(images)
       .transition()
       .duration(animation_duration)
-      .attr('filter', (pdu) => pdu.status_filter())
+      .attr('href', (pdu) => pdu.antenna_status_url())
   }
 
 
