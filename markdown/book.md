@@ -31,7 +31,7 @@ which is UTC+1 in winter, and UTC+2 in summer.
   </div>
  </div>
 
-<br />
+<br>
 
 <!-- the js modules try to autoload their css; however due to a limitation
   -- of full calendar, we need to load this explicitly **beforehand**
@@ -76,7 +76,7 @@ Object.assign(liveleases_options, {
 <div class="alert alert-info" role="alert" markdown="1">
 <div class="text-center" id="policy"><h2>Reservation policy</h2></div>
 
-<p>The software does not enforce any limitation on the duration or frequency of reservations.<br/>
+<p>The software does not enforce any limitation on the duration or frequency of reservations.<br>
 We expect however everyone to adhere to the following, common sense, rules: </p>
 
 <ul>
