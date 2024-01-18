@@ -7,8 +7,9 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<< tuto_tabs "Angle of Arrival":AOA "OAI (early)":OAI "5G in 5'":OAING "5G in 8' on k8s":OAIK8S "OLSR vs batman":OLSRBATMAN >>
+<div class="container" markdown="1">
 
+<< tuto_tabs "Angle of Arrival":AOA "OAI (early)":OAI "5G in 5'":OAING "5G in 8' on k8s":OAIK8S "OLSR vs batman":OLSRBATMAN >>
 
 <div id="contents" class="tab-content" markdown="1">
 
@@ -100,3 +101,5 @@ data="https://www.youtube.com/embed/p2FfpkMLN_k">
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

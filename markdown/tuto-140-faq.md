@@ -2,9 +2,9 @@ title: R2lab FAQ
 tab: tutorial
 skip_header: True
 
+<div class="container" markdown="1">
 
 << tuto_tabs "FAQ": >>
-
 
 <div id="contents" class="tab-content" markdown="1">
 
@@ -90,3 +90,7 @@ Or shorter
     uon 1-11-2
 
 </div>
+
+</div> <!-- contents -->
+
+</div> <!-- container -->

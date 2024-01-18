@@ -7,6 +7,8 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<div class="container" markdown="1">
+
 << tuto_tabs "INTRO": "C1": "C2": "C3": "C3bis": "WRAP UP":WRAPUP >>
 
 
@@ -283,3 +285,5 @@ command-line option for loading images on nodes.
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

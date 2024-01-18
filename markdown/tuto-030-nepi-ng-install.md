@@ -7,6 +7,8 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<div class="container" markdown="1">
+
 << tuto_tabs "INSTALL": "SSH AGENT":SSHAGENT >>
 
 <div id="contents" class="tab-content" markdown="1">
@@ -148,3 +150,5 @@ to be added somewhere else towards the end.
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

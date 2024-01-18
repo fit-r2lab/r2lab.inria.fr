@@ -7,12 +7,14 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<div class="container" markdown="1">
+
 << tuto_tabs "INTRO": "A1": "A2": "A3": "A4": "A5": "WRAP UP":WRAPUP >>
 
 <div id="contents" class="tab-content" markdown="1">
 
 <!-- ------- INTRO ------------>
-<div id="INTRO" class="tab-pane fade show active">
+<div id="INTRO" class="tab-pane fade show active"  markdown="1">
 
 ### Presentation
 
@@ -469,3 +471,5 @@ transfers to and from `SshNode`s.
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

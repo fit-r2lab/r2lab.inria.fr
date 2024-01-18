@@ -7,6 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<div class="container" markdown="1">
 
 << tuto_tabs "INTRO": "D1": "D2": "D3": "D4": "WRAP UP":WRAPUP >>
 
@@ -14,7 +15,7 @@ skip_header: True
 <div id="contents" class="tab-content" markdown="1">
 
 <!-- ------- INTRO ------------>
-<div id="INTRO" class="tab-pane fade show active">
+<div id="INTRO" class="tab-pane fade show active" markdown="1">
 
 ### Preparation
 
@@ -340,3 +341,5 @@ for some guidelines and troubleshooting tips.
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

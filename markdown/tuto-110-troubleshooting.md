@@ -7,6 +7,8 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<div class="container" markdown="1">
+
 << tuto_tabs "INTRO": "COMMON MISTAKES":COMMONMISTAKES "CODE UPDATE":CODEUPDATE "VERBOSITY": "HANGING": >>
 
 <div id="contents" class="tab-content" markdown="1">
@@ -354,9 +356,8 @@ Please see [the Service class
 documentation](https://apssh.readthedocs.io/en/latest/API.html?highlight=service#module-apssh.service)
 for more details.
 
-
-
-
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

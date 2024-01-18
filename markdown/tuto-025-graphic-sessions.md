@@ -4,6 +4,8 @@ skip_header: True
 
 <script src="/assets/r2lab/open-tab.js"></script>
 
+<div class="container" markdown="1">
+
 << tuto_tabs "X11 SESSIONS":X11SESSIONS "VNC SESSIONS":VNCSESSIONS >>
 
 <div id="contents" class="tab-content" markdown="1">
@@ -71,3 +73,5 @@ xterm &
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

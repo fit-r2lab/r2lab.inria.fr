@@ -7,10 +7,9 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<div class="container" markdown="1">
 
 << tuto_tabs "INTRO": "PHONES": "OAI IMAGES":OAIIMAGES "WRAP UP":WRAPUP >>
-
-
 
 <div id="contents" class="tab-content" markdown="1">
 
@@ -196,3 +195,5 @@ Again, feel free to discuss this topic [on the users mailing list](mailto:fit-r2
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

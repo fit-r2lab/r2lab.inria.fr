@@ -7,8 +7,9 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
-<< tuto_tabs "INTRO": "MULTI PING":MULTIPING >>
+<div class="container" markdown="1">
 
+<< tuto_tabs "INTRO": "MULTI PING":MULTIPING >>
 
 <div id="contents" class="tab-content" markdown="1">
 
@@ -117,7 +118,8 @@ How to produce the 2 figures above:
     # parallel
     ./multi-ping.py -m 4 -p 0 -n
 
-
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div container -->

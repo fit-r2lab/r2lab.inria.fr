@@ -7,6 +7,7 @@ skip_header: True
 <script src="/assets/r2lab/r2lab-diff.js"></script>
 <style>@import url("/assets/r2lab/r2lab-diff.css")</style>
 
+<div class="container" markdown="1">
 
 << tuto_tabs "1. REGISTER":REGISTER "2. SLICE":SLICE "3. CREDENTIALS":CREDENTIALS "4. RESERVATION":RESERVATION "5.ACCESS":ACCESS >>
 
@@ -244,3 +245,7 @@ Feel free to contact us on the **R2lab users mailinglist** [fit-r2lab-users@inri
 </div>
 
 </div> <!-- end div contents -->
+
+</div> <!-- end div tab-content -->
+
+</div> <!-- end div container -->
