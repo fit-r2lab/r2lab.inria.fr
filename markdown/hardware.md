@@ -1,59 +1,69 @@
 title: Hardware
 tab: platform
 ---
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <p>
-        <b>Thirty-seven</b> nodes are available in R2lab to provide a modern testbed infra structure.
-        The nodes are distributed in a grid layout and are customizable, allowing great variety of experimentation scenarios.
-        <h2 class="text-center" style="color:green;">
-          Full control and access to bare metal
-          <br/>
-          <span class="text-muted lead">
-            The nodes are totally open and users can install any software stack they need
-          </span>
-          <br/>
-        </h2>
-      </p>
-    </div>
-  </div>
+<div class="container" markdown="1">
+
+<div class="row" markdown="1">
+<div class="col-md-12" markdown="1">
+
+**Thirty-seven** nodes are available in R2lab to provide a modern testbed infra structure.
+The nodes are distributed in a grid layout and are customizable, allowing great variety of experimentation scenarios.
+
+<h2 class="text-center" style="color:green;">
+Full control and access to bare metal
+<br>
+<span class="text-muted lead">
+The nodes are totally open and users can install any software stack they need
+</span>
+<br>
+</h2>
+
+</div>
 </div>
 
-<hr/>
+<hr>
 
-<div class="container" markdown="1">
-  <div class="row">
-    <div class="col-md-4">
-      <h3>The testbed is yours</h3>
-      <p>
-        The testbed is reservable as a whole.
-        Once they have booked the testbed, registered users can ssh into `faraday.inria.fr`,
-        and from there control all the resources in the testbed.
-        You are thus in full control of all the radio traffic in the chamber.
-        </p>
-    </div>
-    <div class="col-md-4">
-      <h3>The nodes are yours</h3>
-      <p>
-        Also you can load your operating system of choice on any node.
-        From that point you can ssh-access all nodes with administration privileges, and configure
-        the available resources - nodes, SDRs and phones - to create a rich experimental environment.
-       </p>
-    </div>
-    <div class="col-md-4">
-      <h3>Methodology</h3>
-      <p>
-      Experimental scenarios can be created using standard tools. We also provide [tutorials, and python libraries](tutorial.md)
-      that can optionnally help you efficiently orchestrate the complete experimental workflow, from deployment to data collection.
-      </p>
-    </div>
-  </div>
+<div class="row" markdown="1">
+<div class="col-md-4" markdown="1">
+
+### The testbed is yours
+
+The testbed is reservable as a whole.
+Once they have booked the testbed, registered users can ssh into `faraday.inria.fr`,
+and from there control all the resources in the testbed.
+You are thus in full control of all the radio traffic in the chamber.
 </div>
 
-<br/>
+<div class="col-md-4" markdown="1">
 
-<div class="container" markdown="1">
+### The nodes are yours
+
+Also you can load your operating system of choice on any node.
+From that point you can ssh-access all nodes with administration privileges, and configure
+the available resources - nodes, SDRs and phones - to create a rich experimental environment.
+</div>
+
+<div class="col-md-4" markdown="1">
+
+### Methodology
+
+Experimental scenarios can be created using standard tools. We also provide [tutorials, and python libraries](tutorial.md)
+that can optionnally help you efficiently orchestrate the complete experimental workflow, from deployment to data collection.
+</div>
+</div> <!-- row -->
+
+<div class="row" markdown="1">
+<div class="col-md-4"><!--spacer--></div>
+<div class="col-md-4" markdown="1">
+<br>
+<center><img src="/assets/img/hardware-icarus.png"></center>
+<center>Icarus node standalone</center>
+</div>
+<div class="col-md-4"><!--spacer--></div>
+</div> <!-- row -->
+
+<hr>
+
 <div class="row" markdown="1">
 <div class="col-md-8 new_pad" markdown="1">
 
@@ -72,23 +82,60 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
   * remote power and reset management (not visible from linux)
   * `control`, used by the testbed management framework for providing access - reachable from the gateway as e.g. `fit02` or `fit34`
   * `data`, dedicated to experimentation - known as e.g. `data04` or `data12`
+
 </div>
+
 <div class="col-md-4">
-<br/>
+<br>
 <img src="/assets/img/hardware-node.png" class='fit-width'>
 <center>Icarus Nodes in the testbed</center>
 </div>
-</div>
+</div> <!-- row -->
+
+<hr>
+
+<div class="row" markdown="1">
+<div class="col-md-7" markdown="1">
+
+### 5G Phones
+
+The testbed offers a couple of commercial smartphones right inside the chamber:
+
+* HUAWEI P40 Pro attached to `macphone1`, with SIM IMSI: <001010000000001>  
+  (called phone1)
+
+* Google Pixel 7 attached to `macphone2`, with SIM IMSI: <001010000000002>  
+  (called phone2)
+
+Note that:
+
+* Each phone is reachable through a Mac (that also sits in the room) that has
+  its wireless card physically disabled, and that has a USB cable to
+  the phone.
+* The mac can be reached from the gateway as e.g., `ssh tester@macphone1`  
+  (or the `macphone1` convenience shell shortcut)
+* Once logged in the Mac you can use convenience helpers to manage the
+  phone  
+  (type `help` for details), or use `adb` manually.
+* The mac can also be managed using apple screen sharing tools
+  (VNC-compliant),  
+  pointing directly at `faraday-macphone1.inria.fr`
+* You will find more details about controlling the phone [in the
+  tutorials section](/tuto-130-5g.md#PHONE).
+
 </div>
 
-<div class="container" markdown="1">
-<div class="row" markdown="1">
-<div class="col-md-4" markdown="1">
+<div class="col-md-5" markdown="1">
 <br>
-<img src="/assets/img/hardware-icarus.png"  class='fit-width'>
-<center>Icarus node standalone</center>
+<img src="/assets/img/macphone.png"  class='fit-width'>
+<center>How to control a commercial phone</center>
 </div>
-<div class="col-md-8 new_pad" markdown="1">
+</div> <!-- row -->
+
+<hr>
+
+<div class="row" markdown="1">
+<div class="col-md-12" markdown="1">
 
 ### USRP devices
 
@@ -111,54 +158,15 @@ Also, two more powerful USRP devices are currently available:
   <br> Each one is connected through 2x10Gbps SFP+ fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> demonstrate how to use those devices (e.g. using `-R N300` option) to set up a 5G demo with <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
 
 </div>
-</div>
-</div>
+</div> <!-- row -->
 
-<div class="container" markdown="1">
+<hr>
+
 <div class="row" markdown="1">
-<div class="col-md-8 new_pad" markdown="1">
-
-### AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs)
-
-Two 5G RUs are available:
-
-* <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> JAGUAR 2T2R</a> RUs (CPRI Split 8), IBUmax 50MHz, MIMO 2x2
-* <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> PANTHER 4T4R</a> RUs (CPRI Split 8), IBUmax 100MHz, MIMO 4x4
-
-As for USRP N3XX devices, each AW2S RU is connected through either 2x10Gbps or 2x25Gbps fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The same <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> can be used with e.g., `-R jaguar` option to demonstrate how to use a AW2S RU to set up a 5G demo using <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
-
-Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 2x2</a> 5G omnidirectional antennas, while the N320 USRP device and the PANTHER RU use <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 4x4</a> 5G omnidirectional antennas.
-
-### Lime SDR devices
-
-Here are the detailed specifications for the LimeSDR devices deployed in the chamber (see table below for the details on which nodes host such devices)
-
-* **RF Transceiver**: Lime Microsystems LMS7002M MIMO FPRF (Datasheet)
-* **FPGA**: Altera Cyclone IV EP4CE40F23 - also compatible with EP4CE30F23
-* **Memory**: 256 MBytes DDR2 SDRAM
-* **Oscillator**: Rakon RPT7050A @30.72MHz (Datasheet)
-* **Continuous frequency range**: 100 kHz – 3.8 GHz
-* **Bandwidth**: 61.44 MHz
-* **RF connection**: 10 U.FL connectors (6 RX, 4 TX)
-* **Power Output (CW)**: up to 10 dBm
-* **Multiplexing**: 2x2 MIMO
-* **Dimensions**: 100 mm x 60 mm
-* **Plus**: "What makes LimeSDR interesting is that it is using Snappy Ubuntu Core as a sort of app store. Developers can make code available, and end-users can easily download and install that code."
-
-</div>
-<div class="col-md-4">
-<br/>
-<img src="/assets/img/lime-sdr.png"  class='fit-width'>
-<center>Node with a Lime SDR device</center>
-</div>
-</div>
-</div>
-
-<div class="container" markdown="1">
-<div class="row" markdown="1">
-<div class="col-md-5 new_pad" id="gory-details" markdown="1">
+<div class="col-md-5" id="gory-details" markdown="1">
 
 ### Important notes on SDR devices
+
 Please note the following specifics about the additional SDR devices:
 
 * the following table shows in the **sdr** columns the type of the
@@ -176,8 +184,7 @@ Please note the following specifics about the additional SDR devices:
   into the USRP device.
 
 </div>
-
-<div class="col-md-7"  markdown="1">
+<div class="col-md-7" markdown="1">
 
 ### Duplexers
 
@@ -206,21 +213,84 @@ With the above assumptions, these tags can be interpreted as follows:
 
 </div>
 </div>
+
+<hr>
+
+<div class="row" markdown="1">
+<div class="col-md-8" markdown="1">
+
+### Lime SDR devices
+
+Here are the detailed specifications for the LimeSDR devices deployed in the chamber (see table below for the details on which nodes host such devices)
+
+* **RF Transceiver**: Lime Microsystems LMS7002M MIMO FPRF (Datasheet)
+* **FPGA**: Altera Cyclone IV EP4CE40F23 - also compatible with EP4CE30F23
+* **Memory**: 256 MBytes DDR2 SDRAM
+* **Oscillator**: Rakon RPT7050A @30.72MHz (Datasheet)
+* **Continuous frequency range**: 100 kHz – 3.8 GHz
+* **Bandwidth**: 61.44 MHz
+* **RF connection**: 10 U.FL connectors (6 RX, 4 TX)
+* **Power Output (CW)**: up to 10 dBm
+* **Multiplexing**: 2x2 MIMO
+* **Dimensions**: 100 mm x 60 mm
+* **Plus**: "What makes LimeSDR interesting is that it is using Snappy Ubuntu Core as a sort of app store. Developers can make code available, and end-users can easily download and install that code."
+
 </div>
 
-<div class="container" markdown="1">
+<div class="col-md-4">
+<br>
+<img src="/assets/img/lime-sdr.png"  class='fit-width'>
+<center>Node with a Lime SDR device</center>
+
+</div>
+</div> <!-- row -->
+
+<hr>
+
 <div class="row" markdown="1">
-<div class="col-md-8 new_pad" markdown="1">
+<div class="col-md-12" markdown="1">
+
+### AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs)
+
+Two 5G RUs are available:
+
+* <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> JAGUAR 2T2R</a> RUs (CPRI Split 8), IBUmax 50MHz, MIMO 2x2
+* <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> PANTHER 4T4R</a> RUs (CPRI Split 8), IBUmax 100MHz, MIMO 4x4
+
+As for USRP N3XX devices, each AW2S RU is connected through either 2x10Gbps or 2x25Gbps fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The same <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> can be used with e.g., `-R jaguar` option to demonstrate how to use a AW2S RU to set up a 5G demo using <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
+
+Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 2x2</a> 5G omnidirectional antennas, while the N320 USRP device and the PANTHER RU use <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 4x4</a> 5G omnidirectional antennas.
+
+</div>
+</div> <!-- row -->
+
+<hr>
+
+<div class="row" markdown="1">
+<div class="col-md-5" markdown="1">
 
 ### Huawei LTE Stick
 
 The testbed currently includes 1 Huawei LTE stick:
 
-* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26 (with SIM IMSI <208950000000015>).
+* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26  
+  (with SIM IMSI <208950000000015>).
+
+</div>
+
+<div class="col-md-7" markdown="1">
 
 ### Bluetooth 4.2/5.0 Low Energy (BLE) devices
 
 * Two <a href="https://www.sparkfun.com/products/retired/14154" target="_blank">RedBearLab BLE Nano Kit v2 devicess</a> on nodes fit01 anf fit03, loaned by Eurecom.
+
+</div>
+</div> <!-- row -->
+
+<hr>
+
+<div class="row" markdown="1">
+<div class="col-md-6" markdown="1">
 
 ### 5G Quectel RM 500Q-GL modules connected via USB3 to fit nodes
 
@@ -234,6 +304,10 @@ The testbed includes six <a href="https://www.aliexpress.com/item/10050055584465
 * One attached to fit32 with SIM IMSI: <208950000000011>
 * One attached to fit34 with SIM IMSI: <208950000000009>
 
+</div>
+
+<div class="col-md-6" markdown="1">
+
 ### Raspberry Pi4 with 5G Quectel RM 500Q-GL
 
 The testbed includes three other 5G modules composed of a Raspberry Pi4 device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
@@ -243,40 +317,11 @@ The testbed includes three other 5G modules composed of a Raspberry Pi4 device w
 * qhat03 with SIM IMSI: <001010000000008>
 
 Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface.
-
-### 5G Phones
-
-The testbed offers a couple of commercial smartphones right inside the chamber:
-
-* HUAWEI P40 Pro attached to macphone1, with SIM IMSI: <001010000000001> (called phone1)
-
-* Google Pixel 7 attached to macphone2, with SIM IMSI: <001010000000002> (called phone2)
-
-Note that:
-
-* Each phone is reachable through a Mac (that also sits in the room) that has
-  its wireless card physically disabled, and that has a USB cable to
-  the phone.
-* The mac can be reached from the gateway as e.g., `ssh tester@macphone1` (or
-  the <code>macphone1</code> convenience shell shortcut)
-* Once logged in the Mac you can use convenience helpers to manage the
-  phone (type <code>help</code> for details), or use <code>adb</code>
-  manually.
-* The mac can also be managed using apple screen sharing tools
-  (VNC-compliant), pointing directly at <code>faraday-macphone1.inria.fr</code>
-* You will find more details about controlling the phone [in the
-  tutorials section](/tuto-130-5g.md#PHONE).
-
 </div>
-<div class="col-md-4">
-<br><br>
-<img src="/assets/img/macphone.png"  class='fit-width'>
-<center>How to control a commercial phone</center>
-</div>
-</div>
-</div>
+</div> <!-- row -->
 
-<div class="container" markdown="1">
+<hr>
+
 <div class="row" markdown="1">
 <div class="col-md-12 new_pad" id="details" markdown="1">
 
@@ -288,10 +333,10 @@ Clicking in the header will focus on nodes that have a USRP device
 <script type="module"> import "/assets/r2lab/livehardware.js" </script>
 
 </div>
-</div>
-</div>
+</div> <!-- row -->
 
-<div class="container" markdown="1">
+<hr>
+
 <div class="row" markdown="1">
 <div class="col-md-12 new_pad" markdown="1">
 
@@ -301,5 +346,6 @@ The testbed routinely runs a thorough raincheck procedure, to make sure that all
 Stay away from nodes that show up behind a big red circle, as this means that the node is not in good shape.
 
 </div>
-</div>
-</div>
+</div> <!-- row -->
+
+</div> <!-- container -->
