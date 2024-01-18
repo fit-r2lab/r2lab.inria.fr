@@ -7,38 +7,48 @@ tab: papers
 .helper {
     background-color: #eee;
     border: 1px solid blue;
-    border-radius: 5px;
+    border-radius: 10px;
+    padding: 20px;
+}
+.citation {
+    /* text-align: center; */
     padding: 8px;
+    background-color: #ddd;
+    border-radius: 6px;
+    margin-left: 20px;
+    font-style: italic;
+    font-size: 14px;
 }
-ul li {
+.citation>p, .citation>ul {
+    margin-bottom: 0px;
+}
+.citation>ul>li {
     font-size: 17px;
-}
+} */
 </style>
 
-<div class=helper>
-<p>
-<b>Note:</b> If you are using R2lab for in your publications, please add the following text in the Acknowledgment section of your papers/reports:
-</p>
-<p>
-<i>We would like to thank the FIT R2lab team from Inria, Sophia Antipolis, for their help in using the FIT-R2lab testbed <a href="https://fit-r2lab.inria.fr/">https://fit-r2lab.inria.fr/</a>[r2lab].</i>
-</p>
-<p>
-and then please add in your references the following entry
-</p>
-<ul>
-<li>
-[r2lab] T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). <a href="https://hal.archives-ouvertes.fr/hal-02167086v2">A step towards runnable papers using R2lab</a>, INRIA Research Report, June 2019.
-</li>
-</ul>
-</p>
+<div class="container" markdown="1">
 
+<div class="helper" markdown="1">
+
+**Note:** If you are using R2lab for in your publications, please add the following text in the Acknowledgment section of your papers/reports:
+
+<div class="citation text-center" markdown="1">
+We would like to thank the FIT R2lab team from Inria, Sophia Antipolis,   
+for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2lab]
 </div>
 
+<br>and then please add in your references the following entry
+
+<div class="citation" markdown="1">
+* [r2lab] T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). <a href="https://hal.archives-ouvertes.fr/hal-02167086v2">A step towards runnable papers using R2lab</a>, INRIA Research Report, June 2019.
+</div>
+
+</div>
 
 ****
 # 2023
 ****
-
 
 ### Workshops
 
@@ -126,7 +136,6 @@ and then please add in your references the following entry
 * Thierry Parmentelat, Mohamed Naoufal Mahfoudi, Thierry Turletti, Walid Dabbous, [A step towards runnable papers using R2lab](https://hal.archives-ouvertes.fr/hal-02167086v2), Research Report, June 2019.
 * Damien Saucez, Giuseppe Di Lena, Video demo, [4-Fat-Tree running a Hadoop cluster of 15 nodes and one streaming server](https://www.youtube.com/watch?v=ONfEdcwUZiA&feature=youtu.be), March 2019.
 
-
 ### PFE / B.T. / BSc. / MSc. Thesis
 
 * Anas Errahali (PFE Ubinet 2018-19) on Range extension through Diversity Techniques in LoRa.
@@ -191,7 +200,6 @@ and then please add in your references the following entry
 * Lucas Nussbaum, [Testbeds Support for Reproducible Research](https://doi.org/10.1145/3097766.3097773). In Proceedings of the Reproducibility Workshop (Reproducibility '17). Association for Computing Machinery, New York, NY, USA, 24–26.
 * E. J. Sebastian, J. M. Jose, M. Schappacher and A. Sikora, [Seamless test environment for distributed embedded wireless networks](https://doi.org/10.1109/ICACCI.2017.8125920), International Conference on Advances in Computing, Communications and Informatics (ICACCI), Udupi, 2017, pp. 681-686.
 
-
 ### Posters / Demos / Reports / Presentations / Videos
 
 * Mahfoudi, M. N., Parmentelat, T., Turletti, T., Dabbous, W., & Knopp, R. (2017, August). [Deploy a 5G network in less than 5 minutes: Demo Abstract](https://hal.inria.fr/hal-01580065). In ACM SIGCOMM Posters and Demos.
@@ -212,7 +220,6 @@ and then please add in your references the following entry
 # 2016 and before...
 ****
 
-
 ### Journals
 
 * Kim, Y. H., Quereilhac, A., Larabi, M. A., Tribino, J., Parmentelat, T., Turletti, T., & Dabbous, W. (2014). [Enabling iterative development and reproducible evaluation of network protocols](https://hal.archives-ouvertes.fr/hal-00861002/). Computer Networks, 63, 238-250.
@@ -229,3 +236,5 @@ and then please add in your references the following entry
 * Ramon Fontes (PhD Candidate at University of Campinas, visit Apr-Sep 2016) on Software-Defined Wireless Networking Experiments.
 * Naoufal Mahfoudi (Master Ubinet 2015) on reproducible wireless experimentation.
 * Amal Ben Ameur (PFE Ubinet 2014-15) on reproducible wireless experimentation.
+
+</div> <!-- container -->
