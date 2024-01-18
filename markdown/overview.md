@@ -3,6 +3,8 @@ tab: overview
 widget_login_template: r2lab/widget_login.html
 ---
 
+<div class="container" markdown="1">
+
 ### What is R2Lab ?
 
 <div class="row" markdown="1">
@@ -104,3 +106,5 @@ sensing and mobility testbeds; broadband access; core testbeds and network emula
 </div>
 
 </div> <!-- row -->
+
+</div> <!-- container -->

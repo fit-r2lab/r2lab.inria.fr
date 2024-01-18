@@ -2,6 +2,8 @@ title: R2lab Status
 tab: status
 skip_header: yes
 
+<div class="container" markdown="1">
+
 This page gives you live details on the individual nodes in the R2lab
 testbed. You can also [use this link](/iframe.md) in an `<iframe>` tag
 from another webpage, or a Jupyter notebook.
@@ -114,3 +116,4 @@ The nodes are arranged in a grid with ≈1.0m (vertical) and ≈1.15m (horizonta
 </center>
 </a>
 
+</div> <!-- container -->
