@@ -54,8 +54,8 @@ tab: platform
 <br/>
 
 <div class="container" markdown="1">
-  <div class="row">
-    <div class="col-md-8 new_pad">
+<div class="row" markdown="1">
+<div class="col-md-8 new_pad" markdown="1">
 
 ### All nodes
 
@@ -72,23 +72,23 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
   * remote power and reset management (not visible from linux)
   * `control`, used by the testbed management framework for providing access - reachable from the gateway as e.g. `fit02` or `fit34`
   * `data`, dedicated to experimentation - known as e.g. `data04` or `data12`
-    </div>
-    <div class="col-md-4">
-      <br/>
-      <img src="/assets/img/hardware-node.png" class='fit-width'>
-      <center>Icarus Nodes in the testbed</center>
-    </div>
-  </div>
+</div>
+<div class="col-md-4">
+<br/>
+<img src="/assets/img/hardware-node.png" class='fit-width'>
+<center>Icarus Nodes in the testbed</center>
+</div>
+</div>
 </div>
 
 <div class="container" markdown="1">
- <div class="row">
-  <div class="col-md-4">
-    <br/>
-  <img src="/assets/img/hardware-icarus.png"  class='fit-width'>
-  <center>Icarus node standalone</center>
-  </div>
-  <div class="col-md-8 new_pad">
+<div class="row" markdown="1">
+<div class="col-md-4" markdown="1">
+<br>
+<img src="/assets/img/hardware-icarus.png"  class='fit-width'>
+<center>Icarus node standalone</center>
+</div>
+<div class="col-md-8 new_pad" markdown="1">
 
 ### USRP devices
 
@@ -108,16 +108,15 @@ Also, two more powerful USRP devices are currently available:
 
 * <a href="https://www.ettus.com/all-products/usrp-n320/" target="_blank"> USRP N320</a>
 * <a href="https://www.ettus.com/all-products/usrp-n300/" target="_blank"> USRP N300</a>
+  <br> Each one is connected through 2x10Gbps SFP+ fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> demonstrate how to use those devices (e.g. using `-R N300` option) to set up a 5G demo with <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
 
-  Each one is connected through 2x10Gbps SFP+ fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> demonstrate how to use those devices (e.g. using `-R N300` option) to set up a 5G demo with <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
-
-  </div>
- </div>
+</div>
+</div>
 </div>
 
 <div class="container" markdown="1">
-  <div class="row">
-    <div class="col-md-8 new_pad">
+<div class="row" markdown="1">
+<div class="col-md-8 new_pad" markdown="1">
 
 ### AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs)
 
@@ -146,34 +145,39 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
 * **Dimensions**: 100 mm x 60 mm
 * **Plus**: "What makes LimeSDR interesting is that it is using Snappy Ubuntu Core as a sort of app store. Developers can make code available, and end-users can easily download and install that code."
 
-    </div>
-   <div class="col-md-4">
-    <br/>
-    <img src="/assets/img/lime-sdr.png"  class='fit-width'>
-    <center>Node with a Lime SDR device</center>
-   </div>
-  </div>
+</div>
+<div class="col-md-4">
+<br/>
+<img src="/assets/img/lime-sdr.png"  class='fit-width'>
+<center>Node with a Lime SDR device</center>
+</div>
+</div>
 </div>
 
 <div class="container" markdown="1">
-  <div class="row">
-    <div class="col-md-4 new_pad" id="gory-details">
+<div class="row" markdown="1">
+<div class="col-md-5 new_pad" id="gory-details" markdown="1">
+
 ### Important notes on SDR devices
 Please note the following specifics about the additional SDR devices:
 
 * the following table shows in the **sdr** columns the type of the
   attached SDR or `none` if none is installed.
 
-* Depending on the SDR device, one or two Rx/Tx channels may be available. The antennas attached to each channel are specified as follows: **900M** for omni-directional 5dBi antennas, operating on 800-900MHz; **2-5G** for dual-band 5dBi omni-directional antennas, operating on both 2.4GHz and 5GHz; and **Dup-eNB** or **Dup-UE** if a duplexer is used.
+* Depending on the SDR device, one or two Rx/Tx channels may be available. The
+  antennas attached to each channel are specified as follows: **900M** for
+  omni-directional 5dBi antennas, operating on 800-900MHz; **2-5G** for
+  dual-band 5dBi omni-directional antennas, operating on both 2.4GHz and 5GHz;
+  and **Dup-eNB** or **Dup-UE** if a duplexer is used.
 
 * Warning: the `N210` and `usrp2` models use an **Ethernet** connection to link
   to the node. This means that on those nodes, the `data` wired
   interface is **not available**, as the hardware interface is wired
   into the USRP device.
 
-    </div>
+</div>
 
-    <div class="col-md-8">
+<div class="col-md-7"  markdown="1">
 
 ### Duplexers
 
@@ -181,7 +185,7 @@ Some USRP devices, like the `B210`, have their Tx and Rx SMA
 connectors very close to one another. For that reason some have
 a device named a **duplexer band 7**<a
 href="/raw/docs/duplexer-band7-specifications.pdf"
-target="_blank">[specs]</a> <a href="/raw/docs/duplexer-band7.png"
+target="_blank"> [specs]</a> <a href="/raw/docs/duplexer-band7.png"
 target="_blank">[pict]</a>.
 
 The settings used in our deployed duplexers match the frequencies used
@@ -200,13 +204,13 @@ With the above assumptions, these tags can be interpreted as follows:
   hence typically this setup can be used to scramble the uplink
 * `Dup-eNB`: conversely, this node is fit to scramble the downlink
 
-    </div>
-  </div>
+</div>
+</div>
 </div>
 
 <div class="container" markdown="1">
-  <div class="row">
-    <div class="col-md-8 new_pad">
+<div class="row" markdown="1">
+<div class="col-md-8 new_pad" markdown="1">
 
 ### Huawei LTE Stick
 
@@ -263,36 +267,39 @@ Note that:
 * You will find more details about controlling the phone [in the
   tutorials section](/tuto-130-5g.md#PHONE).
 
-    </div>
-    <div class="col-md-4">
-      <br><br>
-      <img src="/assets/img/macphone.png"  class='fit-width'>
-      <center>How to control a commercial phone</center>
-    </div>
-  </div>
+</div>
+<div class="col-md-4">
+<br><br>
+<img src="/assets/img/macphone.png"  class='fit-width'>
+<center>How to control a commercial phone</center>
+</div>
+</div>
 </div>
 
+<div class="container" markdown="1">
+<div class="row" markdown="1">
+<div class="col-md-12 new_pad" id="details" markdown="1">
 
-<div class="container">
-  <div class="row" markdown="1">
-    <div class="col-md-12 new_pad" id="details">
-      <h3>Nodes detailed information</h3>
-      <p>Clicking in the header will focus on nodes that have a USRP device</p>
-       <table class="table table-condensed" id='livehardware_container'> </table>
-      <script type="module"> import "/assets/r2lab/livehardware.js" </script>
-    </div>
-  </div>
+### Nodes detailed information
+
+Clicking in the header will focus on nodes that have a USRP device
+
+<table class="table table-condensed" id='livehardware_container'> </table>
+<script type="module"> import "/assets/r2lab/livehardware.js" </script>
+
+</div>
+</div>
 </div>
 
+<div class="container" markdown="1">
+<div class="row" markdown="1">
+<div class="col-md-12 new_pad" markdown="1">
 
-<div class="container">
-  <div class="row" markdown="1">
-    <div class="col-md-12 new_pad">
-      <h3>Nodes health</h3>
-      The testbed routinely runs a thorough raincheck procedure, to make sure that all is in order.
-      <br/>
-      Stay away from nodes that show up behind a big red circle, as this means that the node is not in good shape.
-      <!--<br/> <a href="/stats.md">See the stats page for details</a>.-->
-    </div>
-  </div>
+### Nodes health
+
+The testbed routinely runs a thorough raincheck procedure, to make sure that all is in order.  
+Stay away from nodes that show up behind a big red circle, as this means that the node is not in good shape.
+
+</div>
+</div>
 </div>
