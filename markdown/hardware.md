@@ -27,18 +27,18 @@ tab: platform
     <div class="col-md-4">
       <h3>The testbed is yours</h3>
       <p>
-	The testbed is reservable as a whole.
-	Once they have booked the testbed, registered users can ssh into `faraday.inria.fr`,
-	and from there control all the resources in the testbed.
-	You are thus in full control of all the radio traffic in the chamber.
+        The testbed is reservable as a whole.
+        Once they have booked the testbed, registered users can ssh into `faraday.inria.fr`,
+        and from there control all the resources in the testbed.
+        You are thus in full control of all the radio traffic in the chamber.
         </p>
     </div>
     <div class="col-md-4">
       <h3>The nodes are yours</h3>
       <p>
         Also you can load your operating system of choice on any node.
-	From that point you can ssh-access all nodes with administration privileges, and configure
-	the available resources - nodes, SDRs and phones - to create a rich experimental environment.
+        From that point you can ssh-access all nodes with administration privileges, and configure
+        the available resources - nodes, SDRs and phones - to create a rich experimental environment.
        </p>
     </div>
     <div class="col-md-4">
@@ -96,19 +96,18 @@ Some nodes are equipped with USRP devices from <a href="http://www.ettus.com" ta
 
 Currently, our deployment features the following types of USRP devices :
 
-  * <a href="http://www.ettus.com/product/details/UB210-KIT" target="_blank">USRP B210</a>,
-  * <a href="https://www.ettus.com/all-products/usrp-b205mini-i/" target="_blank">USRP B205mini</a>,
-  * <a href="http://www.ettus.com/product/details/UN210-KIT" target="_blank">USRP N210</a>,
-  * <a href="http://files.ettus.com/manual/page_usrp2.html" target="_blank">USRP 2</a>, and
-  * <a href="https://www.ettus.com/product/details/USRPPKG" target="_blank">USRP 1</a> (see detailed mapping in the table below).
+* <a href="http://www.ettus.com/product/details/UB210-KIT" target="_blank">USRP B210</a>,
+* <a href="https://www.ettus.com/all-products/usrp-b205mini-i/" target="_blank">USRP B205mini</a>,
+* <a href="http://www.ettus.com/product/details/UN210-KIT" target="_blank">USRP N210</a>,
+* <a href="http://files.ettus.com/manual/page_usrp2.html" target="_blank">USRP 2</a>, and
+* <a href="https://www.ettus.com/product/details/USRPPKG" target="_blank">USRP 1</a> (see detailed mapping in the table below).
 
 Make sure [to read the additional notes below](#gory-details) that cover some specifics of these devices.
 
-
 Also, two more powerful USRP devices are currently available:
 
-  * <a href="https://www.ettus.com/all-products/usrp-n320/" target="_blank"> USRP N320</a> 
-  * <a href="https://www.ettus.com/all-products/usrp-n300/" target="_blank"> USRP N300</a>
+* <a href="https://www.ettus.com/all-products/usrp-n320/" target="_blank"> USRP N320</a>
+* <a href="https://www.ettus.com/all-products/usrp-n300/" target="_blank"> USRP N300</a>
 
   Each one is connected through 2x10Gbps SFP+ fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> demonstrate how to use those devices (e.g. using `-R N300` option) to set up a 5G demo with <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
 
@@ -119,8 +118,8 @@ Also, two more powerful USRP devices are currently available:
 <div class="container" markdown="1">
   <div class="row">
     <div class="col-md-8 new_pad">
-    
-### AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs) 
+
+### AW2S 5G Remote Radio Heads (RRH) / Remote Radio Units (RRUs)
 
 Two 5G RUs are available:
 
@@ -135,17 +134,17 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 
 Here are the detailed specifications for the LimeSDR devices deployed in the chamber (see table below for the details on which nodes host such devices)
 
-*    **RF Transceiver**: Lime Microsystems LMS7002M MIMO FPRF (Datasheet)
-*    **FPGA**: Altera Cyclone IV EP4CE40F23 - also compatible with EP4CE30F23
-*    **Memory**: 256 MBytes DDR2 SDRAM
-*    **Oscillator**: Rakon RPT7050A @30.72MHz (Datasheet)
-*    **Continuous frequency range**: 100 kHz – 3.8 GHz
-*    **Bandwidth**: 61.44 MHz
-*    **RF connection**: 10 U.FL connectors (6 RX, 4 TX)
-*    **Power Output (CW)**: up to 10 dBm
-*    **Multiplexing**: 2x2 MIMO
-*    **Dimensions**: 100 mm x 60 mm
-*    **Plus**: "What makes LimeSDR interesting is that it is using Snappy Ubuntu Core as a sort of app store. Developers can make code available, and end-users can easily download and install that code."
+* **RF Transceiver**: Lime Microsystems LMS7002M MIMO FPRF (Datasheet)
+* **FPGA**: Altera Cyclone IV EP4CE40F23 - also compatible with EP4CE30F23
+* **Memory**: 256 MBytes DDR2 SDRAM
+* **Oscillator**: Rakon RPT7050A @30.72MHz (Datasheet)
+* **Continuous frequency range**: 100 kHz – 3.8 GHz
+* **Bandwidth**: 61.44 MHz
+* **RF connection**: 10 U.FL connectors (6 RX, 4 TX)
+* **Power Output (CW)**: up to 10 dBm
+* **Multiplexing**: 2x2 MIMO
+* **Dimensions**: 100 mm x 60 mm
+* **Plus**: "What makes LimeSDR interesting is that it is using Snappy Ubuntu Core as a sort of app store. Developers can make code available, and end-users can easily download and install that code."
 
     </div>
    <div class="col-md-4">
@@ -155,7 +154,6 @@ Here are the detailed specifications for the LimeSDR devices deployed in the cha
    </div>
   </div>
 </div>
-
 
 <div class="container" markdown="1">
   <div class="row">
@@ -176,7 +174,6 @@ Please note the following specifics about the additional SDR devices:
     </div>
 
     <div class="col-md-8">
-
 
 ### Duplexers
 
@@ -199,24 +196,21 @@ tagged as either `none`, `Dup-UE` or `Dup-eNB`.
 With the above assumptions, these tags can be interpreted as follows:
 
 * `none`: no duplexer is attached
-
 * `Dup-UE`: to transmits on the uplink and receive on the downlink;
   hence typically this setup can be used to scramble the uplink
-
 * `Dup-eNB`: conversely, this node is fit to scramble the downlink
 
-   </div>
+    </div>
   </div>
 </div>
-
 
 <div class="container" markdown="1">
   <div class="row">
     <div class="col-md-8 new_pad">
-    
+
 ### Huawei LTE Stick
 
-The testbed currently includes 1 Huawei LTE stick: 
+The testbed currently includes 1 Huawei LTE stick:
 
 * One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26 (with SIM IMSI <208950000000015>).
 
@@ -236,8 +230,7 @@ The testbed includes six <a href="https://www.aliexpress.com/item/10050055584465
 * One attached to fit32 with SIM IMSI: <208950000000011>
 * One attached to fit34 with SIM IMSI: <208950000000009>
 
-
-### Raspberry Pi4 with 5G Quectel RM 500Q-GL 
+### Raspberry Pi4 with 5G Quectel RM 500Q-GL
 
 The testbed includes three other 5G modules composed of a Raspberry Pi4 device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
@@ -245,7 +238,7 @@ The testbed includes three other 5G modules composed of a Raspberry Pi4 device w
 * qhat02 with SIM IMSI: <001010000000007>
 * qhat03 with SIM IMSI: <001010000000008>
 
-Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface. 
+Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface.
 
 ### 5G Phones
 
@@ -269,7 +262,6 @@ Note that:
   (VNC-compliant), pointing directly at <code>faraday-macphone1.inria.fr</code>
 * You will find more details about controlling the phone [in the
   tutorials section](/tuto-130-5g.md#PHONE).
-
 
     </div>
     <div class="col-md-4">
@@ -304,5 +296,3 @@ Note that:
     </div>
   </div>
 </div>
-
-
