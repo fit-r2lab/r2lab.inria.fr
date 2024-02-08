@@ -77,7 +77,7 @@ export let livemap_options = {
 
 function livemap_debug(...args) {
   if (livemap_options.debug)
-    console.log(`${new Date()}`, ...args)
+    console.debug(`${new Date()}`, ...args)
 }
 
 
@@ -724,7 +724,7 @@ export class LiveMap {
 
   //////////////////// the nodes graphical layout
   animate_nodes_changes() {
-    // console.log("animate_nodes_changes")
+    // console.debug("animate_nodes_changes")
     const svg = d3.select('div#livemap_container svg')
     const animation_duration = 750
     const circles = svg.selectAll('circle.node-status')
@@ -955,7 +955,7 @@ export class LiveMap {
   }
 
   animate_pdus_changes() {
-    // console.log("animate_pdus_changes")
+    // console.debug("animate_pdus_changes")
     const svg = d3.select('div#livemap_container svg')
     const r = livemap_options.pdu_radius
     const animation_duration = 750
@@ -1091,8 +1091,8 @@ export class LiveMap {
   // pc... entries in the pdus area are mapped to corresponding nodepcs
   pdus_callback(infos) {
     const NODEPC_PATTERN = /^pc(\d+)$/
-    console.log("pdus_callback")
-    console.log(infos)
+    console.debug("pdus_callback")
+    console.debug(infos)
     const livemap = this
     infos.forEach(function (info) {
       const {id} = info
