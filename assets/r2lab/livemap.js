@@ -529,7 +529,7 @@ class MapNodePc extends MapNode {
     }
 
     node_status_fill() {
-      return (this.on_off == 'on') ? '#DCF2F188' : '#00000000'
+      return (this.on_off == 'on') ? '#BDB8' : '#0000'
     }
     node_status_stroke_width() {
       return (this.on_off == 'on') ? 0 : 0.5
@@ -764,7 +764,8 @@ export class LiveMap {
       .attr('ry', sqr)
       .attr('fill', nodepc => nodepc.node_status_color())
       .attr('x', nodepc => nodepc.x - sqw / 2)
-      .attr('y', nodepc => nodepc.y - sqh / 2)
+      // shift the square up a little
+      .attr('y', nodepc => nodepc.y - sqh / 2 - 2)
       .on('click', nodepc => nodepc.clicked())
       .each(function (nodepc) {
         $(this).tooltip({
@@ -777,7 +778,7 @@ export class LiveMap {
       .duration(animation_duration)
       .attr('fill', node => node.node_status_fill())
       .attr('stroke-width', nodepc => nodepc.node_status_stroke_width())
-      .attr('stroke', 'rgba(4,4,4,8)')
+      .attr('stroke', 'rgba(4, 4, 4, 8)')
 
 
     if (livemap_options.colormap) {
