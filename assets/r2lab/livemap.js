@@ -529,7 +529,9 @@ class MapNodePc extends MapNode {
     }
 
     node_status_fill() {
-      return (this.on_off == 'on') ? '#BDB8' : '#0000'
+      return (this.on_off == 'on') 
+        ? '#BDB8'          // light greenish with half transparency
+        : 'rgba(0,0,0,0)'  // transparent
     }
     node_status_stroke_width() {
       return (this.on_off == 'on') ? 0 : 0.5
@@ -1097,24 +1099,30 @@ export class LiveMap {
       // usrps attached to nodepc's
       let nodepc
       if (nodepc = livemap.nodepc_usrpnames_to_nodes.get(id)) {
-        console.log('nodepc', nodepc)
-        console.log(`found nodepc ${nodepc.id} for usrp ${id}`)
+        console.debug(`pdus_callback (1) nodepc's ursp id=${id}`, nodepc)
         nodepc.usrp_on_off = info.on_off
       // pc.. are recognized by a hard-wired pattern
       } else if (id.match(NODEPC_PATTERN)) {
         const nodepc_id = parseInt(id.match(NODEPC_PATTERN)[1])
-        const obj = locate_by_id(livemap.nodepcs, nodepc_id)
-        if (obj != undefined) {
-          update_obj_from_info(obj, info)
+        // xxx something super fishy is going on here, we need to do this
+        // dual search because we see the first form being used during intialization
+        // and the second form being successful later on during updates
+        const nodepc = locate_by_id(livemap.nodepcs, nodepc_id)
+                    || locate_by_id(livemap.nodepcs, id)
+        if (nodepc != undefined) {
+          console.debug(`pdus_callback (2) nodepc ${id}`, nodepc)
+          update_obj_from_info(nodepc, info)
         } else {
-          livemap_debug(`livemap: could not locate nodepc id ${nodepc_id} - ignored`)
+          console.warn(`livemap: could not locate nodepc id ${id} - ignored`)
+          console.debug(livemap.nodepcs)
         }
       // otherwise we search them in the pdus area
       } else {
-        const obj = locate_by_id(livemap.pdus, id)
+        const pdu = locate_by_id(livemap.pdus, id)
         // not all known pdus are present on the map, so ignore if not found
-        if (obj != undefined) {
-          update_obj_from_info(obj, info)
+        if (pdu != undefined) {
+          console.debug(`pdus_callback (3) actual pdu id=${id}`, pdu)
+          update_obj_from_info(pdu, info)
         }
       }
     })
