@@ -17,7 +17,7 @@ class LeasesProxy(PlcApiView):
     @method_decorator(csrf_protect)
     def post(self, request, verb):
         """
-        xhtp requests come using a POST http command
+        xhttp requests come using a POST http command
         """
         auth_error = self.not_authenticated_error(request)
         if auth_error:

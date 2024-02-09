@@ -442,7 +442,7 @@ export class LiveLeases {
     if (this.is_readonly_view()) {
       return
     }
-    // cannot only remove my slices
+    // can only remove my slices
     if (!this.is_my_slice(slot.title))
       return
     // ignore leases in the past no matter what
