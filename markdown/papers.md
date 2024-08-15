@@ -47,22 +47,31 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 </div>
 
 ****
+# 2024
+****
+
+### Journals
+
+* Houssam ElBouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti, "[Fidelity-aware large-scale distributed network emulation](url)https://inria.hal.science/hal-04591699", Computer Networks, pp. 110531, 2024.
+
+****
 # 2023
 ****
 
-### Workshops
+### Conferences/Workshops
 
-* H. Elbouanani, C. Barakat, W. Dabbous and T. Turletti. [Delay-based Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03909929). In: Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
+* Houssam ElBouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti, "[Delay-based fidelity monitoring of distributed network emulation](https://inria.hal.science/hal-03909929/)", 15th IEEE International Conference on COMmunication Systems & NETworkS (COMSNETS), pp. 791-796, 2023.
+* Houssam Elbouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti. "[Delay-based Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03909929)". In: Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
 
 ### PhD
 
-* Houssam Elbouanani, Introducing Fidelity into Network Emulation, PhD Thesis, Université Côte d’Azur, expected on March 2023.
+* Houssam Elbouanani, "[Introducing Fidelity into Network Emulation](https://theses.hal.science/tel-04194461/)", PhD Thesis, Université Côte d’Azur, ⟨tel-04194461⟩, 2023.
 
 ****
 # 2022
 ****
 
-### Conference Papers
+### Conferences
 
 * M. Lahsini, T. Parmentelat, T. Turletti, W. Dabbous and D. Saucez, [Sophia-node: A Cloud-Native Mobile Network Testbed](https://hal.science/hal-03907719/), in 2022 IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN), Phoenix, AZ, USA, 2022, pp. 96-97.
 * P. Olivier, X. -H. Ngo and A. Francillon, [BEERR: Bench of Embedded system Experiments for Reproducible Research](https://ieeexplore.ieee.org/abstract/document/9799409), in 2022 IEEE European Symposium on Security and Privacy Workshops (EuroS&PW), Genoa, Italy, 2022, pp. 332-339.
@@ -76,7 +85,7 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 
 ### PhD
 
-* Mamoutou Diarra, Enhanced Transport-Layer Mechanisms for MEC-Assisted Cellular Networks, PhD Thesis, Université Côte d’Azur, December 2022.
+* Mamoutou Diarra, ["Enhanced Transport-Layer Mechanisms for MEC-Assisted Cellular Networks"](https://theses.hal.science/tel-04083266/), PhD Thesis, Université Côte d’Azur, December 2022.
 
 ****
 # 2021
