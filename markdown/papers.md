@@ -60,7 +60,7 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 
 ### Conferences/Workshops
 
-* Houssam ElBouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti, "[Delay-based fidelity monitoring of distributed network emulation](https://inria.hal.science/hal-03909929/)", 15th IEEE International Conference on COMmunication Systems & NETworkS (COMSNETS), pp. 791-796, 2023.
+
 * Houssam Elbouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti. "[Delay-based Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03909929)". In: Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
 
 ### PhD
