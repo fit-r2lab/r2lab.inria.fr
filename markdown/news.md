@@ -6,49 +6,103 @@ skip_news: yes
 # Most recent first&nbsp;: (see also our [list of papers](papers.md))
 
 ****
+## 2024
+****
+
+### July
+
+* [oai5g-rru](https://github.com/sopnode/oai5g-rru): demo updated to possibly use flexric (NearRealtime-RIC) and the E2 interface.
+
+### April
+
+* [oai5g-rru](https://github.com/sopnode/oai5g-rru): demo updated to handle `cu/du` and `cu-cp/cu-up/du` split modes.
+
+### March
+
+* [oai5g-rru](https://github.com/sopnode/oai5g-rru): demo updated to handle different DNNs and several running modes(`full, gnb-only, gnb-upf`).
+
+### February
+
+* [oai5g-rru](https://github.com/sopnode/oai5g-rru): demo updated to add a [github runner script](https://github.com/sopnode/oai5g-rru/blob/develop-r2lab/.github/workflows/github-actions-demo.yml) to automate and benchmark an OAI5G scenario with jaguar RRU and 5G quectel UE on R2lab/SophiaNode.
+
+### January 
+
+* [oai5g-rru](https://github.com/sopnode/oai5g-rru): demo updated to handle the [oai-5g-advance mode](https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/tree/develop/charts/oai-5g-core/oai-5g-advance?ref_type=heads).
+
+****
 ## 2023
 ****
 
-### January 2023
+### November
 
-* the `rhubarbe` git repo gets transferred under the `fit-r2lab` umbrella, at <https://github.com/fit-r2lab/rhubarbe>
+* [oai5g-rru](https://github.com/sopnode/oai5g-rru): New demo available demonstrating how to automate an OAI5G deployment on a kubernetes (k8s) cluster with real 5G devices (e.g., jaguar/panther/n300/n320/b210 RRUs and 5G phones/Quectel UEs). The cluster is composed of server(s) running on the SophiaNode and a few R2lab nodes attached as workers in the k8s cluster. The script uses specific OAI5G k8s charts adapted to the R2lab/SophiaNaode environment ([oai-cn5g-fed, develop-r2lab branch](https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed/-/tree/develop-r2lab?ref_type=heads)).
+* [r2lab-k8s](https://github.com/sopnode/r2lab-k8s): New demo available demonstrating how to demonstrate how to use R2lab nodes as workers in a SophiaNode k8s cluster.
+
+### October
+
+* [oai5g-mep](https://github.com/sopnode/oai5g-mep): New demo available demonstrating how to deploy the [OpenAirInterface Multi-access Edge Computing Platform blueprint](https://gitlab.eurecom.fr/oai/orchestration/blueprints/-/blob/master/mep/README.md) within the Sopnode/R2lab platform.
+
+### June
+
+* Three qhat nodes (Raspberry Pi4 with 5G Quectel RM 500Q-GL) have been added in R2lab, see [Nodes section](https://r2lab.inria.fr/hardware.md) for further details.
+
+### May
+
+* The two old phones, `phone1` and `phone2` have been replaced by two new 5G phones: HUAWEI P40 Pro and Google Pixel 7, respectively.
+
+### January
+
+* The `rhubarbe` git repo gets transferred under the `fit-r2lab` umbrella, at <https://github.com/fit-r2lab/rhubarbe>
 
 ****
 ## 2022
 ****
 
-### Novembre 2022
+### November
 
 * running on fedora 37
 * image available for ubuntu-22
 
-### March 2022
+
+### September
+
+* [oai5g-rfsim](https://github.com/sopnode/oai5g-rfsim): New demo available that aims to demonstrate how to automate an OAI5G deployment on the SophiaNode cluster using both FIT nodes on R2lab and classical k8s workers.
+
+### June
+
+* Two AW2S 5G RRUs Jaguar and Panther have been added in R2lab, see [Nodes section](https://r2lab.inria.fr/hardware.md) for further details.
+
+### March
 
 * macphone2, that used to be a Motorola Moto 2nd Gen, is replaced by a Nexus 5
 * the whole testbed infrastructure now runs on Fedora 35 + MacOS monterey
+
+### February
+
+* Six 4G/5G quectel nodes (Quectel RM 500Q-GL modules connected via USB3 to fit nodes) have been added to R2lab, see [Nodes section](https://r2lab.inria.fr/hardware.md) for further details.
 
 ****
 ## 2021
 ****
 
-### April 2021
+### April
 Thanks to Raphael Defosseux <<raphael.defosseux@openairinterface.org>>, we are delighted to announce that the lastest version of OpenAirInterface (OAI) EPC and RAN are available (and will be periodically refreshed) with docker images specific to the R2lab testbed. To automatically deploy those images, checkout the r2lab-demo code through `git clone https://github.com/fit-r2lab/r2lab-demos.git` and follow the steps described in the `oaici-docker/README-OAICI.md` [tuto](https://r2lab.inria.fr/README-OAICI.md). 
 
 ****
 ## 2019
 ****
 
-### November 2019
+### November
 
 * deployed 2 boxes based on B-205 USRP hardware with duplexers (one for UE and one for eNB)
 * new images for `centos-8` and `fedora-31` are available;  
   run `rhubarbe images centos-8 fedora-31` for their status
 
-### October 2019
+### October
 
 * part of the OpenAirInterface's CI run on a nightly basis on R2lab
 
-### March 2019
+### March
 
 * the federation link with Fed4Fire, that had been down for a couple years 
   due to some nasty MD5-signed certificates, is live again. 
@@ -58,11 +112,11 @@ Thanks to Raphael Defosseux <<raphael.defosseux@openairinterface.org>>, we are d
 ## 2018
 ****
 
-### December 2018
+### December
 
 * `faraday.inria.fr`, `r2lab.inria.fr` and `r2labapi.inria.fr` all run fedora29
 
-### April 2018
+### April
 
 * R2lab participates in the [1st joint Grid5000-FIT
   school](http://www.silecs.net/1st-grid5000-fit-school/), triggered as the
@@ -70,11 +124,11 @@ Thanks to Raphael Defosseux <<raphael.defosseux@openairinterface.org>>, we are d
 
 * people interested in following the hands-on session on R2lab [should start here](/school.md).
 
-### March 2018
+### March
 
 * a second commercial phone - type Moto E - is available in the chamber
 
-### February 2018
+### February
 
 The code for the testbed has been split into the following git repos:
 
@@ -115,27 +169,24 @@ As a reminder, the code for `nepi-ng` currently sits here:
 ****
 
 
-### November 2017
+### November
 
 * some nodes feature a LimeSDR device
-
-### November 2017
-
 * so-called *nightly* procedure, that probes the testbed for failures, is reinstated to run on a bi-weekly basis
 
-### September 2017
+### September
 
 * some nodes now feature a USB-based LTE dongle
 
-### August 2017
+### August
 
 * [the openair demo](https://github.com/fit-r2lab/r2lab-demos/tree/master/openair) is given during the SIGCOMM-2017 demo session
 
-### July 2017
+### July
 
 * the Dell physical server that hosts the r2lab service VMs is upgraded and now runs a HTML5-based DRAC interface, causing a 2-hours scheduled outage of the testbed
 
-### April 2017
+### April
 
 * [the radiomap demo](https://github.com/fit-r2lab/r2lab-demos/tree/master/radiomap) gathers all-pairs communication conditions, see `visumap`  on how this can be visualized in a jupyter notebook
 
@@ -255,7 +306,7 @@ As a reminder, the code for `nepi-ng` currently sits here:
 ## 2015
 ****
 
-### December 20, 2015
+### December 20
 
 * Announcement of global availability; the testbed is now open to public use.
 
@@ -305,5 +356,5 @@ As a reminder, the code for `nepi-ng` currently sits here:
 * We are monitoring some information from the nodes in the anechoic chamber.
 Have a look at [our status page](status.md#livemap) for details.
 
-### July 9 2015
+### July 9
 * FIT Meeting in Paris.
