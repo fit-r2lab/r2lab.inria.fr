@@ -116,4 +116,10 @@ The nodes are arranged in a grid with ≈1.0m (vertical) and ≈1.15m (horizonta
 </center>
 </a>
 
+***
+
+<h3 id="stats">Usage statistics</h3>
+
+please see the [dedicated page](/stats.md)
+
 </div> <!-- container -->

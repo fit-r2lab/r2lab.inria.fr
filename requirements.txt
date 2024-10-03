@@ -4,3 +4,4 @@ rhubarbe
 pyparsing
 websockets
 gunicorn
+altair
