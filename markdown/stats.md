@@ -27,7 +27,7 @@ for now this figure is available per quarter only - stay tuned..
 
   <script>
     (function(vegaEmbed) {
-      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "http://localhost:8000/stats/quarter/"}, "mark": {"type": "bar"}, "encoding": {"color": {"field": "family", "type": "nominal"}, "tooltip": [{"field": "family", "type": "nominal"}, {"field": "name", "type": "nominal"}], "x": {"field": "period", "type": "nominal"}, "y": {"aggregate": "sum", "field": "duration", "title": "Duration (hours)", "type": "quantitative"}}, "height": 800, "params": [{"name": "param_2", "select": {"type": "interval", "encodings": ["x", "y"]}, "bind": "scales"}], "width": "container", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json"};
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "/stats/quarter/"}, "mark": {"type": "bar"}, "encoding": {"color": {"field": "family", "type": "nominal"}, "tooltip": [{"field": "family", "type": "nominal"}, {"field": "name", "type": "nominal"}], "x": {"field": "period", "type": "nominal"}, "y": {"aggregate": "sum", "field": "duration", "title": "Duration (hours)", "type": "quantitative"}}, "height": 800, "params": [{"name": "param_2", "select": {"type": "interval", "encodings": ["x", "y"]}, "bind": "scales"}], "width": "container", "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json"};
       var embedOpt = {"mode": "vega-lite"};
 
       function showError(el, error){
