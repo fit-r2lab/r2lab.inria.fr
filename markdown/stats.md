@@ -90,35 +90,7 @@ for now one cannot select a time slot - stay tuned..
     }
 
     const displayStats = (vegaEmbed, byPeriod) => {
-        let spec = {
-        config: { view: { continuousWidth: 300, continuousHeight: 300 } },
-        data: { url: `/stats/${byPeriod}/` },
-        mark: { type: "bar" },
-        encoding: {
-            color: { field: "family", type: "nominal" },
-            tooltip: [
-                { field: "family", type: "nominal" },
-                { field: "name", type: "nominal" },
-            ],
-            x: { field: "period", type: "nominal" },
-            y: {
-                aggregate: "sum",
-                field: "duration",
-                title: "Duration (hours)",
-                type: "quantitative",
-            },
-        },
-        height: 600,
-        params: [
-            {
-                name: "param_2",
-                select: { type: "interval", encodings: ["x", "y"] },
-                bind: "scales",
-            },
-        ],
-        width: "container",
-        $schema: "https://vega.github.io/schema/vega-lite/v5.20.1.json",
-        };
+        let spec = `/assets/altair/altair-config-${byPeriod}.json`;
         const embedOpt = { mode: "vega-lite" };
 
         const showError = (el, error) => {
@@ -133,7 +105,9 @@ for now one cannot select a time slot - stay tuned..
         throw error;
         }
         const el = document.getElementById("stats-container");
-        vegaEmbed("#stats-container", spec, embedOpt).catch((error) => showError(el, error));
+        vegaEmbed("#stats-container", spec, embedOpt)
+            .then(result => console.log("embed result", result))
+            .catch((error) => showError(el, error));
     }
     window.addEventListener("DOMContentLoaded", () => {
         displayStats(vegaEmbed, "quarter")
