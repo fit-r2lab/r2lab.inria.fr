@@ -45,11 +45,22 @@ for now this figure is available per quarter only - stay tuned..
         #stats-container { grid-area: stats; }
 
         #dialog {
-            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            /* text-align: right; */
             /* turn off some openlab-fit defaults */
             select, option {
                 min-width: initial!important;
                 max-width: initial!important;
+            }
+            label {
+                margin-bottom: 0;
+            }
+            input[type="submit"] {
+                margin-left: 1em;
+                border-radius: 8px;
+                background-color: #A0D683;
             }
         }
     }
@@ -95,7 +106,7 @@ for now this figure is available per quarter only - stay tuned..
                 type: "quantitative",
             },
         },
-        height: 800,
+        height: 600,
         params: [
             {
             name: "param_2",
