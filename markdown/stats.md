@@ -31,6 +31,7 @@ for now this figure is available per quarter only - stay tuned..
 </div> <!-- overall -->
 
 <style>
+    /* our stuff */
     #overall {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -38,15 +39,17 @@ for now this figure is available per quarter only - stay tuned..
             "text dialog"
             "stats stats"
         ;
-    }
-    #text { grid-area: text; }
-    #dialog { grid-area: dialog; }
-    #stats-container { grid-area: stats; }
 
-    #dialog {
-        text-align: right;
+        #text { grid-area: text; }
+        #dialog { grid-area: dialog; }
+        #stats-container { grid-area: stats; }
+
+        #dialog {
+            text-align: right;
+        }
     }
 
+    /* originally from altair-produced html */
     #stats-container.vega-embed {
         width: 100%;
         display: flex;
