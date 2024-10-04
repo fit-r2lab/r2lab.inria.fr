@@ -44,7 +44,7 @@ urlpatterns = [
     re_path(r'^slices/(?P<verb>(get|renew))', slices.views.SlicesProxy.as_view()),
     re_path(r'^users/(?P<verb>(get|renew))', users.views.UsersProxy.as_view()),
     re_path(r'^keys/(?P<verb>(get|add|delete))', keys.views.KeysProxy.as_view()),
-    re_path(r'^stats/(?P<period>(week|month|year|quarter))/?$',
+    re_path(r'^stats/(?P<period>(day|week|month|year|quarter))/?$',
             stats.views.api_usage_per_period),
     re_path(r'^stats/?$',
             stats.views.api_usage),

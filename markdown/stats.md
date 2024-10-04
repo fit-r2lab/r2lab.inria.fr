@@ -21,6 +21,7 @@ for now one cannot select a time slot - stay tuned..
     <option value="quarter" selected="selected">Quarter</option>
     <option value="month">Month</option>
     <option value="week">Week</option>
+    <option value="day">Day</option>
   </select>
   <input type="submit" value="Submit">
 </form>

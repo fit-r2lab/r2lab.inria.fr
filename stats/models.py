@@ -9,6 +9,7 @@ from plc.plcapiview import PlcApiView
 START = '2019-09-01'
 
 ALLOWED_PERIODS = {
+    'day': 'D',
     'week': 'W',
     'month': 'M',
     'year': 'Y',
