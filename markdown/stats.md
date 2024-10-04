@@ -14,9 +14,17 @@ for now this figure is available per quarter only - stay tuned..
 
 </div>
 
-<div id="dialog">
-to be filled later
-</div>
+<form id="dialog" action="javascript:displayStatsFromDialog()">
+  <label for="by-bin">one bar by:</label>
+  <select name="by-bin" id="by-bin">
+    <option value="year">Year</option>
+    <option value="quarter" active="true">Quarter</option>
+    <option value="month">Month</option>
+    <option value="week">Week</option>
+  </select>
+  <input type="submit" value="Submit">
+</form>
+
 
 <div id="stats-container"></div>
 
@@ -35,7 +43,11 @@ to be filled later
     #dialog { grid-area: dialog; }
     #stats-container { grid-area: stats; }
 
-#stats-container.vega-embed {
+    #dialog {
+        text-align: right;
+    }
+
+    #stats-container.vega-embed {
         width: 100%;
         display: flex;
     }
@@ -51,6 +63,11 @@ to be filled later
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6" ></script>
 
 <script>
+    const displayStatsFromDialog = () => {
+        const byBin = document.getElementById("by-bin").value;
+        displayStats(vegaEmbed, byBin);
+    }
+
     const displayStats = (vegaEmbed, byPeriod) => {
         let spec = {
         config: { view: { continuousWidth: 300, continuousHeight: 300 } },
