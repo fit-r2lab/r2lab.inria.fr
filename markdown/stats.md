@@ -110,9 +110,9 @@ for now one cannot select a time slot - stay tuned..
         height: 600,
         params: [
             {
-            name: "param_2",
-            select: { type: "interval", encodings: ["x", "y"] },
-            bind: "scales",
+                name: "param_2",
+                select: { type: "interval", encodings: ["x", "y"] },
+                bind: "scales",
             },
         ],
         width: "container",
