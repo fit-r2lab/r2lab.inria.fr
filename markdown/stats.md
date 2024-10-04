@@ -56,6 +56,7 @@ for now this figure is available per quarter only - stay tuned..
             }
             label {
                 margin-bottom: 0;
+                margin-right: 1em;
             }
             input[type="submit"] {
                 margin-left: 1em;
