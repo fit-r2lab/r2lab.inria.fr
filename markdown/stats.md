@@ -4,14 +4,38 @@ skip_footer: yes
 <!-- skip_title: yes -->
 <!-- skip_menu: yes -->
 
-Reliable usage collection is operational since 2021-09-01
+<div id="overall">
 
+<div id="text">
+
+Reliable usage collection is operational since 2021-09-01
+<br>
 for now this figure is available per quarter only - stay tuned..
+
+</div>
+
+<div id="dialog">
+to be filled later
+</div>
 
 <div id="stats-container"></div>
 
+</div> <!-- overall -->
+
 <style>
-    #stats-container.vega-embed {
+    #overall {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "text dialog"
+            "stats stats"
+        ;
+    }
+    #text { grid-area: text; }
+    #dialog { grid-area: dialog; }
+    #stats-container { grid-area: stats; }
+
+#stats-container.vega-embed {
         width: 100%;
         display: flex;
     }
