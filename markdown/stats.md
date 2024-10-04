@@ -18,7 +18,7 @@ for now this figure is available per quarter only - stay tuned..
   <label for="by-bin">one bar by:</label>
   <select name="by-bin" id="by-bin">
     <option value="year">Year</option>
-    <option value="quarter" active="true">Quarter</option>
+    <option value="quarter" selected="selected">Quarter</option>
     <option value="month">Month</option>
     <option value="week">Week</option>
   </select>
