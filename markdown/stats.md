@@ -10,7 +10,7 @@ skip_footer: yes
 
 Reliable usage collection is operational since 2021-09-01
 <br>
-for now this figure is available per quarter only - stay tuned..
+for now one cannot select a time slot - stay tuned..
 
 </div>
 
