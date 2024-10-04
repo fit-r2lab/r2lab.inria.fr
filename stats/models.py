@@ -101,7 +101,17 @@ class Stats(PlcApiView):
             .agg({'duration': 'sum'})
             # .reset_index()
         )
-        # print(f"before reset-index {usage=}")
+        # promote index levels as regular columns
         usage.reset_index(inplace=True)
-        # print(f"after reset-index {usage=}")
+
+        # as altair cannot handle period objects, we expose a timestamp
+        # which is the middle of the period
+        usage['period-middle'] = pd.to_datetime(
+            usage['period'].dt.start_time
+            + (usage['period'].dt.end_time - usage['period'].dt.start_time) / 2
+        )
+
+        # and retain the nice period rendering of pandas as a string
+        usage['period'] = usage['period'].astype(str)
+        print(usage.dtypes)
         return usage

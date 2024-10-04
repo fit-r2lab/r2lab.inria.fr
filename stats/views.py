@@ -34,7 +34,13 @@ def api_usage_per_period(request, period):
     # a dataframe
     results = stats.usage_per_period(period)
     # convert to json
-    results = results.to_json(orient='records', default_handler=str)
+    results = results.to_json(
+        orient='records',
+        date_unit='s',
+        date_format='iso',
+        # no longer needed, was when the 'period' column was a pd.Period
+        #  default_handler=str,
+    )
     response = HttpResponse(results, content_type="application/json")
     response['Access-Control-Allow-Origin'] = '*'
     return response
