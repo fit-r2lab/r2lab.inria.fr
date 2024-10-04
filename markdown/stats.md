@@ -15,8 +15,8 @@ for now this figure is available per quarter only - stay tuned..
 </div>
 
 <form id="dialog" action="javascript:displayStatsFromDialog()">
-  <label for="by-bin">one bar by:</label>
-  <select name="by-bin" id="by-bin">
+  <label for="by-period">one bar by:</label>
+  <select name="by-period" id="by-period">
     <option value="year">Year</option>
     <option value="quarter" selected="selected">Quarter</option>
     <option value="month">Month</option>
@@ -46,6 +46,11 @@ for now this figure is available per quarter only - stay tuned..
 
         #dialog {
             text-align: right;
+            /* turn off some openlab-fit defaults */
+            select, option {
+                min-width: initial!important;
+                max-width: initial!important;
+            }
         }
     }
 
@@ -67,7 +72,7 @@ for now this figure is available per quarter only - stay tuned..
 
 <script>
     const displayStatsFromDialog = () => {
-        const byBin = document.getElementById("by-bin").value;
+        const byBin = document.getElementById("by-period").value;
         displayStats(vegaEmbed, byBin);
     }
 
