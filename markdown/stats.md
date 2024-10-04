@@ -137,4 +137,7 @@ for now this figure is available per quarter only - stay tuned..
     window.addEventListener("DOMContentLoaded", () => {
         displayStats(vegaEmbed, "quarter")
     })
+    // temporary, while we can't choose dates yet
+    document.getElementById("by-period").addEventListener("change", displayStatsFromDialog)
+    document.querySelector('input[type="submit"]').style.display="none"
 </script>
