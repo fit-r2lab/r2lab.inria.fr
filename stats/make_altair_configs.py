@@ -59,8 +59,8 @@ def generate_config(shortname, display=True, save_html=False):
             color='family:N',
             tooltip=['name:N', 'period:N', 'family:N', 'sum(duration):Q'],
         )
-        .properties(width='container', height=800)
         .interactive()
+        .properties(height='container', width='container')
     )
 
     # that what we want

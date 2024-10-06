@@ -6,11 +6,15 @@ skip_footer: yes
 
 <div id="overall">
 
+<div id="first-row">
+
 <div id="text">
 
 Reliable usage collection is operational since 2021-09-01
 <br>
 for now one cannot select a time slot - stay tuned..
+<br>
+also responsiveness is not perfect yet, so please reload the page once your geometry is fine
 
 </div>
 
@@ -26,6 +30,7 @@ for now one cannot select a time slot - stay tuned..
   <input type="submit" value="Submit">
 </form>
 
+</div>
 
 <div id="stats-container"></div>
 
@@ -33,27 +38,44 @@ for now one cannot select a time slot - stay tuned..
 
 <style>
     /* our stuff */
-    #overall {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "text dialog"
-            "stats stats"
-        ;
+    /* propagate full height to stats-container */
+    body, html {
+        height: 100%;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+        /* again this is to propagate full height to stats-container */
+        /* it applies to all flex containers down the tree */
+        :nth-child(2) { flex-grow: 1; }
 
-        #text { grid-area: text; }
-        #dialog { grid-area: dialog; }
-        #stats-container { grid-area: stats; }
+        .container-fluid {
+            display: flex;
+            flex-direction: column;
+
+            .col-md-12 {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+    #overall {
+        display: flex;
+        flex-direction: column;
+
+        #first-row {
+            display: flex;
+            justify-content: space-between;
+        }
 
         #dialog {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            /* text-align: right; */
+            /* override above setting */
+            flex-grow: 0;
             /* turn off some openlab-fit defaults */
             select, option {
                 min-width: initial!important;
                 max-width: initial!important;
+                border-radius: 8px;
             }
             label {
                 margin-bottom: 0;
@@ -64,6 +86,11 @@ for now one cannot select a time slot - stay tuned..
                 border-radius: 8px;
                 background-color: #A0D683;
             }
+        }
+
+        /* temporary, to outline the vega container */
+        #stats-container {
+            border: 5px solid #7E60BF;
         }
     }
 
