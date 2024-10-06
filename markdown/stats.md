@@ -131,7 +131,6 @@ also responsiveness is not perfect yet, so please reload the page once your geom
             "</div>";
         throw error;
         }
-        const el = document.getElementById("stats-container");
         vegaEmbed("#stats-container", spec, embedOpt)
             .then(result => console.log("embed result", result))
             .catch((error) => showError(el, error));
