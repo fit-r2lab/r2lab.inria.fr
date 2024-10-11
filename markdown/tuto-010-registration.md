@@ -231,7 +231,7 @@ For example, in this tutorial we have used the following names:
 
 At this point you should reach R2lab platform typing in your terminal:
 
-    $ ssh inria_your_slice_name@faraday.inria.fr
+    $ ssh your_slicename@faraday.inria.fr
 
 *<h6>if by any chance your public key is not at its standard location, and not known to your ssh agent, then place `-i` option in the command line to specify its path.</h6>*
 

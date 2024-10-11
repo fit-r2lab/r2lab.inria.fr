@@ -208,7 +208,7 @@ command line](javascript:open_tab('A2')), and other good practices.
 We now see a slightly different version of the same experiment, but
 
 * using standard python's `argparse` module, we let users specify
-  their slice on the command line with `--slice inria_your.own.slice`
+  their slice on the command line with `--slice your_slicename`
   without having to edit the source.
 
 * we introduce the `Run` class, that is a companion to `SshNode`, and
