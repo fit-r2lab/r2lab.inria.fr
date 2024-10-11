@@ -69,6 +69,7 @@ ALLOWED_HOSTS = [
     'r2lab.inria.fr',
     'fit-r2lab.inria.fr',
     'localhost',
+    '138.96.119.5',
 ]
 
 # Application definition
