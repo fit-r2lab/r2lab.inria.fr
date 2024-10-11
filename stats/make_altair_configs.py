@@ -45,6 +45,17 @@ def generate_config(shortname, display=True, save_html=False):
     url = f"{SERVER}/stats/{name}"
     print(f"Fetching {url}")
 
+    colormap = {
+        'admin': 'black',
+        'unknown': '#377eb8',
+        'academia/diana': '#4daf4a',
+        'academia/slices': '#984ea3',
+        'academia/others': '#ff7f00',
+        'industry': '#ffff33',
+    }
+
+    stack_order = ['admin', 'academia/diana', 'academia/slices', 'academia/others', 'industry', 'unknown']
+
     chart = (
         alt.Chart(url)
         .mark_bar()
@@ -54,13 +65,21 @@ def generate_config(shortname, display=True, save_html=False):
                 axis=alt.Axis(title=f"Period (by {name})"),
                 timeUnit=f"{values['timeUnit']}",
             ),
-            # x=alt.X('period:N'),
             y=alt.Y('sum(duration):Q', title='Duration (hours)'),
-            color='family:N',
+            color=alt.Color(
+                'family:N',
+                scale=alt.Scale(domain=list(colormap.keys()),
+                                range=list(colormap.values())),
+                title="Family"),
+            # order=alt.Order('family:N', sort=stack_order),
             tooltip=['name:N', 'period:N', 'family:N', 'sum(duration):Q'],
         )
         .interactive()
-        .properties(height='container', width='container')
+        .properties(
+            height='container',
+            width='container',
+            title=f"Usage by family ({name})",
+        )
     )
 
     # that what we want
@@ -89,4 +108,4 @@ for config in Path("../assets/altair").glob("*.json"):
         with open(config, 'w') as f:
             f.write(content2)
     else:
-        print(f"{filename} did not need patching")
+        print(f"{config} did not need patching")
