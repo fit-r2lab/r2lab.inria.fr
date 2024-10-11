@@ -61,37 +61,27 @@ class Stats(PlcApiView):
                 ['slice_id', 'name', 'family'],
             ))
 
-        from_epoch = numpy_to_epoch(from_np)
-        until_epoch = numpy_to_epoch(until_np)
-
         leases1 = pd.DataFrame(
             self.plcapi_proxy.GetLeases(
-                {']t_from': from_epoch, '[t_until': until_epoch},
+                {},
                 ['t_from', 't_until', 'slice_id'],
             ))
 
-        # if len(leases) == 0:
-        #     return pd.DataFrame(columns=COLUMNS)
-
-        # (1 bis) clean up the leases
+        # (1 bis) translate into datetimes and bind to family
         leases1['dt_from'] = pd.to_datetime(leases1['t_from'], unit='s')
         leases1['dt_until'] = pd.to_datetime(leases1['t_until'], unit='s')
         leases1.drop(columns=['t_from', 't_until'], inplace=True)
+
         merge1 = leases1.merge(
             all_slices,
             on='slice_id',
             how='left',
         )
 
-        print("FROM THE API (leases1)")
-        print(leases1.head(2))
-        print("FROM THE API (merge1)")
-        print(merge1.head(2))
-
-        # (2) from the csv
+        # (2) from the LEASES csv
         leases2 = pd.read_csv('/Users/tparment/git/r2lab.inria.fr/stats/rebuild/LEASES-EARLY.csv')
 
-        # (2 bis) clean up the leases
+        # (2 bis) translate into datetimes and bind to family
         leases2['dt_from'] = pd.to_datetime(leases2['beg'], format="ISO8601")
         leases2['dt_until'] = pd.to_datetime(leases2['end'], format="ISO8601")
         leases2.drop(columns=['beg', 'end'], inplace=True)
@@ -102,21 +92,15 @@ class Stats(PlcApiView):
             how='left',
         )
 
-        print("FROM THE API (leases2)")
-        print(leases2.head(2))
-        print("FROM THE API (merge2)")
-        print(merge2.head(2))
-
         # put it together
         merge = pd.concat([merge1, merge2], ignore_index=True)
 
-        # do the grouping
-        untimed_mask = merge['dt_from'].isna() | merge['dt_until'].isna()
-        print(f"we have {sum(untimed_mask)} untimed leases")
-        merge = merge[~untimed_mask]
-
         # fill in with unknown
         merge.loc[:, 'family'].fillna('unknown', inplace=True)
+        merge.loc[merge.family == "", 'family'] = 'unknown'
+        # print(f"found {mask.sum()} empty families")
+        print("merge families")
+        print(merge.family.value_counts())
 
         merge['duration'] = merge['dt_until'] - merge['dt_from']
         merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
