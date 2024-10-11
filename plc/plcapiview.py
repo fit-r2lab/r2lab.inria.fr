@@ -13,7 +13,7 @@ from r2lab.settings import plcapi_settings, logger
 from rhubarbe.plcapiproxy import PlcApiProxy
 
 debug = False
-debug = True
+# debug = True
 
 def init_plcapi_proxy():
     # we use this location on r2lab.inria.fr which is readable by apache

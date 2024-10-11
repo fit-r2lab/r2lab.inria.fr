@@ -53,9 +53,7 @@ class Stats(PlcApiView):
         from_np = np.datetime64(from_str)
         until_np = np.datetime64(until_str)
 
-        from_epoch = numpy_to_epoch(from_np)
-        until_epoch = numpy_to_epoch(until_np)
-
+        # (1) find leases from the API
         self.init_plcapi_proxy()
         all_slices = pd.DataFrame(
             self.plcapi_proxy.GetSlices(
@@ -63,27 +61,66 @@ class Stats(PlcApiView):
                 ['slice_id', 'name', 'family'],
             ))
 
+        from_epoch = numpy_to_epoch(from_np)
+        until_epoch = numpy_to_epoch(until_np)
 
-        leases = pd.DataFrame(
+        leases1 = pd.DataFrame(
             self.plcapi_proxy.GetLeases(
                 {']t_from': from_epoch, '[t_until': until_epoch},
                 ['t_from', 't_until', 'slice_id'],
             ))
 
-        if len(leases) == 0:
-            return pd.DataFrame(columns=COLUMNS)
+        # if len(leases) == 0:
+        #     return pd.DataFrame(columns=COLUMNS)
 
-        leases['dt_from'] = pd.to_datetime(leases['t_from'], unit='s')
-        leases['dt_until'] = pd.to_datetime(leases['t_until'], unit='s')
-        leases.drop(columns=['t_from', 't_until'], inplace=True)
-        leases['duration'] = leases['dt_until'] - leases['dt_from']
-        leases['duration'] = leases['duration'].apply(round_timedelta_to_hours)
-
-        merge = leases.merge(
+        # (1 bis) clean up the leases
+        leases1['dt_from'] = pd.to_datetime(leases1['t_from'], unit='s')
+        leases1['dt_until'] = pd.to_datetime(leases1['t_until'], unit='s')
+        leases1.drop(columns=['t_from', 't_until'], inplace=True)
+        merge1 = leases1.merge(
             all_slices,
             on='slice_id',
-            how='outer',
+            how='left',
         )
+
+        print("FROM THE API (leases1)")
+        print(leases1.head(2))
+        print("FROM THE API (merge1)")
+        print(merge1.head(2))
+
+        # (2) from the csv
+        leases2 = pd.read_csv('/Users/tparment/git/r2lab.inria.fr/stats/rebuild/LEASES-EARLY.csv')
+
+        # (2 bis) clean up the leases
+        leases2['dt_from'] = pd.to_datetime(leases2['beg'], format="ISO8601")
+        leases2['dt_until'] = pd.to_datetime(leases2['end'], format="ISO8601")
+        leases2.drop(columns=['beg', 'end'], inplace=True)
+
+        merge2 = leases2.merge(
+            all_slices,
+            on='name',
+            how='left',
+        )
+
+        print("FROM THE API (leases2)")
+        print(leases2.head(2))
+        print("FROM THE API (merge2)")
+        print(merge2.head(2))
+
+        # put it together
+        merge = pd.concat([merge1, merge2], ignore_index=True)
+
+        # do the grouping
+        untimed_mask = merge['dt_from'].isna() | merge['dt_until'].isna()
+        print(f"we have {sum(untimed_mask)} untimed leases")
+        merge = merge[~untimed_mask]
+
+        # fill in with unknown
+        merge.loc[:, 'family'].fillna('unknown', inplace=True)
+
+        merge['duration'] = merge['dt_until'] - merge['dt_from']
+        merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
+
 
         # if no periodname specified: return raw data
         if periodname is None:
@@ -93,7 +130,6 @@ class Stats(PlcApiView):
             merge['quarter'] = merge.dt_from.dt.to_period('Q')
             return merge
 
-        # else do the grouping
         period = ALLOWED_PERIODS[periodname]
         merge['period'] = merge.dt_from.dt.to_period(period)
         usage = (
@@ -114,5 +150,5 @@ class Stats(PlcApiView):
 
         # and retain the nice period rendering of pandas as a string
         usage['period'] = usage['period'].astype(str)
-        print(usage.dtypes)
+        print("final result dtypes", usage.dtypes)
         return usage
