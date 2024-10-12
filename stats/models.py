@@ -158,11 +158,11 @@ class Stats(PlcApiView):
 
         # this is where we order the various families
         ordered_type = pd.CategoricalDtype(
-            categories = [ 'admin', 'unknown', 'academia/diana', 'academia/slices', 'academia/others', 'industry'],
+            categories = [ 'admin', 'academia/diana', 'academia/slices', 'academia/others', 'industry', 'unknown'],
             ordered=True,
         )
         usage['family'] = usage['family'].astype(ordered_type)
-        usage['ordered'] = usage.family.cat.codes
+        usage['stack-order'] = usage.family.cat.codes
 
         # tmp - extract the names of the remaining unknown/untagged slices
         def untagged_slices_and_leases(usage):

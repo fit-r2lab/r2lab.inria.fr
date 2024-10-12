@@ -45,16 +45,15 @@ def generate_config(shortname, display=True, save_html=False):
     url = f"{SERVER}/stats/{name}"
     print(f"Fetching {url}")
 
+    # this is for the order of the colors in the legend
     colormap = {
         'admin': 'black',
-        'unknown': '#377eb8',
         'academia/diana': '#4daf4a',
         'academia/slices': '#984ea3',
         'academia/others': '#ff7f00',
         'industry': '#ffff33',
+        'unknown': '#377eb8',
     }
-
-    stack_order = ['admin', 'academia/diana', 'academia/slices', 'academia/others', 'industry', 'unknown']
 
     chart = (
         alt.Chart(url)
@@ -71,7 +70,8 @@ def generate_config(shortname, display=True, save_html=False):
                 scale=alt.Scale(domain=list(colormap.keys()),
                                 range=list(colormap.values())),
                 title="Family"),
-            # order=alt.Order('family:N', sort=stack_order),
+            # this actually orders the bars; it is computed in models.py
+            order=alt.Order('stack-order:N', sort='ascending'),
             tooltip=['name:N', 'period:N', 'family:N', 'sum(duration):Q'],
         )
         .interactive()
