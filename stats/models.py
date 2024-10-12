@@ -6,7 +6,7 @@ from django.db import models
 from plc.plcapiview import PlcApiView
 
 
-START = '2019-09-01'
+START = '2016'
 
 ALLOWED_PERIODS = {
     'day': 'D',
@@ -50,8 +50,8 @@ class Stats(PlcApiView):
             return pd.DataFrame(columns=COLUMNS)
 
         # xxx actual filtering
-        from_np = np.datetime64(from_str)
-        until_np = np.datetime64(until_str)
+        ts_from = pd.Timestamp(from_str)
+        ts_until = pd.Timestamp(until_str)
 
         # (1) find leases from the API
         self.init_plcapi_proxy()
@@ -118,10 +118,13 @@ class Stats(PlcApiView):
 
         merge = pd.concat([solved, missing])
 
+        # filter on the requested period
+        merge = merge[(merge.dt_from >= ts_from) & (merge.dt_until <= ts_until)]
 
         # fill in with unknown
-        merge['family'] = merge['family'].fillna('unknown')
-        merge.loc[merge.family == "", 'family'] = 'unknown'
+        untagged_mask = (merge.family == '') | (merge.family.isna())
+        # merge['family'] = merge['family'].fillna('unknown')
+        merge.loc[untagged_mask, 'family'] = 'unknown'
 
         merge['duration'] = merge['dt_until'] - merge['dt_from']
         merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
@@ -169,7 +172,6 @@ class Stats(PlcApiView):
             untagged_leases = usage[(usage.family == 'unknown') | (usage.family.isna())]
             untagged_slices = untagged_leases.name.unique()
             return untagged_slices, untagged_leases
-
 
         untagged_slices, untagged_leases = untagged_slices_and_leases(usage)
         with open("stats/TMP-UNTAGGED-SLICES.txt", 'w') as f:

@@ -69,17 +69,29 @@ def generate_config(shortname, display=True, save_html=False):
                 'family:N',
                 scale=alt.Scale(domain=list(colormap.keys()),
                                 range=list(colormap.values())),
-                title="Family"),
+                title="Family",
+                legend=alt.Legend(title="by Family", symbolSize=500),
+            ),
             # this actually orders the bars; it is computed in models.py
             order=alt.Order('stack-order:N', sort='ascending'),
             tooltip=['name:N', 'period:N', 'family:N', 'sum(duration):Q'],
         )
-        .interactive()
+        .configure_legend(
+            titleFontSize=20,
+            labelFontSize=18,
+            strokeColor='gray',
+            fillColor='#EEEEEE',
+            padding=10,
+            cornerRadius=10,
+            orient='top-left',
+        )
         .properties(
             height='container',
             width='container',
             title=f"Usage by family ({name})",
         )
+        .interactive()
+
     )
 
     # that what we want
