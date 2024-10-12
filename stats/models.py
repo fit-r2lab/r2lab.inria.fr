@@ -79,7 +79,7 @@ class Stats(PlcApiView):
         )
 
         # (2) from the LEASES csv
-        leases2 = pd.read_csv('/Users/tparment/git/r2lab.inria.fr/stats/rebuild/LEASES-EARLY.csv')
+        leases2 = pd.read_csv('stats/rebuild/LEASES-EARLY.csv')
 
         # (2 bis) translate into datetimes and bind to family
         leases2['dt_from'] = pd.to_datetime(leases2['beg'], format="ISO8601")
@@ -95,12 +95,33 @@ class Stats(PlcApiView):
         # put it together
         merge = pd.concat([merge1, merge2], ignore_index=True)
 
+        # if missing slice families remain
+        # tmp ? load SLICES-FAMILY.csv and merge it with usage
+        tmp_slice_family = pd.read_csv('stats/rebuild/SLICE-FAMILY.csv')
+        # keep only the non-empty ones
+        tmp_slice_family = tmp_slice_family[tmp_slice_family.family != '']
+        # print(f"we are using {len(tmp_slice_family)} hard-wired slice families")
+
+        # isolate the missing ones, solve them, and reasemble
+        missing_mask = (merge.family == '') | (merge.family.isna())
+        solved = merge[~missing_mask]
+
+        missing = (
+            merge[missing_mask]
+            .drop(columns=['family'])
+            .merge(
+                tmp_slice_family,
+                on='name',
+                how='left',
+            )
+        )
+
+        merge = pd.concat([solved, missing])
+
+
         # fill in with unknown
         merge.loc[:, 'family'].fillna('unknown', inplace=True)
         merge.loc[merge.family == "", 'family'] = 'unknown'
-        # print(f"found {mask.sum()} empty families")
-        print("merge families")
-        print(merge.family.value_counts())
 
         merge['duration'] = merge['dt_until'] - merge['dt_from']
         merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
@@ -134,5 +155,25 @@ class Stats(PlcApiView):
 
         # and retain the nice period rendering of pandas as a string
         usage['period'] = usage['period'].astype(str)
-        print("final result dtypes", usage.dtypes)
+
+        # this is where we order the various families
+        ordered_type = pd.CategoricalDtype(
+            categories = [ 'admin', 'unknown', 'academia/diana', 'academia/slices', 'academia/others', 'industry'],
+            ordered=True,
+        )
+        usage['family'] = usage['family'].astype(ordered_type)
+        usage['ordered'] = usage.family.cat.codes
+
+        # tmp - extract the names of the remaining unknown/untagged slices
+        def untagged_slices_and_leases(usage):
+            untagged_leases = usage[(usage.family == 'unknown') | (usage.family.isna())]
+            untagged_slices = untagged_leases.name.unique()
+            return untagged_slices, untagged_leases
+
+
+        untagged_slices, untagged_leases = untagged_slices_and_leases(usage)
+        with open("stats/TMP-UNTAGGED-SLICES.txt", 'w') as f:
+            for slicename in sorted(untagged_slices):
+                print(slicename, file=f)
+
         return usage
