@@ -136,10 +136,10 @@ def get_leases_df():
 #
 # so in this part we are doing some archeology in the Events database to recover the missing leases, and focus on the ones that were attached to the old nodename
 #
-# the result is stored in a file `LEASES-EARLY.csv` that we can load here for further iterations
+# the result is stored in a file `REBUILT-LEASES.csv` that we can load here for further iterations
 
 # %%
-EARLY_LEASES = "LEASES-EARLY.csv"
+EARLY_LEASES = "REBUILT-LEASES.csv"
 # as epoch
 LEASES_COLUMNS1 = ['lease_id', 'hostname', 'name', 't_from', 't_until']
 # as datetime

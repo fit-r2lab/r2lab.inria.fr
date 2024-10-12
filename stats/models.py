@@ -79,7 +79,7 @@ class Stats(PlcApiView):
         )
 
         # (2) from the LEASES csv
-        leases2 = pd.read_csv('stats/rebuild/LEASES-EARLY.csv')
+        leases2 = pd.read_csv('stats/rebuild/REBUILT-LEASES.csv')
 
         # (2 bis) translate into datetimes and bind to family
         leases2['dt_from'] = pd.to_datetime(leases2['beg'], format="ISO8601")
@@ -97,7 +97,7 @@ class Stats(PlcApiView):
 
         # if missing slice families remain
         # tmp ? load SLICES-FAMILY.csv and merge it with usage
-        tmp_slice_family = pd.read_csv('stats/rebuild/SLICE-FAMILY.csv')
+        tmp_slice_family = pd.read_csv('stats/rebuild/HAND-SLICE-FAMILY.csv')
         # keep only the non-empty ones
         tmp_slice_family = tmp_slice_family[tmp_slice_family.family != '']
         # print(f"we are using {len(tmp_slice_family)} hard-wired slice families")
@@ -120,7 +120,7 @@ class Stats(PlcApiView):
 
 
         # fill in with unknown
-        merge.loc[:, 'family'].fillna('unknown', inplace=True)
+        merge['family'] = merge['family'].fillna('unknown')
         merge.loc[merge.family == "", 'family'] = 'unknown'
 
         merge['duration'] = merge['dt_until'] - merge['dt_from']
