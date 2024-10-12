@@ -13,7 +13,7 @@ inria_converge01,
 inria_corposucre,
 inria_diarra,
 inria_dionysos1,
-inria_distrinet,
+inria_distrinet,academia/diana
 inria_drive,
 inria_dsisp,
 inria_electrosmart,academia/diana
@@ -31,7 +31,7 @@ inria_infosys,
 inria_intern,
 inria_iotlab.iotlab_slice,
 inria_jawad,
-inria_juniper,
+inria_juniper,industry
 inria_kpn,
 inria_kube,
 inria_kube5g,
@@ -65,7 +65,7 @@ inria_oot,
 inria_pepr01,
 inria_pfe,
 inria_quic,
-inria_r2dock,
+inria_r2dock,academia/diana
 inria_r2lab.admin,admin
 inria_r2lab.tutorial,admin
 inria_radiomap,academia/diana
