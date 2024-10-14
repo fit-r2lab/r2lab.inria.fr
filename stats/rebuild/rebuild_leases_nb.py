@@ -122,6 +122,8 @@ def get_leases_df():
     auth, proxy = init_proxy()
     leases = proxy.GetLeases(auth)
     leases_df = pd.DataFrame(leases)[LEASES_COLUMNS1]
+    leases_df['t_from'] = pd.to_numeric(leases_df['t_from'])
+    leases_df['t_until'] = pd.to_numeric(leases_df['t_until'])
     leases_df['beg'] = pd.to_datetime(leases_df['t_from'], unit='s')
     leases_df['end'] = pd.to_datetime(leases_df['t_until'], unit='s')
     leases_df.drop(columns=['t_from', 't_until'], inplace=True)
@@ -139,7 +141,7 @@ def get_leases_df():
 # the result is stored in a file `REBUILT-LEASES.csv` that we can load here for further iterations
 
 # %%
-EARLY_LEASES = "REBUILT-LEASES.csv"
+REBUILT_LEASES = "REBUILT-LEASES.csv"
 # as epoch
 LEASES_COLUMNS1 = ['lease_id', 'hostname', 'name', 't_from', 't_until']
 # as datetime
@@ -214,7 +216,7 @@ def parse_addlease_event(call, message):
         *_, nodepart, slicepart, frompart, topart = call.split()
         if match := re_digits_only.match(topart):
             # FORMAT 1
-            end = pd.to_datetime(match.group(1), unit="s")
+            end = pd.to_datetime(int(match.group(1)), unit="s")
             beg = pd.to_datetime(int(re_digits_only.match(frompart).group(1)), unit="s")
         else:
             *_, nodepart, slicepart, fromdate, fromtime, todate, totime = call.split()
@@ -279,16 +281,6 @@ def retrieve_added_leases():
     return as_df
 
 
-# %%
-additions = retrieve_added_leases()
-
-# %%
-# make sure the one of the inria_hive leases is there
-# additions[additions.lease_id == 12871]
-
-# %%
-additions.dtypes
-
 # %% [markdown]
 # #### the UpdateLease events formats
 
@@ -338,14 +330,12 @@ def test_parse_updatelease_event():
 # #### parse the UpdateLease event call format
 
 # %%
-additions = retrieve_added_leases()
-
 # %%
-additions.head(2)
-
-# %%
-additions = retrieve_added_leases()
-
+# additions = retrieve_added_leases()
+# make sure the one of the inria_hive leases is there
+# additions[additions.lease_id == 12871]
+# additions.dtypes
+# additions.head(2)
 
 # %%
 def retrieve_updated_leases(additions):
@@ -371,7 +361,7 @@ def retrieve_updated_leases(additions):
 
 # %%
 
-retrieve_updated_leases(additions.copy())
+# retrieve_updated_leases(additions.copy())
 
 # %% [markdown]
 # #### the DeleteLease events formats
@@ -399,7 +389,7 @@ def test_parse_deletelease_event():
         print(f"with {call=}\nwe get {parse_deletelease_event(call)=}")
 
 
-test_parse_deletelease_event()
+# test_parse_deletelease_event()
 
 
 # %% [markdown]
@@ -420,7 +410,8 @@ def retrieve_deleted_leases():
     deletions['lease_id'] = deletions['lease_id'].astype(int)
     return deletions
 
-deletions = retrieve_deleted_leases()
+# print("retrieving deleted leases by GetEvents()")
+# deletions = retrieve_deleted_leases()
 
 
 # %% [markdown]
@@ -489,7 +480,7 @@ def remove_overlaps(df):
             # cannot update through row...
             df.loc[idx, 'discard'] = True
             # print((df.loc[idx]))
-    print(f"discarding {df.discard.sum()} leases")
+    print(f"discarding {df.discard.sum()} overlapping leases")
     df.drop(df[df.discard].index, inplace=True)
     df.drop(columns=['discard'], inplace=True)
     df.sort_values(by='beg', ascending=True, inplace=True)
@@ -503,38 +494,43 @@ def remove_overlaps(df):
 # use cached data if available
 
 # ODD_IDS = [int(x) for x in ['13992', '13990', '13991', '14788', '14791', '14797', '14801', '14823']]
-ODD_IDS = [13992]
+# ODD_IDS = [13992]
 
-def debug(df, lease_ids, message):
-    print(f"============ {message=}")
-    print(f"{df.loc[df.lease_id.isin(lease_ids)]}")
+# def debug(df, lease_ids, message):
+#     print(f"============ {message=}")
+#     print(f"{df.loc[df.lease_id.isin(lease_ids)]}")
 
 def load_old_leases():
-    if Path(EARLY_LEASES).exists():
-        df = pd.read_csv(EARLY_LEASES)
+    if Path(REBUILT_LEASES).exists():
+        df = pd.read_csv(REBUILT_LEASES)
         df['beg'] = pd.to_datetime(df['beg'], format='ISO8601')
         df['end'] = pd.to_datetime(df['end'], format='ISO8601')
         return df
     else:
         # print(f"there are {len(deletions)} deleted leases to recover")
         # get additions from events
+        print("retrieving added leases by GetEvents()")
         old_leases = retrieve_added_leases()
-        debug(old_leases, ODD_IDS, "initial additions")
+        # debug(old_leases, ODD_IDS, "initial additions")
         # consider only the ones deleted
         # old_leases = pd.merge(deletions, old_leases, how="left", on="lease_id")
         # take into account updates
+        print("tweaking leases after UpdateLeases from GetEvents()")
         retrieve_updated_leases(old_leases)
-        debug(old_leases, ODD_IDS, "updated")
+        # debug(old_leases, ODD_IDS, "updated")
         # remove overlaps
+        print("removing overlaps")
         remove_overlaps(old_leases)
-        debug(old_leases, ODD_IDS, "overlaps")
+        # debug(old_leases, ODD_IDS, "overlaps")
         # remove duplicates, many leases are found under 2 different lease_ids
         old_leases.drop_duplicates(
             subset=('name', 'beg', 'end'), keep='first', inplace=True)
         # summary
-        print(f"we have recovered a total of {len(old_leases)}")
-        print(f"and {old_leases.isna().sum()=}")
-        old_leases.to_csv(EARLY_LEASES, index=False)
+        print(f"we have recovered a total of {len(old_leases)} leases")
+        print(f"and have a total of {old_leases.isna().sum().sum()=} missing values")
+        print(f"sorting and storing in {REBUILT_LEASES}")
+        old_leases.sort_values(by='lease_id', ascending=True, inplace=True)
+        old_leases.to_csv(REBUILT_LEASES, index=False)
         return old_leases
 
 
