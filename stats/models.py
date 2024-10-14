@@ -95,6 +95,13 @@ class Stats(PlcApiView):
         # put it together
         merge = pd.concat([merge1, merge2], ignore_index=True)
 
+        # given these 2 sources, we may have duplications, so:
+        # print(f"(0) we have {len(merge)} leases")
+        merge.drop_duplicates(subset=['slice_id', 'dt_from', 'dt_until'], inplace=True)
+        # print(f"(1) we have {len(merge)} unique leases")
+        merge.drop_duplicates(subset=['name', 'dt_from', 'dt_until'], inplace=True)
+        # print(f"(2) we have {len(merge)} unique leases")
+
         # if missing slice families remain
         # tmp ? load SLICES-FAMILY.csv and merge it with usage
         tmp_slice_family = pd.read_csv('stats/rebuild/HAND-SLICE-FAMILY.csv')
