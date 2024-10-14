@@ -343,6 +343,8 @@ def retrieve_updated_leases(additions):
     auth, proxy = init_proxy()
     lease_events = proxy.GetEvents(auth, {'call_name': 'UpdateLeases'})
     df_lease_events = pd.DataFrame(lease_events)
+    # it's important to keep the order of the events
+    df_lease_events.sort_values(by='time', ascending=True, inplace=True)
     # parse all calls, returns a Series of tuples
     series = df_lease_events.apply(lambda row: parse_updatelease_event(row['call']), axis=1)
     # transform into a proper dataframe; use same names as in the API
@@ -507,31 +509,30 @@ def load_old_leases():
         df['end'] = pd.to_datetime(df['end'], format='ISO8601')
         return df
     else:
-        # print(f"there are {len(deletions)} deleted leases to recover")
+        # we ignore the deleted leases for now
         # get additions from events
         print("retrieving added leases by GetEvents()")
-        old_leases = retrieve_added_leases()
-        # debug(old_leases, ODD_IDS, "initial additions")
-        # consider only the ones deleted
-        # old_leases = pd.merge(deletions, old_leases, how="left", on="lease_id")
+        rebuilt_leases = retrieve_added_leases()
+
         # take into account updates
-        print("tweaking leases after UpdateLeases from GetEvents()")
-        retrieve_updated_leases(old_leases)
-        # debug(old_leases, ODD_IDS, "updated")
-        # remove overlaps
-        print("removing overlaps")
-        remove_overlaps(old_leases)
-        # debug(old_leases, ODD_IDS, "overlaps")
-        # remove duplicates, many leases are found under 2 different lease_ids
-        old_leases.drop_duplicates(
-            subset=('name', 'beg', 'end'), keep='first', inplace=True)
+        print(f"{len(rebuilt_leases)=} tweaking leases after UpdateLeases from GetEvents()")
+        retrieve_updated_leases(rebuilt_leases)
+
+        # remove duplicates & overlaps (many duplicates at the beginning of history)
+        rebuilt_leases.sort_values(by='beg', ascending=True, inplace=True)
+        print(f"{len(rebuilt_leases)=} removing duplicates & overlaps")
+        rebuilt_leases.drop_duplicates(subset=('name', 'beg', 'end'), keep='first', inplace=True)
+        print(f"{len(rebuilt_leases)=} duplicates are gone")
+        remove_overlaps(rebuilt_leases)
+        print(f"{len(rebuilt_leases)=} overlaps are gone")
+
         # summary
-        print(f"we have recovered a total of {len(old_leases)} leases")
-        print(f"and have a total of {old_leases.isna().sum().sum()=} missing values")
+        print(f"we have recovered a total of {len(rebuilt_leases)} leases")
+        print(f"and have a total of {rebuilt_leases.isna().sum().sum()=} missing values")
         print(f"sorting and storing in {REBUILT_LEASES}")
-        old_leases.sort_values(by='lease_id', ascending=True, inplace=True)
-        old_leases.to_csv(REBUILT_LEASES, index=False)
-        return old_leases
+        rebuilt_leases.sort_values(by='beg', ascending=True, inplace=True)
+        rebuilt_leases.to_csv(REBUILT_LEASES, index=False)
+        return rebuilt_leases
 
 
 # %%
