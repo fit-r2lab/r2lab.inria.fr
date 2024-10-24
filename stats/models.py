@@ -6,7 +6,7 @@ from django.db import models
 from plc.plcapiview import PlcApiView
 
 
-START = '2016'
+# START = '2016-01'
 
 ALLOWED_PERIODS = {
     'day': 'D',
@@ -38,20 +38,16 @@ class Stats(PlcApiView):
     # xxx need to cache the Leases and Slices data for like 10 minutes or so
     # def get_leases(self)
 
-    def usage(self):
-        return self._usage(periodname=None)
-    def usage_per_period(self, period):
-        return self._usage(periodname=period)
+    # def usage(self):
+    #     return self._usage(periodname=None)
+    def usage_per_period(self, period, ts_from, ts_until):
+        return self._usage(periodname=period, ts_from=ts_from, ts_until=ts_until)
 
-    def _usage(self, periodname, from_str=START, until_str='now'):
+    def _usage(self, periodname, ts_from, ts_until):
 
         if periodname is not None and periodname not in ALLOWED_PERIODS:
             print(f"period {periodname} not in {ALLOWED_PERIODS}")
             return pd.DataFrame(columns=COLUMNS)
-
-        # xxx actual filtering
-        ts_from = pd.Timestamp(from_str)
-        ts_until = pd.Timestamp(until_str)
 
         # (1) find leases from the API
         self.init_plcapi_proxy()
@@ -136,15 +132,7 @@ class Stats(PlcApiView):
         merge['duration'] = merge['dt_until'] - merge['dt_from']
         merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
 
-
-        # if no periodname specified: return raw data
-        if periodname is None:
-            merge['week'] = merge.dt_from.dt.to_period('W')
-            merge['month'] = merge.dt_from.dt.to_period('M')
-            merge['year'] = merge.dt_from.dt.to_period('Y')
-            merge['quarter'] = merge.dt_from.dt.to_period('Q')
-            return merge
-
+        # group by period and family
         period = ALLOWED_PERIODS[periodname]
         merge['period'] = merge.dt_from.dt.to_period(period)
         usage = (

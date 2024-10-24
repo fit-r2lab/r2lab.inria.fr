@@ -10,23 +10,29 @@ skip_footer: yes
 
 <div id="text">
 
-Reliable usage collection is operational since 2021-09-01
-<br>
-for now one cannot select a time slot - stay tuned..
-<br>
-also responsiveness is not perfect yet, so please reload the page once your geometry is fine
+responsiveness is not perfect, please reload the page after resizing
 
 </div>
 
 <form id="dialog" action="javascript:displayStatsFromDialog()">
-  <label for="by-period">one bar by:</label>
-  <select name="by-period" id="by-period">
-    <option value="year">Year</option>
-    <option value="quarter" selected="selected">Quarter</option>
-    <option value="month">Month</option>
-    <option value="week">Week</option>
-    <option value="day">Day</option>
-  </select>
+    <span>
+        <label for="from">from month:</label><br>
+        <input type="month" id="from" name="from" value="2016-01"><br>
+    </span>
+    <span>
+        <label for="until">until month:</label><br>
+        <input type="month" id="until" name="until"><br>
+    </span>
+  <span>
+      <label for="by-period">one bar by:</label>
+      <select name="by-period" id="by-period">
+        <option value="year">Year</option>
+        <option value="quarter" selected="selected">Quarter</option>
+        <option value="month">Month</option>
+        <option value="week">Week</option>
+        <option value="day">Day</option>
+      </select>
+  </span>
   <input type="submit" value="Submit">
 </form>
 
@@ -57,6 +63,10 @@ also responsiveness is not perfect yet, so please reload the page once your geom
                 display: flex;
                 flex-direction: column;
             }
+            /* less space for the title that otherwise is huge */
+            :nth-child(1)>.fit {
+                padding: 10px 0px 0px 0px;
+            }
         }
     }
     #overall {
@@ -69,6 +79,11 @@ also responsiveness is not perfect yet, so please reload the page once your geom
         }
 
         #dialog {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
             /* override above setting */
             flex-grow: 0;
             /* turn off some openlab-fit defaults */
@@ -76,6 +91,9 @@ also responsiveness is not perfect yet, so please reload the page once your geom
                 min-width: initial!important;
                 max-width: initial!important;
                 border-radius: 8px;
+            }
+            span {
+                margin-right: 1em;
             }
             label {
                 margin-bottom: 0;
@@ -113,32 +131,47 @@ also responsiveness is not perfect yet, so please reload the page once your geom
 <script>
     const displayStatsFromDialog = () => {
         const byBin = document.getElementById("by-period").value;
-        displayStats(vegaEmbed, byBin);
+        const fromMonth = document.getElementById("from").value;
+        const untilMonth = document.getElementById("until").value;
+        console.log("from", fromMonth, "until", untilMonth, "by", byBin);
+        // if (fromMonth === "") { alert("Please provide a from date"); return; }
+        // if (untilMonth === "") { alert("Please provide a until date"); return; }
+        console.log("displayStatsFromDialog", byBin, fromMonth, untilMonth)
+        displayStats(vegaEmbed, byBin, fromMonth, untilMonth);
     }
 
-    const displayStats = (vegaEmbed, byPeriod) => {
-        let spec = `/assets/altair/altair-config-${byPeriod}.json`;
-        const embedOpt = { mode: "vega-lite" };
+    const displayStats = (vegaEmbed, byPeriod, fromMonth, untilMonth) => {
+        let spec_url = `/assets/altair/altair-config-${byPeriod}.json`;
 
-        const showError = (el, error) => {
-        el.innerHTML =
-            '<div style="color:red;">' +
-            "<p>JavaScript Error: " +
-            error.message +
-            "</p>" +
-            "<p>This usually means there's a typo in your chart specification. " +
-            "See the javascript console for the full traceback.</p>" +
-            "</div>";
-        throw error;
-        }
-        vegaEmbed("#stats-container", spec, embedOpt)
-            .then(result => console.log("embed result", result))
-            .catch((error) => showError(el, error));
+        fetch(spec_url)
+            .then(response => response.json())
+            .then(spec => {
+                spec.data.url += `/${fromMonth}`
+                if (untilMonth) { spec.data.url += `/${untilMonth}` }
+                console.log(spec)
+
+                const embedOpt = { mode: "vega-lite" };
+
+                const showError = (el, error) => {
+                el.innerHTML =
+                    '<div style="color:red;">' +
+                    "<p>JavaScript Error: " +
+                    error.message +
+                    "</p>" +
+                    "<p>This usually means there's a typo in your chart specification. " +
+                    "See the javascript console for the full traceback.</p>" +
+                    "</div>";
+                throw error;
+                }
+                vegaEmbed("#stats-container", spec, embedOpt)
+                    .then(result => console.log("embed result", result))
+                    .catch((error) => showError(el, error));
+            })
     }
     window.addEventListener("DOMContentLoaded", () => {
-        displayStats(vegaEmbed, "quarter")
+        displayStatsFromDialog()
     })
     // temporary, while we can't choose dates yet
     document.getElementById("by-period").addEventListener("change", displayStatsFromDialog)
-    document.querySelector('input[type="submit"]').style.display="none"
+    // document.querySelector('input[type="submit"]').style.display="none"
 </script>

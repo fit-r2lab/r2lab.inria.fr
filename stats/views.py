@@ -28,11 +28,14 @@ def api_usage(request):
     return response
 
 @csrf_protect
-def api_usage_per_period(request, period):
+def api_usage_per_period(request, period, from_period=None, until_period=None):
     # as per urls.py period should be one of 'week', 'month', 'year', 'quarter'
+    from_ts = pd.Period(from_period if from_period else "2016-01").start_time
+    until_ts = pd.Period(until_period).end_time if until_period else pd.Timestamp.now()
+
     stats = Stats()
     # a dataframe
-    results = stats.usage_per_period(period)
+    results = stats.usage_per_period(period, from_ts, until_ts)
     # convert to json
     results = results.to_json(
         orient='records',
