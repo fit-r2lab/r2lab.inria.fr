@@ -28,9 +28,9 @@ inria_havelsan,
 inria_hive,industry
 inria_idtolu,
 inria_infosys,
-inria_intern,
+inria_intern,academia/diana
 inria_iotlab.iotlab_slice,
-inria_jawad,
+inria_jawad,academia/diana
 inria_juniper,industry
 inria_kpn,
 inria_kube,
@@ -53,7 +53,7 @@ inria_naoufal.mesh,academia/diana
 inria_ncsu,
 inria_novisad,
 inria_npu,
-inria_ns3,
+inria_ns3,academia/diana
 inria_ntnu,
 inria_oai,academia/slices
 inria_oai.b210,academia/slices
