@@ -73,7 +73,7 @@ def generate_per_period_config(shortname, display=True, save_html=False):
                 legend=alt.Legend(title="by Family", symbolSize=500),
             ),
             # this actually orders the bars; it is computed in models.py
-            order=alt.Order('stack-order:N', sort='ascending'),
+            order=alt.Order('family-order:N', sort='ascending'),
             tooltip=['name:N', 'period:N', 'family:N', 'sum(duration):Q'],
         )
         .configure_legend(

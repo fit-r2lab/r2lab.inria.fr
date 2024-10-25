@@ -142,7 +142,7 @@ class Stats(PlcApiView):
             ordered=True,
         )
         merge['family'] = merge['family'].astype(ordered_type)
-        merge['stack-order'] = merge.family.cat.codes
+        merge['family-order'] = merge.family.cat.codes
 
         return merge
 
@@ -194,7 +194,7 @@ class Stats(PlcApiView):
         # first compute the total duration per slice
         df = (
             leases
-            .groupby(by=['name', 'family', 'stack-order'])
+            .groupby(by=['name', 'family', 'family-order'])
             .agg({'duration': 'sum'})
             .reset_index()
         )
