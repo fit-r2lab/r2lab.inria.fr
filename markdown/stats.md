@@ -24,7 +24,7 @@ responsiveness is not perfect, please reload the page after resizing
         <input type="month" id="until" name="until"><br>
     </span>
   <span>
-      <label for="by-period">one bar by:</label>
+      <label for="by-period">by:</label>
       <select name="by-period" id="by-period">
         <option value="year">Year</option>
         <option value="quarter" selected="selected">Quarter</option>
@@ -75,14 +75,16 @@ responsiveness is not perfect, please reload the page after resizing
 
         #first-row {
             display: flex;
+            flex-flow: row nowrap;
             justify-content: space-between;
         }
 
         #dialog {
             display: flex;
-            flex-direction: row;
+            flex-flow: row nowrap;
             justify-content: space-between;
-            align-items: center;
+            /* align-items: center; */
+            align-items: flex-start;
             margin-bottom: 8px;
             /* override above setting */
             flex-grow: 0;
@@ -102,13 +104,14 @@ responsiveness is not perfect, please reload the page after resizing
             input[type="submit"] {
                 margin-left: 1em;
                 border-radius: 8px;
+                padding-top: 5px;
                 background-color: #A0D683;
             }
         }
 
         /* temporary, to outline the vega container */
         #stats-container {
-            border: 5px solid #7E60BF;
+            border: 3px solid #7E60BF;
         }
     }
 

@@ -41,8 +41,6 @@ def api_usage_per_period(request, period, from_period=None, until_period=None):
         orient='records',
         date_unit='s',
         date_format='iso',
-        # no longer needed, was when the 'period' column was a pd.Period
-        #  default_handler=str,
     )
     response = HttpResponse(results, content_type="application/json")
     response['Access-Control-Allow-Origin'] = '*'
