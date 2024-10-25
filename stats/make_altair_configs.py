@@ -39,7 +39,7 @@ supported = {
     ),
 }
 
-def generate_config(shortname, display=True, save_html=False):
+def generate_per_period_config(shortname, display=True, save_html=False):
     values = supported[shortname]
     name = values['name']
     url = f"{SERVER}/stats/{name}"
@@ -102,9 +102,16 @@ def generate_config(shortname, display=True, save_html=False):
         # not in the assets dir
         chart.save(f"altair-sample-{name}.html", embed_options={'renderer': 'svg'})
 
+def generate_per_slice_config():
+    heatmap = alt.Chart(df2).mark_rect().encode(
+        x=alt.X('family:N', title='family'),
+        y=alt.Y('row:O', title=None),
+        color=alt.Color('duration:Q', title='duration'),
+        tooltip=['name', 'duration'],
+    )
+
 for shortname in supported:
-# for current in 'D':
-    generate_config(shortname, save_html=True)
+    generate_per_period_config(shortname, save_html=True)
 
 # patch the hard-wired SERVER url with relative ones
 # we don't do this warlier so we can see the results earlier in the browser
