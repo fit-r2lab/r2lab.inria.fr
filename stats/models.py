@@ -9,6 +9,16 @@ import pandas as pd
 from plc.plcapiview import PlcApiView
 
 
+# the order to display families
+FAMILIES = [
+    'admin',
+    'academia/diana',
+    'academia/slices',
+    'academia/others',
+    'industry',
+    'unknown'
+]
+
 ALLOWED_PERIODS = {
     'day': 'D',
     'week': 'W',
@@ -126,6 +136,14 @@ class Stats(PlcApiView):
         merge['duration'] = merge['dt_until'] - merge['dt_from']
         merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
 
+        # this is where we order the various families
+        ordered_type = pd.CategoricalDtype(
+            categories = FAMILIES,
+            ordered=True,
+        )
+        merge['family'] = merge['family'].astype(ordered_type)
+        merge['stack-order'] = merge.family.cat.codes
+
         return merge
 
     def _synthesis_per_period(self, leases, periodname):
@@ -155,14 +173,6 @@ class Stats(PlcApiView):
         # and retain the nice period rendering of pandas as a string
         usage['period'] = usage['period'].astype(str)
 
-        # this is where we order the various families
-        ordered_type = pd.CategoricalDtype(
-            categories = [ 'admin', 'academia/diana', 'academia/slices', 'academia/others', 'industry', 'unknown'],
-            ordered=True,
-        )
-        usage['family'] = usage['family'].astype(ordered_type)
-        usage['stack-order'] = usage.family.cat.codes
-
         # tmp - extract the names of the remaining unknown/untagged slices
         def untagged_slices_and_leases(usage):
             untagged_leases = usage[(usage.family == 'unknown') | (usage.family.isna())]
@@ -180,6 +190,15 @@ class Stats(PlcApiView):
         """
         does a pivot with index=slice, columns=family, values=duration
         """
-        usage = leases.pivot_table(
-            index='name', columns='family', values='duration', aggfunc='sum', fill_value=0)
-        return usage
+
+        # first compute the total duration per slice
+        df = (
+            leases
+            .groupby(by=['name', 'family', 'stack-order'])
+            .agg({'duration': 'sum'})
+            .reset_index()
+        )
+        # compute the 'row' column which will map the the Y axis
+        df['row'] = df.groupby('family').cumcount()
+
+        return df
