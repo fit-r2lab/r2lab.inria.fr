@@ -1,12 +1,13 @@
+"""
+compute the stats that get displayed by /stats.md
+API endpoints are defined in views.py
+"""
+
 import numpy as np
 import pandas as pd
 
-from django.db import models
-
 from plc.plcapiview import PlcApiView
 
-
-# START = '2016-01'
 
 ALLOWED_PERIODS = {
     'day': 'D',
@@ -18,6 +19,7 @@ ALLOWED_PERIODS = {
 
 # to create an empty dataframe result
 COLUMNS = ['name', 'dt_from', 'dt_until', 'slice_id']
+
 
 def numpy_to_epoch(dt):
     # return genuine ints that need to be marshaled
@@ -32,18 +34,23 @@ def round_timedelta_to_hours(timedelta):
         x = timedelta.total_seconds()
     return int(((x-1) // 3600) + 1)
 
+
 # class Stats(models.Model, PlcApiView):
 class Stats(PlcApiView):
 
     # xxx need to cache the Leases and Slices data for like 10 minutes or so
     # def get_leases(self)
 
-    def usage(self):
-        return self._raw_usage('2010', None)
+    def all_leases(self):
+        return self._raw_usage('2010', pd.Timestamp.now())
 
     def usage_per_period(self, periodname, ts_from, ts_until):
         leases = self._raw_usage(ts_from, ts_until)
-        return self._synthesis(leases, periodname)
+        return self._synthesis_per_period(leases, periodname)
+
+    def usage_per_slice(self, ts_from, ts_until):
+        leases = self._raw_usage(ts_from, ts_until)
+        return self._synthesis_per_slice(leases)
 
     def _raw_usage(self, ts_from, ts_until):
 
@@ -56,21 +63,14 @@ class Stats(PlcApiView):
             ))
 
         leases1 = pd.DataFrame(
-            self.plcapi_proxy.GetLeases(
-                {},
-                ['t_from', 't_until', 'slice_id'],
-            ))
+            self.plcapi_proxy.GetLeases({}, ['t_from', 't_until', 'slice_id']))
 
         # (1 bis) translate into datetimes and bind to family
         leases1['dt_from'] = pd.to_datetime(leases1['t_from'], unit='s')
         leases1['dt_until'] = pd.to_datetime(leases1['t_until'], unit='s')
         leases1.drop(columns=['t_from', 't_until'], inplace=True)
 
-        merge1 = leases1.merge(
-            all_slices,
-            on='slice_id',
-            how='left',
-        )
+        merge1 = leases1.merge(all_slices, on='slice_id', how='left')
 
         # (2) from the LEASES csv
         leases2 = pd.read_csv('stats/rebuild/REBUILT-LEASES.csv')
@@ -80,11 +80,7 @@ class Stats(PlcApiView):
         leases2['dt_until'] = pd.to_datetime(leases2['end'], format="ISO8601")
         leases2.drop(columns=['beg', 'end'], inplace=True)
 
-        merge2 = leases2.merge(
-            all_slices,
-            on='name',
-            how='left',
-        )
+        merge2 = leases2.merge(all_slices, on='name', how='left')
 
         # put it together
         merge = pd.concat([merge1, merge2], ignore_index=True)
@@ -132,7 +128,10 @@ class Stats(PlcApiView):
 
         return merge
 
-    def _synthesis(self, leases, periodname):
+    def _synthesis_per_period(self, leases, periodname):
+        """
+        does a groupby by periodname
+        """
 
         # group by period and family
         period = ALLOWED_PERIODS[periodname]
@@ -164,15 +163,23 @@ class Stats(PlcApiView):
         usage['family'] = usage['family'].astype(ordered_type)
         usage['stack-order'] = usage.family.cat.codes
 
-        # # tmp - extract the names of the remaining unknown/untagged slices
-        # def untagged_slices_and_leases(usage):
-        #     untagged_leases = usage[(usage.family == 'unknown') | (usage.family.isna())]
-        #     untagged_slices = untagged_leases.name.unique()
-        #     return untagged_slices, untagged_leases
+        # tmp - extract the names of the remaining unknown/untagged slices
+        def untagged_slices_and_leases(usage):
+            untagged_leases = usage[(usage.family == 'unknown') | (usage.family.isna())]
+            untagged_slices = untagged_leases.name.unique()
+            return untagged_slices, untagged_leases
 
-        # untagged_slices, untagged_leases = untagged_slices_and_leases(usage)
-        # with open("stats/TMP-UNTAGGED-SLICES.txt", 'w') as f:
-        #     for slicename in sorted(untagged_slices):
-        #         print(slicename, file=f)
+        untagged_slices, untagged_leases = untagged_slices_and_leases(usage)
+        with open("stats/TMP-UNTAGGED-SLICES.txt", 'w') as f:
+            for slicename in sorted(untagged_slices):
+                print(slicename, file=f)
 
+        return usage
+
+    def _synthesis_per_slice(self, leases):
+        """
+        does a pivot with index=slice, columns=family, values=duration
+        """
+        usage = leases.pivot_table(
+            index='name', columns='family', values='duration', aggfunc='sum', fill_value=0)
         return usage
