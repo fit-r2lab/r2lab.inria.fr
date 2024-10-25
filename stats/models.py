@@ -38,16 +38,14 @@ class Stats(PlcApiView):
     # xxx need to cache the Leases and Slices data for like 10 minutes or so
     # def get_leases(self)
 
-    # def usage(self):
-    #     return self._usage(periodname=None)
-    def usage_per_period(self, period, ts_from, ts_until):
-        return self._usage(periodname=period, ts_from=ts_from, ts_until=ts_until)
+    def usage(self):
+        return self._raw_usage('2010', None)
 
-    def _usage(self, periodname, ts_from, ts_until):
+    def usage_per_period(self, periodname, ts_from, ts_until):
+        leases = self._raw_usage(ts_from, ts_until)
+        return self._synthesis(leases, periodname)
 
-        if periodname is not None and periodname not in ALLOWED_PERIODS:
-            print(f"period {periodname} not in {ALLOWED_PERIODS}")
-            return pd.DataFrame(columns=COLUMNS)
+    def _raw_usage(self, ts_from, ts_until):
 
         # (1) find leases from the API
         self.init_plcapi_proxy()
@@ -132,11 +130,15 @@ class Stats(PlcApiView):
         merge['duration'] = merge['dt_until'] - merge['dt_from']
         merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
 
+        return merge
+
+    def _synthesis(self, leases, periodname):
+
         # group by period and family
         period = ALLOWED_PERIODS[periodname]
-        merge['period'] = merge.dt_from.dt.to_period(period)
+        leases['period'] = leases.dt_from.dt.to_period(period)
         usage = (
-            merge
+            leases
             .groupby(by=['family', 'period', 'name'])
             .agg({'duration': 'sum'})
             # .reset_index()
@@ -162,15 +164,15 @@ class Stats(PlcApiView):
         usage['family'] = usage['family'].astype(ordered_type)
         usage['stack-order'] = usage.family.cat.codes
 
-        # tmp - extract the names of the remaining unknown/untagged slices
-        def untagged_slices_and_leases(usage):
-            untagged_leases = usage[(usage.family == 'unknown') | (usage.family.isna())]
-            untagged_slices = untagged_leases.name.unique()
-            return untagged_slices, untagged_leases
+        # # tmp - extract the names of the remaining unknown/untagged slices
+        # def untagged_slices_and_leases(usage):
+        #     untagged_leases = usage[(usage.family == 'unknown') | (usage.family.isna())]
+        #     untagged_slices = untagged_leases.name.unique()
+        #     return untagged_slices, untagged_leases
 
-        untagged_slices, untagged_leases = untagged_slices_and_leases(usage)
-        with open("stats/TMP-UNTAGGED-SLICES.txt", 'w') as f:
-            for slicename in sorted(untagged_slices):
-                print(slicename, file=f)
+        # untagged_slices, untagged_leases = untagged_slices_and_leases(usage)
+        # with open("stats/TMP-UNTAGGED-SLICES.txt", 'w') as f:
+        #     for slicename in sorted(untagged_slices):
+        #         print(slicename, file=f)
 
         return usage

@@ -50,8 +50,6 @@ urlpatterns = [
             stats.views.api_usage_per_period),
     re_path(r'^stats/(?P<period>(day|week|month|year|quarter))/(?P<from_period>[0-9-]+)/(?P<until_period>[0-9-]+)/?$',
             stats.views.api_usage_per_period),
-    re_path(r'^stats/(?P<period>(day|week|month|year|quarter))/?$',
-            stats.views.api_usage_per_period),
     re_path(r'^stats/?$',
             stats.views.api_usage),
 ]
