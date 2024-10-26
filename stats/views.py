@@ -28,14 +28,14 @@ def api_all_leases(request):
     return response
 
 @csrf_protect
-def api_usage_per_period(request, periodname, from_period=None, until_period=None):
+def api_stats_period_barchart(request, periodname, from_period=None, until_period=None):
     # as per urls.py periodname should be one of 'week', 'month', 'year', 'quarter'
     from_ts = pd.Period(from_period if from_period else "2016-01").start_time
     until_ts = pd.Period(until_period).end_time if until_period else pd.Timestamp.now()
 
     stats = Stats()
     # a dataframe
-    results = stats.usage_per_period(periodname, from_ts, until_ts)
+    results = stats.per_period_barchart(periodname, from_ts, until_ts)
     # convert to json
     results = results.to_json(
         orient='records',
@@ -47,19 +47,27 @@ def api_usage_per_period(request, periodname, from_period=None, until_period=Non
     return response
 
 @csrf_protect
-def api_usage_per_slice(request, from_period=None, until_period=None):
+def api_stats_slice_csv(request, from_period=None, until_period=None):
+    from_ts = pd.Period(from_period if from_period else "2016-01").start_time
+    until_ts = pd.Period(until_period).end_time if until_period else pd.Timestamp.now()
+    stats = Stats()
+    # a dataframe
+    results = stats.per_slice_csv(from_ts, until_ts)
+    results = results.to_csv()
+    response = HttpResponse(results, content_type="application/csv")
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
+
+@csrf_protect
+def api_stats_slice_heatmap(request, from_period=None, until_period=None):
     from_ts = pd.Period(from_period if from_period else "2016-01").start_time
     until_ts = pd.Period(until_period).end_time if until_period else pd.Timestamp.now()
 
     stats = Stats()
     # a dataframe
-    results = stats.usage_per_slice(from_ts, until_ts)
+    results = stats.per_slice_heatmap(from_ts, until_ts)
     # convert to json
-    results = results.to_json(
-        orient='records',
-        date_unit='s',
-        date_format='iso',
-    )
+    results = results.to_json()
     response = HttpResponse(results, content_type="application/json")
     response['Access-Control-Allow-Origin'] = '*'
     return response

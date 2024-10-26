@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 compute the stats that get displayed by /stats.md
 API endpoints are defined in views.py
@@ -54,13 +56,17 @@ class Stats(PlcApiView):
     def all_leases(self):
         return self._raw_usage('2010', pd.Timestamp.now())
 
-    def usage_per_period(self, periodname, ts_from, ts_until):
+    def per_period_barchart(self, periodname, ts_from, ts_until):
         leases = self._raw_usage(ts_from, ts_until)
-        return self._synthesis_per_period(leases, periodname)
+        return self._per_period_barchart(leases, periodname)
 
-    def usage_per_slice(self, ts_from, ts_until):
+    def per_slice_csv(self, ts_from, ts_until):
         leases = self._raw_usage(ts_from, ts_until)
-        return self._synthesis_per_slice(leases)
+        return self._per_slice_csv(leases)
+
+    def per_slice_heatmap(self, ts_from, ts_until):
+        leases = self._raw_usage(ts_from, ts_until)
+        return self._per_slice_heatmap(leases)
 
     def _raw_usage(self, ts_from, ts_until):
 
@@ -146,7 +152,16 @@ class Stats(PlcApiView):
 
         return merge
 
-    def _synthesis_per_period(self, leases, periodname):
+    def _per_slice_csv(self, leases):
+        slices = (
+            leases.
+                groupby(by=['family', 'name'])
+                .agg({'duration': 'sum'})
+                .reset_index()
+        )
+        return slices[slices.duration > 0]
+
+    def _per_period_barchart(self, leases, periodname):
         """
         does a groupby by periodname
         """
@@ -186,10 +201,11 @@ class Stats(PlcApiView):
 
         return usage
 
-    def _synthesis_per_slice(self, leases):
-        """
-        does a pivot with index=slice, columns=family, values=duration
-        """
+    def _per_slice_heatmap(self, leases):
+
+        for col in 'dt_from', 'dt_until', 'lease_id':
+            if col in leases.columns:
+                leases.drop(columns=[col], inplace=True)
 
         # first compute the total duration per slice
         df = (

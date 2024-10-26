@@ -3,6 +3,8 @@ this file allows to generate the configuration files for the altair charts
 they are saved locally as json files, and should be xxx
 """
 
+from pathlib import Path
+
 import pandas as pd
 
 import altair as alt
@@ -42,7 +44,7 @@ supported = {
 def generate_per_period_config(shortname, display=True, save_html=False):
     values = supported[shortname]
     name = values['name']
-    url = f"{SERVER}/stats/{name}"
+    url = f"{SERVER}/api/stats/period/{name}"
     print(f"Fetching {url}")
 
     # this is for the order of the colors in the legend
@@ -102,29 +104,42 @@ def generate_per_period_config(shortname, display=True, save_html=False):
         # not in the assets dir
         chart.save(f"altair-sample-{name}.html", embed_options={'renderer': 'svg'})
 
-def generate_per_slice_config():
-    heatmap = alt.Chart(df2).mark_rect().encode(
+def generate_per_slice_config(display=True, save_html=False):
+    url = f"{SERVER}/api/stats/slice"
+    heatmap = alt.Chart(url).mark_rect().encode(
         x=alt.X('family:N', title='family'),
         y=alt.Y('row:O', title=None),
         color=alt.Color('duration:Q', title='duration'),
-        tooltip=['name', 'duration'],
+        tooltip=['name:N', 'duration:Q'],
     )
+    heatmap.save(f"{ASSETS_DIR}/altair-config-slice.json")
+    if display:
+        heatmap.display()
+    if save_html:
+        heatmap.save("altair-sample-slice.html", embed_options={'renderer': 'svg'})
 
-for shortname in supported:
-    generate_per_period_config(shortname, save_html=True)
+def generate_all():
+    for shortname in supported:
+        generate_per_period_config(shortname, save_html=True)
+    generate_per_slice_config()
+
+def patch_server_in_all_configs():
+    for config in Path("../assets/altair").glob("*.json"):
+        with open(config) as f:
+            content = f.read()
+        content2 = content.replace(SERVER, "")
+        if content2 != content:
+            print(f"Patching {config}")
+            with open(config, 'w') as f:
+                f.write(content2)
+        else:
+            print(f"{config} did not need patching")
 
 # patch the hard-wired SERVER url with relative ones
 # we don't do this warlier so we can see the results earlier in the browser
+def main():
+    generate_all()
+    patch_server_in_all_configs()
 
-from pathlib import Path
-
-for config in Path("../assets/altair").glob("*.json"):
-    with open(config) as f:
-        content = f.read()
-    content2 = content.replace(SERVER, "")
-    if content2 != content:
-        print(f"Patching {config}")
-        with open(config, 'w') as f:
-            f.write(content2)
-    else:
-        print(f"{config} did not need patching")
+if __name__ == '__main__':
+    main()

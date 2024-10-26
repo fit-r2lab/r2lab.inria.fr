@@ -23,6 +23,7 @@ responsiveness is not perfect, please reload the page after resizing
         <label for="until">until month:</label><br>
         <input type="month" id="until" name="until"><br>
     </span>
+
   <span>
       <label for="by-period">by:</label>
       <select name="by-period" id="by-period">
@@ -33,7 +34,10 @@ responsiveness is not perfect, please reload the page after resizing
         <option value="day">Day</option>
       </select>
   </span>
-  <input type="submit" value="Submit">
+  <div id="submits">
+    <input type="submit" value="Submit">
+    <span id="csv">csv</span>
+  </div>
 </form>
 
 </div>
@@ -101,11 +105,28 @@ responsiveness is not perfect, please reload the page after resizing
                 margin-bottom: 0;
                 margin-right: 1em;
             }
-            input[type="submit"] {
+            #submits {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: stretch;
                 margin-left: 1em;
-                border-radius: 8px;
-                padding-top: 5px;
-                background-color: #A0D683;
+
+                input[type="submit"] {
+                    padding-top: 5px;
+                    padding-bottom: 0px;
+                    border-width: 0px;
+                    border-radius: 8px;
+                    background-color: #A0D683;
+                }
+                #csv {
+                    width: 100%;
+                    text-align: center;
+                    margin-top: 4px;
+                    background-color: #E6C767;
+                    border-width: 0px;
+                    border-radius: 8px;
+                    cursor: alias;
+                }
             }
         }
 
@@ -133,25 +154,24 @@ responsiveness is not perfect, please reload the page after resizing
 
 <script>
     const displayStatsFromDialog = () => {
-        const byBin = document.getElementById("by-period").value;
+        const byPeriod = document.getElementById("by-period").value;
         const fromMonth = document.getElementById("from").value;
         const untilMonth = document.getElementById("until").value;
-        console.log("from", fromMonth, "until", untilMonth, "by", byBin);
-        // if (fromMonth === "") { alert("Please provide a from date"); return; }
-        // if (untilMonth === "") { alert("Please provide a until date"); return; }
-        console.log("displayStatsFromDialog", byBin, fromMonth, untilMonth)
-        displayStats(vegaEmbed, byBin, fromMonth, untilMonth);
+        displayStats(vegaEmbed, byPeriod, fromMonth, untilMonth);
     }
 
     const displayStats = (vegaEmbed, byPeriod, fromMonth, untilMonth) => {
         let spec_url = `/assets/altair/altair-config-${byPeriod}.json`;
 
+        document.body.style.cursor = "wait"
+
         fetch(spec_url)
             .then(response => response.json())
             .then(spec => {
+                console.log("from template spec = ", spec.data.url)
                 spec.data.url += `/${fromMonth}`
                 if (untilMonth) { spec.data.url += `/${untilMonth}` }
-                console.log(spec)
+                console.log("after patch spec = ", spec.data.url)
 
                 const embedOpt = { mode: "vega-lite" };
 
@@ -168,13 +188,41 @@ responsiveness is not perfect, please reload the page after resizing
                 }
                 vegaEmbed("#stats-container", spec, embedOpt)
                     .then(result => console.log("embed result", result))
-                    .catch((error) => showError(el, error));
+                    .catch((error) => showError(el, error))
+                    .finally(() => document.body.style.cursor = null)
             })
+
     }
+
+    const download = (download_as, text) => {
+        const element = document.createElement('a')
+        element.setAttribute(
+            'href',
+            'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
+        element.setAttribute('download', download_as)
+        element.style.display = 'none'
+        document.body.appendChild(element)
+        element.click()
+        document.body.removeChild(element)
+    }
+
+    const dowloadCsv = () => {
+        const fromMonth = document.getElementById("from").value
+        const untilMonth = document.getElementById("until").value || "now"
+        const url = `/api/stats/slice/csv/${fromMonth}/${untilMonth}`
+        fetch (url)
+            .then(response => response.text())
+            .then(
+                text => download(
+                    `r2lab-stats-${fromMonth}-${untilMonth}.csv`, text))
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
         displayStatsFromDialog()
+        document.getElementById("by-period")
+            .addEventListener("change", displayStatsFromDialog)
+        document.getElementById("csv")
+            .addEventListener("click", dowloadCsv)
     })
-    // temporary, while we can't choose dates yet
-    document.getElementById("by-period").addEventListener("change", displayStatsFromDialog)
     // document.querySelector('input[type="submit"]').style.display="none"
 </script>

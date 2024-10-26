@@ -44,19 +44,25 @@ urlpatterns = [
     re_path(r'^slices/(?P<verb>(get|renew))', slices.views.SlicesProxy.as_view()),
     re_path(r'^users/(?P<verb>(get|renew))', users.views.UsersProxy.as_view()),
     re_path(r'^keys/(?P<verb>(get|add|delete))', keys.views.KeysProxy.as_view()),
-    re_path(r'^stats/(?P<periodname>(day|week|month|year|quarter))/?$',
-            stats.views.api_usage_per_period),
-    re_path(r'^stats/(?P<periodname>(day|week|month|year|quarter))/(?P<from_period>[0-9-]+)/?$',
-            stats.views.api_usage_per_period),
-    re_path(r'^stats/(?P<periodname>(day|week|month|year|quarter))/(?P<from_period>[0-9-]+)/(?P<until_period>[0-9-]+)/?$',
-            stats.views.api_usage_per_period),
-    re_path(r'^stats/slices/?$',
-            stats.views.api_usage_per_slice),
-    re_path(r'^stats/slices/(?P<from_period>[0-9-]+)/?$',
-            stats.views.api_usage_per_slice),
-    re_path(r'^stats/slices/(?P<from_period>[0-9-]+)/(?P<until_period>[0-9-]+)/?$',
-            stats.views.api_usage_per_slice),
-    re_path(r'^stats/leases/?$',
+
+    # API endpoints for stats
+    re_path(r'^api/stats/period'
+            r'/(?P<periodname>(day|week|month|year|quarter))'
+            r'(/(?P<from_period>[0-9-]+))?'
+            r'(/(?P<until_period>[0-9-]+))?'
+            r'/?$', stats.views.api_stats_period_barchart),
+
+    re_path(r'^api/stats/slice'
+            r'(/(?P<from_period>[0-9-]+))?'
+            r'(/(?P<until_period>[0-9-]+))?'
+            r'/?$', stats.views.api_stats_slice_heatmap),
+
+    re_path(r'^api/stats/slice/csv'
+            r'(/(?P<from_period>[0-9-]+))?'
+            r'(/(?P<until_period>[0-9-]+))?'
+            r'/?$', stats.views.api_stats_slice_csv),
+
+    re_path(r'^api/stats/lease/?$',
             stats.views.api_all_leases),
 ]
 urlpatterns.extend(static('/assets/', document_root=str(BASE / 'assets/')))
