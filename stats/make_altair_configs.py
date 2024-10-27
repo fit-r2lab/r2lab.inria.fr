@@ -106,12 +106,57 @@ def generate_per_period_config(shortname, display=True, save_html=False):
 
 def generate_per_slice_config(display=True, save_html=False):
     url = f"{SERVER}/api/stats/slice"
-    heatmap = alt.Chart(url).mark_rect().encode(
-        x=alt.X('family:N', title='family'),
-        y=alt.Y('row:O', title=None),
-        color=alt.Color('duration:Q', title='duration'),
-        tooltip=['name:N', 'duration:Q'],
+    base = (
+        alt.Chart(url)
+        .encode(
+            x=alt.X('family:N', title='family'),
+            y=alt.Y('row:O', title=None),
+        )
     )
+
+    grid = (
+        base
+        .mark_rect()
+        .encode(
+            color=alt.Color('duration:Q', title='duration',
+                            scale=alt.Scale(type='log',scheme='greenblue')),
+            tooltip=['name:N', 'duration:Q'],
+        )
+    )
+    # an attempt at https://altair-viz.github.io/gallery/layered_heatmap_text.html
+    text = (
+        base
+        .mark_text(baseline='middle')
+        .encode(
+            alt.Text('duration:Q', format=".0f"),
+            color=alt.condition(
+                alt.datum.duration < 50,
+                alt.value('black'),
+                alt.value('white')
+            )
+        ).properties(
+            height=800,
+            width=400,
+        )
+    )
+
+    heatmap = (
+        (grid + text)
+        .configure_legend(
+            titleFontSize=14,
+            labelFontSize=12,
+            strokeColor='gray',
+            fillColor='#EEEEEE',
+            padding=10,
+            cornerRadius=10,
+            orient='right',
+        )
+        .properties(
+            title="Usage by slice & family",
+        )
+        .interactive()
+    )
+
     heatmap.save(f"{ASSETS_DIR}/altair-config-slice.json")
     if display:
         heatmap.display()
@@ -121,7 +166,7 @@ def generate_per_slice_config(display=True, save_html=False):
 def generate_all():
     for shortname in supported:
         generate_per_period_config(shortname, save_html=True)
-    generate_per_slice_config()
+    generate_per_slice_config(save_html=True)
 
 def patch_server_in_all_configs():
     for config in Path("../assets/altair").glob("*.json"):

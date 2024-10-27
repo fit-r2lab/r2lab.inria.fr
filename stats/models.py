@@ -210,11 +210,20 @@ class Stats(PlcApiView):
         # first compute the total duration per slice
         df = (
             leases
-            .groupby(by=['name', 'family', 'family-order'])
+            .groupby(
+                by=['name', 'family', 'family-order'],
+                observed=False)
             .agg({'duration': 'sum'})
             .reset_index()
         )
+
+        # remove null rows (how on earth do we end up with these ?)
+        df = df[df.duration != 0]
+
+        # sort by duration
+        df.sort_values(by='duration', ascending=False, inplace=True)
+
         # compute the 'row' column which will map the the Y axis
-        df['row'] = df.groupby('family').cumcount()
+        df['row'] = df.groupby('family', observed=False).cumcount()
 
         return df
