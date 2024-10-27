@@ -8,7 +8,9 @@ RSYNC-EXCLUDES = $(foreach exc,$(EXCLUDES), --exclude $(exc))
 
 ########## mirror this contents
 publish:
-	rsync -ai $(RSYNC-EXCLUDES) --delete --delete-excluded ./ $(PUBLISH-PATH)/
+	# no longer delete files that are not in the source
+	# as this actually removes the contents of raw/
+	rsync -ai $(RSYNC-EXCLUDES) ./ $(PUBLISH-PATH)/
 
 ########## restart apache on r2lab.inria.fr
 # maybe not strictly necessary when the python code is stable
