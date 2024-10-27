@@ -67,7 +67,7 @@ def api_stats_slice_heatmap(request, from_period=None, until_period=None):
     # a dataframe
     results = stats.per_slice_heatmap(from_ts, until_ts)
     # convert to json
-    results = results.to_json()
+    results = results.to_json(orient='records')
     response = HttpResponse(results, content_type="application/json")
     response['Access-Control-Allow-Origin'] = '*'
     return response
