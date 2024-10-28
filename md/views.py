@@ -13,6 +13,7 @@ import traceback
 # WARNING: version 2.3.6 of markdown2 breaks it for me
 # see https://github.com/trentm/python-markdown2/issues/311
 import markdown2 as markdown_module
+import jinja2
 
 from django.shortcuts import render
 from django.http import HttpResponseNotFound, HttpResponseRedirect
@@ -540,7 +541,7 @@ style="max-width:100%;">'''
 
 
 @csrf_protect
-def markdown_page(request, markdown_file, extra_metavars=None):
+def markdown_page(request, markdown_file, extra_metavars=None, **kwds):
     """
     the view to render a URL that points at a markdown source
     e.g.
@@ -550,6 +551,10 @@ def markdown_page(request, markdown_file, extra_metavars=None):
      * and expand markdown to html - passed to the template
        as 'html_from_markdown'
     additional metavars can be passed along as well if needed
+
+    the kwds argument is there to allow variables to be passed in the URL
+    see e.g. stats.md in url.py
+    these kwds are then used to instantiate the .md as a template
     """
     if extra_metavars is None:
         extra_metavars = {}
@@ -569,6 +574,12 @@ def markdown_page(request, markdown_file, extra_metavars=None):
         # handle [TOC] if present
         if toc:
             html = html.replace('[TOC]', toc)
+
+        # render the html as a template where the kwds are passed along
+        environment = jinja2.Environment()
+        template = environment.from_string(html)
+        html = template.render(**kwds)
+
         # and mark safe to prevent further escaping
         metavars['html_from_markdown'] = mark_safe(html)
         # set default for the 'title' metavar if not specified in header
@@ -581,6 +592,7 @@ def markdown_page(request, markdown_file, extra_metavars=None):
         metavars['r2lab_context'] = r2lab_context
         metavars['sidecar_url'] = sidecar_url
         metavars.update(extra_metavars)
+        metavars.update(kwds)
         return render(request, 'r2lab/r2lab.html', metavars)
     except Exception as exc:                            # pylint: disable=w0703
         error_message = f"<h1>Oops - cannot render markdown file" \

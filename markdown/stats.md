@@ -26,8 +26,8 @@ responsiveness is not perfect, please reload the page after resizing
     </span>
 
   <span>
-      <label for="by-period">by:</label><br>
-      <select name="by-period" id="by-period">
+      <label for="by-criteria">by:</label><br>
+      <select name="by-criteria" id="by-criteria">
         <option value="year">Year</option>
         <option value="quarter" selected="selected">Quarter</option>
         <option value="month">Month</option>
@@ -156,7 +156,7 @@ responsiveness is not perfect, please reload the page after resizing
 
 <script>
     const displayStatsFromDialog = () => {
-        const byCriteria = document.getElementById("by-period").value;
+        const byCriteria = document.getElementById("by-criteria").value;
         const fromMonth = document.getElementById("from").value;
         const untilMonth = document.getElementById("until").value;
         if (byCriteria === "slice") {
@@ -229,9 +229,26 @@ responsiveness is not perfect, please reload the page after resizing
                     `r2lab-stats-${fromMonth}-${untilMonth}.csv`, text))
     }
 
+    const startup = () => {
+        const by_from_url = '{{by}}'
+        const from_period = '{{from_period}}'
+        const until_period = '{{until_period}}'
+        if (by_from_url) {
+            document.getElementById("by-criteria").value = by_from_url
+        }
+        if (from_period) {
+            document.getElementById("from").value = from_period
+        }
+        if (until_period) {
+            document.getElementById("until").value = until_period
+        }
+        console.log("by", by_from_url, "from", from_period, "until", until_period)
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
+        startup()
         displayStatsFromDialog()
-        document.getElementById("by-period")
+        document.getElementById("by-criteria")
             .addEventListener("change", displayStatsFromDialog)
         document.getElementById("csv")
             .addEventListener("click", dowloadCsv)

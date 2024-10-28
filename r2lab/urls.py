@@ -45,6 +45,11 @@ urlpatterns = [
     re_path(r'^users/(?P<verb>(get|renew))', users.views.UsersProxy.as_view()),
     re_path(r'^keys/(?P<verb>(get|add|delete))', keys.views.KeysProxy.as_view()),
 
+    re_path(r'^stats.md/'
+            r'(?P<by>slice|year|quarter|month|week|day)'
+            r'(/(?P<from_period>[0-9-]+))?'
+            r'(/(?P<until_period>[0-9-]+))?'
+            r'/?$', md.views.markdown_page, {'markdown_file': 'stats.md'}),
     # API endpoints for stats
     re_path(r'^api/stats/period'
             r'/(?P<periodname>(day|week|month|year|quarter))'
