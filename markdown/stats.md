@@ -1,7 +1,7 @@
 title: R2lab usage statistics
 skip_header: yes
 skip_footer: yes
-require_login: true
+<!-- require_login: true -->
 <!-- skip_title: yes -->
 <!-- skip_menu: yes -->
 
