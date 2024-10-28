@@ -26,7 +26,7 @@ responsiveness is not perfect, please reload the page after resizing
     </span>
 
   <span>
-      <label for="by-period">by:</label>
+      <label for="by-period">by:</label><br>
       <select name="by-period" id="by-period">
         <option value="year">Year</option>
         <option value="quarter" selected="selected">Quarter</option>
