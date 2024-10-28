@@ -122,9 +122,6 @@ def generate_per_slice_config(display=True, save_html=False):
             color=alt.Color('duration:Q', title='duration',
                             scale=alt.Scale(type='log', scheme='greenblue')),
             tooltip=['name:N', 'duration:Q'],
-        ).properties(
-            height=300,
-            width=1000,
         )
     )
     # an attempt at https://altair-viz.github.io/gallery/layered_heatmap_text.html
@@ -153,6 +150,8 @@ def generate_per_slice_config(display=True, save_html=False):
             orient='right',
         )
         .properties(
+            height=300,
+            width='container',
             title="Usage by slice & family",
         )
         .interactive()

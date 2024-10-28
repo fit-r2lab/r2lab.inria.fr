@@ -33,6 +33,7 @@ responsiveness is not perfect, please reload the page after resizing
         <option value="month">Month</option>
         <option value="week">Week</option>
         <option value="day">Day</option>
+        <option value="slice">Slice</option>
       </select>
   </span>
   <div id="submits">
@@ -155,24 +156,34 @@ responsiveness is not perfect, please reload the page after resizing
 
 <script>
     const displayStatsFromDialog = () => {
-        const byPeriod = document.getElementById("by-period").value;
+        const byCriteria = document.getElementById("by-period").value;
         const fromMonth = document.getElementById("from").value;
         const untilMonth = document.getElementById("until").value;
-        displayStats(vegaEmbed, byPeriod, fromMonth, untilMonth);
+        if (byCriteria === "slice") {
+            displayHeatmap(vegaEmbed, fromMonth, untilMonth)
+        } else {
+            displayBarchart(vegaEmbed, byCriteria, fromMonth, untilMonth);
+        }
     }
 
-    const displayStats = (vegaEmbed, byPeriod, fromMonth, untilMonth) => {
-        let spec_url = `/assets/altair/altair-config-${byPeriod}.json`;
+    const displayBarchart = (vegaEmbed, byPeriod, fromMonth, untilMonth) => {
+        let spec_url = `/assets/altair/altair-config-${byPeriod}.json`
+        displayStats(vegaEmbed, spec_url, fromMonth, untilMonth)
+    }
+    const displayHeatmap = (vegaEmbed, fromMonth, untilMonth) => {
+        let spec_url = `/assets/altair/altair-config-slice.json`
+        displayStats(vegaEmbed, spec_url, fromMonth, untilMonth)
+    }
+
+    const displayStats = (vegaEmbed, spec_url, fromMonth, untilMonth) => {
 
         document.body.style.cursor = "wait"
 
         fetch(spec_url)
             .then(response => response.json())
             .then(spec => {
-                console.log("from template spec = ", spec.data.url)
                 spec.data.url += `/${fromMonth}`
                 if (untilMonth) { spec.data.url += `/${untilMonth}` }
-                console.log("after patch spec = ", spec.data.url)
 
                 const embedOpt = { mode: "vega-lite" };
 
