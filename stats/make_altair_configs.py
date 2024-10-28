@@ -109,9 +109,9 @@ def generate_per_slice_config(display=True, save_html=False):
     base = (
         alt.Chart(url)
         .encode(
-            x=alt.X('family:N', title='family',
+            y=alt.Y('family:N', title='family',
                     sort=alt.EncodingSortField(field='family-order', order='ascending')),
-            y=alt.Y('row:O', title=None),
+            x=alt.X('row:O', title=None),
         )
     )
 
@@ -123,8 +123,8 @@ def generate_per_slice_config(display=True, save_html=False):
                             scale=alt.Scale(type='log', scheme='greenblue')),
             tooltip=['name:N', 'duration:Q'],
         ).properties(
-            height=800,
-            width=400,
+            height=300,
+            width=1000,
         )
     )
     # an attempt at https://altair-viz.github.io/gallery/layered_heatmap_text.html
