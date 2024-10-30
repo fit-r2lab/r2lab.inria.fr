@@ -220,8 +220,9 @@ responsiveness is not perfect, please reload the page after resizing
 
     const dowloadCsv = () => {
         const fromMonth = document.getElementById("from").value
-        const untilMonth = document.getElementById("until").value || "now"
+        let untilMonth = document.getElementById("until").value
         const url = `/api/stats/slice/csv/${fromMonth}/${untilMonth}`
+        untilMonth = untilMonth || "now"
         fetch (url)
             .then(response => response.text())
             .then(

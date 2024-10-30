@@ -48,11 +48,18 @@ def api_stats_period_barchart(request, periodname, from_period=None, until_perio
 
 @csrf_protect
 def api_stats_slice_csv(request, from_period=None, until_period=None):
-    from_ts = pd.Period(from_period if from_period else "2016-01").start_time
+    from_readable = from_period if from_period else "2016-01"
+    from_ts = pd.Period(from_period).start_time
+    until_readable = until_period if until_period else pd.Timestamp.now().strftime("%Y-%m-%d")
     until_ts = pd.Period(until_period).end_time if until_period else pd.Timestamp.now()
+
+    total_hours = (until_ts - from_ts) // pd.Timedelta(1, 'h')
     stats = Stats()
     # a dataframe
     results = stats.per_slice_csv(from_ts, until_ts)
+    results['from'] = from_readable
+    results['until'] = until_readable
+    results['total-hours'] = total_hours
     results = results.to_csv()
     response = HttpResponse(results, content_type="application/csv")
     response['Access-Control-Allow-Origin'] = '*'
