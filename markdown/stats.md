@@ -242,6 +242,11 @@ responsiveness is not perfect, please reload the page after resizing
         }
         if (until_period) {
             document.getElementById("until").value = until_period
+        } else {
+            const now = new Date()
+            const month = now.getMonth() + 1
+            const year = now.getFullYear()
+            document.getElementById("until").value = `${year}-${month}`
         }
         // console.log("by", by_from_url, "from", from_period, "until", until_period)
     }
