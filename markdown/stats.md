@@ -188,15 +188,15 @@ responsiveness is not perfect, please reload the page after resizing
                 const embedOpt = { mode: "vega-lite" };
 
                 const showError = (el, error) => {
-                el.innerHTML =
-                    '<div style="color:red;">' +
-                    "<p>JavaScript Error: " +
-                    error.message +
-                    "</p>" +
-                    "<p>This usually means there's a typo in your chart specification. " +
-                    "See the javascript console for the full traceback.</p>" +
-                    "</div>";
-                throw error;
+                    el.innerHTML =
+                        '<div style="color:red;">' +
+                        "<p>JavaScript Error: " +
+                        error.message +
+                        "</p>" +
+                        "<p>This usually means there's a typo in your chart specification. " +
+                        "See the javascript console for the full traceback.</p>" +
+                        "</div>";
+                    throw error;
                 }
                 vegaEmbed("#stats-container", spec, embedOpt)
                     .then(result => console.log("embed result", result))
@@ -242,7 +242,7 @@ responsiveness is not perfect, please reload the page after resizing
         if (until_period) {
             document.getElementById("until").value = until_period
         }
-        console.log("by", by_from_url, "from", from_period, "until", until_period)
+        // console.log("by", by_from_url, "from", from_period, "until", until_period)
     }
 
     window.addEventListener("DOMContentLoaded", () => {

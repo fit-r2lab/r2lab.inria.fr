@@ -79,13 +79,12 @@ def generate_per_period_config(shortname, display=True, save_html=False):
             tooltip=['name:N', 'period:N', 'family:N', 'sum(duration):Q'],
         )
         .configure_legend(
-            titleFontSize=20,
-            labelFontSize=18,
+            titleFontSize=16,
+            labelFontSize=12,
             strokeColor='gray',
             fillColor='#EEEEEE',
             padding=10,
             cornerRadius=10,
-            orient='top-left',
         )
         .properties(
             height='container',
@@ -109,9 +108,9 @@ def generate_per_slice_config(display=True, save_html=False):
     base = (
         alt.Chart(url)
         .encode(
+            x=alt.X('row:O', title=None, axis=alt.Axis(tickSize=0, labels=False)),
             y=alt.Y('family:N', title='family',
                     sort=alt.EncodingSortField(field='family-order', order='ascending')),
-            x=alt.X('row:O', title=None),
         )
     )
 
