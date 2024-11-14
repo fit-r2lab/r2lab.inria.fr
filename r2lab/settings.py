@@ -32,6 +32,9 @@ PRODUCTION = 'r2lab' in socket.gethostname()
 # the directory where we have write access to store the db and other logs
 RUNTIME_DIR = '/var/lib/r2lab.inria.fr' if PRODUCTION else BASE_DIR
 
+from pathlib import Path
+Path(RUNTIME_DIR).mkdir(parents=True, exist_ok=True)
+
 # use same location - rather than /var/log - for permissions
 # on r2lab.inria.fr we have a a symlink in place in /var/log as well
 LOG_FILE = os.path.join(RUNTIME_DIR, "django.log")
