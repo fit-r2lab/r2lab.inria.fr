@@ -1,0 +1,8 @@
+[Unit]
+Description=the socket for r2lab-django between nginx and gunicorn
+
+[Socket]
+ListenStream=/run/r2lab-django.sock
+
+[Install]
+WantedBy=sockets.target

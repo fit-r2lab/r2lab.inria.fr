@@ -1,5 +1,6 @@
 [Unit]
 Description=the r2lab django app as a gunicorn instance
+Requires=r2lab-django.socket
 After=network.target
 
 [Service]
