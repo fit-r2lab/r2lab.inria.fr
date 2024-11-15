@@ -30,6 +30,8 @@ def init_plcapi_proxy():
         logger.error("Cannot find credentials to use for plcapi")
         for credentials in plcapi_settings['credentials']:
             logger.error("have tried in {}".format(credentials))
+        # cannot go further
+        return
 
     return PlcApiProxy(plcapi_settings['url'],
                        email=email,
