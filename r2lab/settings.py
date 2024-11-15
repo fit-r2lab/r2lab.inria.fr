@@ -69,10 +69,11 @@ SECRET_KEY = '07k3$-3qn2zmpss0rrb#c0h-t#wqc#9&gx2eqr)oaydb5ruued'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'prod-r2lab.inria.fr',
     'r2lab.inria.fr',
     'fit-r2lab.inria.fr',
     'localhost',
-    '138.96.119.5',
+    '138.96.16.104',
 ]
 
 # Application definition
