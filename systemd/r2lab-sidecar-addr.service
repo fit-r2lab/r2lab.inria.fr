@@ -28,8 +28,8 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-Environment="DEV=eth0" "ADDR=138.96.119.6"
-Environment="PREFIX=21" BROADCAST="138.96.119.255"
+Environment="DEV=eth0" "ADDR=138.96.16.103"
+Environment="PREFIX=28" BROADCAST="138.96.16.111"
 
 Type=oneshot
 RemainAfterExit=yes
