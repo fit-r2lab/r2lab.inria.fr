@@ -6,8 +6,10 @@ PUBLISH-PATH = /var/www/r2lab.inria.fr
 EXCLUDES = .git
 RSYNC-EXCLUDES = $(foreach exc,$(EXCLUDES), --exclude $(exc))
 
+publish: publish-r2lab publish-nepi-ng
+
 ########## mirror this contents
-publish:
+publish-r2lab:
 	# no longer delete files that are not in the source
 	# as this actually removes the contents of raw/
 	rsync -ai $(RSYNC-EXCLUDES) ./ $(PUBLISH-PATH)/
@@ -44,5 +46,5 @@ files:
 .PHONY: files
 
 ##########
-nepi-ng:
+publish-nepi-ng:
 	rsync -ai nepi-ng-index.html root@nepi-ng.inria.fr:/var/www/nepi-ng/index.html
