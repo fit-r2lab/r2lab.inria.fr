@@ -47,7 +47,7 @@ class PlcApiView(TestbedApiView):
     # we need to create a loop object for each hit on this URL
     # asyncio does create a loop object (get_event_loop())
     # but this is attached to main thread, it's not usable in this context
-    # xxx we might need to do some cleanup on loops at some point 
+    # xxx we might need to do some cleanup on loops at some point
     def init_plcapi_proxy(self):
         if hasattr(self, 'plcapi_proxy'):
             return self.plcapi_proxy
@@ -66,7 +66,7 @@ class PlcApiView(TestbedApiView):
             # should be only one anyways
             self._unique_component_name = nodes[0]['hostname']
         return self._unique_component_name
-            
+
     # tmp for migration
     def ensure_plc_slicename(self, slicename):
         """
