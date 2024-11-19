@@ -47,4 +47,4 @@ files:
 
 ##########
 publish-nepi-ng:
-	rsync -ai nepi-ng-index.html root@nepi-ng.inria.fr:/var/www/nepi-ng/index.html
+	rsync -ai nepi-ng-index.html /var/www/nepi-ng/index.html
