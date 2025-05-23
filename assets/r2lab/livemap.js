@@ -900,7 +900,7 @@ export class LiveMap {
   // filters nice_float(for background)s
   declare_image_filter(id_filename, suffix) {
     // create defs element if not yet present
-    if (!$('#livemap_container svg defs').length) {
+    if (document.querySelectorAll('#livemap_container svg defs').length == 0) {
       d3.select('#livemap_container svg').append('defs')
     }
     // create filter in there
@@ -1198,8 +1198,9 @@ export class LiveMap {
 }
 
 // autoload
-$(function () {
-  scale_options()
-  let livemap = new LiveMap()
-  livemap.init()
-})
+document.addEventListener(
+  "DOMContentLoaded", () => {
+    scale_options()
+    let livemap = new LiveMap()
+    livemap.init()
+  })
