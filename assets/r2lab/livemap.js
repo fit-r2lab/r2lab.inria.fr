@@ -846,7 +846,7 @@ export class LiveMap {
 
     // these rectangles are placeholders for the various icons
     // that are meant to show usrp status
-    let usrp_rects = svg.selectAll('rect.usrp-status')
+    const usrp_rects = svg.selectAll('rect.usrp-status')
       .data(this.all_nodes, obj => obj.id)
     usrp_rects
       .enter()
@@ -857,7 +857,7 @@ export class LiveMap {
       .attr('x', node => node.usrp_x())
       .attr('y', node => node.usrp_y())
       .on('click', node => node.clicked())
-      .each(function (node) {
+      .each(function(node) {
         $(this).tooltip({
           title: node.tooltip(),
           delay: 250, placement: "bottom"
