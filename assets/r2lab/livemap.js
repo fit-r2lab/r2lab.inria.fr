@@ -445,12 +445,21 @@ class MapNode {
     let filter_name
     if (!this.has_usrp())
       return undefined
-    else if (this.usrp_on_off == 'on')
-      filter_name = 'gnuradio-logo-icon-green'
-    else if (this.usrp_on_off == 'off')
-      filter_name = 'gnuradio-logo-icon-gray'
-    else
-      filter_name = 'gnuradio-logo-icon-red'
+    else if (this.usrp_logo != "antenna") {
+      if (this.usrp_on_off == 'on')
+        filter_name = 'gnuradio-logo-icon-green'
+      else if (this.usrp_on_off == 'off')
+        filter_name = 'gnuradio-logo-icon-gray'
+      else
+        filter_name = 'gnuradio-logo-icon-red'
+    } else {
+      if (this.usrp_on_off == 'on')
+        filter_name = 'antenna-green'
+      else if (this.usrp_on_off == 'off')
+        filter_name = 'antenna-gray'
+      else
+        filter_name = 'antenna-red'
+    }
     return `url(#${filter_name})`
   }
 
@@ -628,7 +637,13 @@ class MapPdu extends MapAntenna {
   }
 
   antenna_status_url() {
-    const name = (this.on_off == 'on') ? "antenna-on" : "antenna-off"
+    let name
+    if (this.on_off == 'on')
+      name = "antenna-green"
+    else if (this.on_off == 'off')
+      name = "antenna-gray"
+    else
+      name = "antenna-red"
     return `../assets/img/${name}.svg`
   }
   tooltip_text() {
@@ -675,8 +690,9 @@ export class LiveMap {
     this.declare_image_filter('gnuradio-logo-icon-gray', 'svg')
     this.declare_image_filter('gnuradio-logo-icon-red', 'svg')
     this.declare_image_filter('forbidden', 'svg')
-    this.declare_image_filter('antenna-on', 'svg')
-    this.declare_image_filter('antenna-off', 'svg')
+    this.declare_image_filter('antenna-green', 'svg')
+    this.declare_image_filter('antenna-gray', 'svg')
+    this.declare_image_filter('antenna-red', 'svg')
   }
 
   init() {
