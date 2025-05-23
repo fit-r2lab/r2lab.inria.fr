@@ -562,7 +562,7 @@ class MapAntenna {
     this.y = y
     // will contain the <line> (or other) svg elements
     // that build the phone's annotations
-    this._annotations = undefined
+    this.location_annotation()
 
   }
 
@@ -572,7 +572,8 @@ class MapAntenna {
   // inside the SVG.s
   // this will be used below in show_ and hide_ methods
   // the incoming parameter is a d3.select object
-  location_annotation(svgSelect) {
+  location_annotation() {
+    const svgSelect = d3.select('div#livemap_container svg')
     if (this._annotations === undefined) {
       let  annotations = []
       const svgNS = "http://www.w3.org/2000/svg"
@@ -588,6 +589,7 @@ class MapAntenna {
         line.setAttribute('y1', self.y)
         line.setAttribute('x2', lx)
         line.setAttribute('y2', ly)
+        line.style.display = "none"
         this.append(line)
         annotations.push(line)
       })
@@ -596,12 +598,12 @@ class MapAntenna {
     return this._annotations
   }
 
-  show_location_annotation(svgSelect) {
-    for (let elt of this.location_annotation(svgSelect))
+  show_location_annotation() {
+    for (let elt of this.location_annotation())
       elt.style.display = "inline"
   }
-  hide_location_annotation(svgSelect) {
-    for (let elt of this.location_annotation(svgSelect))
+  hide_location_annotation() {
+    for (let elt of this.location_annotation())
       elt.style.display = "none"
   }
 
@@ -956,10 +958,10 @@ export class LiveMap {
         })
       })
       .on('mouseover', function(d, i) {
-        d.show_location_annotation(svg)
+        d.show_location_annotation()
       })
       .on('mouseout', function(d, i) {
-        d.hide_location_annotation(svg)
+        d.hide_location_annotation()
       })
       .merge(texts)
       .transition()
@@ -991,10 +993,10 @@ export class LiveMap {
         })
       })
       .on('mouseover', function(d) {
-        d.show_location_annotation(svg)
+        d.show_location_annotation()
       })
       .on('mouseout', function(d) {
-        d.hide_location_annotation(svg)
+        d.hide_location_annotation()
       })
       // .attr('color') xxx
       .merge(images)
@@ -1194,10 +1196,31 @@ export class LiveMap {
 
 }
 
+function toggle_annotations() {
+  // Update the UI to show/hide annotations
+  // set all element to the same value 
+  // in case a lingering one would be off wrt the others
+  const all_annotations = document.querySelectorAll('.location-annotation')
+  let new_style = undefined
+
+  for (let elt of all_annotations) {
+    // compute new_style from the first element
+    if (new_style == undefined) {
+      new_style = (elt.style.display == "none") ? "inline" : "none"
+    }
+    elt.style.display = new_style
+  }
+}
+
 // autoload
 document.addEventListener(
   "DOMContentLoaded", () => {
     scale_options()
-    let livemap = new LiveMap()
-    livemap.init()
+    new LiveMap().init()
+    document.addEventListener(
+      "keydown", (event) => {
+        if (event.key === "a") {
+          toggle_annotations()
+        }
+      })
   })
