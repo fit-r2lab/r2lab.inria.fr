@@ -538,7 +538,7 @@ class MapNodePc extends MapNode {
     }
 
     node_status_fill() {
-      return (this.on_off == 'on') 
+      return (this.on_off == 'on')
         ? '#BDB8'          // light greenish with half transparency
         : 'rgba(0,0,0,0)'  // transparent
     }
@@ -563,6 +563,7 @@ class MapAntenna {
     // will contain the <line> (or other) svg elements
     // that build the phone's annotations
     this._annotations = undefined
+
   }
 
   // the purpose of the location annotations is to
