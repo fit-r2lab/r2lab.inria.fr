@@ -456,7 +456,7 @@ class MapNode {
       if (this.usrp_on_off == 'on')
         filter_name = 'antenna-green'
       else if (this.usrp_on_off == 'off')
-        filter_name = 'antenna-gray'
+        filter_name = 'antenna-gray-bold'
       else
         filter_name = 'antenna-red'
     }
@@ -695,6 +695,7 @@ export class LiveMap {
     this.declare_image_filter('forbidden', 'svg')
     this.declare_image_filter('antenna-green', 'svg')
     this.declare_image_filter('antenna-gray', 'svg')
+    this.declare_image_filter('antenna-gray-bold', 'svg')
     this.declare_image_filter('antenna-red', 'svg')
   }
 
