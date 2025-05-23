@@ -184,14 +184,14 @@ let livemap_geometry = {
 
   mappdu_specs: [
     // by default label is 'antenna' - set in class MapPdu below
-    { id: "n300", i: 0, j: 1, node_i: 0, node_j: 0},                  // fit01
-    { id: "n320", i: 0, j: 2.5, node_i: 0, node_j: 2},                // fit03
-    { id: "qhat01", i: 0, j: 3.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
-    { id: "qhat02", i: 0, j: 4.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
-    { id: "x310", i: 2, j: 0, node_i: 0.5, node_j: 0},                // rack between 1 and 6
-    { id: "jaguar", i: 3, j: 0, node_i: 1, node_j: 2},                // fit08
-    { id: "panther", i: 4, j: 0, node_i: 2, node_j: 0},               // fit11
-    { id: "qhat03", i: 5, j: 0, node_i: 2, node_j: 2, label: "UE"},   // fit13 ie pc02
+    // { id: "n300", i: 0, j: 1, node_i: 0, node_j: 0},                  // fit01
+    // { id: "n320", i: 0, j: 2.5, node_i: 0, node_j: 2},                // fit03
+    // { id: "qhat01", i: 0, j: 3.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
+    // { id: "qhat02", i: 0, j: 4.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
+    // { id: "x310", i: 2, j: 0, node_i: 0.5, node_j: 0},                // rack between 1 and 6
+    // { id: "jaguar", i: 3, j: 0, node_i: 1, node_j: 2},                // fit08
+    // { id: "panther", i: 4, j: 0, node_i: 2, node_j: 0},               // fit11
+    // { id: "qhat03", i: 5, j: 0, node_i: 2, node_j: 2, label: "UE"},   // fit13 ie pc02
   ],
 
   //////////////////// configuration
@@ -1103,12 +1103,42 @@ export class LiveMap {
     livemap.animate_phones_changes()
   }
 
+  // we no longer rely on a static list of antennas/pdus to be displayed
+  // this function takes care of updating this.pdus from received infos
+  // in a first version we only add new antennas
+  // as deletions can be handled by reloading the page
+  update_pdus(infos) {
+    const find_pdu = (name) => {
+      for (const pdu of this.pdus) {
+        if (pdu.id == name) {
+          return pdu
+        }
+      }
+      return undefined
+    }
+    for (const info of infos) {
+      // ignore pdus that have no icon_x_rank
+      if (!info.hasOwnProperty('icon_x_rank'))
+        continue
+      // ignore if pdu already present
+      if (find_pdu(info.id))
+        // likewise, this should maybe update the pdu
+        // but a page reload will do the job
+        continue
+      // using the old names for now
+      const pduspec = {
+        id: info.id, i: info.icon_x_rank, j: info.icon_y_rank, node_i: info.location_x_grid, node_j: info.location_y_grid}
+      this.pdus.push(new MapPdu(pduspec))
+    }
+  }
+
   // usrp.. entries will be found in livemap.nodepc_usrpnames_to_nodes
   // pc... entries in the pdus area are mapped to corresponding nodepcs
   pdus_callback(infos) {
     const NODEPC_PATTERN = /^pc(\d+)$/
-    console.debug("pdus_callback")
+    console.debug("pdus_callback, infos=")
     console.debug(infos)
+    this.update_pdus(infos)
     const livemap = this
     infos.forEach(function (info) {
       const {id} = info
