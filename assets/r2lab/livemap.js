@@ -1137,7 +1137,7 @@ export class LiveMap {
   // pc... entries in the pdus area are mapped to corresponding nodepcs
   pdus_callback(infos) {
     const NODEPC_PATTERN = /^pc(\d+)$/
-    console.debug("pdus_callback, infos=")
+    // console.debug("pdus_callback, infos=")
     console.debug(infos)
     this.update_pdus(infos)
     const livemap = this
@@ -1146,7 +1146,7 @@ export class LiveMap {
       // usrps attached to nodepc's
       let nodepc
       if (nodepc = livemap.nodepc_usrpnames_to_nodes.get(id)) {
-        console.debug(`pdus_callback (1) nodepc's ursp id=${id}`, nodepc)
+        // console.debug(`pdus_callback (1) nodepc's ursp id=${id}`, nodepc)
         nodepc.usrp_on_off = info.on_off
       // pc.. are recognized by a hard-wired pattern
       } else if (id.match(NODEPC_PATTERN)) {
@@ -1157,7 +1157,7 @@ export class LiveMap {
         const nodepc = locate_by_id(livemap.nodepcs, nodepc_id)
                     || locate_by_id(livemap.nodepcs, id)
         if (nodepc != undefined) {
-          console.debug(`pdus_callback (2) nodepc ${id}`, nodepc)
+          // console.debug(`pdus_callback (2) nodepc ${id}`, nodepc)
           update_obj_from_info(nodepc, info)
         } else {
           console.warn(`livemap: could not locate nodepc id ${id} - ignored`)
@@ -1168,7 +1168,7 @@ export class LiveMap {
         const pdu = locate_by_id(livemap.pdus, id)
         // not all known pdus are present on the map, so ignore if not found
         if (pdu != undefined) {
-          console.debug(`pdus_callback (3) actual pdu id=${id}`, pdu)
+          // console.debug(`pdus_callback (3) actual pdu id=${id}`, pdu)
           update_obj_from_info(pdu, info)
         }
       }
