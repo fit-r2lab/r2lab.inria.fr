@@ -182,8 +182,8 @@ let livemap_geometry = {
     { id: 2, i: 9, j: 0, node_i: 8,   node_j: 3.5},
   ],
 
-  mappdu_specs: [
-    // by default label is 'antenna' - set in class MapPdu below
+  // this data is now defined in inventory-pdus.yaml
+  // mappdu_specs: [
     // { id: "n300", i: 0, j: 1, node_i: 0, node_j: 0},                  // fit01
     // { id: "n320", i: 0, j: 2.5, node_i: 0, node_j: 2},                // fit03
     // { id: "qhat01", i: 0, j: 3.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
@@ -192,7 +192,7 @@ let livemap_geometry = {
     // { id: "jaguar", i: 3, j: 0, node_i: 1, node_j: 2},                // fit08
     // { id: "panther", i: 4, j: 0, node_i: 2, node_j: 0},               // fit11
     // { id: "qhat03", i: 5, j: 0, node_i: 2, node_j: 2, label: "UE"},   // fit13 ie pc02
-  ],
+  // ],
 
   //////////////////// configuration
   // max i and j
@@ -734,9 +734,6 @@ export class LiveMap {
   //////////////////// pdus
   init_pdus() {
     this.pdus = []
-    for (let mappdu_spec of livemap_geometry.mappdu_specs) {
-      this.pdus.push(new MapPdu(mappdu_spec))
-    }
   }
 
   //////////////////// the nodes graphical layout
