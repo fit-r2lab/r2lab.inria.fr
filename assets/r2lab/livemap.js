@@ -561,7 +561,7 @@ class MapAntenna {
   // returns a - cached - iterable on the DOM element.s
   // inside the SVG.s
   // this will be used below in show_ and hide_ methods
-  // ths incoming parameter is a d3.select object
+  // the incoming parameter is a d3.select object
   location_annotation(svgSelect) {
     if (this._annotations === undefined) {
       let  annotations = []
