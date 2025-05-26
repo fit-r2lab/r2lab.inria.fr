@@ -1183,7 +1183,6 @@ export class LiveMap {
   pdus_callback(infos) {
     const NODEPC_PATTERN = /^pc(\d+)$/
     // console.debug("pdus_callback, infos=")
-    console.debug(infos)
     this.update_pdus(infos)
     const livemap = this
     infos.forEach(function (info) {
