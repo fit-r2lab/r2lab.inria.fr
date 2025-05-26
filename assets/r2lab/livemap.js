@@ -565,7 +565,7 @@ class MapNodePc extends MapNode {
 
     tooltip() {
       if (this.has_usrp())
-        return `PC ${this.id} : SDR is ${this.usrp_type} (${this.usrp_name})`
+        return `pc0${this.id} : SDR is ${this.usrp_type} (${this.usrp_name})`
       else
         return `${this.id} - no SDR`
     }
