@@ -8,6 +8,9 @@ load_css("/assets/r2lab/livemap.css")
 
 import { Sidecar } from "/assets/r2lab/sidecar.js"
 
+// the space between nodes is the unit
+const UNIT = 80
+
 // re-configurable from the markdown
 export let livemap_options = {
 
@@ -16,12 +19,12 @@ export let livemap_options = {
 
   // overall layout
   margin_x: 50, margin_y: 50,       // the space around the walls in the canvas
-  antennas_margin_x: 70,            // the space for drawing antennas
-  antennas_margin_y: 70,            // the y would come in handy if we had another row
+  antennas_margin_x: UNIT,          // the space for drawing antennas
+  antennas_margin_y: UNIT,          // the y would come in handy if we had another row
                                     // of extra space on top of the map
   // antennas use the same spacing as nodes
-  space_x: 80, space_y: 80,         // distance between nodes
-  padding_x: 40, padding_y: 40,     // distance between nodes and walls
+  space_x: UNIT, space_y: UNIT,         // distance between nodes
+  padding_x: UNIT/2, padding_y: UNIT/2,     // distance between nodes and walls
 
   // pillars
   pillar_radius: 16,                // pillars - derived from the walls
@@ -37,8 +40,9 @@ export let livemap_options = {
   phone_size: 30,
   pdu_radius: 20,
 
-  // usrp thingy
-  // full size for the usrp-icon - this is arbitrary but has the right width/height ratio
+  // usrp/gnuradio thingy
+  // full size for the usrp-icon
+  // this is arbitrary but has the right width/height ratio
   usrp_width: 15,
   usrp_height: 25,
   // on and off units get rendered each at their size
@@ -220,23 +224,52 @@ let livemap_geometry = {
 
   // translate an antennas ixj into actual coords
   // use same spacing as nodes for easier alignments
-  antennas_to_canvas: function(i, j) {
-    const {margin_x, margin_y,
-           antennas_margin_x, antennas_margin_y,
-           space_x, space_y
+  // this is when using the 'grid' icon_units
+  antennas_to_canvas_grid: function(i, j) {
+    const { margin_x, margin_y,
+            antennas_margin_x, antennas_margin_y,
+            space_x, space_y
           } = livemap_options
-    if (i == 0)
-      return [
-        margin_x + antennas_margin_x / 2
-        ,
-        margin_y + antennas_margin_y + (j-1/2) * space_y
-      ]
-    else
-      return [
-        margin_x + antennas_margin_x + (i-1/2) * space_x
-        ,
-        margin_y + antennas_margin_y / 2
-      ]
+    const [zero_x, zero_y] = [margin_x + antennas_margin_x/2, margin_y + antennas_margin_y/2]
+    if (i == 0) {
+      // the vertical row
+      return [zero_x, zero_y + antennas_margin_y/2 + (j-1/2) * space_y]
+    } else {
+      // the horizontal row
+      return [zero_x + antennas_margin_x/2 + (i-1/2) * space_x, zero_y]
+    }
+  },
+  // same but using the 'rank' icon_units
+  // meaning, we want to pack the icons as tightly as possible
+  // so e.g. 2 icons that have, say (i=0, j=2) and (i=0, j=3) will be stacked vertically
+  // along the left wall
+  antennas_to_canvas_rank: function(i, j) {
+    const { margin_x, margin_y,
+      antennas_margin_x, antennas_margin_y, pdu_radius} = livemap_options
+    const [zero_x, zero_y] = [margin_x + antennas_margin_x/2, margin_y + antennas_margin_y/2]
+    if (i == 0 && j == 0) {
+      // the upper left corner
+      // (0, 0) means the corner (where we have macphone1)
+      return [zero_x, zero_y]
+    } else if (j==0) {
+      // the horizontal row
+      // and so when e.g. i == 1 it means the icon's left border
+      // is aligned with the (continuation of the ) left wall
+      return [zero_x + antennas_margin_x/2 + (2*i-1) * pdu_radius, zero_y]
+    } else {
+      // same for the same row
+      return [zero_x, zero_y + antennas_margin_x/2 + (2*j-1) * pdu_radius]
+      }
+  },
+  antennas_to_canvas: function (i, j, icon_units) {
+    if (icon_units == 'grid') {
+      return this.antennas_to_canvas_grid(i, j)
+    } else if (icon_units == 'rank') {
+      return this.antennas_to_canvas_rank(i, j)
+    } else {
+      console.error(`livemap_geometry.antennas_to_canvas: unknown icon_units ${icon_units}`)
+      return [0, 0] // it's an error
+    }
   },
 
   //////////////////////////////
@@ -557,7 +590,8 @@ class MapAntenna {
     this.j = antenna_spec.j
     this.node_i = antenna_spec.node_i
     this.node_j = antenna_spec.node_j
-    let [x, y] = livemap_geometry.antennas_to_canvas(this.i, this.j)
+    this.icon_units = antenna_spec.icon_units || 'rank'
+    let [x, y] = livemap_geometry.antennas_to_canvas(this.i, this.j, this.icon_units)
     this.x = x
     this.y = y
     // will contain the <line> (or other) svg elements
@@ -612,6 +646,7 @@ class MapAntenna {
 class MapPhone extends MapAntenna {
 
   constructor(phone_spec) {
+    phone_spec.icon_units = phone_spec.icon_units || 'grid'
     super(phone_spec)
     this.id = phone_spec.id
   }
@@ -1199,7 +1234,7 @@ export class LiveMap {
 
 function toggle_annotations() {
   // Update the UI to show/hide annotations
-  // set all element to the same value 
+  // set all element to the same value
   // in case a lingering one would be off wrt the others
   const all_annotations = document.querySelectorAll('.location-annotation')
   let new_style = undefined
