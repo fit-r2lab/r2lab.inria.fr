@@ -640,6 +640,9 @@ class MapAntenna {
     for (let elt of this.location_annotation())
       elt.style.display = "none"
   }
+  tooltip_placement() {
+    return 'left';
+  }
 
 }
 
@@ -686,6 +689,13 @@ class MapPdu extends MapAntenna {
   }
   tooltip_text() {
     return `${this.label} ${this.id}`
+  }
+  tooltip_placement() {
+    if (this.icon_x_rank) {
+      return 'top';
+    } else {
+      return 'left';
+    }
   }
 }
 
@@ -1025,7 +1035,7 @@ export class LiveMap {
       // .attr('r', r)
       .each(function(pdu) {
         $(this).tooltip({
-          title: pdu.tooltip_text(), delay: 250, placement: 'left'
+          title: pdu.tooltip_text(), delay: 250, placement: pdu.tooltip_placement()
         })
       })
       .on('mouseover', function(d) {
