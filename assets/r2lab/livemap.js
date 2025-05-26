@@ -182,8 +182,8 @@ let livemap_geometry = {
   //
   // on the other hand the node_i and node_j coords refer to the walls grid
   mapphone_specs: [
-    { id: 1, i: 0, j: 0, node_i: 0.5, node_j: -0.2},
-    { id: 2, i: 9, j: 0, node_i: 8,   node_j: 3.5},
+    { id: 1, i: 9, j: 2, node_i: 0.5, node_j: -0.2},
+    { id: 2, i: 9, j: 3, node_i: 1.5, node_j: -0.5},
   ],
 
   // this data is now defined in inventory-pdus.yaml
