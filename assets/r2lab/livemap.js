@@ -234,9 +234,13 @@ let livemap_geometry = {
     if (i == 0) {
       // the vertical row
       return [zero_x, zero_y + antennas_margin_y/2 + (j-1/2) * space_y]
-    } else {
+    } else if (j == 0) {
       // the horizontal row
       return [zero_x + antennas_margin_x/2 + (i-1/2) * space_x, zero_y]
+    } else {
+      // in the grid
+      return [zero_x + antennas_margin_x/2 + (i-1/2) * space_x,
+              zero_y + antennas_margin_y/2 + (j-1/2) * space_y]
     }
   },
   // same but using the 'rank' icon_units
@@ -256,10 +260,13 @@ let livemap_geometry = {
       // and so when e.g. i == 1 it means the icon's left border
       // is aligned with the (continuation of the ) left wall
       return [zero_x + antennas_margin_x/2 + (2*i-1) * pdu_radius, zero_y]
-    } else {
+    } else if (j==0) {
       // same for the same row
       return [zero_x, zero_y + antennas_margin_x/2 + (2*j-1) * pdu_radius]
-      }
+    } else {
+      return [zero_x + antennas_margin_x/2 + (2*i-1) * pdu_radius,
+              zero_y + antennas_margin_y/2 + (2*j-1) * pdu_radius]
+    }
   },
   antennas_to_canvas: function (i, j, icon_units) {
     if (icon_units == 'grid') {
