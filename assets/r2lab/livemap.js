@@ -225,57 +225,33 @@ let livemap_geometry = {
   // translate an antennas ixj into actual coords
   // use same spacing as nodes for easier alignments
   // this is when using the 'grid' icon_units
-  antennas_to_canvas_grid: function(i, j) {
-    const { margin_x, margin_y,
-            antennas_margin_x, antennas_margin_y,
-            space_x, space_y
-          } = livemap_options
-    const [zero_x, zero_y] = [margin_x + antennas_margin_x/2, margin_y + antennas_margin_y/2]
-    if (i == 0) {
-      // the vertical row
-      return [zero_x, zero_y + antennas_margin_y/2 + (j-1/2) * space_y]
-    } else if (j == 0) {
-      // the horizontal row
-      return [zero_x + antennas_margin_x/2 + (i-1/2) * space_x, zero_y]
-    } else {
-      // in the grid
-      return [zero_x + antennas_margin_x/2 + (i-1/2) * space_x,
-              zero_y + antennas_margin_y/2 + (j-1/2) * space_y]
-    }
-  },
-  // same but using the 'rank' icon_units
-  // meaning, we want to pack the icons as tightly as possible
-  // so e.g. 2 icons that have, say (i=0, j=2) and (i=0, j=3) will be stacked vertically
-  // along the left wall
-  antennas_to_canvas_rank: function(i, j) {
-    const { margin_x, margin_y,
-      antennas_margin_x, antennas_margin_y, pdu_radius} = livemap_options
-    const [zero_x, zero_y] = [margin_x + antennas_margin_x/2, margin_y + antennas_margin_y/2]
-    if (i == 0 && j == 0) {
-      // the upper left corner
-      // (0, 0) means the corner (where we have macphone1)
-      return [zero_x, zero_y]
-    } else if (j==0) {
-      // the horizontal row
-      // and so when e.g. i == 1 it means the icon's left border
-      // is aligned with the (continuation of the ) left wall
-      return [zero_x + antennas_margin_x/2 + (2*i-1) * pdu_radius, zero_y]
-    } else if (j==0) {
-      // same for the same row
-      return [zero_x, zero_y + antennas_margin_x/2 + (2*j-1) * pdu_radius]
-    } else {
-      return [zero_x + antennas_margin_x/2 + (2*i-1) * pdu_radius,
-              zero_y + antennas_margin_y/2 + (2*j-1) * pdu_radius]
-    }
-  },
   antennas_to_canvas: function (i, j, icon_units) {
+    const {margin_x, margin_y, antennas_margin_x, antennas_margin_y,
+           padding_x, padding_y, space_x, space_y, pdu_radius} = livemap_options
+    const [zero_x, zero_y] = [margin_x + antennas_margin_x/2, margin_y + antennas_margin_y/2]
+    let unit_x, unit_y
     if (icon_units == 'grid') {
-      return this.antennas_to_canvas_grid(i, j)
+      [unit_x, unit_y] = [space_x, space_y]
     } else if (icon_units == 'rank') {
-      return this.antennas_to_canvas_rank(i, j)
+      [unit_x, unit_y] = [2*pdu_radius, 2*pdu_radius]
     } else {
       console.error(`livemap_geometry.antennas_to_canvas: unknown icon_units ${icon_units}`)
       return [0, 0] // it's an error
+    }
+    const x = (i) => zero_x + antennas_margin_x/2 + padding_x + (i-1) * unit_x
+    const y = (j) => zero_y + antennas_margin_y/2 + padding_y + (j-1) * unit_y
+    if (i ==0 && j == 0) {
+      // the upper left corner
+      return [zero_x, zero_y]
+    } else if (i == 0) {
+      // the vertical row
+      return [zero_x, y(j)]
+    } else if (j == 0) {
+      // the horizontal row
+      return [x(i), zero_y]
+    } else {
+      // in the grid
+      return [x(i), y(j)]
     }
   },
 
