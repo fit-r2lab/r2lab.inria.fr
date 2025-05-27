@@ -482,16 +482,19 @@ class MapNode {
   }
 
   usrp_status_filter() {
-    let filter_name
     if (!this.has_usrp())
       return undefined
-    else if (this.usrp_logo != "antenna") {
+    let filter_name
+    const prefix = (this.usrp_logo) == "antenna" ? "antenna" 
+                 : (this.ursp_logo == "mobile") ? "mobile"
+                 : "gnuradio"
+    if (this.usrp_logo != "antenna") {
       if (this.usrp_on_off == 'on')
-        filter_name = 'gnuradio-logo-icon-green'
+        filter_name = 'gnuradio-green'
       else if (this.usrp_on_off == 'off')
-        filter_name = 'gnuradio-logo-icon-gray'
+        filter_name = 'gnuradio-gray-bold'
       else
-        filter_name = 'gnuradio-logo-icon-red'
+        filter_name = 'gnuradio-red'
     } else {
       if (this.usrp_on_off == 'on')
         filter_name = 'antenna-green'
@@ -742,9 +745,9 @@ export class LiveMap {
     this.declare_image_filter('centos-logo', 'png')
     this.declare_image_filter('ubuntu-logo', 'png')
     this.declare_image_filter('other-logo', 'svg')
-    this.declare_image_filter('gnuradio-logo-icon-green', 'svg')
-    this.declare_image_filter('gnuradio-logo-icon-gray', 'svg')
-    this.declare_image_filter('gnuradio-logo-icon-red', 'svg')
+    this.declare_image_filter('gnuradio-green', 'svg')
+    this.declare_image_filter('gnuradio-gray-bold', 'svg')
+    this.declare_image_filter('gnuradio-red', 'svg')
     this.declare_image_filter('forbidden', 'svg')
     this.declare_image_filter('antenna-green', 'svg')
     this.declare_image_filter('antenna-gray', 'svg')
