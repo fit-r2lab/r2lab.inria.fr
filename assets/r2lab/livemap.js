@@ -523,9 +523,9 @@ class MapNode {
     document.querySelectorAll(`.livecolumns_body>#${row}`).forEach(
       (elt) => {
         if (elt.style.display === "none") {
-          elt.style.display = "table-row";
+          elt.style.display = "table-row"
         } else {
-          elt.style.display = "none";
+          elt.style.display = "none"
         }
       }
     )
@@ -679,9 +679,9 @@ class MapPdu extends MapAntenna {
   }
   tooltip_placement() {
     if (this.icon_x_rank) {
-      return 'top';
+      return 'top'
     } else {
-      return 'left';
+      return 'left'
     }
   }
 }
