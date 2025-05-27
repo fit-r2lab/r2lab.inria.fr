@@ -587,7 +587,6 @@ class MapAntenna {
   }
   annotation_color() {
     // override this in the derived classes
-    console.log("antenna color", this.label, this)
     return 'rgba(80, 80, 80, 0.5)'
   }
 
@@ -615,7 +614,6 @@ class MapPhone extends MapAntenna {
     return 'right'
   }
   annotation_color() {
-    console.log("phone color", this.label, this)
     return 'rgb(193, 65, 65)'
   }
 
@@ -649,7 +647,6 @@ class MapPdu extends MapAntenna {
     }
   }
   annotation_color() {
-    console.log("pdu color", this.label, this)
     return (this.label === "UE") ? 'rgb(65, 84, 193)' : 'rgb(80, 193, 65)'
   }
 }
@@ -744,7 +741,7 @@ export class LiveMap {
 
   //////////////////// the nodes graphical layout
   animate_nodes_changes() {
-    console.debug("animate_nodes_changes", this.pdus)
+    // console.debug("animate_nodes_changes", this.pdus)
     const svg = d3.select('div#livemap_container svg')
     const animation_duration = 750
     const circles = svg.selectAll('circle.node-status')
@@ -940,7 +937,6 @@ export class LiveMap {
       .each(function (pdu) {
         // store it in the pdu object for hide and show
         pdu._location_annotations = [this]
-        console.log("stored line in pdu", pdu)
       })
       .attr('display', 'none')
       .merge(annotations)
