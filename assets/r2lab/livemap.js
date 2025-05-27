@@ -573,11 +573,11 @@ class MapAntenna {
     this.y = y
   }
 
-  show_location_annotation() {
+  show_location_annotations() {
     for (let elt of this._location_annotations)
       elt.style.display = "inline"
   }
-  hide_location_annotation() {
+  hide_location_annotations() {
     for (let elt of this._location_annotations)
       elt.style.display = "none"
   }
@@ -616,7 +616,7 @@ class MapPhone extends MapAntenna {
   }
   annotation_color() {
     console.log("phone color", this.label, this)
-    return 'rgb(65, 146, 193)'
+    return 'rgb(193, 65, 65)'
   }
 
 }
@@ -650,7 +650,7 @@ class MapPdu extends MapAntenna {
   }
   annotation_color() {
     console.log("pdu color", this.label, this)
-    return (this.label === "UE") ? 'rgb(185, 65, 193)' : 'rgb(80, 193, 65)'
+    return (this.label === "UE") ? 'rgb(65, 84, 193)' : 'rgb(80, 193, 65)'
   }
 }
 
@@ -919,6 +919,36 @@ export class LiveMap {
       .attr("xlink:href", `../assets/img/${id_filename}.${suffix}`)
   }
 
+    // the purpose of the location annotations is to
+    // help pinpoint where the device is located on the map
+    renderAnnotations({ svg, data, livemap_geometry}) {
+    const klass = 'location-annotation'
+    const annotations = svg.selectAll(`line.${klass}`)
+      .data(data, obj => obj.id);
+    const animation_duration = 750
+
+    annotations
+      .enter()
+      .append('line')
+      .attr('class', klass)
+      .attr('x1', pdu => pdu.x)
+      .attr('y1', pdu => pdu.y)
+      .attr('x2', pdu => livemap_geometry.grid_to_canvas(
+        pdu.location_x_grid, pdu.location_y_grid)[0])
+      .attr('y2', pdu => livemap_geometry.grid_to_canvas(
+        pdu.location_x_grid, pdu.location_y_grid)[1])
+      .each(function (pdu) {
+        // store it in the pdu object for hide and show
+        pdu._location_annotations = [this]
+        console.log("stored line in pdu", pdu)
+      })
+      .attr('display', 'none')
+      .merge(annotations)
+      .transition()
+      .duration(animation_duration)
+      .attr('stroke', pdu => pdu.annotation_color())
+  }
+
 
   //////////////////// phones graphical layout
   animate_phones_changes() {
@@ -964,16 +994,17 @@ export class LiveMap {
         })
       })
       .on('mouseover', function(d, i) {
-        d.show_location_annotation()
+        d.show_location_annotations()
       })
       .on('mouseout', function(d, i) {
-        d.hide_location_annotation()
+        d.hide_location_annotations()
       })
       .merge(texts)
       .transition()
       .duration(animation_duration)
       .text(phone => phone.text())
 
+    this.renderAnnotations({svg, data: this.phones, livemap_geometry})
   }
 
   animate_pdus_changes() {
@@ -1001,10 +1032,10 @@ export class LiveMap {
         })
       })
       .on('mouseover', function(d) {
-        d.show_location_annotation()
+        d.show_location_annotations()
       })
       .on('mouseout', function(d) {
-        d.hide_location_annotation()
+        d.hide_location_annotations()
       })
       // .attr('color') xxx
       .merge(images)
@@ -1012,33 +1043,7 @@ export class LiveMap {
       .duration(animation_duration)
       .attr('href', (pdu) => pdu.antenna_status_url())
 
-    // the purpose of the location annotations is to
-    // help pinpoint where the device is located on the map
-    const annotations = svg.selectAll('line.location-annotation')
-      .data(this.pdus, (obj) => obj.id)
-    annotations
-      .enter()
-      .append('line')
-      .attr('class', 'location-annotation')
-      .attr('x1', pdu => pdu.x)
-      .attr('y1', pdu => pdu.y)
-      .attr('x2', pdu => livemap_geometry.grid_to_canvas(
-        pdu.location_x_grid, pdu.location_y_grid)[0])
-      .attr('y2', pdu => livemap_geometry.grid_to_canvas(
-        pdu.location_x_grid, pdu.location_y_grid)[1])
-      .each(pdu => {
-        // store it in the pdu object for hide and show
-        pdu._location_annotations = [this]
-      })
-      // .attr('display', 'none')
-      .merge(annotations)
-      .transition()
-      .duration(animation_duration)
-      .attr('stroke', (pdu) => {
-        const color = pdu.annotation_color();
-        console.log("transition stroke", color, pdu);
-        return color;
-      })
+    this.renderAnnotations({svg, data: this.pdus, livemap_geometry})
   }
 
 
