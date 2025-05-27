@@ -173,7 +173,7 @@ let livemap_geometry = {
   ],
 
   sidecar_details: {
-    i: 8.25, j: 0, radius: 20,
+    icon_x_rank: 9.25, icon_y_rank: 1, icon_units: 'grid', radius: 20,
   },
 
   // here we have i and j refer to the antennas grid/space
@@ -182,21 +182,9 @@ let livemap_geometry = {
   //
   // on the other hand the node_i and node_j coords refer to the walls grid
   mapphone_specs: [
-    { id: 1, i: 9.2, j: 2, node_i: 0.5, node_j: -0.2},
-    { id: 2, i: 9.2, j: 3, node_i: 1.5, node_j: -0.5},
+    { id: 1, icon_x_rank: 9.25, icon_y_rank: 2, location_x_grid: 0.5, location_y_grid: -0.2, icon_units: 'grid'},
+    { id: 2, icon_x_rank: 9.25, icon_y_rank: 3, location_x_grid: 1.5, location_y_grid: -0.5, icon_units: 'grid'},
   ],
-
-  // this data is now defined in inventory-pdus.yaml
-  // mappdu_specs: [
-    // { id: "n300", i: 0, j: 1, node_i: 0, node_j: 0},                  // fit01
-    // { id: "n320", i: 0, j: 2.5, node_i: 0, node_j: 2},                // fit03
-    // { id: "qhat01", i: 0, j: 3.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
-    // { id: "qhat02", i: 0, j: 4.5, node_i: 0, node_j: 3, label: "UE"}, // fit04 ie pc01
-    // { id: "x310", i: 2, j: 0, node_i: 0.5, node_j: 0},                // rack between 1 and 6
-    // { id: "jaguar", i: 3, j: 0, node_i: 1, node_j: 2},                // fit08
-    // { id: "panther", i: 4, j: 0, node_i: 2, node_j: 0},               // fit11
-    // { id: "qhat03", i: 5, j: 0, node_i: 2, node_j: 2, label: "UE"},   // fit13 ie pc02
-  // ],
 
   //////////////////// configuration
   // max i and j
@@ -461,7 +449,7 @@ class MapNode {
     if (!this.has_usrp())
       return undefined
     let filter_name
-    const prefix = (this.usrp_logo) == "antenna" ? "antenna" 
+    const prefix = (this.usrp_logo) == "antenna" ? "antenna"
                  : (this.ursp_logo == "mobile") ? "mobile"
                  : "gnuradio"
     if (this.usrp_logo != "antenna") {
@@ -572,62 +560,35 @@ class MapNodePc extends MapNode {
 class MapAntenna {
 
   constructor(antenna_spec) {
-    this.i = antenna_spec.i
-    this.j = antenna_spec.j
-    this.node_i = antenna_spec.node_i
-    this.node_j = antenna_spec.node_j
-    this.icon_units = antenna_spec.icon_units || 'rank'
-    let [x, y] = livemap_geometry.antennas_to_canvas(this.i, this.j, this.icon_units)
+    this.id = antenna_spec.id
+    this.icon_x_rank = antenna_spec.icon_x_rank
+    this.icon_y_rank = antenna_spec.icon_y_rank
+    this.location_x_grid = antenna_spec.location_x_grid
+    this.location_y_grid = antenna_spec.location_y_grid
+    this.icon_units = antenna_spec.icon_units || 'grid'
+    this.label = antenna_spec.label || "antenna"
+
+    let [x, y] = livemap_geometry.antennas_to_canvas(this.icon_x_rank, this.icon_y_rank, this.icon_units)
     this.x = x
     this.y = y
-    // will contain the <line> (or other) svg elements
-    // that build the phone's annotations
-    this.location_annotation()
-
-  }
-
-  // the purpose of the location annotations is to
-  // help pinpoint where the device is located on the map
-  // returns a - cached - iterable on the DOM element.s
-  // inside the SVG.s
-  // this will be used below in show_ and hide_ methods
-  // the incoming parameter is a d3.select object
-  location_annotation() {
-    const svgSelect = d3.select('div#livemap_container svg')
-    if (this._annotations === undefined) {
-      let  annotations = []
-      const svgNS = "http://www.w3.org/2000/svg"
-      // to keep a ref to the mapantenna instance
-      const self = this
-      svgSelect.each( function() {
-        // when iterating over a d3 selection, the this parameter
-        // refers to the DOM element, so here the <svg>
-        const line = document.createElementNS(svgNS, 'line')
-        line.classList.add("location-annotation")
-        const [lx, ly] = livemap_geometry.grid_to_canvas(self.node_i, self.node_j)
-        line.setAttribute('x1', self.x)
-        line.setAttribute('y1', self.y)
-        line.setAttribute('x2', lx)
-        line.setAttribute('y2', ly)
-        line.style.display = "none"
-        this.append(line)
-        annotations.push(line)
-      })
-      this._annotations = annotations
-    }
-    return this._annotations
   }
 
   show_location_annotation() {
-    for (let elt of this.location_annotation())
+    for (let elt of this._location_annotations)
       elt.style.display = "inline"
   }
   hide_location_annotation() {
-    for (let elt of this.location_annotation())
+    for (let elt of this._location_annotations)
       elt.style.display = "none"
   }
   tooltip_placement() {
-    return 'left';
+    // some default, override if needed
+    return 'left'
+  }
+  annotation_color() {
+    // override this in the derived classes
+    console.log("antenna color", this.label, this)
+    return 'rgba(80, 80, 80, 0.5)'
   }
 
 }
@@ -635,9 +596,7 @@ class MapAntenna {
 class MapPhone extends MapAntenna {
 
   constructor(phone_spec) {
-    phone_spec.icon_units = phone_spec.icon_units || 'grid'
     super(phone_spec)
-    this.id = phone_spec.id
   }
 
   text() {
@@ -652,6 +611,13 @@ class MapPhone extends MapAntenna {
   tooltip_text() {
     return `macphone${this.id}`
   }
+  tooltip_placement() {
+    return 'right'
+  }
+  annotation_color() {
+    console.log("phone color", this.label, this)
+    return 'rgb(65, 146, 193)'
+  }
 
 }
 
@@ -659,8 +625,6 @@ class MapPdu extends MapAntenna {
 
   constructor(pdu_spec) {
     super(pdu_spec)
-    this.id = pdu_spec.id
-    this.label = pdu_spec.label || "antenna"
   }
 
   antenna_status_url() {
@@ -683,6 +647,10 @@ class MapPdu extends MapAntenna {
     } else {
       return 'left'
     }
+  }
+  annotation_color() {
+    console.log("pdu color", this.label, this)
+    return (this.label === "UE") ? 'rgb(185, 65, 193)' : 'rgb(80, 193, 65)'
   }
 }
 
@@ -776,7 +744,7 @@ export class LiveMap {
 
   //////////////////// the nodes graphical layout
   animate_nodes_changes() {
-    // console.debug("animate_nodes_changes")
+    console.debug("animate_nodes_changes", this.pdus)
     const svg = d3.select('div#livemap_container svg')
     const animation_duration = 750
     const circles = svg.selectAll('circle.node-status')
@@ -990,7 +958,9 @@ export class LiveMap {
       .each(function(phone) {
         // this is the DOM element, so here the <text>
         $(this).tooltip({
-          title: phone.tooltip_text(), delay: 250, placement: 'left'
+          title: phone.tooltip_text(),
+          placement: 'left',
+          delay: 250,
         })
       })
       .on('mouseover', function(d, i) {
@@ -1025,7 +995,9 @@ export class LiveMap {
       // .attr('r', r)
       .each(function(pdu) {
         $(this).tooltip({
-          title: pdu.tooltip_text(), delay: 250, placement: pdu.tooltip_placement()
+          title: pdu.tooltip_text(),
+          placement: pdu.tooltip_placement(),
+          delay: 250,
         })
       })
       .on('mouseover', function(d) {
@@ -1039,6 +1011,34 @@ export class LiveMap {
       .transition()
       .duration(animation_duration)
       .attr('href', (pdu) => pdu.antenna_status_url())
+
+    // the purpose of the location annotations is to
+    // help pinpoint where the device is located on the map
+    const annotations = svg.selectAll('line.location-annotation')
+      .data(this.pdus, (obj) => obj.id)
+    annotations
+      .enter()
+      .append('line')
+      .attr('class', 'location-annotation')
+      .attr('x1', pdu => pdu.x)
+      .attr('y1', pdu => pdu.y)
+      .attr('x2', pdu => livemap_geometry.grid_to_canvas(
+        pdu.location_x_grid, pdu.location_y_grid)[0])
+      .attr('y2', pdu => livemap_geometry.grid_to_canvas(
+        pdu.location_x_grid, pdu.location_y_grid)[1])
+      .each(pdu => {
+        // store it in the pdu object for hide and show
+        pdu._location_annotations = [this]
+      })
+      // .attr('display', 'none')
+      .merge(annotations)
+      .transition()
+      .duration(animation_duration)
+      .attr('stroke', (pdu) => {
+        const color = pdu.annotation_color();
+        console.log("transition stroke", color, pdu);
+        return color;
+      })
   }
 
 
@@ -1048,7 +1048,8 @@ export class LiveMap {
     let svg = d3.select('div#livemap_container svg')
     let status = this.sidecar.state()
     let details = livemap_geometry.sidecar_details
-    let [x, y] = livemap_geometry.grid_to_canvas(details.i, details.j)
+    let [x, y] = livemap_geometry.antennas_to_canvas(
+      details.icon_x_rank, details.icon_y_rank, details.icon_units)
     let radius = details.radius
 
     let color
@@ -1161,10 +1162,7 @@ export class LiveMap {
         // likewise, this should maybe update the pdu
         // but a page reload will do the job
         continue
-      // using the old names for now
-      const pduspec = {
-        id: info.id, i: info.icon_x_rank, j: info.icon_y_rank, node_i: info.location_x_grid, node_j: info.location_y_grid}
-      this.pdus.push(new MapPdu(pduspec))
+      this.pdus.push(new MapPdu(info))
     }
   }
 

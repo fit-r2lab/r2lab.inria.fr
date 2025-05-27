@@ -77,7 +77,7 @@ text.sidecar-status {
 }
 
 line.location-annotation {
-    stroke: rgb(80, 193, 65);
+    /* stroke is now set in the code per antenna family */
     stroke-opacity: .3;
     stroke-width: 3px;
     stroke-linecap: round;
