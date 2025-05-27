@@ -678,14 +678,15 @@ class MapPdu extends MapAntenna {
   }
 
   antenna_status_url() {
-    let name
+    const prefix = (this.label) == "UE" ? "mobile" : "antenna"
+    let image_name
     if (this.on_off == 'on')
-      name = "antenna-green"
+      image_name = `${prefix}-green`
     else if (this.on_off == 'off')
-      name = "antenna-gray"
+      image_name = `${prefix}-gray`
     else
-      name = "antenna-red"
-    return `../assets/img/${name}.svg`
+      image_name = `${prefix}-red`
+    return `../assets/img/${image_name}.svg`
   }
   tooltip_text() {
     return `${this.label} ${this.id}`
@@ -742,6 +743,9 @@ export class LiveMap {
     this.declare_image_filter('antenna-gray', 'svg')
     this.declare_image_filter('antenna-gray-bold', 'svg')
     this.declare_image_filter('antenna-red', 'svg')
+    this.declare_image_filter('mobile-green', 'svg')
+    this.declare_image_filter('mobile-gray', 'svg')
+    this.declare_image_filter('mobile-red', 'svg')
   }
 
   init() {
