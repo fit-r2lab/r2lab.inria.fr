@@ -294,7 +294,7 @@ The testbed currently includes 1 Huawei LTE stick:
 
 ### 5G Quectel RM 500Q-GL modules connected via USB3 to fit nodes
 
-The testbed includes six <a href="https://www.aliexpress.com/item/1005005558446531.html?spm=a2g0o.productlist.main.1.6e69BpxmBpxmuL&algo_pvid=b261d5d1-18bb-4499-8d37-2052dd8c03d9&algo_exp_id=b261d5d1-18bb-4499-8d37-2052dd8c03d9-0&pdp_npi=3%40dis%21EUR%21135.53%2167.76%21%21%21%21%21%400b0a558a16874405389097628d0778%2112000033537063819%21sea%21FR%21138377779&curPageLogUid=e3UH3n3cs5i0" target="_blank">5G modules with M.2 to USB3.0 adapter enclosure</a> for
+Six 5G Quectel modules with M.2 to USB3.0 adapter enclosure</a> for
 <a href="https://www.quectel.com/product/5g-rm500q-gl/" target="_blank">Quectel RM 500Q-GL</a> modules using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
 * One attached to fit07 with SIM IMSI: <001010000000003>
@@ -310,7 +310,7 @@ The testbed includes six <a href="https://www.aliexpress.com/item/10050055584465
 
 ### Raspberry Pi4 with 5G Quectel RM 500Q-GL
 
-The testbed includes three other 5G modules composed of a Raspberry Pi4 device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
+Three 5G modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
 * qhat01 with SIM IMSI: <001010000000006>
 * qhat02 with SIM IMSI: <001010000000007>
@@ -321,6 +321,40 @@ Those three Raspberry Pi4 devices are also connected via Ethernet port to the `c
 </div> <!-- row -->
 
 <hr>
+
+<div class="row" markdown="1">
+<div class="col-md-6" markdown="1">
+
+### Raspberry Pi4 with 5G Quectel RM 520N-GL
+
+Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm520n-series/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas):
+
+* qhat10 with SIM IMSI: <001010000000013>
+* qhat11 with SIM IMSI: <001010000000014>
+
+Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface.
+
+
+</div>
+
+<div class="col-md-6" markdown="1">
+
+### Raspberry Pi4 with 5G Quectel RG255C-GL
+
+Four 5G Quectel RedCap modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-redcap-rg255c-gl-m2/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas):
+Note that these modules do not support the MBIM mode, use QMI mode instead.
+
+
+* qhat20 with SIM IMSI: <001010000000009>
+* qhat21 with SIM IMSI: <001010000000010>
+* qhat22 with SIM IMSI: <001010000000011>
+* qhat23 with SIM IMSI: <001010000000012>
+
+</div>
+</div> <!-- row -->
+
+<hr>
+
 
 <div class="row" markdown="1">
 <div class="col-md-12 new_pad" id="details" markdown="1">
