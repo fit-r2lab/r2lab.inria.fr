@@ -316,7 +316,6 @@ Three 5G modules composed of a Raspberry Pi 4B device with a hat used to connect
 * qhat02 with SIM IMSI: <001010000000007>
 * qhat03 with SIM IMSI: <001010000000008>
 
-Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface.
 </div>
 </div> <!-- row -->
 
@@ -332,8 +331,6 @@ Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to c
 * qhat10 with SIM IMSI: <001010000000013>
 * qhat11 with SIM IMSI: <001010000000014>
 
-Those three Raspberry Pi4 devices are also connected via Ethernet port to the `control` wired interface.
-
 
 </div>
 
@@ -341,14 +338,17 @@ Those three Raspberry Pi4 devices are also connected via Ethernet port to the `c
 
 ### Raspberry Pi4 with 5G Quectel RG255C-GL
 
-Four 5G Quectel RedCap modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-redcap-rg255c-gl-m2/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas):
-Note that these modules do not support the MBIM mode, use QMI mode instead.
+Four 5G Quectel RedCap modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-redcap-rg255c-gl-m2/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas).
+Note that these 4 modules do not support the MBIM mode, use the QMI mode instead.
 
 
 * qhat20 with SIM IMSI: <001010000000009>
 * qhat21 with SIM IMSI: <001010000000010>
 * qhat22 with SIM IMSI: <001010000000011>
 * qhat23 with SIM IMSI: <001010000000012>
+
+All the 9 Raspberry Pi4 devices are  connected via an Ethernet port to the `control` wired interface.
+
 
 </div>
 </div> <!-- row -->
@@ -377,7 +377,7 @@ Clicking in the header will focus on nodes that have a USRP device
 ### Nodes health
 
 The testbed routinely runs a thorough raincheck procedure, to make sure that all is in order.  
-Stay away from nodes that show up behind a big red circle, as this means that the node is not in good shape.
+Stay away from nodes that show up behind a big red circle, as this means that the node is not available.
 
 </div>
 </div> <!-- row -->
