@@ -326,7 +326,7 @@ Three 5G modules composed of a Raspberry Pi 4B device with a hat used to connect
 
 ### Raspberry Pi4 with 5G Quectel RM 520N-GL
 
-Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm520n-series/"target="_blank">Quectel RM 520N-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas):
+Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm520n-series/"target="_blank">Quectel RM 520N-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
 * qhat10 with SIM IMSI: <001010000000013>
 * qhat11 with SIM IMSI: <001010000000014>
