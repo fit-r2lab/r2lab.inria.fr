@@ -326,8 +326,7 @@ Three 5G modules composed of a Raspberry Pi 4B device with a hat used to connect
 
 ### Raspberry Pi4 with 5G Quectel RM 520N-GL
 
-Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm520n-series/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas):
-
+Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm520n-series/"target="_blank">Quectel RM 520N-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas):
 * qhat10 with SIM IMSI: <001010000000013>
 * qhat11 with SIM IMSI: <001010000000014>
 
@@ -338,7 +337,7 @@ Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to c
 
 ### Raspberry Pi4 with 5G Quectel RG255C-GL
 
-Four 5G Quectel RedCap modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-redcap-rg255c-gl-m2/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas).
+Four 5G Quectel RedCap modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-redcap-rg255c-gl-m2/"target="_blank">Quectel RG255C-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas).
 Note that these 4 modules do not support the MBIM mode, use the QMI mode instead.
 
 
