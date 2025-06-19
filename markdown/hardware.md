@@ -92,15 +92,20 @@ that can optionnally help you efficiently orchestrate the complete experimental 
 </div>
 </div> <!-- row -->
 
-4 miniPC nodes, called pc01/pc02/pc03/pc04 with USB3 interfaces are currently available and have been installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit30, respectively.
+Four miniPC nodes :
 
-These 4 miniPC nodes are connected to either USRP B210 devices or 5G RG530F Quectel devices and are attached to the *control* wired interface.
+* called pc01/pc02/pc03/pc04 installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit30, respectively.
 
-They are represented as square boxes in the R2lab dynamic map and have an independent numerotation than fit nodes.
+* connected via USB3 to either USRP B210 devices or 5G RG530F Quectel devices and  attached to the *control* wired interface.
 
-To switch them on or off or to check their current state, use the rhubarbe commands *rhubarbe pdu on|off|status pc01|pc02|pc03|pc04*.
-Note that the devices attached to them (i.e., usrp01/usrp02/rg530f-01/rg530f-02) are also controllable through the same rhubarbe pdu commands.
+* represented as square boxes in the R2lab dynamic map, they have an independent numerotation than fit nodes.
 
+* to switch them on or off or to check their current state, use the rhubarbe commands *rhubarbe pdu on|off|status pc01|pc02|pc03|pc04*.
+Note that the devices attached to them (i.e., usrp01/usrp02/rg530f-01/rg530f-02) are also controllable through the same *rhubarbe pdu* commands.
+
+* Hardware specifications : 
+    * pc01/pc02 are UM690 (Micro Computer (HK)) miniPC 16-core AMD Ryzen 9 6900HX with Radeon Graphics, 32 GB RAM.
+    * pc03/pc04 are UP-APL03 (AAEON) miniPC 4-core Intel Pentium CPU N4200 @ 1.10GHz, 8 GB RAM.
 
 <hr>
 
@@ -318,13 +323,13 @@ Six 5G Quectel modules with M.2 to USB3.0 adapter enclosure</a> for
 
 <div class="col-md-6" markdown="1">
 
-### Raspberry Pi4 with 5G Quectel RM 500Q-GL
+### 5G Quectel RM 500Q-GL on Raspberry Pi4
 
 Three 5G modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm500q-gl/"target="_blank">Quectel RM 500Q-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
-* qhat01 with SIM IMSI: <001010000000006>
-* qhat02 with SIM IMSI: <001010000000007>
-* qhat03 with SIM IMSI: <001010000000008>
+* *qhat01* with SIM IMSI: <001010000000006>
+* *qhat02* with SIM IMSI: <001010000000007>
+* *qhat03* with SIM IMSI: <001010000000008>
 
 </div>
 </div> <!-- row -->
@@ -334,34 +339,49 @@ Three 5G modules composed of a Raspberry Pi 4B device with a hat used to connect
 <div class="row" markdown="1">
 <div class="col-md-6" markdown="1">
 
-### Raspberry Pi4 with 5G Quectel RM 520N-GL
+### R5G Quectel RM 520N-GL on Raspberry Pi4
 
 Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm520n-series/"target="_blank">Quectel RM 520N-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
-* qhat10 with SIM IMSI: <001010000000013>
-* qhat11 with SIM IMSI: <001010000000014>
+* *qhat10* with SIM IMSI: <001010000000013>
+* *qhat11* with SIM IMSI: <001010000000014>
 
 
 </div>
 
 <div class="col-md-6" markdown="1">
 
-### Raspberry Pi4 with 5G Quectel RG255C-GL
+### 5G Quectel RG255C-GL on Raspberry Pi4
 
 Four 5G Quectel RedCap modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-redcap-rg255c-gl-m2/"target="_blank">Quectel RG255C-GL</a> module using specific kits (composed of M.2/USB3 interface and 2 antennas).
 Note that these 4 modules do not support the MBIM mode, use the QMI mode instead.
 
 
-* qhat20 with SIM IMSI: <001010000000009>
-* qhat21 with SIM IMSI: <001010000000010>
-* qhat22 with SIM IMSI: <001010000000011>
-* qhat23 with SIM IMSI: <001010000000012>
+* *qhat20* with SIM IMSI: <001010000000009>
+* *qhat21* with SIM IMSI: <001010000000010>
+* *qhat22* with SIM IMSI: <001010000000011>
+* *qhat23* with SIM IMSI: <001010000000012>
 
 All the 9 Raspberry Pi4 devices are  connected via an Ethernet port to the `control` wired interface.
 
 
 </div>
 </div> <!-- row -->
+
+<div class="row" markdown="1">
+<div class="col-md-6" markdown="1">
+
+### 5G Quectel RG-530F on Quectel 5GDM01 Evaluation board kit
+
+Two 5G [RG-530F Quectel modules](https://www.quectel.com/product/5g-rg530f-series/) for FR2 band to be used with the Liteon gNB:
+
+* integrated in [Quectel 5GDM01-EV EVB](https://www.quectel.com/product/5gdm0x-ev-evb-kit/) kit.
+* rg530f-01 with SIM IMSI: <001010000000015> connected via USB3 to *pc03* miniPC.
+* rg530f-02 with SIM IMSI: <001010000000016> connected via USB3 to *pc04* miniPC.
+
+
+</div>
+</div>
 
 <hr>
 
