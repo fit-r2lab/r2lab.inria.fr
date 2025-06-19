@@ -69,7 +69,7 @@ that can optionnally help you efficiently orchestrate the complete experimental 
 
 ### All nodes
 
-All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> and feature
+32 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
 
 * State of the art motherboard
   * CPU Intel Core i7-2600 processor
@@ -91,6 +91,16 @@ All 37 nodes are based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_bl
 <center>Icarus Nodes in the testbed</center>
 </div>
 </div> <!-- row -->
+
+4 miniPC nodes, called pc01/pc02/pc03/pc04 with USB3 interfaces are currently available and have been installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit30, respectively.
+
+These 4 miniPC nodes are connected to either USRP B210 devices or 5G RG530F Quectel devices and are attached to the *control* wired interface.
+
+They are represented as square boxes in the R2lab dynamic map and have an independent numerotation than fit nodes.
+
+To switch them on or off or to check their current state, use the rhubarbe commands *rhubarbe pdu on|off|status pc01|pc02|pc03|pc04*.
+Note that the devices attached to them (i.e., usrp01/usrp02/rg530f-01/rg530f-02) are also controllable through the same rhubarbe pdu commands.
+
 
 <hr>
 
