@@ -145,7 +145,9 @@ let livemap_geometry = {
     { id: 14, i: 2, j: 3 },
     { id: 15, i: 2, j: 4 },
     { id: 16, i: 3, j: 0 },
-    { id: 17, i: 3, j: 2 },
+    { id: 4, i: 3, j: 2, nodepc: true,         // formerly node17
+      // xxx would be nicer to fetch this from the database...
+      usrp_name: "", usrp_type: "none"},
     { id: 18, i: 3, j: 3 },
     { id: 19, i: 4, j: 0 },
     { id: 20, i: 4, j: 1 },
@@ -158,9 +160,7 @@ let livemap_geometry = {
     { id: 27, i: 6, j: 1 },
     { id: 28, i: 6, j: 2 },
     { id: 29, i: 6, j: 3 },
-    { id: 4, i: 6, j: 4, nodepc: true,         // formerly node30
-      // xxx would be nicer to fetch this from the database...
-      usrp_name: "", usrp_type: "none"},
+    { id: 30, i: 6, j: 4 },
     { id: 31, i: 7, j: 0 },
     { id: 32, i: 7, j: 1 },
     { id: 33, i: 7, j: 2 },
