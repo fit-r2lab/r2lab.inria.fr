@@ -125,6 +125,7 @@ This can help in verifying the state of these devices along with the R2lab air c
 
 <center><img src="/assets/img/relays-temp.png"></center>
 
+see also the new [dedicated page](/temperatures.md)
 
 ***
 
