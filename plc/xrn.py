@@ -5,7 +5,7 @@ def urn_to_type_hrn(urn):
     returns a tuple (type, hrn)
     or None, None
     """
-    patt1 = "urn:publicid:IDN\+(?P<auth>[\w_:]+)\+(?P<utype>\w+)\+(?P<name>\w+)"
+    patt1 = r"urn:publicid:IDN\+(?P<auth>[\w_:]+)\+(?P<utype>\w+)\+(?P<name>\w+)"
     try:
         auth, utype, name = re.match(patt1, urn).groups()
         hrn = auth.replace(':', '.') + '.' + name
