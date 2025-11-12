@@ -27,6 +27,7 @@ import slices.views
 import users.views
 import keys.views
 import stats.views
+import relays.views
 
 from pathlib import Path
 
@@ -69,6 +70,9 @@ urlpatterns = [
 
     re_path(r'^api/stats/lease/?$',
             stats.views.api_all_leases),
+
+    re_path(r'^api/relays/temperatures/?$',
+            relays.views.relays_temperatures),
 ]
 urlpatterns.extend(static('/assets/', document_root=str(BASE / 'assets/')))
 urlpatterns.extend(static('/raw/', document_root=str(BASE / 'raw/')))
