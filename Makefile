@@ -14,17 +14,17 @@ publish-r2lab:
 	# as this actually removes the contents of raw/
 	rsync -ai $(RSYNC-EXCLUDES) ./ $(PUBLISH-PATH)/
 
-########## restart apache on r2lab.inria.fr
+########## restart nginx on r2lab.inria.fr
 # maybe not strictly necessary when the python code is stable
 # but that won't hurt us while developing as frequent changes
 # are to be expected
-apache:
-	systemctl restart httpd
+nginx:
+	systemctl restart nginx r2lab-django.service
 
 #
-install: publish apache
+install: publish nginx
 
-.PHONY: publish apache install
+.PHONY: publish nginx install
 
 ########## force both infra boxes to use latest commit
 infra:
