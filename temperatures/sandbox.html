@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Temperature Records</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <style>
+      #loading {
+        font-size: 100px;
+        font-family: "Courier New", Courier, monospace;
+      }
+      .temperatures {
+        width: 90vw; /* or 800px, or 100% */
+        > canvas {
+          width: 90vw !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading">Loading data… ⏳</div>
+    <div id="temperatures-combined" class="temperatures"></div>
+    <div id="temperatures-stacked" class="temperatures"></div>
+    <script src="temperatures.js"></script>
+  </body>
+</html>
