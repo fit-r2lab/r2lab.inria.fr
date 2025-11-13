@@ -9,12 +9,6 @@ skip_footer: yes
 
 <div id="first-row">
 
-<div id="text">
-
-responsiveness is not perfect, please reload the page after resizing
-
-</div>
-
 <form id="dialog" action="javascript:displayStatsFromDialog()">
     <span>
         <label for="from">from month:</label><br>
@@ -82,13 +76,14 @@ responsiveness is not perfect, please reload the page after resizing
         #first-row {
             display: flex;
             flex-flow: row nowrap;
-            justify-content: space-between;
+            justify-content: center;
         }
 
         #dialog {
             display: flex;
             flex-flow: row nowrap;
-            justify-content: space-between;
+            gap: 40px;
+            /* justify-content: space-between; */
             /* align-items: center; */
             align-items: flex-start;
             margin-bottom: 8px;
@@ -150,9 +145,9 @@ responsiveness is not perfect, please reload the page after resizing
     }
 </style>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5" ></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1" ></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/6.2.0/vega.min.js" integrity="sha512-a0MvScZu4OlG2uIQtDYugg4GWVyk2YDEKoWt9kAHlW3hiNuwYoZmVz6D7ksouUKBIUiLYfdMc8f/taYk9hbCbA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/6.4.1/vega-lite.min.js" integrity="sha512-YR+HhmTzn3uI6txUYLROIPAr1yuQVjJ2djyDfq+ZWMwe4LgEXyiPPYn9LlQE9P2DwZSlwkO2NBOigBQBr7mk7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/7.0.2/vega-embed.min.js" integrity="sha512-sN01iN/FB7CxcwWiE+BZUadk7T04QGhOJit1KBWJChZkdjvyxsS5tntVrMikgSYBIgvH+WH2ssKswk2e+aSQnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     const displayStatsFromDialog = () => {
