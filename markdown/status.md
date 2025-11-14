@@ -120,17 +120,12 @@ The nodes are arranged in a grid with ≈1.0m (vertical) and ≈1.15m (horizonta
 
 <h3 id="relays-temperature">Relays temperature status</h3>
 
-Temperature of relays (relay-01 to relay-10) based on raspberry Pi 3 used to switch on/off UEs and gNBs is reported below.
-This can help in verifying the state of these devices along with the R2lab air conditioning system.
-
-<center><img src="/assets/img/relays-temp.png"></center>
-
-see also the new [dedicated page](/temperatures.md)
+please [see the page that displays relay temperatures](/temperatures.md)
 
 ***
 
 <h3 id="stats">Usage statistics</h3>
 
-please see the [dedicated page](/stats.md)
+please [see the page that displays usage statistics](/stats.md)
 
 </div> <!-- container -->
