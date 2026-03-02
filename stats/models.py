@@ -3,12 +3,20 @@
 """
 compute the stats that get displayed by /stats.md
 API endpoints are defined in views.py
+
+data is fetched from the r2lab-api REST service
 """
+
+import logging
 
 import numpy as np
 import pandas as pd
+import requests
 
-from plc.plcapiview import PlcApiView
+from r2lab.secrets import R2LAB_API_URL, R2LAB_API_EMAIL, R2LAB_API_PASSWORD
+
+
+logger = logging.getLogger(__name__)
 
 
 # the order to display families
@@ -29,8 +37,16 @@ ALLOWED_PERIODS = {
     'quarter': 'Q',
 }
 
-# to create an empty dataframe result
-COLUMNS = ['name', 'dt_from', 'dt_until', 'slice_id']
+def _empty_leases_dataframe():
+    """Return an empty DataFrame with the correct dtypes for downstream code."""
+    return pd.DataFrame({
+        'name': pd.Series(dtype='str'),
+        'dt_from': pd.Series(dtype='datetime64[ns]'),
+        'dt_until': pd.Series(dtype='datetime64[ns]'),
+        'family': pd.Series(dtype='str'),
+        'duration': pd.Series(dtype='int64'),
+        'family-order': pd.Series(dtype='int64'),
+    })
 
 
 def numpy_to_epoch(dt):
@@ -47,11 +63,46 @@ def round_timedelta_to_hours(timedelta):
     return int(((x-1) // 3600) + 1)
 
 
-# class Stats(models.Model, PlcApiView):
-class Stats(PlcApiView):
+class R2labApiClient:
+    """
+    Minimal client for the r2lab-api REST service.
+    Authenticates once (lazy) and caches the token.
+    """
 
-    # xxx need to cache the Leases and Slices data for like 10 minutes or so
-    # def get_leases(self)
+    def __init__(self):
+        self._token = None
+
+    def _login(self):
+        """POST /auth/login to obtain a bearer token."""
+        url = f"{R2LAB_API_URL}/auth/login"
+        resp = requests.post(url, json={
+            "email": R2LAB_API_EMAIL,
+            "password": R2LAB_API_PASSWORD,
+        }, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        self._token = data["access_token"]
+
+    def _auth_headers(self):
+        if self._token is None:
+            self._login()
+        return {"Authorization": f"Bearer {self._token}"}
+
+    def get_leases(self):
+        """GET /leases — public, no auth required."""
+        url = f"{R2LAB_API_URL}/leases"
+        resp = requests.get(url, timeout=30)
+        resp.raise_for_status()
+        return resp.json()
+
+    def get_slices(self):
+        """GET /slices — auth required."""
+        url = f"{R2LAB_API_URL}/slices"
+        resp = requests.get(url, headers=self._auth_headers(), timeout=30)
+        resp.raise_for_status()
+        return resp.json()
+
+class Stats:
 
     def all_leases(self):
         return self._raw_usage('2010', pd.Timestamp.now())
@@ -70,87 +121,63 @@ class Stats(PlcApiView):
 
     def _raw_usage(self, ts_from, ts_until):
 
-        # (1) find leases from the API
-        self.init_plcapi_proxy()
-        all_slices = pd.DataFrame(
-            self.plcapi_proxy.GetSlices(
-                {'EXPIRED': True, 'DELETED': True},
-                ['slice_id', 'name', 'family'],
-            ))
+        try:
+            client = R2labApiClient()
+            raw_leases = client.get_leases()
+            raw_slices = client.get_slices()
+        except Exception as exc:
+            logger.error("Failed to fetch data from r2lab-api: %s", exc)
+            return _empty_leases_dataframe()
 
-        leases1 = pd.DataFrame(
-            self.plcapi_proxy.GetLeases({}, ['t_from', 't_until', 'slice_id']))
+        # build slice_name → family lookup directly from slices
+        slice_family = {
+            slc["name"]: slc.get("family", "unknown") or "unknown"
+            for slc in raw_slices
+        }
 
-        # (1 bis) translate into datetimes and bind to family
-        leases1['dt_from'] = pd.to_datetime(leases1['t_from'], unit='s')
-        leases1['dt_until'] = pd.to_datetime(leases1['t_until'], unit='s')
-        leases1.drop(columns=['t_from', 't_until'], inplace=True)
+        # build DataFrame from leases
+        if not raw_leases:
+            return _empty_leases_dataframe()
 
-        merge1 = leases1.merge(all_slices, on='slice_id', how='left')
+        leases = pd.DataFrame(raw_leases)
 
-        # (2) from the LEASES csv
-        leases2 = pd.read_csv('stats/rebuild/REBUILT-LEASES.csv')
+        # rename API fields to internal names
+        leases = leases.rename(columns={
+            'slice_name': 'name',
+            't_from': 'dt_from',
+            't_until': 'dt_until',
+        })
 
-        # (2 bis) translate into datetimes and bind to family
-        leases2['dt_from'] = pd.to_datetime(leases2['beg'], format="ISO8601")
-        leases2['dt_until'] = pd.to_datetime(leases2['end'], format="ISO8601")
-        leases2.drop(columns=['beg', 'end'], inplace=True)
+        # convert ISO datetime strings to tz-naive UTC datetimes
+        leases['dt_from'] = pd.to_datetime(
+            leases['dt_from'], utc=True
+        ).dt.tz_localize(None)
+        leases['dt_until'] = pd.to_datetime(
+            leases['dt_until'], utc=True
+        ).dt.tz_localize(None)
 
-        merge2 = leases2.merge(all_slices, on='name', how='left')
-
-        # put it together
-        merge = pd.concat([merge1, merge2], ignore_index=True)
-
-        # given these 2 sources, we may have duplications, so:
-        # print(f"(0) we have {len(merge)} leases")
-        merge.drop_duplicates(subset=['slice_id', 'dt_from', 'dt_until'], inplace=True)
-        # print(f"(1) we have {len(merge)} unique leases")
-        merge.drop_duplicates(subset=['name', 'dt_from', 'dt_until'], inplace=True)
-        # print(f"(2) we have {len(merge)} unique leases")
-
-        # if missing slice families remain
-        # tmp ? load SLICES-FAMILY.csv and merge it with usage
-        tmp_slice_family = pd.read_csv('stats/rebuild/HAND-SLICE-FAMILY.csv')
-        # keep only the non-empty ones
-        tmp_slice_family = tmp_slice_family[tmp_slice_family.family != '']
-        # print(f"we are using {len(tmp_slice_family)} hard-wired slice families")
-
-        # isolate the missing ones, solve them, and reasemble
-        missing_mask = (merge.family == '') | (merge.family.isna())
-        solved = merge[~missing_mask]
-
-        missing = (
-            merge[missing_mask]
-            .drop(columns=['family'])
-            .merge(
-                tmp_slice_family,
-                on='name',
-                how='left',
-            )
-        )
-
-        merge = pd.concat([solved, missing])
+        # assign family via slice_name lookup
+        leases['family'] = leases['name'].map(slice_family)
 
         # filter on the requested period
-        merge = merge[(merge.dt_from >= ts_from) & (merge.dt_until <= ts_until)]
+        leases = leases[(leases.dt_from >= ts_from) & (leases.dt_until <= ts_until)]
 
         # fill in with unknown
-        untagged_mask = (merge.family == '') | (merge.family.isna())
-        # merge['family'] = merge['family'].fillna('unknown')
-        merge.loc[untagged_mask, 'family'] = 'unknown'
+        untagged_mask = (leases.family == '') | (leases.family.isna())
+        leases.loc[untagged_mask, 'family'] = 'unknown'
 
-        merge['duration'] = merge['dt_until'] - merge['dt_from']
-        merge['duration'] = merge['duration'].apply(round_timedelta_to_hours)
+        leases['duration'] = leases['dt_until'] - leases['dt_from']
+        leases['duration'] = leases['duration'].apply(round_timedelta_to_hours)
 
         # this is where we order the various families
         ordered_type = pd.CategoricalDtype(
-            categories = FAMILIES,
+            categories=FAMILIES,
             ordered=True,
         )
-        merge['family'] = merge['family'].astype(ordered_type)
-        merge['family-order'] = merge.family.cat.codes
+        leases['family'] = leases['family'].astype(ordered_type)
+        leases['family-order'] = leases.family.cat.codes
 
-        return merge
+        return leases
 
     def _per_slice_csv(self, leases):
         slices = (
