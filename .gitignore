@@ -1,10 +1,10 @@
-*.pyc
-venv/
+__pycache__
+.venv
+.vscode/
 assets/unwrap/
 db.sqlite3
 manifold/
 manifoldapi/
-.vscode/
 trash/
 *.dot
 foo*
