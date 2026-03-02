@@ -15,3 +15,17 @@ stats/tmp-visu/
 stats/altair-sample-*
 .vite/
 .eslintrc.*
+.claude
+alias
+bar.html
+DEBUG.html
+DEBUG.md
+django.log
+error.html
+manifold-deps.tar
+MIGRATING.md
+output.csv
+r2labapi-dumpall.sql
+raw
+refresh-relays-temp.sh
+todo-school.md
