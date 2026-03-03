@@ -1,7 +1,0 @@
-Django
-markdown2
-rhubarbe
-pyparsing
-websockets
-gunicorn
-altair

@@ -1,7 +1,8 @@
 [project]
 name = "r2lab-inria-fr"
+# we don't publish on pypi and do not use this version number
 version = "0.1.0"
-description = "Add your description here"
+description = "The django app for the R2Lab testbed at Inria, France - runs on r2lab.inria.fr"
 requires-python = ">=3.14"
 dependencies = [
     "altair>=6.0.0",
