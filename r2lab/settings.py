@@ -57,6 +57,15 @@ plcapi_settings = {
     'nodename_match' : 'faraday',
 }
 
+r2labapi_settings = {
+    # 'url' : 'https://r2labapi.inria.fr:444/',
+    'url' : 'http://localhost:8000/',
+    'credentials' : [
+        '/etc/rhubarbe/r2labapi.credentials',
+        'r2lab/r2labapi.credentials',
+    ],
+}
+
 ####################
 
 # Quick-start development settings - unsuitable for production
