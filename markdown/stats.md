@@ -241,7 +241,7 @@ skip_footer: yes
             const now = new Date()
             const month = now.getMonth() + 1
             const year = now.getFullYear()
-            document.getElementById("until").value = `${year}-${month}`
+            document.getElementById("until").value = `${year}-${String(month).padStart(2, '0')}`
         }
         // console.log("by", by_from_url, "from", from_period, "until", until_period)
     }
