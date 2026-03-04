@@ -1,2 +1,2 @@
-from .plcapi_users import UsersProxy
+from .r2labapi_users import UsersProxy
 

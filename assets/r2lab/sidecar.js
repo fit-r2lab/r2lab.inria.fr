@@ -8,6 +8,7 @@
 // https://github.com/websockets/ws/wiki/Websocket-client-implementation-for-auto-reconnect
 
 let sidecar_debug = false
+// sidecar_debug = true
 
 function debug(...args) {
   if (sidecar_debug) {
@@ -241,7 +242,7 @@ class SidecarImplementation {
         callback(infos)
     } catch (err) {
       console.log(`*** Could not handle news - ignored JSON is ${json.length} chars long`)
-      console.log(json)
+      console.log(json.slice(0, 300) + '...')
       console.log(err.stack)
       console.log("***")
     }

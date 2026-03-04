@@ -45,13 +45,6 @@ class Login(View):
             logger.error("Internal error - cannot retrieve r2lab_context")
             env['login_message'] = "cannot log you in - please get in touch with admin"
             return md.views.markdown_page(request, 'oops', env)
-        elif 'hrn' not in request.session['r2lab_context']['user_details']:
-            env['login_message'] = "this user has no HRN !"
-            return md.views.markdown_page(request, 'index', env)
-#        elif 'slicenames' not in request.session['r2lab_context'] or \
-#                not request.session['r2lab_context']['slicenames']:
-#            env['login_message'] = "this user has no slice !"
-#            return md.views.markdown_page(request, 'index', env)
         else:
             logger.debug("login for user={}".format(user))
             login(request, user)

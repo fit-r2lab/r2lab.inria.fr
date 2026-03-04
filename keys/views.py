@@ -1,1 +1,1 @@
-from .plcapi_keys import KeysProxy
+from .r2labapi_keys import KeysProxy

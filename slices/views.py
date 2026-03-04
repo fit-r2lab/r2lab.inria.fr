@@ -1,1 +1,1 @@
-from .plcapi_slices import SlicesProxy
+from .r2labapi_slices import SlicesProxy

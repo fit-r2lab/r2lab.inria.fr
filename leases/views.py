@@ -1,1 +1,1 @@
-from .plcapi_leases import LeasesProxy
+from .r2labapi_leases import LeasesProxy

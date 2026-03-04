@@ -64,6 +64,7 @@ r2labapi_settings = {
         '/etc/rhubarbe/r2labapi.credentials',
         'r2lab/r2labapi.credentials',
     ],
+    'resource_name' : 'r2lab.inria.fr',
 }
 
 ####################
@@ -217,10 +218,8 @@ if not PRODUCTION:
         sidecar_url = SIDECAR
     print("Using sidecar_url = {sidecar_url}".format(**locals()))
 
-# transitioning to plcauthbackend
 AUTHENTICATION_BACKENDS = (
-    'plc.plcauthbackend.PlcAuthBackend',
-#    'mfauth.mfbackend.ManifoldBackend',
+    'plc.r2labapiauthbackend.R2labApiAuthBackend',
 )
 
 X_FRAME_OPTIONS = 'ALLOWALL'

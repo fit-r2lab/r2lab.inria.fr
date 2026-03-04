@@ -800,9 +800,9 @@ export class LiveLeases {
     liveleases_debug("parse_leases", leases)
 
     return leases.map(function (lease) {
-      let title = liveleases.short_slice_name(lease.slicename)
-      let start = lease.valid_from
-      let end = lease.valid_until
+      let title = liveleases.short_slice_name(lease.slice_name)
+      let start = lease.t_from
+      let end = lease.t_until
       // remember that slice
       liveleases.persistent_slices.record_slice(title)
 
