@@ -9,7 +9,7 @@
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/liveslices.css")
 
-import { post_xhttp_django } from "/assets/r2lab/xhttp-django.js"
+import { r2labapi } from "/assets/r2lab/r2labapi.js"
 
 $(function () {
 
@@ -51,7 +51,7 @@ $(function () {
   }
 
 
-  let get_slices = function (id, names) {
+  let get_slices = async function (id, names) {
     let body = $(`#${id}`)
     body.html(
       "<div class='row slice-header'>"
@@ -59,78 +59,66 @@ $(function () {
       + "<div class='col-md-4'>Expiration Date</div>"
       + "<div class='col-md-2'>Renew</div>"
       + "</div>")
-    $.each(names, function (index, value) {
 
-      let request = {}
-      request['names'] = [value]
+    let all_slices
+    try {
+      all_slices = await r2labapi('GET', 'slices')
+    } catch (err) {
+      send_message(`Could not fetch slices: ${err.message}`, 'danger')
+      return
+    }
 
-      post_xhttp_django('/slices/get', request, function (xhttp) {
+    let requested = new Set(names)
+    let slices = all_slices.filter(s => requested.has(s.name))
 
-        if (!(xhttp.readyState == 4 && xhttp.status == 200))
-          return
-        let responses = JSON.parse(xhttp.responseText)
-        if (responses.length <= 0)
-          return
-
-        let slice_manage_invitation = '\
+    let slice_manage_invitation = '\
 One or more of your slices has expired. \
 <a href="#" data-toggle="modal" data-target="#slices_keys_modal">\
 Click here to renew it!</a>'
-        for (let i = 0; i < responses.length; i++) {
 
-          let response = responses[i]
-          let slicename = response['name']
-          let normal_id = normalize_id(slicename)
-          let expiration = response['valid_until']
-          let closed = response['closed_at']
-          //let expiration = '2016-01-22T09:25:31Z'
+    for (let response of slices) {
+      let slicename = response['name']
+      let normal_id = normalize_id(slicename)
+      let expiration = response['deleted_at']
 
-          let s_class = 'in-green'
-          let s_id = `renew-slice-${normal_id}`
-          let s_icon = `<span class='fa fa-refresh in-blue' id='${s_id}'>`
-          let the_date = moment(expiration).format("YYYY-MM-DD HH:mm")
-          if (is_past_date(expiration) || is_past_date(closed)) {
-            send_message(slice_manage_invitation, 'attention')
+      let s_class = 'in-green'
+      let s_id = `renew-slice-${normal_id}`
+      let s_icon = `<span class='fa fa-refresh in-blue' id='${s_id}'>`
+      let the_date = moment(expiration).format("YYYY-MM-DD HH:mm")
+      if (is_past_date(expiration)) {
+        send_message(slice_manage_invitation, 'attention')
+        s_class = 'in-red'
+      }
 
-            if (is_past_date(closed)) {
-              the_date = moment(closed).format("YYYY-MM-DD HH:mm")
-            }
-
-            s_class = 'in-red'
-          }
-
-          $(body).append(
-            `<div class='row'>`
-            + `<div class='col-md-6'>${slicename}</div>`
-            + `<div class='col-md-4' id='timestamp-expire${normal_id}'>`
-            + `<span class='${s_class}'>${the_date}</span>`
-            + `</div>`
-            + `<div class='col-md-2'>${s_icon}</div>`)
-          $(`#${s_id}`).click(function () {
-            renew_slice(normalize_id(slicename), slicename)
-          })
-        }
+      $(body).append(
+        `<div class='row'>`
+        + `<div class='col-md-6'>${slicename}</div>`
+        + `<div class='col-md-4' id='timestamp-expire${normal_id}'>`
+        + `<span class='${s_class}'>${the_date}</span>`
+        + `</div>`
+        + `<div class='col-md-2'>${s_icon}</div>`)
+      $(`#${s_id}`).click(function () {
+        renew_slice(normalize_id(slicename), slicename)
       })
-    })
+    }
   }
 
 
-  let renew_slice = function (element, slicename) {
-    let request = {
-      "name": slicename,
-    }
-    post_xhttp_django('/slices/renew', request, function (xhttp) {
-      if (xhttp.readyState == 4 && xhttp.status == 200) {
-        let answer = JSON.parse(xhttp.responseText)
-        // console.log("answer from /slices/renew")
-        // console.log(answer)
+  let renew_slice = async function (element, slicename) {
+    try {
+      // 61 days from now
+      let expiry = new Date(Date.now() + 61 * 86400000).toISOString()
+      let answer = await r2labapi('PATCH', `slices/${slicename}`, {
+        body: {deleted_at: expiry}
+      })
 
-        $('#timestamp-expire' + element).removeClass('in-red')
-        $('#timestamp-expire' + element).addClass('in-green')
-        $('#timestamp-expire' + element).toggle("pulsate").toggle("highlight")
-        $('#timestamp-expire' + element).html(moment(answer['valid_until']).format("YYYY-MM-DD HH:mm"))
-      }
-    })
+      $('#timestamp-expire' + element).removeClass('in-red')
+      $('#timestamp-expire' + element).addClass('in-green')
+      $('#timestamp-expire' + element).toggle("pulsate").toggle("highlight")
+      $('#timestamp-expire' + element).html(moment(answer['deleted_at']).format("YYYY-MM-DD HH:mm"))
+    } catch (err) {
+      send_message(`Could not renew slice: ${err.message}`, 'danger')
+    }
   }
 
 
