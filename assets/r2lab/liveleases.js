@@ -717,6 +717,7 @@ export class LiveLeases {
     ////////// compute difference between displayed and confirmed slots
     // gather all slots currently displayed
     let displayed_slots = this.fullCalendar('clientEvents')
+    liveleases_debug(`refresh_from_api_leases with ${displayed_slots.length} displayed slots`)
 
     // initialize
     for (let displayed_slot of displayed_slots)
@@ -726,7 +727,8 @@ export class LiveLeases {
 
     // scan all confirmed
     for (let confirmed_slot of confirmed_slots) {
-      let confirmed_id = this.slot_id(confirmed_slot.title,
+      let confirmed_id = this.slot_id(
+        confirmed_slot.title,
         confirmed_slot.start,
         confirmed_slot.end)
       // scan all displayed
@@ -751,7 +753,7 @@ export class LiveLeases {
           // mark both as matched
           displayed_slot.confirmed = true
           confirmed_slot.displayed = true
-          continue
+          break
         }
       }
     }
@@ -800,15 +802,15 @@ export class LiveLeases {
     liveleases_debug("parse_leases", leases)
 
     return leases.map(function (lease) {
-      let title = liveleases.short_slice_name(lease.slice_name)
-      let start = lease.t_from
-      let end = lease.t_until
+      let title = liveleases.short_slice_name(lease.slice_name ?? lease.slicename)
+      let start = lease.t_from ?? lease.valid_from
+      let end = lease.t_until ?? lease.valid_until
       // remember that slice
       liveleases.persistent_slices.record_slice(title)
 
       return {
         title: title,
-        uuid: String(lease.uuid),
+        uuid: String(lease.uuid ?? lease.id),
         start: start,
         end: end,
         id: liveleases.slot_id(title, start, end),
