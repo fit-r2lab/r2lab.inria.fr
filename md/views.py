@@ -192,7 +192,7 @@ def resolve_tuto_tabs(markdown):
     re_id_def = re.compile(id_def)
     id_defs = rf"(?P<id_defs>({id_def})(\s+{id_def})*)"
     pattern = rf'<<\s*tuto_tabs\s+{id_defs}\s*>>\s*\n'
-    print(pattern)
+    # print(pattern)
     re_tuto_tabs = re.compile(post_markdown(pattern))
     end = 0
     resolved = ""
