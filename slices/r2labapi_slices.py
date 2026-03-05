@@ -1,5 +1,5 @@
 """
-The r2lab-api version of the view that answers xhttp requests about slices.
+The r2lab-api version of the view that answers proxy API calls about slices.
 """
 
 import time

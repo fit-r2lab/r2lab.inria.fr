@@ -1,5 +1,5 @@
 """
-The r2lab-api version of the view that answers xhttp requests about leases.
+The r2lab-api version of the view that answers proxy API calls about leases.
 """
 
 from django.utils.decorators import method_decorator
