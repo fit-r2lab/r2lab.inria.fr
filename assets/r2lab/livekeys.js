@@ -72,6 +72,8 @@ $(function () {
 
 
   let delete_key = async function (key_id) {
+    if (!confirm(`Delete key ${key_id}?`))
+      return
     try {
       let me = await r2labapi('GET', 'users/me')
       await r2labapi('DELETE', `users/${me.id}/keys/${key_id}`)
