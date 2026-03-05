@@ -84,7 +84,9 @@ Click here to renew it!</a>'
       let s_class = 'in-green'
       let s_id = `renew-slice-${normal_id}`
       let s_icon = `<span class='fa fa-refresh in-blue' id='${s_id}'>`
-      let the_date = moment(expiration).format("YYYY-MM-DD HH:mm")
+      let the_date = expiration
+        ? moment(expiration).format("YYYY-MM-DD HH:mm")
+        : "indefinite"
       if (is_past_date(expiration)) {
         send_message(slice_manage_invitation, 'attention')
         s_class = 'in-red'
@@ -108,7 +110,7 @@ Click here to renew it!</a>'
     try {
       // 61 days from now
       let expiry = new Date(Date.now() + 61 * 86400000).toISOString()
-      let answer = await r2labapi('PATCH', `slices/${slicename}`, {
+      let answer = await r2labapi('PATCH', `slices/by-name/${slicename}`, {
         body: {deleted_at: expiry}
       })
 
@@ -118,6 +120,7 @@ Click here to renew it!</a>'
       $('#timestamp-expire' + element).html(moment(answer['deleted_at']).format("YYYY-MM-DD HH:mm"))
     } catch (err) {
       send_message(`Could not renew slice: ${err.message}`, 'danger')
+      console.log("renew slice failed", err)
     }
   }
 
