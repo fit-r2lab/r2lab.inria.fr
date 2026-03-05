@@ -32,7 +32,9 @@ export async function r2labapi(method, path, {body, query} = {}) {
     const resp = await fetch(url, options)
     const data = await resp.json()
     if (!resp.ok) {
-        throw new Error(data.detail || data.error || `API error ${resp.status}`)
+        let msg = data.detail || data.error || `API error ${resp.status}`
+        if (typeof msg !== 'string') msg = JSON.stringify(msg)
+        throw new Error(msg)
     }
     return data
 }
