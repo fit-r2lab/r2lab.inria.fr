@@ -2,14 +2,14 @@
 
 /* for eslint */
 /*global $ moment */
-/*global r2lab_accounts*/
+/*global r2lab_accounts r2lab_resource_name*/
 
 "use strict"
 
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/liveleases.css")
 
-import { post_xhttp_django } from "/assets/r2lab/xhttp-django.js"
+import { r2labapi } from "/assets/r2lab/r2labapi.js"
 
 import { Sidecar } from "/assets/r2lab/sidecar.js"
 
@@ -596,63 +596,34 @@ export class LiveLeases {
     return result
   }
 
-  send_api(verb, slot) {
+  async send_api(verb, slot) {
     liveleases_debug("send_api", verb, slot)
     let liveleases = this
-    let request = null
 
-    if (verb == 'add') {
-      request = {
-        "slicename": this.reset_name(slot.title),
-        "valid_from": slot.start._d.toISOString(),
-        "valid_until": slot.end._d.toISOString()
+    try {
+      if (verb == 'add') {
+        await r2labapi('POST', 'leases', {body: {
+          resource_name: r2lab_resource_name,
+          slice_name: this.reset_name(slot.title),
+          t_from: slot.start._d.toISOString(),
+          t_until: slot.end._d.toISOString(),
+        }})
+      } else if (verb == 'update') {
+        await r2labapi('PATCH', `leases/${slot.uuid}`, {body: {
+          t_from: slot.start._d.toISOString(),
+          t_until: slot.end._d.toISOString(),
+        }})
+      } else if (verb == 'delete') {
+        await r2labapi('DELETE', `leases/${slot.uuid}`)
+      } else {
+        liveleases_debug(`send_api : Unknown verb ${verb}`)
+        return false
       }
-    } else if (verb == 'update') {
-      request = {
-        "uuid": slot.uuid,
-        "valid_from": slot.start._d.toISOString(),
-        "valid_until": slot.end._d.toISOString()
-      }
-    } else if (verb == 'delete') {
-      request = {
-        "uuid": slot.uuid,
-      }
-    } else {
-      liveleases_debug(`send_api : Unknown verb ${verb}`)
-      return false
+    } catch (err) {
+      liveleases.show_message(`Something went wrong when managing leases: ${err.message}`)
     }
-    liveleases_debug('send_api ->', request)
-    post_xhttp_django(`/leases/${verb}`, request, function (xhttp) {
-      if (xhttp.readyState == 4) {
-        // this triggers a refresh of the leases once the sidecar server answers back
-        liveleases.request_update_from_api()
-        ////////// temporary
-        // in all cases, show the results in console, in case we'd need to improve this
-        // logic further on in the future
-        liveleases_debug(`upon ajax POST: xhttp.status = ${xhttp.status}`)
-        ////////// what should remain
-        if (xhttp.status != 200) {
-          // this typically is a 500 error inside django
-          // hard to know what to expect..
-          liveleases.show_message(`Something went wrong when managing leases with code ${xhttp.status}`)
-        } else {
-          // the http POST has been successful, but a lot can happen still
-          // for starters, are we getting a JSON string ?
-          try {
-            let obj = JSON.parse(xhttp.responseText)
-            if (obj.error) {
-              liveleases.show_message(
-                liveleases.dig_xpath(obj, ['error', 'exception', 'reason']))
-            } else {
-              liveleases_debug("JSON.parse ->", obj)
-            }
-          } catch (err) {
-            liveleases.show_message(`unexpected error while anayzing django answer ${err}`)
-            console.log(err.stack)
-          }
-        }
-      }
-    })
+    // triggers a refresh of the leases once the sidecar server answers back
+    liveleases.request_update_from_api()
   }
 
 

@@ -8,12 +8,12 @@
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livekeys.css")
 
-import { post_xhttp_django } from "/assets/r2lab/xhttp-django.js"
+import { r2labapi } from "/assets/r2lab/r2labapi.js"
 
 /* would need something cleaner .. */
 $(function () {
 
-  let display_keys = function (domid) {
+  let display_keys = async function (domid) {
     let keysdiv = $("#" + domid)
     // create 1 div for the list of keys, and one for the add-key button
     let id_list = `keyslist-${domid}`
@@ -42,15 +42,14 @@ $(function () {
     $('.add-key-area').tooltip(
       { title: 'Click to upload another public key' })
 
-    post_xhttp_django('/keys/get', {}, function (xhttp) {
-      if (!(xhttp.readyState == 4 && xhttp.status == 200))
-        return
-      let keys = JSON.parse(xhttp.responseText)
+    try {
+      let me = await r2labapi('GET', 'users/me')
+      let keys = await r2labapi('GET', `users/${me.id}/keys`)
       if (keys.length) {
         keys.forEach(function (key) {
-          let ssh_key = key['ssh_key']
-          let uuid = key['uuid']
-          let delete_id = `delete-key-${uuid}`
+          let ssh_key = key['key']
+          let key_id = key['id']
+          let delete_id = `delete-key-${key_id}`
           let delete_button =
             `<span class="fa fa-remove in-red" id="${delete_id}"></span>`
           div_list.append(
@@ -58,28 +57,28 @@ $(function () {
             + `<div class="col-md-10 key-detail">${ssh_key}</div>`
             + `<div class="col-md-2">${delete_button}</div>`
             + "</div>")
-          $(`#${delete_id}`).click(function () { delete_key(uuid) })
-          $(`#${delete_id}`).tooltip({ title: `delete key ${uuid}` })
+          $(`#${delete_id}`).click(function () { delete_key(key_id) })
+          $(`#${delete_id}`).tooltip({ title: `delete key ${key_id}` })
         })
       } else {
         div_list.append(
           `<div class="row in-red">You have no known key yet, please upload one !</div>`)
       }
-    })
+    } catch (err) {
+      div_list.append(
+        `<div class="row in-red">Could not fetch keys: ${err.message}</div>`)
+    }
   }
 
 
-  let delete_key = function (key_uuid) {
-    let request = { "uuid": key_uuid }
-    post_xhttp_django('/keys/delete', request, function (xhttp) {
-      if (xhttp.readyState == 4 && xhttp.status == 200) {
-        display_keys("livekeys-container")
-        // decoding
-        // let answer = JSON.parse(xhttp.responseText)
-        // console.log("answer from /keys/delete")
-        // console.log(answer)
-      }
-    })
+  let delete_key = async function (key_id) {
+    try {
+      let me = await r2labapi('GET', 'users/me')
+      await r2labapi('DELETE', `users/${me.id}/keys/${key_id}`)
+      display_keys("livekeys-container")
+    } catch (err) {
+      console.log("delete key failed", err)
+    }
   }
 
 
@@ -98,17 +97,14 @@ $(function () {
   }
 
 
-  let add_key = function (key) {
-    let request = { "key": key }
-    post_xhttp_django('/keys/add', request, function (xhttp) {
-      if (xhttp.readyState == 4 && xhttp.status == 200) {
-        display_keys("livekeys-container")
-        // decoding
-        // let answer = JSON.parse(xhttp.responseText)
-        // console.log("answer from /keys/add")
-        // console.log(answer)
-      }
-    })
+  let add_key = async function (key) {
+    try {
+      let me = await r2labapi('GET', 'users/me')
+      await r2labapi('POST', `users/${me.id}/keys`, {body: {key: key}})
+      display_keys("livekeys-container")
+    } catch (err) {
+      console.log("add key failed", err)
+    }
   }
 
   function main() {
