@@ -44,19 +44,6 @@ logger = init_logger(LOG_FILE)
 
 ########## details on the R2lab API
 
-### PLC API endpoint for creating a PlcApiProxy
-# relevant only if testbed_api == 'plcapi':
-plcapi_settings = {
-    'url' : 'https://r2labapi.inria.fr:443/PLCAPI/',
-    # this of course should be owned by group apache and in mode 0440
-    'credentials' : [
-        '/etc/rhubarbe/plcapi.credentials',
-        'r2lab/plcapi.credentials',
-    ],
-    # xxx doublecheck this one
-    'nodename_match' : 'faraday',
-}
-
 r2labapi_settings = {
     # 'url' : 'https://r2labapi.inria.fr:444/',
     'url' : 'http://localhost:8000/',
@@ -197,7 +184,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
 ]
 
-manifold_url = "https://portal.onelab.eu:7080/"
 sidecar_url = "wss://prod-r2lab-sidecar.inria.fr:443/"
 
 # IMPORTANT NOTE.
@@ -219,7 +205,7 @@ if not PRODUCTION:
     print("Using sidecar_url = {sidecar_url}".format(**locals()))
 
 AUTHENTICATION_BACKENDS = (
-    'plc.r2labapiauthbackend.R2labApiAuthBackend',
+    'r2lab.r2labapiauthbackend.R2labApiAuthBackend',
 )
 
 X_FRAME_OPTIONS = 'ALLOWALL'
