@@ -13,6 +13,7 @@ publish-r2lab:
 	# no longer delete files that are not in the source
 	# as this actually removes the contents of raw/
 	rsync -ai $(RSYNC-EXCLUDES) ./ $(PUBLISH-PATH)/
+	cd $(PUBLISH-PATH)/react && npm install && npm run build
 
 ########## restart nginx on r2lab.inria.fr
 # maybe not strictly necessary when the python code is stable
