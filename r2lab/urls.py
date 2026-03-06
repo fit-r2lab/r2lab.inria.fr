@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
 
 import md.views
-import mfauth.views
+import r2lab.authviews
 import stats.views
 import relays.views
 import r2lab.apiproxy
@@ -36,8 +36,8 @@ urlpatterns = [
     # no subdir
     re_path(r'^(?P<markdown_file>[^/]*)$', md.views.markdown_page),
     re_path(r'^md/(?P<markdown_file>.*)$', md.views.markdown_page),
-    re_path(r'^login/', mfauth.views.Login.as_view()),
-    re_path(r'^logout/', mfauth.views.Logout.as_view()),
+    re_path(r'^login/', r2lab.authviews.Login.as_view()),
+    re_path(r'^logout/', r2lab.authviews.Logout.as_view()),
     re_path(r'^r2labapi/(?P<path>.*)$', r2lab.apiproxy.ApiProxy.as_view()),
 
     re_path(r'^stats.md/'
