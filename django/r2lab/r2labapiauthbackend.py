@@ -53,6 +53,7 @@ class R2labApiAuthBackend:
                 'email': me['email'],
                 'firstname': me.get('first_name', ''),
                 'lastname': me.get('last_name', ''),
+                'is_admin': me.get('is_admin', False),
             }
 
             # 3. fetch user's slices

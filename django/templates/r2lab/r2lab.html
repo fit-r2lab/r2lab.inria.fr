@@ -76,6 +76,9 @@
 {% if r2lab_context %}
         <li><a id="tab-book" tab="{{tab}}" class="sites" href="/book.md">Book</a></li>
         <li><a id="tab-run" tab="{{tab}}" class="sites" href="/run.md">Run</a></li>
+{% if r2lab_context.user_details.is_admin %}
+        <li><a id="tab-admin" tab="{{tab}}" class="sites" href="/admin.md">Admin</a></li>
+{% endif %}
 {% endif %}
       </ul>
      </div>

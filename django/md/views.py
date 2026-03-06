@@ -589,6 +589,12 @@ def markdown_page(request, markdown_file, extra_metavars=None, **kwds):
         r2lab_context = request.session.get('r2lab_context', {})
         if not r2lab_context and 'require_login' in metavars:
             return HttpResponseRedirect("/index.md")
+        if 'require_admin' in metavars:
+            if not r2lab_context:
+                return HttpResponseRedirect("/index.md")
+            user_details = r2lab_context.get('user_details', {})
+            if not user_details.get('is_admin'):
+                return HttpResponseRedirect("/index.md")
         metavars['r2lab_context'] = r2lab_context
         metavars['sidecar_url'] = sidecar_url
         metavars.update(extra_metavars)

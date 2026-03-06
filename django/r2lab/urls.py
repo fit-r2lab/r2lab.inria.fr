@@ -19,26 +19,34 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
+from django.views.static import serve
 
 import md.views
 import r2lab.authviews
 import stats.views
 import relays.views
 import r2lab.apiproxy
+import r2lab.views
 
 from pathlib import Path
 
 BASE = Path(settings.BASE_DIR)
+REACT_DIST = BASE / '..' / 'react' / 'dist'
 
 urlpatterns = [
     # default: empty or just / -> md/index.md
     re_path(r'^(/)?$', RedirectView.as_view(url='/index.md', permanent=False)),
+    # React SPA
+    re_path(r'^react/assets/(?P<path>.*)$', serve,
+            {'document_root': str(REACT_DIST / 'assets')}),
+    re_path(r'^react/', r2lab.views.react_app_view),
     # no subdir
     re_path(r'^(?P<markdown_file>[^/]*)$', md.views.markdown_page),
     re_path(r'^md/(?P<markdown_file>.*)$', md.views.markdown_page),
     re_path(r'^login/', r2lab.authviews.Login.as_view()),
     re_path(r'^logout/', r2lab.authviews.Logout.as_view()),
     re_path(r'^r2labapi/(?P<path>.*)$', r2lab.apiproxy.ApiProxy.as_view()),
+    re_path(r'^api/session-context$', r2lab.views.session_context),
 
     re_path(r'^stats.md/'
             r'(?P<by>slice|year|quarter|month|week|day)'
