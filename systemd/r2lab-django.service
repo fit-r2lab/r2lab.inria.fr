@@ -4,7 +4,7 @@ Requires=r2lab-django.socket
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/r2lab.inria.fr
+WorkingDirectory=/var/www/r2lab.inria.fr/django
 ExecStart=/usr/local/bin/gunicorn r2lab.wsgi \
 --name r2lab \
 --workers 16 \
