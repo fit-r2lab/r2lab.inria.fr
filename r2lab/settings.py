@@ -97,7 +97,6 @@ INSTALLED_APPS = [
     # it will serve http://<>/md/foo{,.md,.html} by searching for markdown/foo.md
     'md.apps.MdConfig',
     'mfauth.apps.MfauthConfig',
-    'leases.apps.LeasesConfig',
 ]
 
 MIDDLEWARE = [

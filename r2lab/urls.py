@@ -22,10 +22,6 @@ from django.views.generic.base import RedirectView
 
 import md.views
 import mfauth.views
-import leases.views
-import slices.views
-import users.views
-import keys.views
 import stats.views
 import relays.views
 import r2lab.apiproxy
@@ -43,10 +39,6 @@ urlpatterns = [
     re_path(r'^login/', mfauth.views.Login.as_view()),
     re_path(r'^logout/', mfauth.views.Logout.as_view()),
     re_path(r'^r2labapi/(?P<path>.*)$', r2lab.apiproxy.ApiProxy.as_view()),
-    re_path(r'^leases/(?P<verb>(add|update|delete))', leases.views.LeasesProxy.as_view()),
-    re_path(r'^slices/(?P<verb>(get|renew))', slices.views.SlicesProxy.as_view()),
-    re_path(r'^users/(?P<verb>(get|renew))', users.views.UsersProxy.as_view()),
-    re_path(r'^keys/(?P<verb>(get|add|delete))', keys.views.KeysProxy.as_view()),
 
     re_path(r'^stats.md/'
             r'(?P<by>slice|year|quarter|month|week|day)'
