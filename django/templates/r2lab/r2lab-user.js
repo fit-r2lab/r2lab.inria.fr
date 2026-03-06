@@ -4,7 +4,6 @@
 var r2lab_user = {{r2lab_context.user_details|jsonify|safe}};
 // shortcuts
 var r2lab_email = {{r2lab_context.user_details.email|jsonify|safe}};
-var r2lab_hrn = {{r2lab_context.user_details.hrn|jsonify|safe}};
 var r2lab_accounts = {{r2lab_context.accounts|jsonify|safe}};
 var r2lab_resource_name = "r2lab.inria.fr";
 </script>

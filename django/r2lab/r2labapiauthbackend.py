@@ -51,7 +51,6 @@ class R2labApiAuthBackend:
             me = self.api.get("/users/me", access_token)
             user_details = {
                 'email': me['email'],
-                'hrn': None,
                 'firstname': me.get('first_name', ''),
                 'lastname': me.get('last_name', ''),
             }
