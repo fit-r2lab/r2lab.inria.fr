@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 REACT_DIST = Path(settings.BASE_DIR) / '..' / 'react' / 'dist'
 
@@ -18,6 +18,14 @@ def react_app_view(request):
             'React app not built. Run: cd react && npm run build',
             status=503,
         )
+
+
+def verify_email(request):
+    """
+    Redirect /verify-email?token=... to /react/verify?token=...
+    """
+    token = request.GET.get('token', '')
+    return HttpResponseRedirect(f'/react/verify?token={token}')
 
 
 def session_context(request):

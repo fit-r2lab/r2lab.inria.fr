@@ -1,27 +1,84 @@
 import { useState } from 'react'
 
+interface FormData {
+  email: string
+  first_name: string
+  last_name: string
+  affiliation: string
+  purpose: string
+  slice_name: string
+}
+
 function SignupPage() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormData>({
     email: '',
     first_name: '',
     last_name: '',
-    password: '',
-    password_confirm: '',
+    affiliation: '',
+    purpose: '',
+    slice_name: '',
   })
+  const [submitting, setSubmitting] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: wire up API call to register
-    alert('Registration not yet connected to backend')
+    setSubmitting(true)
+    setError(null)
+
+    const body = {
+      email: form.email,
+      first_name: form.first_name,
+      last_name: form.last_name,
+      affiliation: form.affiliation,
+      purpose: form.purpose,
+      slice_name: form.slice_name || null,
+    }
+
+    try {
+      const res = await fetch('/api/public/registrations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        throw new Error(
+          data?.detail ?? `Registration failed (${res.status})`,
+        )
+      }
+      setSuccess(true)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Registration failed')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  if (success) {
+    return (
+      <div className="app">
+        <h1>Check your email</h1>
+        <p>
+          We sent a verification link to <strong>{form.email}</strong>.
+          <br />
+          Please click it to complete your registration.
+        </p>
+      </div>
+    )
   }
 
   return (
     <div className="app">
       <h1>Sign Up for R2lab</h1>
+      {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
@@ -57,28 +114,43 @@ function SignupPage() {
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="affiliation">Affiliation</label>
           <input
-            id="password"
-            name="password"
-            type="password"
-            value={form.password}
+            id="affiliation"
+            name="affiliation"
+            type="text"
+            value={form.affiliation}
             onChange={handleChange}
             required
+            placeholder="University, company, or lab"
           />
         </div>
         <div>
-          <label htmlFor="password_confirm">Confirm Password</label>
-          <input
-            id="password_confirm"
-            name="password_confirm"
-            type="password"
-            value={form.password_confirm}
+          <label htmlFor="purpose">Purpose</label>
+          <textarea
+            id="purpose"
+            name="purpose"
+            value={form.purpose}
             onChange={handleChange}
             required
+            placeholder="Briefly describe your intended use of R2lab"
+            rows={3}
           />
         </div>
-        <button type="submit">Register</button>
+        <div>
+          <label htmlFor="slice_name">Slice Name (optional)</label>
+          <input
+            id="slice_name"
+            name="slice_name"
+            type="text"
+            value={form.slice_name}
+            onChange={handleChange}
+            placeholder="Existing or desired slice name"
+          />
+        </div>
+        <button type="submit" disabled={submitting}>
+          {submitting ? 'Submitting...' : 'Register'}
+        </button>
       </form>
     </div>
   )

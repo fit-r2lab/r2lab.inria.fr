@@ -40,12 +40,15 @@ urlpatterns = [
     re_path(r'^react/assets/(?P<path>.*)$', serve,
             {'document_root': str(REACT_DIST / 'assets')}),
     re_path(r'^react/', r2lab.views.react_app_view),
+    # email verification link → React verify page
+    re_path(r'^verify-email$', r2lab.views.verify_email),
     # no subdir
     re_path(r'^(?P<markdown_file>[^/]*)$', md.views.markdown_page),
     re_path(r'^md/(?P<markdown_file>.*)$', md.views.markdown_page),
     re_path(r'^login/', r2lab.authviews.Login.as_view()),
     re_path(r'^logout/', r2lab.authviews.Logout.as_view()),
     re_path(r'^r2labapi/(?P<path>.*)$', r2lab.apiproxy.ApiProxy.as_view()),
+    re_path(r'^api/public/(?P<path>.*)$', r2lab.apiproxy.PublicApiProxy.as_view()),
     re_path(r'^api/session-context$', r2lab.views.session_context),
 
     re_path(r'^stats.md/'
