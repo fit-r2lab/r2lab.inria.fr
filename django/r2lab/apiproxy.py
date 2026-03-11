@@ -19,7 +19,7 @@ BASE_URL = r2labapi_settings['url'].rstrip('/')
 
 class ApiProxy(View):
 
-    @method_decorator(csrf_protect)
+    @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         r2lab_context = request.session.get('r2lab_context')
         if not r2lab_context or 'api_token' not in r2lab_context:
