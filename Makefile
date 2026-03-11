@@ -49,3 +49,22 @@ files:
 ##########
 publish-nepi-ng:
 	rsync -ai nepi-ng-index.html /var/www/nepi-ng/index.html
+
+##########
+# the commands to run the development servers for Django and React,
+# in case we want to test things locally before pushing to production
+dev-django:
+	cd django && python manage.py runserver 10001
+
+log-django:
+	cd django && tail -f django.log
+
+dev-react:
+	cd react && npm npx vite build --watch
+
+dev-api:
+	cd ../r2lab && fastapi dev --reload r2lab_api/app.py --port 9999
+
+dev-sidecar:
+	cd ../r2lab-sidecar && r2lab-sidecar -D
+
