@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import RegistrationsTab from '../components/RegistrationsTab'
+import SlicesTab from '../components/SlicesTab'
 
 type Tab = 'registrations' | 'slices'
 
@@ -25,7 +26,7 @@ function AdminPage() {
       </nav>
 
       {tab === 'registrations' && <RegistrationsTab />}
-      {tab === 'slices' && <p>Slices — coming soon</p>}
+      {tab === 'slices' && <SlicesTab />}
     </div>
   )
 }
