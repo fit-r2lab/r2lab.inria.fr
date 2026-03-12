@@ -18,6 +18,7 @@ function SignupPage() {
     purpose: '',
     slice_name: '',
   })
+  const [citationAgreed, setCitationAgreed] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -133,6 +134,26 @@ function SignupPage() {
           required
           placeholder="University, company, or lab"
         />
+        <div style={{ gridColumn: '1 / -1', marginTop: '0.5em', marginBottom: '0.5em' }}>
+          <p style={{ fontWeight: 'bold', marginBottom: '0.5em' }}>
+            Briefly describe your intended use of R2lab
+          </p>
+          <p style={{ margin: '0.4em 0' }}>
+            In order to grant you access, we'll need to understand how you plan
+            to use the platform.
+          </p>
+          <p style={{ margin: '0.4em 0' }}>
+            Please describe the type of experiments you intend to run. This
+            information will help us ensure that R2lab is the right fit for your
+            research needs and that we can provide you with the necessary
+            support.
+          </p>
+          <p style={{ margin: '0.4em 0' }}>
+            Also please share your plans about publications. We encourage users
+            to publish their research conducted on R2lab, and we would like to
+            know if you have any specific publication plans in mind.
+          </p>
+        </div>
         <label htmlFor="purpose" style={labelStyle}>Purpose</label>
         <textarea
           id="purpose"
@@ -140,10 +161,23 @@ function SignupPage() {
           value={form.purpose}
           onChange={handleChange}
           required
-          placeholder="Briefly describe your intended use of R2lab"
           rows={5}
           cols={30}
         />
+        <div style={{ gridColumn: '1 / -1', marginTop: '0.5em' }}>
+          <label style={{ display: 'flex', alignItems: 'start', gap: '8px', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={citationAgreed}
+              onChange={(e) => setCitationAgreed(e.target.checked)}
+              style={{ marginTop: '3px' }}
+            />
+            <span>
+              I commit to citing R2lab in any publication resulting from
+              experiments conducted on the platform.
+            </span>
+          </label>
+        </div>
         <label htmlFor="slice_name" style={labelStyle}>Slice Name</label>
         <input
           id="slice_name"
@@ -154,7 +188,7 @@ function SignupPage() {
           placeholder="Optional — existing or desired slice name"
         />
         <div style={{ gridColumn: 2 }}>
-          <button type="submit" disabled={submitting}>
+          <button type="submit" disabled={submitting || !citationAgreed}>
             {submitting ? 'Submitting...' : 'Register'}
           </button>
         </div>
