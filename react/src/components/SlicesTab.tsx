@@ -46,6 +46,7 @@ function SlicesTab() {
   const [filter, setFilter] = useState('')
   const [healthFilter, setHealthFilter] = useState<'all' | 'healthy' | 'unhealthy'>('all')
   const [includeExpired, setIncludeExpired] = useState(false)
+  const [selectedSliceId, setSelectedSliceId] = useState<number | null>(null)
 
   // sorting
   type SortCol = 'name' | 'family' | 'country' | 'members' | 'expires'
@@ -109,9 +110,7 @@ function SlicesTab() {
   }, [includeExpired])
 
   const isHealthy = (s: Slice): boolean => {
-    // expiration in the future (or no expiration)
     const notExpired = !s.deleted_at || new Date(s.deleted_at) > new Date()
-    // at least one member with an SSH key
     const hasMemberWithKey = s.member_ids.some((id) => userHasKeys.get(id) === true)
     return notExpired && hasMemberWithKey
   }
@@ -173,7 +172,6 @@ function SlicesTab() {
     if (!editingCell) return
     setSaving(true)
     try {
-      // 'expires' maps to 'deleted_at' in the API
       const apiField = editingCell.field === 'expires' ? 'deleted_at' : editingCell.field
       const apiValue = editingCell.field === 'expires'
         ? (editValue ? new Date(editValue).toISOString() : null)
@@ -183,7 +181,6 @@ function SlicesTab() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ [apiField]: apiValue }),
       })
-      // update local state
       const localField = editingCell.field === 'expires' ? 'deleted_at' : editingCell.field
       const localValue = editingCell.field === 'expires'
         ? (editValue ? new Date(editValue).toISOString() : null)
@@ -204,6 +201,27 @@ function SlicesTab() {
   if (loading) return <p>Loading slices...</p>
   if (error) return <div className="error">{error}</div>
 
+  // detail view
+  if (selectedSliceId !== null) {
+    const slice = slices.find((s) => s.id === selectedSliceId)
+    if (!slice) {
+      setSelectedSliceId(null)
+      return null
+    }
+    return (
+      <SliceDetail
+        slice={slice}
+        allUsers={users}
+        userHasKeys={userHasKeys}
+        onBack={() => {
+          setSelectedSliceId(null)
+          fetchData()
+        }}
+      />
+    )
+  }
+
+  // list view
   return (
     <div>
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '1em' }}>
@@ -250,10 +268,11 @@ function SlicesTab() {
             const healthy = isHealthy(s)
             const rowStyle: React.CSSProperties = {
               borderBottom: '1px solid #ddd',
+              cursor: 'pointer',
               ...(healthy ? {} : { background: '#fff3f3', color: '#a00' }),
             }
             return (
-              <tr key={s.id} style={rowStyle}>
+              <tr key={s.id} style={rowStyle} onClick={() => setSelectedSliceId(s.id)}>
                 <td style={tdStyle}>{s.name}</td>
                 <FamilyCell
                   slice={s}
@@ -300,8 +319,364 @@ function SlicesTab() {
   )
 }
 
+// ─── Slice detail view ───────────────────────────────────────────────
+
+function SliceDetail({
+  slice: initialSlice,
+  allUsers,
+  userHasKeys,
+  onBack,
+}: {
+  slice: Slice
+  allUsers: Map<number, User>
+  userHasKeys: Map<number, boolean>
+  onBack: () => void
+}) {
+  const [slice, setSlice] = useState<Slice>(initialSlice)
+  const [users] = useState(allUsers)
+  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+  const [acting, setActing] = useState(false)
+
+  // editable fields
+  const [family, setFamily] = useState(slice.family)
+  const [country, setCountry] = useState(slice.country ?? '')
+  const [expires, setExpires] = useState(slice.deleted_at ? slice.deleted_at.slice(0, 10) : '')
+  const [editingFields, setEditingFields] = useState(false)
+  const [savingFields, setSavingFields] = useState(false)
+
+  // add member
+  const [addUserSearch, setAddUserSearch] = useState('')
+
+  const refreshSlice = async () => {
+    try {
+      const data = await apiFetch(`slices/by-name/${encodeURIComponent(slice.name)}`)
+      setSlice(data)
+      setFamily(data.family)
+      setCountry(data.country ?? '')
+      setExpires(data.deleted_at ? data.deleted_at.slice(0, 10) : '')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Refresh failed')
+    }
+  }
+
+  const displayName = (uid: number) => {
+    const u = users.get(uid)
+    if (!u) return `#${uid}`
+    const name = `${u.first_name ?? ''} ${u.last_name ?? ''}`.trim()
+    return name || u.email
+  }
+
+  const memberUsers = slice.member_ids.map((id) => ({
+    id,
+    user: users.get(id),
+    hasKey: userHasKeys.get(id) === true,
+  }))
+
+  // users not in this slice
+  const nonMembers = Array.from(users.values())
+    .filter((u) => !slice.member_ids.includes(u.id))
+    .sort((a, b) => {
+      const na = `${a.first_name ?? ''} ${a.last_name ?? ''}`.trim() || a.email
+      const nb = `${b.first_name ?? ''} ${b.last_name ?? ''}`.trim() || b.email
+      return na.localeCompare(nb)
+    })
+
+  const handleRemoveMember = async (uid: number) => {
+    setActing(true)
+    setError(null)
+    setMessage(null)
+    try {
+      await apiFetch(`slices/${slice.id}/members/${uid}`, { method: 'DELETE' })
+      setMessage(`Removed ${displayName(uid)}`)
+      await refreshSlice()
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Remove failed')
+    } finally {
+      setActing(false)
+    }
+  }
+
+  const handleAddMember = async () => {
+    const match = nonMembers.find((u) => {
+      const name = `${u.first_name ?? ''} ${u.last_name ?? ''}`.trim()
+      return (
+        u.email === addUserSearch ||
+        name === addUserSearch ||
+        `${name} <${u.email}>` === addUserSearch
+      )
+    })
+    if (!match) {
+      setError('Pick a user from the list')
+      return
+    }
+    setActing(true)
+    setError(null)
+    setMessage(null)
+    try {
+      await apiFetch(`slices/${slice.id}/members/${match.id}`, { method: 'PUT' })
+      setAddUserSearch('')
+      setMessage(`Added ${displayName(match.id)}`)
+      await refreshSlice()
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Add failed')
+    } finally {
+      setActing(false)
+    }
+  }
+
+  const handleSaveFields = async () => {
+    setSavingFields(true)
+    setError(null)
+    setMessage(null)
+    try {
+      const body: Record<string, string | null> = {
+        family,
+        country: country || null,
+        deleted_at: expires ? new Date(expires).toISOString() : null,
+      }
+      await apiFetch(`slices/by-name/${encodeURIComponent(slice.name)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      setMessage('Slice updated')
+      setEditingFields(false)
+      await refreshSlice()
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Save failed')
+    } finally {
+      setSavingFields(false)
+    }
+  }
+
+  const isExpired = slice.deleted_at && new Date(slice.deleted_at) <= new Date()
+
+  return (
+    <div>
+      <button onClick={onBack} style={{ marginBottom: '1em' }}>
+        &larr; Back to slices
+      </button>
+
+      <h2 style={{ marginTop: 0 }}>
+        {slice.name}
+        {isExpired && (
+          <span
+            style={{
+              marginLeft: 8,
+              fontSize: '0.7em',
+              background: '#dc3545',
+              color: 'white',
+              padding: '2px 8px',
+              borderRadius: '8px',
+              verticalAlign: 'middle',
+            }}
+          >
+            expired
+          </span>
+        )}
+      </h2>
+
+      {error && <div className="error" style={{ marginBottom: 8 }}>{error}</div>}
+      {message && (
+        <div style={{ marginBottom: 8, padding: '6px 10px', background: '#d4edda', borderRadius: 4 }}>
+          {message}
+        </div>
+      )}
+
+      {/* ── Slice info ── */}
+      <table style={{ borderCollapse: 'collapse', marginBottom: '1em' }}>
+        <tbody>
+          <tr>
+            <td style={infoLabel}>Family</td>
+            <td style={infoValue}>
+              {editingFields ? (
+                <select value={family} onChange={(e) => setFamily(e.target.value)}>
+                  {SLICE_FAMILIES.map((f) => (
+                    <option key={f} value={f}>{f}</option>
+                  ))}
+                </select>
+              ) : (
+                family
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td style={infoLabel}>Country</td>
+            <td style={infoValue}>
+              {editingFields ? (
+                <>
+                  <input
+                    type="text"
+                    list="detail-country-list"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    placeholder="type or pick"
+                    style={{ width: '200px' }}
+                  />
+                  <datalist id="detail-country-list">
+                    {COUNTRIES.map((c) => (
+                      <option key={c} value={c} />
+                    ))}
+                  </datalist>
+                </>
+              ) : (
+                country || <span style={{ opacity: 0.4 }}>—</span>
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td style={infoLabel}>Expires</td>
+            <td style={infoValue}>
+              {editingFields ? (
+                <input
+                  type="date"
+                  value={expires}
+                  onChange={(e) => setExpires(e.target.value)}
+                />
+              ) : (
+                slice.deleted_at
+                  ? new Date(slice.deleted_at).toLocaleDateString()
+                  : <span style={{ opacity: 0.4 }}>—</span>
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td style={infoLabel}>Created</td>
+            <td style={infoValue}>{new Date(slice.created_at).toLocaleDateString()}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style={{ marginBottom: '1.5em' }}>
+        {editingFields ? (
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={handleSaveFields}
+              disabled={savingFields}
+              style={{ background: '#28a745', color: 'white', border: 'none', padding: '4px 14px', cursor: 'pointer' }}
+            >
+              {savingFields ? '...' : 'Save'}
+            </button>
+            <button
+              onClick={() => {
+                setFamily(slice.family)
+                setCountry(slice.country ?? '')
+                setExpires(slice.deleted_at ? slice.deleted_at.slice(0, 10) : '')
+                setEditingFields(false)
+              }}
+              disabled={savingFields}
+              style={{ border: '1px solid #aaa', padding: '4px 14px', cursor: 'pointer' }}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setEditingFields(true)}
+            style={{ border: '1px solid #aaa', padding: '4px 14px', cursor: 'pointer' }}
+          >
+            Edit slice details
+          </button>
+        )}
+      </div>
+
+      {/* ── Members section ── */}
+      <h3>Members ({slice.member_ids.length})</h3>
+      {memberUsers.length === 0 ? (
+        <p style={{ color: '#888' }}>No members.</p>
+      ) : (
+        <table style={{ borderCollapse: 'collapse', width: '100%', fontSize: '0.9em', marginBottom: '1em' }}>
+          <thead>
+            <tr style={{ borderBottom: '2px solid #333', textAlign: 'left' }}>
+              <th style={thStyle}>Name</th>
+              <th style={thStyle}>Email</th>
+              <th style={{ ...thStyle, textAlign: 'center' }}>SSH Key</th>
+              <th style={thStyle}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {memberUsers.map(({ id, user, hasKey }) => (
+              <tr
+                key={id}
+                style={{
+                  borderBottom: '1px solid #ddd',
+                  ...(!hasKey ? { background: '#fff3f3', color: '#a00' } : {}),
+                }}
+              >
+                <td style={tdStyle}>
+                  {user
+                    ? `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim() || '—'
+                    : `#${id}`}
+                </td>
+                <td style={tdStyle}>{user?.email ?? '—'}</td>
+                <td style={{ ...tdStyle, textAlign: 'center' }}>
+                  {hasKey ? 'yes' : 'no'}
+                </td>
+                <td style={tdStyle}>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleRemoveMember(id) }}
+                    disabled={acting}
+                    style={{
+                      background: '#dc3545',
+                      color: 'white',
+                      border: 'none',
+                      padding: '2px 10px',
+                      cursor: 'pointer',
+                      fontSize: '0.85em',
+                    }}
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {nonMembers.length > 0 && (
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '1.5em' }}>
+          <input
+            type="text"
+            list="add-member-list"
+            value={addUserSearch}
+            onChange={(e) => setAddUserSearch(e.target.value)}
+            placeholder="Add member..."
+            style={{ padding: '4px 8px', width: '300px' }}
+          />
+          <datalist id="add-member-list">
+            {nonMembers.map((u) => {
+              const name = `${u.first_name ?? ''} ${u.last_name ?? ''}`.trim()
+              const label = name ? `${name} <${u.email}>` : u.email
+              return <option key={u.id} value={label} />
+            })}
+          </datalist>
+          <button
+            onClick={handleAddMember}
+            disabled={acting || !addUserSearch}
+            style={{
+              background: '#28a745',
+              color: 'white',
+              border: 'none',
+              padding: '4px 14px',
+              cursor: 'pointer',
+            }}
+          >
+            Add
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── Shared styles & helpers ─────────────────────────────────────────
+
 const thStyle: React.CSSProperties = { padding: '6px 8px' }
 const tdStyle: React.CSSProperties = { padding: '4px 8px' }
+const infoLabel: React.CSSProperties = { padding: '3px 12px 3px 0', fontWeight: 'bold' }
+const infoValue: React.CSSProperties = { padding: '3px 0' }
 
 interface EditableCellProps {
   slice: Slice
@@ -317,7 +692,7 @@ interface EditableCellProps {
 function FamilyCell({ slice, editing, editValue, setEditValue, onStartEdit, onSave, onCancel, saving }: EditableCellProps) {
   if (editing) {
     return (
-      <td style={tdStyle}>
+      <td style={tdStyle} onClick={(e) => e.stopPropagation()}>
         <select
           value={editValue}
           onChange={(e) => setEditValue(e.target.value)}
@@ -334,7 +709,11 @@ function FamilyCell({ slice, editing, editValue, setEditValue, onStartEdit, onSa
     )
   }
   return (
-    <td style={{ ...tdStyle, cursor: 'pointer' }} onClick={onStartEdit} title="Click to edit">
+    <td
+      style={{ ...tdStyle, cursor: 'pointer' }}
+      onClick={(e) => { e.stopPropagation(); onStartEdit() }}
+      title="Click to edit"
+    >
       {slice.family}
     </td>
   )
@@ -343,7 +722,7 @@ function FamilyCell({ slice, editing, editValue, setEditValue, onStartEdit, onSa
 function CountryCell({ slice, editing, editValue, setEditValue, onStartEdit, onSave, onCancel, saving }: EditableCellProps) {
   if (editing) {
     return (
-      <td style={tdStyle}>
+      <td style={tdStyle} onClick={(e) => e.stopPropagation()}>
         <input
           type="text"
           list="country-list-slices"
@@ -368,7 +747,11 @@ function CountryCell({ slice, editing, editValue, setEditValue, onStartEdit, onS
     )
   }
   return (
-    <td style={{ ...tdStyle, cursor: 'pointer' }} onClick={onStartEdit} title="Click to edit">
+    <td
+      style={{ ...tdStyle, cursor: 'pointer' }}
+      onClick={(e) => { e.stopPropagation(); onStartEdit() }}
+      title="Click to edit"
+    >
       {slice.country ?? <span style={{ opacity: 0.4 }}>—</span>}
     </td>
   )
@@ -377,7 +760,7 @@ function CountryCell({ slice, editing, editValue, setEditValue, onStartEdit, onS
 function ExpiresCell({ slice, editing, editValue, setEditValue, onStartEdit, onSave, onCancel, saving }: EditableCellProps) {
   if (editing) {
     return (
-      <td style={tdStyle}>
+      <td style={tdStyle} onClick={(e) => e.stopPropagation()}>
         <input
           type="date"
           value={editValue}
@@ -395,7 +778,11 @@ function ExpiresCell({ slice, editing, editValue, setEditValue, onStartEdit, onS
     )
   }
   return (
-    <td style={{ ...tdStyle, cursor: 'pointer' }} onClick={onStartEdit} title="Click to edit">
+    <td
+      style={{ ...tdStyle, cursor: 'pointer' }}
+      onClick={(e) => { e.stopPropagation(); onStartEdit() }}
+      title="Click to edit"
+    >
       {slice.deleted_at ? formatDate(slice.deleted_at) : <span style={{ opacity: 0.4 }}>—</span>}
     </td>
   )
