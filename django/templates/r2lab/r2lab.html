@@ -56,48 +56,44 @@
  <body class="r2lab">
 {% if not skip_menu %}
   <div class="header">
-    <div class="row" style="margin-left:0px; margin-right:15px;">
-     <div class="col-sm-2">
-         <!-- click behaviour embedded in svg -->
-       <object type="image/svg+xml" data="/assets/img/fit-logo.svg"
-        height="61">
-           OneLab - Future Internet Testbeds
-       </object>
-     </div>
-     <div class="col-sm-9 navigation">
-      <ul>
-        <li><a id="tab-overview" tab="{{tab}}" class="sites" href="/overview.md">Overview</a></li>
-        <li><a id="tab-tour" tab="{{tab}}" class="sites" href="/tour.md">Tour</a></li>
-        <li><a id="tab-platform" tab="{{tab}}" class="sites" href="/hardware.md">Nodes</a></li>
-        <li><a id="tab-status" tab="{{tab}}" class="sites" href="/status.md">Status</a></li>
-        <li><a id="tab-tutorial" tab="{{tab}}" class="sites" href="/tutorial.md">Tutos</a></li>
-        <li><a id="tab-papers" tab="{{tab}}" class="sites" href="/papers.md">Papers</a></li>
-        <li><a id="tab-news" tab="{{tab}}" class="sites" href="/news.md">News</a></li>
+    <div class="header-flex">
+      <div class="header-left">
+        <object type="image/svg+xml" data="/assets/img/fit-logo.svg" height="45">
+          FIT - Future Internet Testbeds
+        </object>
+        <a href="/">
+          <img src="/assets/img/r2lab-icon-square.png" alt="R2lab" height="45"/>
+        </a>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation"/>
+      <label for="nav-toggle" class="hamburger" aria-hidden="true"><span></span></label>
+      <div class="header-center navigation">
+        <ul>
+          <li><a id="tab-overview" tab="{{tab}}" class="sites" href="/overview.md">Overview</a></li>
+          <li><a id="tab-tour" tab="{{tab}}" class="sites" href="/tour.md">Tour</a></li>
+          <li><a id="tab-platform" tab="{{tab}}" class="sites" href="/hardware.md">Nodes</a></li>
+          <li><a id="tab-status" tab="{{tab}}" class="sites" href="/status.md">Status</a></li>
+          <li><a id="tab-tutorial" tab="{{tab}}" class="sites" href="/tutorial.md">Tutos</a></li>
+          <li><a id="tab-papers" tab="{{tab}}" class="sites" href="/papers.md">Papers</a></li>
+          <li><a id="tab-news" tab="{{tab}}" class="sites" href="/news.md">News</a></li>
 {% if r2lab_context %}
-        <li><a id="tab-book" tab="{{tab}}" class="sites" href="/book.md">Book</a></li>
-        <li><a id="tab-run" tab="{{tab}}" class="sites" href="/run.md">Run</a></li>
+          <li><a id="tab-book" tab="{{tab}}" class="sites" href="/book.md">Book</a></li>
+          <li><a id="tab-run" tab="{{tab}}" class="sites" href="/run.md">Run</a></li>
 {% if r2lab_context.user_details.is_admin %}
-        <li><a id="tab-admin" tab="{{tab}}" class="sites" href="/admin.md">Admin</a></li>
+          <li><a id="tab-admin" tab="{{tab}}" class="sites" href="/admin.md">Admin</a></li>
 {% endif %}
 {% endif %}
-      </ul>
-     </div>
-     <div class="col-sm-1 secondary">
-      <ul>
-       <li>
+        </ul>
+      </div>
+      <div class="header-right">
 {% if r2lab_context.user_details %}
-<a class="button logout" href="/logout/">Logout</a>
+        <a class="button logout" href="/logout/">Logout</a>
 {% else %}
-<a class="button login" href="/index.md">Login</a>
-<!--    <a href="https://www.onelab.eu/" target="_">
-    <img class="img-responsive onelab-header" src="/assets/img/onelab-small.png" alt="OneLab" />
-</a> -->
+        <a class="button login" href="/index.md">Login</a>
 {% endif %}
-       </li>
-      </ul>
-     </div>
+      </div>
     </div>
-</div> <!--header-->
+  </div>
 {% endif %}
 
 {% if not skip_header %}

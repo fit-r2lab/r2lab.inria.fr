@@ -11,12 +11,51 @@ div#main.login-form {
     margin: 0px;
 }
 
+/* ===== flexbox header ===== */
+.header-flex {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 12px;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.header-left img, .header-left object {
+    display: block;
+}
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+}
+.header-right {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+/* override old navigation styles for the new layout */
 div.navigation ul {
-    margin:26px 0 0 0;
-    padding:0;
-    display: inline-block;
+    margin: 0;
+    padding: 0;
+    display: flex;
     list-style-type: none;
     white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+/* ===== hamburger (hidden on wide screens) ===== */
+.nav-toggle {
+    display: none;          /* hide the checkbox always */
+}
+.hamburger {
+    display: none;          /* hidden on wide screens */
 }
 
 div.header-area {
@@ -44,9 +83,89 @@ div.header-area {
 .login-header {
     margin-top: 15px;
 }
-.header .logo img {
-    vertical-align:middle;
-    margin-top:-3px;
+/* ===== narrow screens: hamburger menu ===== */
+@media only screen and (max-width: 992px) {
+    .header {
+        height: auto;
+        min-height: 61px;
+    }
+    .header-flex {
+        flex-wrap: wrap;
+    }
+    /* show the hamburger icon */
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        cursor: pointer;
+        width: 28px;
+        height: 28px;
+        margin-left: auto;
+        order: 2;
+    }
+    .hamburger span,
+    .hamburger span::before,
+    .hamburger span::after {
+        display: block;
+        background: #0C0047;
+        height: 3px;
+        width: 100%;
+        border-radius: 2px;
+        position: relative;
+        transition: all 0.25s ease;
+    }
+    .hamburger span::before,
+    .hamburger span::after {
+        content: '';
+        position: absolute;
+    }
+    .hamburger span::before { top: -8px; }
+    .hamburger span::after  { top:  8px; }
+
+    /* animate to X when open */
+    .nav-toggle:checked ~ .hamburger span {
+        background: transparent;
+    }
+    .nav-toggle:checked ~ .hamburger span::before {
+        top: 0;
+        transform: rotate(45deg);
+    }
+    .nav-toggle:checked ~ .hamburger span::after {
+        top: 0;
+        transform: rotate(-45deg);
+    }
+
+    /* login button stays on the top row */
+    .header-right {
+        order: 3;
+        margin-left: 12px;
+    }
+
+    /* nav is hidden by default, drops down when toggled */
+    .header-center {
+        order: 4;
+        flex-basis: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease;
+    }
+    .nav-toggle:checked ~ .header-center {
+        max-height: 500px;
+    }
+
+    /* stack the nav links vertically */
+    div.navigation ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 0;
+    }
+    div.navigation li {
+        padding: 6px 0;
+        width: 100%;
+    }
+    div.navigation li a {
+        display: block;
+    }
 }
 div.last-text {
     margin-top: 10px;
