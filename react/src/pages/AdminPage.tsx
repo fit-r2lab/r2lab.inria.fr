@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import RegistrationsTab from '../components/RegistrationsTab'
 import SlicesTab from '../components/SlicesTab'
+import UsersTab from '../components/UsersTab'
 
-type Tab = 'registrations' | 'slices'
+type Tab = 'registrations' | 'slices' | 'users'
 
 function AdminPage() {
   const [tab, setTab] = useState<Tab>('registrations')
@@ -23,10 +24,17 @@ function AdminPage() {
         >
           Slices
         </button>
+        <button
+          onClick={() => setTab('users')}
+          style={{ fontWeight: tab === 'users' ? 'bold' : 'normal' }}
+        >
+          Users
+        </button>
       </nav>
 
       {tab === 'registrations' && <RegistrationsTab />}
       {tab === 'slices' && <SlicesTab />}
+      {tab === 'users' && <UsersTab />}
     </div>
   )
 }
