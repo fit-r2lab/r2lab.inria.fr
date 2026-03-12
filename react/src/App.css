@@ -5,6 +5,13 @@
   padding: 0 1rem;
 }
 
+.app-wide {
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
 .error {
   color: #c00;
   padding: 1rem;

@@ -9,7 +9,7 @@ function AdminPage() {
   const [tab, setTab] = useState<Tab>('registrations')
 
   return (
-    <div className="app">
+    <div className="app-wide">
       {/* <h1>R2lab Admin</h1> */}
       <nav style={{ display: 'flex', gap: '4px', marginBottom: '1em' }}>
         <button
