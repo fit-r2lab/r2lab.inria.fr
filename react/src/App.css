@@ -12,6 +12,47 @@
   padding: 0 1rem;
 }
 
+.admin-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #dee2e6;
+  margin-bottom: 1.5em;
+}
+
+.admin-tab {
+  padding: 8px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.95em;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.admin-tab:hover {
+  color: #222;
+}
+
+.admin-tab.active {
+  color: #0d6efd;
+  border-bottom-color: #0d6efd;
+  font-weight: 600;
+}
+
+.admin-tab .badge {
+  display: inline-block;
+  background: #dc3545;
+  color: white;
+  font-size: 0.75em;
+  padding: 1px 6px;
+  border-radius: 10px;
+  margin-left: 6px;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
 .error {
   color: #c00;
   padding: 1rem;
