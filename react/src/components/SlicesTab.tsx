@@ -481,10 +481,6 @@ function SliceDetail({
 
   return (
     <div>
-      <button onClick={onBack} style={{ marginBottom: '1em' }}>
-        &larr; Back to slices
-      </button>
-
       <h2 style={{ marginTop: 0 }}>
         {slice.name}
         {isExpired && (

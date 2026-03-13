@@ -346,10 +346,6 @@ function UserDetail({
 
   return (
     <div>
-      <button onClick={onBack} style={{ marginBottom: '1em' }}>
-        &larr; Back to users
-      </button>
-
       <h2 style={{ marginTop: 0 }}>
         {displayName}
         {user.is_admin && (

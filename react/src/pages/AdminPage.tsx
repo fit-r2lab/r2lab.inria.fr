@@ -7,7 +7,17 @@ type Tab = 'slices' | 'users' | 'registrations'
 
 function AdminPage() {
   const [tab, setTab] = useState<Tab>('slices')
+  const [resetKey, setResetKey] = useState(0)
   const [pendingCount, setPendingCount] = useState<number | null>(null)
+
+  const handleTab = (t: Tab) => {
+    if (t === tab) {
+      // clicking the active tab resets it to list view
+      setResetKey((k) => k + 1)
+    } else {
+      setTab(t)
+    }
+  }
 
   useEffect(() => {
     fetch('/r2labapi/registrations')
@@ -27,19 +37,19 @@ function AdminPage() {
       <nav className="admin-tabs">
         <button
           className={`admin-tab${tab === 'slices' ? ' active' : ''}`}
-          onClick={() => setTab('slices')}
+          onClick={() => handleTab('slices')}
         >
           Slices
         </button>
         <button
           className={`admin-tab${tab === 'users' ? ' active' : ''}`}
-          onClick={() => setTab('users')}
+          onClick={() => handleTab('users')}
         >
           Users
         </button>
         <button
           className={`admin-tab${tab === 'registrations' ? ' active' : ''}`}
-          onClick={() => setTab('registrations')}
+          onClick={() => handleTab('registrations')}
         >
           Registrations
           {pendingCount != null && pendingCount > 0 && (
@@ -48,9 +58,9 @@ function AdminPage() {
         </button>
       </nav>
 
-      {tab === 'slices' && <SlicesTab />}
-      {tab === 'users' && <UsersTab />}
-      {tab === 'registrations' && <RegistrationsTab />}
+      {tab === 'slices' && <SlicesTab key={resetKey} />}
+      {tab === 'users' && <UsersTab key={resetKey} />}
+      {tab === 'registrations' && <RegistrationsTab key={resetKey} />}
     </div>
   )
 }
