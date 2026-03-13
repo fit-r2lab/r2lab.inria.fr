@@ -8,6 +8,7 @@ interface User {
   is_admin?: boolean
   status?: string
   created_at?: string
+  key_count?: number
 }
 
 interface Slice {
@@ -36,7 +37,6 @@ async function apiFetch(path: string, init?: RequestInit) {
 function UsersTab() {
   const [users, setUsers] = useState<User[]>([])
   const [slices, setSlices] = useState<Slice[]>([])
-  const [keyCount, setKeyCount] = useState<Map<number, number>>(new Map())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [filter, setFilter] = useState('')
@@ -66,19 +66,6 @@ function UsersTab() {
       ])
       setUsers(usersData)
       setSlices(slicesData)
-
-      const keysMap = new Map<number, number>()
-      await Promise.all(
-        usersData.map(async (u) => {
-          try {
-            const keys = await apiFetch(`users/${u.id}/keys`)
-            keysMap.set(u.id, Array.isArray(keys) ? keys.length : 0)
-          } catch {
-            keysMap.set(u.id, 0)
-          }
-        }),
-      )
-      setKeyCount(keysMap)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load')
     } finally {
@@ -134,13 +121,13 @@ function UsersTab() {
           cmp = (userSlices.get(a.id)?.length ?? 0) - (userSlices.get(b.id)?.length ?? 0)
           break
         case 'keys':
-          cmp = (keyCount.get(a.id) ?? 0) - (keyCount.get(b.id) ?? 0)
+          cmp = (a.key_count ?? 0) - (b.key_count ?? 0)
           break
       }
       return cmp * dir
     })
     return result
-  }, [users, filter, adminFilter, sortCol, sortAsc, userSlices, keyCount])
+  }, [users, filter, adminFilter, sortCol, sortAsc, userSlices])
 
   if (loading) return <p>Loading users...</p>
   if (error) return <div className="error">{error}</div>
@@ -200,7 +187,7 @@ function UsersTab() {
         <tbody>
           {filtered.map((u) => {
             const sNames = userSlices.get(u.id) ?? []
-            const keys = keyCount.get(u.id) ?? 0
+            const keys = u.key_count ?? 0
             const noKey = keys === 0
             return (
               <tr
