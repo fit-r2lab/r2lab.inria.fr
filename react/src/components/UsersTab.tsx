@@ -241,6 +241,13 @@ function UserDetail({
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
 
+  // editable fields
+  const [firstName, setFirstName] = useState(user.first_name ?? '')
+  const [lastName, setLastName] = useState(user.last_name ?? '')
+  const [isAdmin, setIsAdmin] = useState(user.is_admin ?? false)
+  const [editingFields, setEditingFields] = useState(false)
+  const [savingFields, setSavingFields] = useState(false)
+
   // add-to-slice state
   const [addSliceName, setAddSliceName] = useState('')
   const [acting, setActing] = useState(false)
@@ -256,6 +263,9 @@ function UserDetail({
           apiFetch('slices'),
         ])
       setUser(userDetail)
+      setFirstName(userDetail.first_name ?? '')
+      setLastName(userDetail.last_name ?? '')
+      setIsAdmin(userDetail.is_admin ?? false)
       setKeys(userKeys ?? [])
       setSlices(slicesData)
     } catch (err: unknown) {
@@ -326,6 +336,30 @@ function UserDetail({
     }
   }
 
+  const handleSaveFields = async () => {
+    setSavingFields(true)
+    setError(null)
+    setMessage(null)
+    try {
+      await apiFetch(`users/${user.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName || null,
+          last_name: lastName || null,
+          is_admin: isAdmin,
+        }),
+      })
+      setMessage('User updated')
+      setEditingFields(false)
+      await fetchDetail()
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Save failed')
+    } finally {
+      setSavingFields(false)
+    }
+  }
+
   const handlePasswordReset = async () => {
     setActing(true)
     setError(null)
@@ -377,11 +411,41 @@ function UserDetail({
       ) : (
         <>
           {/* ── Info section ── */}
-          <table style={{ borderCollapse: 'collapse', marginBottom: '1.5em' }}>
+          <table style={{ borderCollapse: 'collapse', marginBottom: '1em' }}>
             <tbody>
               <InfoRow label="Email" value={user.email} />
-              <InfoRow label="First name" value={user.first_name ?? '—'} />
-              <InfoRow label="Last name" value={user.last_name ?? '—'} />
+              <tr>
+                <td style={{ padding: '3px 12px 3px 0', fontWeight: 'bold' }}>First name</td>
+                <td style={{ padding: '3px 0' }}>
+                  {editingFields ? (
+                    <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} style={{ width: '250px' }} />
+                  ) : (
+                    user.first_name ?? '—'
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td style={{ padding: '3px 12px 3px 0', fontWeight: 'bold' }}>Last name</td>
+                <td style={{ padding: '3px 0' }}>
+                  {editingFields ? (
+                    <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} style={{ width: '250px' }} />
+                  ) : (
+                    user.last_name ?? '—'
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <td style={{ padding: '3px 12px 3px 0', fontWeight: 'bold' }}>Admin</td>
+                <td style={{ padding: '3px 0' }}>
+                  {editingFields ? (
+                    <label style={{ cursor: 'pointer' }}>
+                      <input type="checkbox" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} />
+                    </label>
+                  ) : (
+                    user.is_admin ? 'yes' : 'no'
+                  )}
+                </td>
+              </tr>
               {user.status && <InfoRow label="Status" value={user.status} />}
               {user.created_at && (
                 <InfoRow
@@ -391,6 +455,39 @@ function UserDetail({
               )}
             </tbody>
           </table>
+
+          <div style={{ marginBottom: '1.5em' }}>
+            {editingFields ? (
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={handleSaveFields}
+                  disabled={savingFields}
+                  style={{ background: '#28a745', color: 'white', border: 'none', padding: '4px 14px', cursor: 'pointer' }}
+                >
+                  {savingFields ? '...' : 'Save'}
+                </button>
+                <button
+                  onClick={() => {
+                    setFirstName(user.first_name ?? '')
+                    setLastName(user.last_name ?? '')
+                    setIsAdmin(user.is_admin ?? false)
+                    setEditingFields(false)
+                  }}
+                  disabled={savingFields}
+                  style={{ border: '1px solid #aaa', padding: '4px 14px', cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setEditingFields(true)}
+                style={{ border: '1px solid #aaa', padding: '4px 14px', cursor: 'pointer' }}
+              >
+                Edit user details
+              </button>
+            )}
+          </div>
 
           {/* ── Password reset ── */}
           <div style={{ marginBottom: '1.5em' }}>
