@@ -450,6 +450,33 @@ function SliceDetail({
     }
   }
 
+  const handleExpireToggle = async () => {
+    setActing(true)
+    setError(null)
+    setMessage(null)
+    try {
+      let newDate: string
+      if (isExpired) {
+        const d = new Date()
+        d.setMonth(d.getMonth() + 2)
+        newDate = d.toISOString()
+      } else {
+        newDate = new Date().toISOString()
+      }
+      await apiFetch(`slices/by-name/${encodeURIComponent(slice.name)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ deleted_at: newDate }),
+      })
+      setMessage(isExpired ? 'Slice unexpired (expires in 2 months)' : 'Slice expired')
+      await refreshSlice()
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed')
+    } finally {
+      setActing(false)
+    }
+  }
+
   const isExpired = slice.deleted_at && new Date(slice.deleted_at) <= new Date()
 
   return (
@@ -572,12 +599,27 @@ function SliceDetail({
             </button>
           </div>
         ) : (
-          <button
-            onClick={() => setEditingFields(true)}
-            style={{ border: '1px solid #aaa', padding: '4px 14px', cursor: 'pointer' }}
-          >
-            Edit slice details
-          </button>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={() => setEditingFields(true)}
+              style={{ border: '1px solid #aaa', padding: '4px 14px', cursor: 'pointer' }}
+            >
+              Edit slice details
+            </button>
+            <button
+              onClick={handleExpireToggle}
+              disabled={acting}
+              style={{
+                background: isExpired ? '#28a745' : '#dc3545',
+                color: 'white',
+                border: 'none',
+                padding: '4px 14px',
+                cursor: 'pointer',
+              }}
+            >
+              {isExpired ? 'Unexpire (+2 months)' : 'Expire now'}
+            </button>
+          </div>
         )}
       </div>
 
