@@ -20,8 +20,9 @@ interface Slice {
 
 interface SshKey {
   id: number
+  key: string
   comment: string | null
-  fingerprint?: string
+  created_at: string
 }
 
 async function apiFetch(path: string, init?: RequestInit) {
@@ -498,15 +499,21 @@ function UserDetail({
               <thead>
                 <tr style={{ borderBottom: '2px solid #333', textAlign: 'left' }}>
                   <th style={thStyle}>Comment</th>
-                  <th style={thStyle}>Fingerprint</th>
+                  <th style={thStyle}>Key</th>
+                  <th style={thStyle}>Added</th>
                 </tr>
               </thead>
               <tbody>
                 {keys.map((k, i) => (
                   <tr key={k.id ?? i} style={{ borderBottom: '1px solid #ddd' }}>
                     <td style={tdStyle}>{k.comment || <span style={{ opacity: 0.4 }}>—</span>}</td>
-                    <td style={{ ...tdStyle, fontFamily: 'monospace', fontSize: '0.85em' }}>
-                      {k.fingerprint || '—'}
+                    <td style={{ ...tdStyle, fontFamily: 'monospace', fontSize: '0.85em', maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                      title={k.key}
+                    >
+                      {k.key}
+                    </td>
+                    <td style={tdStyle}>
+                      {new Date(k.created_at).toLocaleDateString()}
                     </td>
                   </tr>
                 ))}
