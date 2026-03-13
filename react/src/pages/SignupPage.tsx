@@ -134,34 +134,47 @@ function SignupPage() {
           required
           placeholder="University, company, or lab"
         />
-        <div style={{ gridColumn: '1 / -1', marginTop: '0.5em', marginBottom: '0.5em' }}>
-          <p style={{ fontWeight: 'bold', marginBottom: '0.5em' }}>
-            Briefly describe your intended use of R2lab
+        <div
+          style={{
+            gridColumn: "1 / -1",
+            marginTop: "0.5em",
+            marginBottom: "0.5em",
+          }}
+        >
+          <p style={{ fontWeight: "bold", marginBottom: "0.5em" }}>
+            Tell us about yourself and your research plans
           </p>
-          <p style={{ margin: '0.4em 0' }}>
-            In order to grant you access, we'll need to understand how you plan
-            to use the platform.
+          <p style={{ margin: "0.4em 0" }}>
+            Before we validate your account, please provide the following
+            details:
           </p>
-          <p style={{ margin: '0.4em 0' }}>
-            Please describe the type of experiments you intend to run. This
-            information will help us ensure that R2lab is the right fit for your
-            research needs and that we can provide you with the necessary
-            support.
-          </p>
-          <p style={{ margin: '0.4em 0' }}>
-            Also please share your plans about publications. We encourage users
-            to publish their research conducted on R2lab, and we would like to
-            know if you have any specific publication plans in mind.
-          </p>
+          <ul>
+            <li style={{ margin: "0.4em 0" }}>
+              Please introduce yourself shortly - and mention a personal web
+              page and/or from your team/institution as far as possible.
+            </li>
+            <li style={{ margin: "0.4em 0" }}>
+              Please also describe in a few lines the type of experiments that
+              you would like to run on the wireless testbed (WiFi,
+              4G/5G/LoRa/...) ?
+              <br /> This is important for our statistics.
+            </li>
+            <li style={{ margin: "0.4em 0" }}>
+              Also please share your plans about publications. We encourage
+              users to publish their research conducted on R2lab, and we would
+              like to know if you have any specific publication plans in mind.
+            </li>
+          </ul>
         </div>
-        <label htmlFor="purpose" style={labelStyle}>Purpose</label>
+        <label htmlFor="purpose" style={labelStyle}>Your details</label>
         <textarea
           id="purpose"
           name="purpose"
           value={form.purpose}
           onChange={handleChange}
+          placeholder="Please introduce yourself, and describe your intended use of R2lab and publication plans..."
           required
-          rows={5}
+          rows={8}
           cols={30}
         />
         <div style={{ gridColumn: '1 / -1', marginTop: '0.5em' }}>
