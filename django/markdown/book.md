@@ -6,11 +6,11 @@ require_login: true
 <div class="container" markdown="1">
 
 <div class="alert alert-primary text-center" markdown="1">
-  Please make sure to check [our reservation policy](#policy) below.
+  Please make sure to check [our reservation policy](#policy-details) below.
 </div>
 
 <div class="alert alert-danger" role="alert" markdown="1">
-<div class="text-center" id="policy" markdown="1">
+<div class="text-center" id="policy-forward" markdown="1">
 ### Important notes
 </div>
 
@@ -73,8 +73,9 @@ Object.assign(liveleases_options, {
 </div>
 </div>
 
+<a name="policy-details">
 <div class="alert alert-info" role="alert" markdown="1">
-<div class="text-center" id="policy" markdown="1">
+<div class="text-center" id="policy-setion" markdown="1">
 ## Reservation policy
 </div>
 
@@ -91,6 +92,7 @@ for accurate testbed usage statistics) and the testbed will become available to 
 
 Thanks !
 </div>
+</a>
 
 <!-- defines slices_keys_modal -->
 << include r2lab/slices-keys-modal.html >>
