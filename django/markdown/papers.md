@@ -27,11 +27,14 @@ tab: papers
 } */
 </style>
 
+
+<a name="how-to-cite-r2lab">
+
 <div class="container" markdown="1">
 
 <div class="helper" markdown="1">
 
-**Note:** If you are using R2lab for in your publications, please add the following text in the Acknowledgment section of your papers/reports:
+**Please:** If you are using R2lab for your publications, please add the following text in the Acknowledgment section of your papers/reports:
 
 <div class="citation text-center" markdown="1">
 We would like to thank the FIT R2lab team from Inria, Sophia Antipolis,   
@@ -41,10 +44,12 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 <br>and then please add in your references the following entry
 
 <div class="citation" markdown="1">
-* [r2lab] T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). <a href="https://hal.archives-ouvertes.fr/hal-02167086v2">A step towards runnable papers using R2lab</a>, INRIA Research Report, June 2019.
+[r2lab] T. Parmentelat, M.N. Mahfoudi, T. Turletti, and W. Dabbous, W. (2019). <a href="https://hal.archives-ouvertes.fr/hal-02167086v2">A step towards runnable papers using R2lab</a>, INRIA Research Report, June 2019.
 </div>
 
 </div>
+
+</a>
 
 ****
 # 2024
