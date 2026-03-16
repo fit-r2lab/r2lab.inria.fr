@@ -145,6 +145,7 @@ function SignupPage() {
             Tell us about yourself and your research plans
           </p>
           <p style={{ margin: "0.4em 0" }}>
+            Registration requests are reviewed manually.
             Before we validate your account, please provide the following
             details:
           </p>
@@ -160,9 +161,9 @@ function SignupPage() {
               <br /> This is important for our statistics.
             </li>
             <li style={{ margin: "0.4em 0" }}>
-              Also please share your plans about publications. We encourage
-              users to publish their research conducted on R2lab, and we would
-              like to know if you have any specific publication plans in mind.
+              We encourage users to publish research conducted on R2lab.
+              If you plan to submit publications based on work using this testbed,
+              we would be glad to hear about them and stay informed of upcoming submissions.
             </li>
           </ul>
         </div>
