@@ -15,6 +15,10 @@ publish-r2lab:
 	rsync -ai $(RSYNC-EXCLUDES) ./ $(PUBLISH-PATH)/
 	cd $(PUBLISH-PATH)/react && npm install && npm run build
 
+##########
+publish-nepi-ng:
+	rsync -ai nepi-ng-index.html /var/www/nepi-ng/index.html
+
 ########## restart nginx on r2lab.inria.fr
 # maybe not strictly necessary when the python code is stable
 # but that won't hurt us while developing as frequent changes
@@ -27,12 +31,12 @@ install: publish nginx
 
 .PHONY: publish nginx install
 
-########## force both infra boxes to use latest commit
-infra:
-	echo since fedora29, remote ssh run under hard-wired umask - run pull-and-restart.sh locally
-	#apssh -l root -t faraday.inria.fr -t r2lab.inria.fr /root/r2lab-embedded/services/pull-and-restart.sh
+# ########## force both infra boxes to use latest commit
+# infra:
+# 	echo since fedora29, remote ssh run under hard-wired umask - run pull-and-restart.sh locally
+# 	#apssh -l root -t faraday.inria.fr -t r2lab.inria.fr /root/r2lab-embedded/services/pull-and-restart.sh
 
-.PHONY: infra
+# .PHONY: infra
 
 ##########
 tags:
@@ -45,10 +49,6 @@ files:
 	@git ls-files | egrep -v 'trash-|assets/(js|css)|\.(pdf|png|jpg|gif|svg|ttf|otf|JPG)'
 
 .PHONY: files
-
-##########
-publish-nepi-ng:
-	rsync -ai nepi-ng-index.html /var/www/nepi-ng/index.html
 
 ##########
 # the commands to run the development servers for Django and React,
@@ -64,4 +64,3 @@ dev-api:
 
 dev-sidecar:
 	cd ../r2lab-sidecar && r2lab-sidecar -D
-
