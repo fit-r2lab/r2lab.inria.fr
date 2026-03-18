@@ -228,7 +228,7 @@ function UsersTab() {
 function UserDetail({
   user: initialUser,
   allSlices,
-  onBack,
+  onBack: _onBack,
 }: {
   user: User
   allSlices: Slice[]

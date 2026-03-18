@@ -325,7 +325,7 @@ function SliceDetail({
   slice: initialSlice,
   allUsers,
   userHasKeys,
-  onBack,
+  onBack: _onBack,
 }: {
   slice: Slice
   allUsers: Map<number, User>
