@@ -61,12 +61,12 @@ It is important to emphasize that the commands involved here are all
 This means that, as of beginning of Feb. 2018 at least,
 if you try to run from your laptop something like this:
 
-    $ ssh inria_r2lab.tutorial@faraday.inria.fr rleases
+    $ ssh r2lab-tutorial@faraday.inria.fr rleases
     bash: rleases: command not found
 
 you get an error, that is to be compared this with:
 
-    $ ssh inria_r2lab.tutorial@faraday.inria.fr rhubarbe leases
+    $ ssh r2lab-tutorial@faraday.inria.fr rhubarbe leases
     ----- <Leases from PLCAPIproxy@https://r2labapi.inria.fr:443/PLCAPI/ - 25 lease(s)>
       1  < from 02-22 @ 08:00 until 09:00 CET inria_oai
     ...
@@ -83,9 +83,9 @@ For starters, as a rule of thumb, all convenience commands that are derived from
 `rhubarbe leases`,  you will find that `rbye` is an alias for `rhubarbe bye`.
 
 
-    inria_r2lab.tutorial@faraday:~$ type rload
+    r2lab-tutorial@faraday:~$ type rload
     rload is aliased to `rhubarbe load'
-    inria_r2lab.tutorial@faraday:~$ type rwait
+    r2lab-tutorial@faraday:~$ type rwait
     rwait is aliased to `rhubarbe wait'
 
 
@@ -95,8 +95,8 @@ powerful and accurate than the old-school `which` thing, that is only able to
 locate a command along your path, while `type` knowns about aliases and
 functions as well.
 
-    inria_r2lab.tutorial@faraday:~$ which rwait
-    inria_r2lab.tutorial@faraday:~$
+    r2lab-tutorial@faraday:~$ which rwait
+    r2lab-tutorial@faraday:~$
 
 ### How to use short commands in scripts
 
@@ -190,12 +190,12 @@ make node selection a smooth process; in particular we use:
 
 So for example
 
-    inria_r2lab.tutorial@faraday:~$ rhubarbe nodes -a
+    r2lab-tutorial@faraday:~$ rhubarbe nodes -a
     fit01 fit02 fit03 fit04 fit05 fit06 fit07 fit08 fit09 fit10 fit11 fit12 fit13 fit14 fit15 fit16 fit17 fit18 fit19 fit20 fit21 fit22 fit23 fit24 fit25 fit26 fit27 fit28 fit29 fit30 fit31 fit32 fit33 fit34 fit35 fit36 fit37
 
 selects all 37 nodes, while
 
-    inria_r2lab.tutorial@faraday:~$ rhubarbe nodes -a ~1 ~2
+    r2lab-tutorial@faraday:~$ rhubarbe nodes -a ~1 ~2
     fit03 fit04 fit05 fit06 fit07 fit08 fit09 fit10 fit11 fit12 fit13 fit14 fit15 fit16 fit17 fit18 fit19 fit20 fit21 fit22 fit23 fit24 fit25 fit26 fit27 fit28 fit29 fit30 fit31 fit32 fit33 fit34 fit35 fit36 fit37
 
 selects all nodes but nodes number 1 and 2. This is the basic mechanism that we use to invoke the `rhubarbe bye` (*a.k.a.* `all-off`) command to turn off all the nodes that are not involved in our experiment.

@@ -1,6 +1,6 @@
 fit02:turn-on-data: data network on interface data
 fit01:turn-on-data: data network on interface data
-faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+faraday.inria.fr:Checking current reservation for r2lab-tutorial : OK
 fit02:data
 fit01:data
 fit01:PING data02 (192.168.2.2) from 192.168.2.1 data: 56(84) bytes of data.

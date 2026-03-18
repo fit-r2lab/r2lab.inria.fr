@@ -1,4 +1,4 @@
-SLICE  = inria_r2lab.tutorial
+SLICE  = r2lab-tutorial
 GW     = faraday.inria.fr
 NODES  = 1-2
 ASSETS = ../assets/code

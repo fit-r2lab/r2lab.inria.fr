@@ -12,7 +12,7 @@ from apssh import TimeColonFormatter
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
-gateway_username  = 'inria_r2lab.tutorial'
+gateway_username  = 'r2lab-tutorial'
 # a fixed amount of time that we wait for once all the nodes
 # have their wireless interface configured
 settle_delay      = 10

@@ -81,13 +81,13 @@ As shown above, each phone is physically connected through USB to a MAC (also in
 
 So for example to get the status for phone #2, run this command on `faraday`:
 
-    inria_r2lab.tutorial@faraday:~$ macphone2 phone-status && echo OK
+    r2lab-tutorial@faraday:~$ macphone2 phone-status && echo OK
     phone is turned ON
     OK
 
 Or more simply if you just want to login into the MAC box, you can do this
 
-    inria_r2lab.tutorial@faraday:~$ macphone2
+    r2lab-tutorial@faraday:~$ macphone2
     Last login: Fri May 12 14:50:13 2017 from rhubarbe-switches
     macphone2:~ tester$
 

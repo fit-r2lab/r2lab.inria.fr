@@ -20,7 +20,7 @@ fit02:turn-off-wireless: shutting down device atheros
 fit02:turn-off-wireless: removing driver ath9k
 fit01:turn-off-wireless: shutting down device atheros
 fit01:turn-off-wireless: removing driver ath9k
-faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+faraday.inria.fr:Checking current reservation for r2lab-tutorial : OK
 fit02:========== Updating /root/r2lab-embedded for branch master
 fit02:HEAD is now at e496bfd bugs fixed
 fit02:Fetching origin

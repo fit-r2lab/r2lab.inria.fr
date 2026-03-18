@@ -1,5 +1,5 @@
 fit02:Using id=02 and fitid=fit02 - from hostname
-faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+faraday.inria.fr:Checking current reservation for r2lab-tutorial : OK
 LOCALNODE:-rw-r--r--  1 tparment  staff  1024 May 12 11:02 RANDOM
 LOCALNODE:d6eb748eb3230ff1e2ecf241f3fcf1be513c80b4  RANDOM
 fit02:no netcat process

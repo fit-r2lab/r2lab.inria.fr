@@ -7,7 +7,7 @@ from apssh import SshNode, SshJob
 ##########
 # globals - how to reach the gateway
 gateway_hostname  = 'faraday.inria.fr'
-gateway_username  = 'inria_r2lab.tutorial'
+gateway_username  = 'r2lab-tutorial'
 # to get feedback on the ssh-connection and see why it fails
 verbose_ssh = True
 

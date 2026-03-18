@@ -225,9 +225,9 @@ this unix account is simply the **slice name**.
 
 For example, in this tutorial we have used the following names:
 
-* slice name : `inria_tutorial`
+* slice name : `r2lab-tutorial`
 
-* unix account / full slice name: `inria_tutorial`
+* unix account / full slice name: `r2lab-tutorial`
 
 At this point you should reach R2lab platform typing in your terminal:
 

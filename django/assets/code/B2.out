@@ -14,7 +14,7 @@
 11-00-56:fit02:Using id=02 and fitid=fit02 - from hostname
 11-00-58:fit01:Using device atheros
 11-00-58:fit02:Using device atheros
-11-00-53:faraday.inria.fr:Checking current reservation for inria_r2lab.tutorial : OK
+11-00-53:faraday.inria.fr:Checking current reservation for r2lab-tutorial : OK
 11-00-54:fit01:========== Updating /root/r2lab-embedded for branch master
 11-00-54:fit01:HEAD is now at b8050d8 Merge branch 'master' of github.com:fit-r2lab/r2lab-embedded
 11-00-54:fit01:Fetching origin

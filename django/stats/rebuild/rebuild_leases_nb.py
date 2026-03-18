@@ -168,9 +168,9 @@ addleases_samples = [
         "New leases [3502L] on n=[u'37nodes.r2lab.inria.fr'] s=inria_mario.maintenance [2016-12-19 14:00:00 UTC -> 2016-12-19 15:00:00 UTC]"
     ),
     (
-        "AddLeases[{'AuthMethod': 'password', 'AuthString': 'Removed by API', 'Username': 'root@r2lab.inria.fr'}, [1], 'inria_r2lab.nightly', 1606615200, 1606618800]"
+        "AddLeases[{'AuthMethod': 'password', 'AuthString': 'Removed by API', 'Username': 'root@r2lab.inria.fr'}, [1], 'r2lab-nightly', 1606615200, 1606618800]"
         ,
-        "New leases [10487] on n=['faraday.inria.fr'] s=inria_r2lab.nightly [2020-11-29 02:00:00 UTC -> 2020-11-29 03:00:00 UTC]"
+        "New leases [10487] on n=['faraday.inria.fr'] s=r2lab-nightly [2020-11-29 02:00:00 UTC -> 2020-11-29 03:00:00 UTC]"
     ),
     (
         "AddLeases[{'AuthMethod': 'password', 'AuthString': 'Removed by API', 'Username': 'root@r2lab.inria.fr'}, ['faraday.inria.fr'], 'inria_hive', '2023-02-08 00:40:00', '2023-02-08 01:40:00']"

@@ -27,8 +27,8 @@ class ColorsGenerator {
 
     // hard-wire special cases
     this.hard_wired = {
-      'inria_r2lab.nightly': 'black',
-      'inria_admin': 'red',
+      'r2lab-nightly': 'black',
+      'r2lab-admin': 'red',
     }
 
     // special colors
@@ -97,7 +97,7 @@ class ColorsGenerator {
 /* ----------
  what gets stored in the browser storage is a JSON encoding
  of a list of pslice objects of that kind
-  { 'name' : 'inria_r2lab.tutorial',
+  { 'name' : 'r2lab-tutorial',
     'color' : '#b2182b'
     'current' : true,
     'mine' : true,

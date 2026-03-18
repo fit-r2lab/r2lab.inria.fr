@@ -10,7 +10,7 @@ from apssh import TimeColonFormatter
 
 ##########
 gateway_hostname  = 'faraday.inria.fr'
-gateway_username  = 'inria_r2lab.tutorial'
+gateway_username  = 'r2lab-tutorial'
 verbose_ssh = False
 
 parser = ArgumentParser()

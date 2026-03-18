@@ -58,7 +58,7 @@ as follows:
   that is used when you use single click to create a reservation.
 
 The code in this tutorial assumes you have a slice named
-`inria_r2lab.tutorial`, which you will need of course to
+`r2lab-tutorial`, which you will need of course to
 replace with your actual slice name when trying to run the code
 yourself.
 
