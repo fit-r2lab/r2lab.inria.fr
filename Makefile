@@ -56,9 +56,6 @@ publish-nepi-ng:
 dev-django:
 	cd django && python manage.py runserver 10001
 
-log-django:
-	cd django && tail -f django.log
-
 dev-react:
 	cd react && npm npx vite build --watch
 

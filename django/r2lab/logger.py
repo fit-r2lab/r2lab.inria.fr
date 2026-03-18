@@ -1,11 +1,11 @@
 import logging
 import logging.config
 
-def init_logger(filename):
+def init_logger():
 
     logging_config = {
         'version' : 1,
-        'disable_existing_loggers' : False,
+        'disable_existing_loggers' : True,
         'formatters': {
             'standard': {
                 'format': '%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s',
@@ -17,16 +17,16 @@ def init_logger(filename):
             },
         },
         'handlers': {
-            'r2lab': {
+            'stdout': {
                 'level': 'INFO',
-                'class': 'logging.FileHandler',
-                'formatter': 'standard',
-                'filename' : filename,
-            },
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout",
+                "formatter": "standard",
+            }
         },
         'loggers': {
             'r2lab': {
-                'handlers': ['r2lab'],
+                'handlers': ['stdout'],
                 'level': 'INFO',
                 'propagate': False,
             },
