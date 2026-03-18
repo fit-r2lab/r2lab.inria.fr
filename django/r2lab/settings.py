@@ -45,8 +45,7 @@ logger = init_logger(LOG_FILE)
 ########## details on the R2lab API
 
 r2labapi_settings = {
-    # 'url' : 'https://r2labapi.inria.fr:444/',
-    'url' : 'http://localhost:9999/',
+    'url' : 'https://r2labapi.inria.fr:443/',
     'credentials' : [
         '/etc/rhubarbe/r2labapi.credentials',
         'r2lab/r2labapi.credentials',
