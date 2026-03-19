@@ -12,9 +12,9 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from r2lab.settings import r2labapi_settings
+from r2lab.settings import r2labapi_url
 
-BASE_URL = r2labapi_settings['url'].rstrip('/')
+BASE_URL = r2labapi_url.rstrip('/')
 
 
 class ApiProxy(View):

@@ -41,11 +41,14 @@ Path(RUNTIME_DIR).mkdir(parents=True, exist_ok=True)
 from .logger import init_logger
 logger = init_logger()
 
-########## details on the R2lab API
-
-r2labapi_settings = {
-    'url' : 'https://r2labapi.inria.fr:443/',
-}
+########## details on the R2lab API and sidecar
+if PRODUCTION:
+    r2labapi_url = "https://r2labapi.inria.fr/"
+    sidecar_url = "wss://r2lab-sidecar.inria.fr/"
+else:
+    r2labapi_url = "http://localhost:9999/"
+    sidecar_url = "ws://localhost:10000/"
+print(f"Using r2labapi_url={r2labapi_url}  sidecar_url={sidecar_url}")
 
 ####################
 
@@ -174,26 +177,6 @@ STATIC_URL = '/assets/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
 ]
-
-sidecar_url = "wss://prod-r2lab-sidecar.inria.fr:443/"
-
-# IMPORTANT NOTE.
-# not specifying either http: or https: here is the right thing to do
-# it means to use the same protocol as the one
-# used to reach the main service in the first place
-if not PRODUCTION:
-    # use remote sidecar, unless SIDECAR is defined
-    # it can be either the actual sidecar_url,
-    # or e.g. 'local', to use the default hardwired in sidecar.js
-    SIDECAR = os.getenv('SIDECAR')
-    if not SIDECAR:
-        # development mode with no setting: use the local sidecar
-        sidecar_url = "ws://localhost:10000"
-    elif 'ws' in SIDECAR:
-        # development mode, SIDECAR mentions http, this means
-        # it points at the URL to use
-        sidecar_url = SIDECAR
-    print("Using sidecar_url = {sidecar_url}".format(**locals()))
 
 AUTHENTICATION_BACKENDS = (
     'r2lab.r2labapiauthbackend.R2labApiAuthBackend',

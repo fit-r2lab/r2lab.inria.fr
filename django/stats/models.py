@@ -12,9 +12,9 @@ import logging
 import pandas as pd
 import requests
 
-from r2lab.settings import r2labapi_settings
+from r2lab.settings import r2labapi_url
 
-R2LAB_API_URL = r2labapi_settings['url']
+R2LAB_API_URL = r2labapi_url
 
 logger = logging.getLogger(__name__)
 

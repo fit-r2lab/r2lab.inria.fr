@@ -7,9 +7,9 @@ obtained at login time via POST /auth/login.
 
 import requests
 
-from r2lab.settings import r2labapi_settings, logger
+from r2lab.settings import r2labapi_url, logger
 
-BASE_URL = r2labapi_settings['url'].rstrip('/')
+BASE_URL = r2labapi_url.rstrip('/')
 
 
 class R2labApiClient:
