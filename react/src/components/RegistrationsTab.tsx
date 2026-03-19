@@ -101,6 +101,10 @@ function RegistrationsTab() {
       setActionError('Slice name must not contain whitespace')
       return
     }
+    if (sliceName && !/[-_]/.test(sliceName)) {
+      setActionError('Slice name must contain at least one "-" or "_"')
+      return
+    }
     if (action === 'approve') {
       if (!sliceName) {
         setActionError('Slice name is required for approval')
