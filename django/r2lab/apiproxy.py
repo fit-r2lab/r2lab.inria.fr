@@ -62,6 +62,8 @@ class ApiProxy(View):
 PUBLIC_API_PATHS = {
     'registrations',
     'registrations/verify',
+    'auth/forgot-password',
+    'auth/set-password',
 }
 
 

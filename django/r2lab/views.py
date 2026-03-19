@@ -28,6 +28,14 @@ def verify_email(request):
     return HttpResponseRedirect(f'/react/verify?token={token}')
 
 
+def set_password(request):
+    """
+    Redirect /set-password?token=... to /react/reset-password?token=...
+    """
+    token = request.GET.get('token', '')
+    return HttpResponseRedirect(f'/react/reset-password?token={token}')
+
+
 def session_context(request):
     """
     Return the session's r2lab_context as JSON (minus the raw JWT).

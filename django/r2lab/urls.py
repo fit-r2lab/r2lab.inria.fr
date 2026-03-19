@@ -42,6 +42,8 @@ urlpatterns = [
     re_path(r'^react/', r2lab.views.react_app_view),
     # email verification link → React verify page
     re_path(r'^verify-email$', r2lab.views.verify_email),
+    # password reset link → React reset-password page
+    re_path(r'^set-password$', r2lab.views.set_password),
     # no subdir
     re_path(r'^(?P<markdown_file>[^/]*)$', md.views.markdown_page),
     re_path(r'^md/(?P<markdown_file>.*)$', md.views.markdown_page),
