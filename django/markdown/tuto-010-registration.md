@@ -9,7 +9,7 @@ skip_header: True
 
 <div class="container" markdown="1">
 
-<< tuto_tabs "1. REGISTER":REGISTER "2. SLICE":SLICE "3. CREDENTIALS":CREDENTIALS "4. RESERVATION":RESERVATION "5.ACCESS":ACCESS >>
+<< tuto_tabs "1. REGISTER":REGISTER "2. SSHKEY":SSHKEY "3. RESERVATION":RESERVATION "4.ACCESS":ACCESS >>
 
 <div class="tab-content" markdown="1">
 
@@ -18,77 +18,64 @@ skip_header: True
 
 ### Introduction
 
-First of all, welcome to R2lab.
+First of all, welcome to R2lab; you are now part of a community of researchers
+that use R2lab for their experiments, and we hope you will enjoy it.
 
-For the time being, R2lab’s operations rely on 2 separate websites:
+You will do most of your interactions with R2lab through the **Reservation
+Portal** at [https://r2lab.inria.fr](https://r2lab.inria.fr)&nbsp;: is the one
+used for daily operations, like getting a reservation, and live monitoring of
+nodes status.  
 
-* **Reservation Portal** at
-[https://r2lab.inria.fr](https://r2lab.inria.fr) : is the one used for
-daily operations, like getting a reservation, and live monitoring of
-nodes status.  Since 2017 April, you can also manage your ssh keys
-from this site.
-
-* **Register Portal** at
-[https://r2labapi.inria.fr](https://r2labapi.inria.fr) : is the
-backend that manages accounts, so you will be requested to interact
-with this site only once, when requesting an account.
-
-Both sites share the same *email*/*password* credentials.
+Since 2017 April, you can also manage your ssh keys from this site.
 
 ### Entry point
 
-In order to register at r2lab:
+Since March 2026, this site also manages user registration; click the 'Signup'
+link on the landing page to get to the registration form.
 
-1. start from our Register Portal,
-and specifically [the registration page](https://r2labapi.inria.fr/db/persons/register.php)
-(or click the  **Create an account** link - fig 1, <font color="red">**A**</font> - if you arrive from the home page).
+<center>
+![signup](/assets/img/tuto-register-0.png)<br/>
+Fig. the 'Signup' link on the landing page
+</center>
 
-1. at that point just fill in the form, as shown below (fig 1, <font color="red">**B**</font>).
+at that point just fill in the form, shown below.
 
-1. please pay special attention to the last field labeled *Site*,
-which should be selected as **INRIA** (fig 1, <font color="red">**C**</font>),
-unless your organization appears in the list already.
+**please** pay special attention to:
 
-1. An email will be sent to confirm your subscription. At this
-  point you are a *limited* user. To gain full access you must **click
-  the link present** in the confirmation email, and wait for the
-  manager in your organization to **validate your request**.
+- the 'Your details' section; please provide as much background information as
+  possible; this is the data upon which we will decide to accept or reject your
+  registration request !
+- the outlined checkbox: we appreciate that you are willing to cite the testbed
+  in the event where you'd publish a paper that involved R2lab
 
 <center>
 ![register](/assets/img/tuto-register-1.png)<br/>
-Fig. 1 - Register
+Fig. the registration form
 </center>
 
-From that point you can login into the [Reservation Portal](http://r2lab.inria.fr/index.md).
-However, you need a slice. Let's move to the [next tab](javascript:open_tab('SLICE')) to create one.
+Once you register, and confirm your email address by acknowledging the
+confirmation email, an **administrator will review** your request, and decide to
+accept or reject it.
 
-</div>
+Upon acceptance, an email will be sent to confirm your subscription; it will contain
 
-<!-- ------- SLICE ------------>
-<div id="SLICE" class="tab-pane fade" markdown="1">
+-  instructions to pick a password
+-  the name of the slice that you can use to log in into the testbed
 
-### You need a slice
+From that point you can login into the [Reservation
+Portal](http://r2lab.inria.fr/) and you are almost ready to go, but you still
+need to **upload an SSH key** before you can do anything useful. Let's move to
+the [next tab](javascript:open_tab('SSHKEY')) to do that.
 
-A **Slice** is a set of testbed resources on which you can conduct an experiment.
-A slice is attached to one or several users who will all be granted access to the testbed during the reserved timeslot.
-
-You can request a new slice by
-[sending us an email to fit-r2lab-dev@inria.fr](mailto:fit-r2lab-dev@inria.fr?subject=new slice request)
-
-Please make sure to mention
-
-* a desired slice name - the actual slicename will look like `inria_`*thename_you_ask*
-* a few lines of free text describing your experiment
-* a URL that points at that experiment - as far as possible - or at your research group if the experiment does not have a website.
-
-
-While your slice is created, take that chance to upload your public SSH key so that we can grant you access.
-We explain how to do it in the [next tab](javascript:open_tab('CREDENTIALS')).
+(**Note** that due to former abuse, we do not send an email in the case of a
+rejection; if after a few days you believe your request has been rejected by
+mistake, please contact us directly on the [R2lab support mailing
+list](mailto:fit-r2lab-dev@inria.fr))
 
 </div>
 
 <!-- ------- R2LAB ------------>
-<div id="CREDENTIALS" class="tab-pane fade" markdown="1">
+<div id="SSHKEY" class="tab-pane fade" markdown="1">
 
 ### Uploading your SSH public key to R2lab
 
@@ -107,7 +94,7 @@ R2lab. For this, let's follow 2 steps.
   - The entire key generation process looks like this:
   <center>
   ![register](/assets/img/tuto-register-2.png)<br/>
-  Fig. 2 - Generating a key pair
+  Fig. - Generating a key pair
   </center>
 
   - The public key is now located under your home directory in `~/.ssh/id_rsa.pub`
@@ -138,14 +125,14 @@ R2lab. For this, let's follow 2 steps.
 
   <center>
   ![register](/assets/img/tuto-register-3.png)<br/>
-  Fig. 3 - Uploading your SSH key
+  Fig. - Uploading your SSH key
   </center>
 
-Once this is done, you should see something like on fig. 4 below
+Once this is done, you should see something like this figure
 
   <center>
   ![register](/assets/img/tuto-register-4.png)<br/>
-  Fig. 4 - An uploaded SSH key
+  Fig. - An uploaded SSH key
   </center>
 
 
@@ -163,8 +150,7 @@ In order to use R2lab, you must reserve the testbed. The right way to do this is
 using our [Reservation Portal - UI](http://r2lab.inria.fr/run.md).
 However, you must be logged in to see the reservation page.
 
-Once in private area, just drag and drop the slice into the day calendar
-(fig. 5, <font color="red">**A**</font>) - (fig. 5, <font color="red">**B**</font>).
+Once in private area, just drag and drop the slice into the day calendar - see (<font color="red">**A**</font>) and (<font color="red">**B**</font>) below
 
 If you want dates in future, do the same action as described above but in the [Reservation Portal - Calendar](http://r2lab.inria.fr/book.md).
 
