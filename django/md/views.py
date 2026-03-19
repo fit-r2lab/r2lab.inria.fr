@@ -21,7 +21,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.safestring import mark_safe
 
 from django.conf import settings
-from r2lab.settings import logger, sidecar_url
+from r2lab.settings import logger, sidecar_url, PRODUCTION
 
 """
 Initially a simple view to translate a .md into html on the fly
@@ -597,6 +597,7 @@ def markdown_page(request, markdown_file, extra_metavars=None, **kwds):
                 return HttpResponseRedirect("/index.md")
         metavars['r2lab_context'] = r2lab_context
         metavars['sidecar_url'] = sidecar_url
+        metavars['production'] = PRODUCTION
         metavars.update(extra_metavars)
         metavars.update(kwds)
         return render(request, 'r2lab/r2lab.html', metavars)

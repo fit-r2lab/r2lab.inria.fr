@@ -55,7 +55,7 @@
  </head>
  <body class="r2lab">
 {% if not skip_menu %}
-  <div class="header">
+  <div class="header"{% if not production %} style="background-color: pink;"{% endif %}>
     <div class="header-flex">
       <div class="header-left">
         <object type="image/svg+xml" data="/assets/img/fit-logo.svg" height="45">
