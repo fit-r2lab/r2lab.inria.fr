@@ -620,7 +620,8 @@ export class LiveLeases {
         return false
       }
     } catch (err) {
-      liveleases.show_message(`Something went wrong when managing leases: ${err.message}`)
+      liveleases.show_message(
+        f`Need to log back in ? Could not ${verb} lease: ${err.message}`)
     }
     // triggers a refresh of the leases once the sidecar server answers back
     liveleases.request_update_from_api()

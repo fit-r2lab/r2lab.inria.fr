@@ -15,7 +15,8 @@ class Login(View):
         # pass request within the token, so the auth backend can
         # attach r2lab_context to the request session.
         token = {'username': username,
-                 'password': password, 'request': request}
+                 'password': password,
+                 'request': request}
 
         # authentication occurs through the backend
         # returns a django User on success, or None on failure
@@ -48,7 +49,7 @@ class Logout(View):
         env = {}
         if 'r2lab_context' not in request.session or \
                 'user_details' not in request.session['r2lab_context']:
-            env['login_message'] = 'cannot logout - not logged in'
+            env['login_message'] = 'cannot logout (not logged in)'
             return md.views.markdown_page(request, 'index', env)
         logout(request)
         return HttpResponseRedirect("/")

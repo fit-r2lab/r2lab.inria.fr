@@ -66,7 +66,7 @@ $(function () {
       }
     } catch (err) {
       div_list.append(
-        `<div class="row in-red">Could not fetch keys: ${err.message}</div>`)
+        `<div class="row in-red">Need to log back in ? Could not fetch keys: ${err.message}</div>`)
     }
   }
 
@@ -79,7 +79,7 @@ $(function () {
       await r2labapi('DELETE', `users/${me.id}/keys/${key_id}`)
       display_keys("livekeys-container")
     } catch (err) {
-      console.log("delete key failed", err)
+      console.log("Need to log back in ? Delete key failed", err)
     }
   }
 
@@ -105,7 +105,7 @@ $(function () {
       await r2labapi('POST', `users/${me.id}/keys`, {body: {key: key}})
       display_keys("livekeys-container")
     } catch (err) {
-      console.log("add key failed", err)
+      console.log("Need to log back in ? Add key failed", err)
     }
   }
 

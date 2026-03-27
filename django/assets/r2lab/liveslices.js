@@ -64,7 +64,7 @@ $(function () {
     try {
       all_slices = await r2labapi('GET', 'slices')
     } catch (err) {
-      send_message(`Could not fetch slices: ${err.message}`, 'danger')
+      send_message(`Need to log back in ? Could not fetch slices: ${err.message}`, 'danger')
       return
     }
 
@@ -119,7 +119,7 @@ Click here to renew it!</a>'
       $('#timestamp-expire' + element).toggle("pulsate").toggle("highlight")
       $('#timestamp-expire' + element).html(moment(answer['deleted_at']).format("YYYY-MM-DD HH:mm"))
     } catch (err) {
-      send_message(`Could not renew slice: ${err.message}`, 'danger')
+      send_message(`Need to log back in ? Could not renew slice: ${err.message}`, 'danger')
       console.log("renew slice failed", err)
     }
   }
