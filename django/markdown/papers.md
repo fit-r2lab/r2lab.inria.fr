@@ -56,11 +56,12 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 ****
 
 ### Conferences/Workshops
-*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Toward Real-Time RAN Observability in Open-Source 5G Systems](https://inria.hal.science/hal-05448027/)", 29th Conference on Innovation in Clouds, Internet and Networks (ICIN'2026), March 2026, Athènes, Greece. **Best Paper Award**.
+
+* Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Toward Real-Time RAN Observability in Open-Source 5G Systems](https://inria.hal.science/hal-05448027/)", 29th Conference on Innovation in Clouds, Internet and Networks (ICIN'2026), March 2026, Athènes, Greece. **Best Paper Award**.
 
 ### Demo
 
-*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Demonstrating Real-Time RAN Observability in Open-Source 5G: Controlled Interference Scenario](https://inria.hal.science/hal-05527226/)", 29th Conference on Innovation in Clouds, Internet and Networks, Mar 2026, Athènes, Greece. 
+* Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Demonstrating Real-Time RAN Observability in Open-Source 5G: Controlled Interference Scenario](https://inria.hal.science/hal-05527226/)", 29th Conference on Innovation in Clouds, Internet and Networks, March 2026, Athènes, Greece. 
 
 ****
 # 2025
@@ -114,7 +115,9 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 ### Journals
 
 * Serge Fdida, Nikos Makris, Thanasis Korakis, Raffaele Bruno, Andrea Passarella, Panayiotis Andreou, Bartosz Belter, Cédric Crettaz, Walid Dabbous, Yuri Demchenko, Raymond Knopp, [SLICES, a scientific instrument for the networking community](https://www.sciencedirect.com/science/article/pii/S0140366422002663), Computer Communications, Volume 193, 2022, Pages 189-203.
+
 * H. Elbouanani, T. Turletti, W. Dabbous and C. Barakat. [Passive Delay Measurement for Fidelity Monitoring of Distributed Network Emulation](https://hal.science/hal-03727246), In: Computer Communications, Volume 195, November 2022, Pages 40-48.
+
 * M. Diarra, W. Dabbous, A. Ismail, B. Tetu and T. Turletti. [RAPID: a RAN-aware Performance Enhancing Proxy for High Throughput Low Delay Flows in MEC Networks](https://hal.inria.fr/hal-03905784), In: Computer Networks, Volume 218,December 2022.
 
 ### PhD
@@ -136,6 +139,7 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 ### Conferences / Workshops
 
 * Joe Breen et al. [POWDER: Platform for Open Wireless Data-driven Experimental Research](https://doi.org/10.1145/3411276.3412204), In Proceedings of the 14th International Workshop on Wireless Network Testbeds, Experimental evaluation & Characterization (WiNTECH'20). Association for Computing Machinery, New York, NY, USA, 17–24.
+
 * Kazuhisa Matsuzono, Hitoshi Asaeda, Indukala Naladala, Thierry Turletti, [Efficient Pull-based Mobile Video Streaming leveraging In-Network Functions](https://hal.inria.fr/hal-02359569/). IEEE - CCNC 2020 - Consumer Communications & Networking Conference, Jan 2020, Las Vegas, United States.
 
 
