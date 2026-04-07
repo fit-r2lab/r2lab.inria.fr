@@ -56,10 +56,11 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 ****
 
 ### Conferences/Workshops
-*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Demonstrating Real-Time RAN Observability in Open-Source 5G: Controlled Interference Scenario](https://inria.hal.science/hal-05527226/)", demo at ICIN 2026, 29th Conference on Innovation in Clouds, Internet and Networks, Mar 2026, Athènes, Greece. **Best Paper Award**.
+*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Toward Real-Time RAN Observability in Open-Source 5G Systems]https://inria.hal.science/hal-05448027/)", 29th Conference on Innovation in Clouds, Internet and Networks (ICIN'2026), March 2026, Athènes, Greece. **Best Paper Award**.
 
 ### Demo
-*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Toward Real-Time RAN Observability in Open-Source 5G Systems]https://inria.hal.science/hal-05448027/)", ICIN 2026, 29th Conference on Innovation in Clouds, Internet and Networks, Mar 2026, Athènes, Greece.
+
+*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Demonstrating Real-Time RAN Observability in Open-Source 5G: Controlled Interference Scenario](https://inria.hal.science/hal-05527226/)", 29th Conference on Innovation in Clouds, Internet and Networks, Mar 2026, Athènes, Greece. 
 
 ****
 # 2025
