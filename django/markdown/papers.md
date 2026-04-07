@@ -52,12 +52,40 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 </a>
 
 ****
+# 2026
+****
+
+### Conferences/Workshops
+*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Demonstrating Real-Time RAN Observability in Open-Source 5G: Controlled Interference Scenario](https://inria.hal.science/hal-05527226/)", demo at ICIN 2026, 29th Conference on Innovation in Clouds, Internet and Networks, Mar 2026, Athènes, Greece. **Best Paper Award**.
+
+### Demo
+*  Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Toward Real-Time RAN Observability in Open-Source 5G Systems]https://inria.hal.science/hal-05448027/)", ICIN 2026, 29th Conference on Innovation in Clouds, Internet and Networks, Mar 2026, Athènes, Greece.
+
+****
+# 2025
+****
+
+### Conferences/Workshops
+
+* Mohammad Bagher Tavassoli, Chadi Barakat, Thierry Turletti, Walid Dabbous, "[Decomposing Delay in 5G: An Empirical Study on Architecture and Configuration Impact](https://ieeexplore.ieee.org/abstract/document/11230749)", IEEE Conference on Standards for Communications and Networking (CSCN), September 2025, DOI: 10.1109/CSCN67557.2025.11230749.
+
+* Jiali Xu, Valéria Loscrì, "[Leveraging UE-Level Collaborative Intelligence for Scalable Jamming Detection in 5G Networks](https://ieeexplore.ieee.org/abstract/document/11096262)",  2025 21st International Conference on Distributed Computing in Smart Systems and the Internet of Things (DCOSS-IoT), June 2025, DOI: 10.1109/DCOSS-IoT65416.2025.00120.
+
+* Damien Saucez, Sebastian Gallenmüller, Nikos Makris, Raymond Knopp, Serge Fdida, "[Reproducible Experimentation with beyond-5G Blueprints in SLICES-RI](https://inria.hal.science/hal-05477269v1", IEEE Wireless Communications and Networking Conference (WCNC), March 2025, Milan, Italy, DOI: 10.1109/WCNC61545.2025.10978179. 
+
+****
 # 2024
 ****
 
 ### Journals
 
 * Houssam ElBouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti, "[Fidelity-aware large-scale distributed network emulation](url)https://inria.hal.science/hal-04591699", Computer Networks, pp. 110531, 2024.
+
+### Conferences/Workshops
+
+* Désirée Rentz, Lukas Heindl, Jonas Andre, Georg Carle, Stephan Günther, "[Reproducible Wireless Experiments in a Containerized Environment with Hardware Access](https://ieeexplore.ieee.org/abstract/document/10639643)", IEEE 49th Conference on Local Computer Networks (LCN), October 2024, DOI: 10.1109/LCN60385.2024.10639643.
+
+* Damien Saucez, Sebastian Gallenmüller, Raymond Knopp, Nikos Makris, Serge Fdida, "[Blueprint-based reproducible research with the SLICES Research Infrastructure](https://inria.hal.science/hal-04755912v1)", IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS), May 2024, Vancouver, BC, Canada. pp.01-02, DOI: 10.1109/INFOCOMWKSHPS61880.2024.10620849.
 
 ****
 # 2023
