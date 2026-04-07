@@ -71,7 +71,7 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 
 * Mohammad Bagher Tavassoli, Chadi Barakat, Thierry Turletti, Walid Dabbous, "[Decomposing Delay in 5G: An Empirical Study on Architecture and Configuration Impact](https://ieeexplore.ieee.org/abstract/document/11230749)", IEEE Conference on Standards for Communications and Networking (CSCN), September 2025, DOI: 10.1109/CSCN67557.2025.11230749.
 
-* Jiali Xu, Valéria Loscrì, "[Leveraging UE-Level Collaborative Intelligence for Scalable Jamming Detection in 5G Networks](https://ieeexplore.ieee.org/abstract/document/11096262)",  2025 21st International Conference on Distributed Computing in Smart Systems and the Internet of Things (DCOSS-IoT), June 2025, DOI: 10.1109/DCOSS-IoT65416.2025.00120.
+* Jiali Xu, Valéria Loscrì, "[Leveraging UE-Level Collaborative Intelligence for Scalable Jamming Detection in 5G Networks](https://ieeexplore.ieee.org/abstract/document/11096262)", 21st International Conference on Distributed Computing in Smart Systems and the Internet of Things (DCOSS-IoT), June 2025, DOI: 10.1109/DCOSS-IoT65416.2025.00120.
 
 * Damien Saucez, Sebastian Gallenmüller, Nikos Makris, Raymond Knopp, Serge Fdida, "[Reproducible Experimentation with beyond-5G Blueprints in SLICES-RI](https://inria.hal.science/hal-05477269v1)", IEEE Wireless Communications and Networking Conference (WCNC), March 2025, Milan, Italy, DOI: 10.1109/WCNC61545.2025.10978179. 
 
@@ -95,8 +95,7 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 
 ### Conferences/Workshops
 
-
-* Houssam Elbouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti. "[Delay-based Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03909929)". In: Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
+* Houssam Elbouanani, Chadi Barakat, Walid Dabbous, Thierry Turletti. "[Delay-based Fidelity Monitoring of Distributed Network Emulation](https://hal.inria.fr/hal-03909929)". Proceedings of the TASIR Workshop: Testbeds for Advanced Systems Implementation and Research. Bangalore, India, 8th Jan. 2023.
 
 ### PhD
 
