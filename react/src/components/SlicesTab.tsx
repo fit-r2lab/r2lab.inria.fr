@@ -62,6 +62,12 @@ function SlicesTab() {
     }
   }
 
+  // create slice state
+  const [newSliceName, setNewSliceName] = useState('')
+  const [newSliceUser, setNewSliceUser] = useState('')
+  const [creating, setCreating] = useState(false)
+  const [createError, setCreateError] = useState<string | null>(null)
+
   // inline editing state
   const [editingCell, setEditingCell] = useState<{ sliceId: number; field: 'family' | 'country' | 'expires' } | null>(null)
   const [editValue, setEditValue] = useState('')
@@ -102,6 +108,57 @@ function SlicesTab() {
       setError(err instanceof Error ? err.message : 'Failed to load')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleCreateSlice = async () => {
+    const name = newSliceName.trim()
+    if (!name) return
+    if (/\s/.test(name)) {
+      setCreateError('Slice name must not contain whitespace')
+      return
+    }
+    if (!/[-_]/.test(name)) {
+      setCreateError('Slice name must contain at least one "-" or "_"')
+      return
+    }
+    // resolve user pick before starting
+    let matchedUser: User | undefined
+    if (newSliceUser.trim()) {
+      const allUsers = Array.from(users.values())
+      matchedUser = allUsers.find((u) => {
+        const fullName = `${u.first_name ?? ''} ${u.last_name ?? ''}`.trim()
+        return (
+          u.email === newSliceUser ||
+          fullName === newSliceUser ||
+          `${fullName} <${u.email}>` === newSliceUser
+        )
+      })
+      if (!matchedUser) {
+        setCreateError('Pick a user from the list')
+        return
+      }
+    }
+    setCreating(true)
+    setCreateError(null)
+    try {
+      const created: Slice = await apiFetch('slices', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name }),
+      })
+      if (matchedUser) {
+        await apiFetch(`slices/${created.id}/members/${matchedUser.id}`, {
+          method: 'PUT',
+        })
+      }
+      setNewSliceName('')
+      setNewSliceUser('')
+      await fetchData()
+    } catch (err: unknown) {
+      setCreateError(err instanceof Error ? err.message : 'Create failed')
+    } finally {
+      setCreating(false)
     }
   }
 
@@ -224,6 +281,53 @@ function SlicesTab() {
   // list view
   return (
     <div>
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '1em', flexWrap: 'wrap' }}>
+        <input
+          type="text"
+          value={newSliceName}
+          onChange={(e) => { setNewSliceName(e.target.value); setCreateError(null) }}
+          placeholder="New slice name"
+          style={{ padding: '4px 8px', width: '260px' }}
+          onKeyDown={(e) => { if (e.key === 'Enter') handleCreateSlice() }}
+        />
+        <input
+          type="text"
+          list="create-slice-user-list"
+          value={newSliceUser}
+          onChange={(e) => { setNewSliceUser(e.target.value); setCreateError(null) }}
+          placeholder="First member (optional)"
+          style={{ padding: '4px 8px', width: '260px' }}
+          onKeyDown={(e) => { if (e.key === 'Enter') handleCreateSlice() }}
+        />
+        <datalist id="create-slice-user-list">
+          {Array.from(users.values())
+            .sort((a, b) => {
+              const na = `${a.first_name ?? ''} ${a.last_name ?? ''}`.trim() || a.email
+              const nb = `${b.first_name ?? ''} ${b.last_name ?? ''}`.trim() || b.email
+              return na.localeCompare(nb)
+            })
+            .map((u) => {
+              const name = `${u.first_name ?? ''} ${u.last_name ?? ''}`.trim()
+              const label = name ? `${name} <${u.email}>` : u.email
+              return <option key={u.id} value={label} />
+            })}
+        </datalist>
+        <button
+          onClick={handleCreateSlice}
+          disabled={creating || !newSliceName.trim()}
+          style={{
+            background: '#28a745',
+            color: 'white',
+            border: 'none',
+            padding: '4px 14px',
+            cursor: 'pointer',
+          }}
+        >
+          {creating ? '...' : 'Create slice'}
+        </button>
+        {createError && <span className="error" style={{ fontSize: '0.85em' }}>{createError}</span>}
+      </div>
+
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '1em' }}>
         <input
           type="text"
