@@ -60,7 +60,7 @@ dev-react:
 	cd react && npm npx vite build --watch
 
 dev-api:
-	cd ../r2lab && fastapi dev --reload r2lab_api/app.py --port 9999
+	cd ../r2lab-api && fastapi dev --reload r2lab_api/app.py --port 9999
 
 dev-sidecar:
 	cd ../r2lab-sidecar && r2lab-sidecar -D
