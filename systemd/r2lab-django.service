@@ -9,9 +9,9 @@ ExecStartPre=/root/.local/bin/uv sync --frozen
 ExecStart=/root/.local/bin/uv run --frozen gunicorn r2lab.wsgi \
 --name r2lab \
 --workers 16 \
---timeout 10 \
+--timeout 60 \
 --user=root --group=root \
---bind unix:/run/django.sock \
+--bind unix:/run/r2lab-django.sock \
 --log-level debug \
 --access-logfile - \
 --log-file -
