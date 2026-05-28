@@ -5,7 +5,8 @@ After=network.target
 
 [Service]
 WorkingDirectory=/var/www/r2lab.inria.fr/django
-ExecStart=/usr/local/bin/gunicorn r2lab.wsgi \
+ExecStartPre=/root/.local/bin/uv sync --frozen
+ExecStart=/root/.local/bin/uv run --frozen gunicorn r2lab.wsgi \
 --name r2lab \
 --workers 16 \
 --timeout 10 \
@@ -14,7 +15,6 @@ ExecStart=/usr/local/bin/gunicorn r2lab.wsgi \
 --log-level debug \
 --access-logfile - \
 --log-file -
-
 
 [Install]
 WantedBy=multi-user.target
