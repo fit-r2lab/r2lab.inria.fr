@@ -315,9 +315,9 @@ Six 5G Quectel modules with M.2 to USB3.0 adapter enclosure</a> for
 * One attached to fit07 with SIM IMSI: <001010000000003>
 * One attached to fit09 with SIM IMSI: <001010000000004>
 * One attached to fit18 with SIM IMSI: <001010000000005>
-* One attached to fit31 with SIM IMSI: <208950000000010>
-* One attached to fit32 with SIM IMSI: <208950000000011>
-* One attached to fit34 with SIM IMSI: <208950000000009>
+* One attached to fit29 with SIM IMSI: <001010000000019>
+* One attached to fit32 with SIM IMSI: <001010000000020>
+* One attached to fit34 with SIM IMSI: <001010000000021>
 
 </div>
 
