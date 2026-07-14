@@ -6,7 +6,7 @@ description = "The django app for the R2Lab testbed at Inria, France - runs on r
 requires-python = ">=3.14"
 dependencies = [
     "altair>=6.0.0",
-    "django>=6.0.5",
+    "django>=6.0.6",
     "gunicorn>=25.1.0",
     "markdown2>=2.5.4",
     "pyparsing>=3.3.2",
