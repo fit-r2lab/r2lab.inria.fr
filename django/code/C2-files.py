@@ -106,7 +106,7 @@ transfer_job = Sequence(
     SshJob(
         node = node2,
         commands = [
-            Run("netcat", "-l", "data02", netcat_port, ">", "RANDOM", "&"),
+            Run("netcat", "-l", netcat_port, ">", "RANDOM", "&"),
         ],
     ),
 
@@ -118,7 +118,7 @@ transfer_job = Sequence(
         commands = [
             # let the server warm up just in case
             Run("sleep 1"),
-            Run("netcat", "data02", netcat_port, "<", "RANDOM"),
+            Run("netcat", "-N", "data02", netcat_port, "<", "RANDOM"),
             Run("echo SENDER DONE"),
         ],
     ),
