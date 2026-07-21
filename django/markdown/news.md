@@ -1,9 +1,29 @@
-title: Latest news & infos...
+title: Latest news & infos
 tab: news
 skip_news: yes
 ---
 
-# Most recent first&nbsp;: (see also our [list of papers](papers.md))
+****
+## 2026
+****
+
+* [5g_ansible](https://github.com/sopnode/5g_ansible): Ansible script released to easily deploy a large variety of 5G scenarios with different stacks (OAI, srsRAN, Open5GS, Free5GC, UERANSIM) and various types of RUs and UEs on R2lab. Note that to run it, you need a valid [SLICES account](https://doc.slices-ri.eu/).
+
+* A Massive MIMO antenna Andrew/Commscope installed (in loan from Orange). It is a 32TRX active antenna with 192 radiating elements, operating in band 78 3.4-3.8GHz.
+
+****
+## 2025
+****
+
+* FR2 RU Liteon added at location fit15, and node fit15 has been removed.
+
+* Two 5G RG-530F Quectel modules for FR2 band added to be used with the Liteon gNB: rg530f-01 and rg530f-02.
+
+* 4 miniPC nodes, called pc01/pc02/pc03/pc04 with USB3 interfaces installed at location fit04/fit06/fit13/fit18, respectively.
+
+* Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a Quectel RM 500Q-GL module using specific kits (composed of M.2/USB3 interface and 2 antennas) added: qhat10 and qhat11.
+
+* Three 5G Quectel RedCap modules composed of a Raspberry Pi 4B device with a hat added: qhat20, qhat21 and qhat22. Note that these modules do not support the MBIM mode, use QMI mode instead. Also, note that they only support 20MHz bandwidth.
 
 ****
 ## 2024
