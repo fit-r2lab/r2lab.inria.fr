@@ -88,20 +88,6 @@ The SophiaNode comprises three wireless facilities: the R2lab anechoic chamber a
 
 <div class="col-md-3" markdown="1">
 <br>
-<object type="image/svg+xml" data="/assets/img/fit-logo.svg" height="55">FIT</object>
-<br>
-<img src="/assets/img/onelab-logo.png" style="height:55px;">
-<br>
-</div>
-
-</div> <!-- row -->
-
-</div> <!-- container -->
--md-1" markdown="1">
-</div>
-
-<div class="col-md-3" markdown="1">
-<br>
 
 <object type="image/svg+xml"
         data="/assets/img/fit-logo.svg"
