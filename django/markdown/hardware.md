@@ -69,7 +69,7 @@ that can optionally help you efficiently orchestrate the complete experimental w
 
 ### All nodes
 
-32 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
+34 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
 
 * State-of-the-art motherboard
   * CPU Intel Core i7-2600 processor
