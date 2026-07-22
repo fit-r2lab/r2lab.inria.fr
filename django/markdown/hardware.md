@@ -6,7 +6,7 @@ tab: platform
 <div class="row" markdown="1">
 <div class="col-md-12" markdown="1">
 
-**Thirty-seven** nodes are available in R2lab to provide a modern testbed infra structure.
+**Thirty-seven** nodes are available in R2lab to provide a modern wireless experimentation infrastructure.
 The nodes are distributed in a grid layout and are customizable, allowing great variety of experimentation scenarios.
 
 <h2 class="text-center" style="color:green;">
@@ -29,7 +29,7 @@ The nodes are totally open and users can install any software stack they need
 ### The testbed is yours
 
 The testbed is reservable as a whole.
-Once they have booked the testbed, registered users can ssh into `faraday.inria.fr`,
+After reserving the testbed, registered users can ssh into `faraday.inria.fr`,
 and from there control all the resources in the testbed.
 You are thus in full control of all the radio traffic in the chamber.
 </div>
@@ -38,7 +38,7 @@ You are thus in full control of all the radio traffic in the chamber.
 
 ### The nodes are yours
 
-Also you can load your operating system of choice on any node.
+You can also load your operating system of choice onto any node.
 From that point you can ssh-access all nodes with administration privileges, and configure
 the available resources - nodes, SDRs and phones - to create a rich experimental environment.
 </div>
@@ -47,8 +47,8 @@ the available resources - nodes, SDRs and phones - to create a rich experimental
 
 ### Methodology
 
-Experimental scenarios can be created using standard tools. We also provide [tutorials, and python libraries](tutorial.md)
-that can optionnally help you efficiently orchestrate the complete experimental workflow, from deployment to data collection.
+Experimental scenarios can be created using standard tools. We also provide [tutorials, and Python libraries](tutorial.md)
+that can optionally help you efficiently orchestrate the complete experimental workflow, from deployment to data collection.
 </div>
 </div> <!-- row -->
 
@@ -71,7 +71,7 @@ that can optionnally help you efficiently orchestrate the complete experimental 
 
 32 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
 
-* State of the art motherboard
+* State-of-the-art motherboard
   * CPU Intel Core i7-2600 processor
   * 8GB RAM
   * 240 GB SSD
@@ -94,11 +94,11 @@ that can optionnally help you efficiently orchestrate the complete experimental 
 
 Four miniPC nodes :
 
-* called pc01/pc02/pc03/pc04 installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit30, respectively.
+* called pc01/pc02/pc03/pc04 installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit17, respectively.
 
 * connected via USB3 to either USRP B210 devices or 5G RG530F Quectel devices and  attached to the *control* wired interface.
 
-* represented as square boxes in the R2lab dynamic map, they have an independent numerotation than fit nodes.
+* represented as square boxes in the R2lab dynamic map, they use their own numbering scheme, independent of the FIT nodes.
 
 * to switch them on or off or to check their current state, use the rhubarbe commands *rhubarbe pdu on|off|status pc01|pc02|pc03|pc04*.
 Note that the devices attached to them (i.e., usrp01/usrp02/rg530f-01/rg530f-02) are also controllable through the same *rhubarbe pdu* commands.
@@ -154,7 +154,7 @@ Note that:
 
 ### USRP devices
 
-Some nodes are equipped with USRP devices from <a href="http://www.ettus.com" target="_blank">ETTUS</a> to run SDR-based experiments such as spectrum analyzer or 4G/5G OpenAirInterface scenarios. All these devices can be remotely-controlled through the `ust`/`uon`/`uoff` utilities.
+Some nodes are equipped with USRP devices from <a href="http://www.ettus.com" target="_blank">ETTUS</a> to run SDR-based experiments such as spectrum analysis or 4G/5G OpenAirInterface scenarios. All these devices can be remotely-controlled through the `ust`/`uon`/`uoff` utilities.
 
 Currently, our deployment features the following types of USRP devices :
 
@@ -211,7 +211,7 @@ target="_blank"> [specs]</a> <a href="/raw/docs/duplexer-band7.png"
 target="_blank">[pict]</a>.
 
 The settings used in our deployed duplexers match the frequencies used
-in our default configuration for OpenAirInterface. That is to say, it is assumed that
+in our default 4G configuration for OpenAirInterface. That is to say, it is assumed that
 
 * Downlink (eNB to UE) uses frequency 2.66 GHz (duplexers are set to the 2.62-2.69 GHz range)
 * Uplink (UE to eNB) uses frequency 2.54 GHz (duplexers are set to the 2.50-2.57 GHz range)
@@ -236,7 +236,7 @@ With the above assumptions, these tags can be interpreted as follows:
 
 ### Lime SDR devices
 
-Here are the detailed specifications for the LimeSDR devices deployed in the chamber (see table below for the details on which nodes host such devices)
+The LimeSDR devices deployed in the chamber have the following specifications: (see table below for the details on which nodes host such devices)
 
 * **RF Transceiver**: Lime Microsystems LMS7002M MIMO FPRF (Datasheet)
 * **FPGA**: Altera Cyclone IV EP4CE40F23 - also compatible with EP4CE30F23
@@ -279,6 +279,31 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 </div>
 </div> <!-- row -->
 
+
+<hr>
+
+<div class="row" markdown="1">
+<div class="col-md-12" markdown="1">
+
+### RAN550 Benetel 5G Radio Units (RUs)
+
+Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a> (4T4R, 100 MHz bandwidth, band n78). 
+
+</div>
+</div> <!-- row -->
+
+<hr>
+
+<div class="row" markdown="1">
+<div class="col-md-12" markdown="1">
+
+### LITEON FlexFi O-RU (FR1 and FR2)
+
+One <a href="https://www.everythingrf.com/products/ran-radio-units/lite-on-technology/1052-1218-flexfi-o-ru" target="_blank">FlexFi LITEON O-RU</a> (Bandwidth 100MHz, 80MHz, 60MHz, Frequency 3300 to 5000 MHz/24250 to 29500 MHz). 
+
+</div>
+</div> <!-- row -->
+
 <hr>
 
 <div class="row" markdown="1">
@@ -288,7 +313,7 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 
 The testbed currently includes 1 Huawei LTE stick:
 
-* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 sticks</a> on node fit26  
+* One <a href="https://consumer.huawei.com/en/mobile-broadband/e3372/specs/" target="_blank">Huawei E3372 stick</a> on node fit26  
   (with SIM IMSI <208950000000015>).
 
 </div>
@@ -297,7 +322,7 @@ The testbed currently includes 1 Huawei LTE stick:
 
 ### Bluetooth 4.2/5.0 Low Energy (BLE) devices
 
-* Two <a href="https://www.sparkfun.com/products/retired/14154" target="_blank">RedBearLab BLE Nano Kit v2 devicess</a> on nodes fit01 anf fit03, loaned by Eurecom.
+* Two <a href="https://www.sparkfun.com/products/retired/14154" target="_blank">RedBearLab BLE Nano Kit v2 devices</a> on nodes fit01 anf fit03, loaned by Eurecom.
 
 </div>
 </div> <!-- row -->
@@ -339,7 +364,7 @@ Three 5G modules composed of a Raspberry Pi 4B device with a hat used to connect
 <div class="row" markdown="1">
 <div class="col-md-6" markdown="1">
 
-### R5G Quectel RM 520N-GL on Raspberry Pi4
+### 5G Quectel RM 520N-GL on Raspberry Pi4
 
 Two 5G Quectel modules composed of a Raspberry Pi 4B device with a hat used to connect a <a href="https://www.quectel.com/product/5g-rm520n-series/"target="_blank">Quectel RM 520N-GL</a> module using specific kits (composed of M.2/USB3 interface and 4 antennas):
 
@@ -362,7 +387,7 @@ Note that these 4 modules do not support the MBIM mode, use the QMI mode instead
 * *qhat22* with SIM IMSI: <001010000000011>
 * *qhat23* with SIM IMSI: <001010000000012>
 
-All the 9 Raspberry Pi4 devices are  connected via an Ethernet port to the `control` wired interface.
+All the 9 Raspberry Pi4 devices are connected via an Ethernet port to the `control` wired interface.
 
 
 </div>
@@ -373,7 +398,7 @@ All the 9 Raspberry Pi4 devices are  connected via an Ethernet port to the `cont
 
 ### 5G Quectel RG-530F on Quectel 5GDM01 Evaluation board kit
 
-Two 5G [RG-530F Quectel modules](https://www.quectel.com/product/5g-rg530f-series/) for FR2 band to be used with the Liteon gNB:
+Two 5G [RG-530F Quectel modules](https://www.quectel.com/product/5g-rg530f-series/) for the FR2 band to be used with the Liteon gNB:
 
 * integrated in [Quectel 5GDM01-EV EVB](https://www.quectel.com/product/5gdm0x-ev-evb-kit/) kit.
 * rg530f-01 with SIM IMSI: <001010000000015> connected via USB3 to *pc03* miniPC.
@@ -406,8 +431,8 @@ Clicking in the header will focus on nodes that have a USRP device
 
 ### Nodes health
 
-The testbed routinely runs a thorough raincheck procedure, to make sure that all is in order.  
-Stay away from nodes that show up behind a big red circle, as this means that the node is not available.
+The testbed routinely runs a thorough raincheck procedure, to make sure that all is in order.
+Avoid using nodes marked with a large red circle, as this indicates that the node is unavailable.
 
 </div>
 </div> <!-- row -->
