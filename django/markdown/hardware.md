@@ -69,7 +69,7 @@ that can optionally help you efficiently orchestrate the complete experimental w
 
 ### All nodes
 
-34 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
+33 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
 
 * State-of-the-art motherboard
   * CPU Intel Core i7-2600 processor
@@ -92,9 +92,9 @@ that can optionally help you efficiently orchestrate the complete experimental w
 </div>
 </div> <!-- row -->
 
-Four miniPC nodes :
+4 miniPC nodes :
 
-* called pc01/pc02/pc03/pc04 installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit17, respectively.
+* called pc01/pc02/pc03/pc04; they are installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit17, respectively.
 
 * connected via USB3 to either USRP B210 devices or 5G RG530F Quectel devices and  attached to the *control* wired interface.
 
@@ -104,8 +104,8 @@ Four miniPC nodes :
 Note that the devices attached to them (i.e., usrp01/usrp02/rg530f-01/rg530f-02) are also controllable through the same *rhubarbe pdu* commands.
 
 * Hardware specifications : 
-    * pc01/pc02 are UM690 (Micro Computer (HK)) miniPC 16-core AMD Ryzen 9 6900HX with Radeon Graphics, 32 GB RAM.
-    * pc03/pc04 are UP-APL03 (AAEON) miniPC 4-core Intel Pentium CPU N4200 @ 1.10GHz, 8 GB RAM.
+    * pc01/pc02 are UM690 (Micro Computer (HK)) miniPC 16-core AMD Ryzen 9 6900HX with Radeon Graphics, 32 GB RAM, no WiFi.
+    * pc03/pc04 are UP-APL03 (AAEON) miniPC 4-core Intel Pentium CPU N4200 @ 1.10GHz, 8 GB RAM, no WiFi.
 
 <hr>
 
