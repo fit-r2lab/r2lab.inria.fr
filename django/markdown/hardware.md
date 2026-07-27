@@ -272,9 +272,35 @@ Two 5G RUs are available:
 * <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> JAGUAR 2T2R</a> RUs (CPRI Split 8), IBUmax 50MHz, MIMO 2x2
 * <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> PANTHER 4T4R</a> RUs (CPRI Split 8), IBUmax 100MHz, MIMO 4x4
 
+<div class="col-md-4">
+<br>
+
+<img src="/assets/img/jaguar.jpg" class="fit-width">
+<center>AW2S Jaguar RU</center>
+
+<br><br>
+
+<img src="/assets/img/panther.jpg" class="fit-width">
+<center>AW2S Panther RU</center>
+
+</div>
+
 As for USRP N3XX devices, each AW2S RU is connected through either 2x10Gbps or 2x25Gbps fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The same <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> can be used with e.g., `-R jaguar` option to demonstrate how to use a AW2S RU to set up a 5G demo using <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
 
 Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 2x2</a> 5G omnidirectional antennas, while the N320 USRP device and the PANTHER RU use <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 4x4</a> 5G omnidirectional antennas.
+
+<div class="col-md-4">
+<br>
+
+<img src="/assets/img/jaguar-antenna.jpg" class="fit-width">
+<center>Jaguar antenna</center>
+
+<br><br>
+
+<img src="/assets/img/panther-antenna.jpg" class="fit-width">
+<center>Panther antenna</center>
+
+</div>
 
 </div>
 </div> <!-- row -->
@@ -289,6 +315,19 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 
 Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a> (4T4R, 100 MHz bandwidth, band n78). 
 
+<div class="col-md-4">
+<br>
+
+<img src="/assets/img/benetel1.jpg" class="fit-width">
+<center>RAN550 Benetel1 RU</center>
+
+<br><br>
+
+<img src="/assets/img/benetel2.jpg" class="fit-width">
+<center>RAN550 Benetel2 RU</center>
+
+</div>
+
 </div>
 </div> <!-- row -->
 
@@ -300,6 +339,14 @@ Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a>
 ### LITEON FlexFi O-RU (FR1 and FR2)
 
 One <a href="https://www.everythingrf.com/products/ran-radio-units/lite-on-technology/1052-1218-flexfi-o-ru" target="_blank">FlexFi LITEON O-RU</a> (Bandwidth 100MHz, 80MHz, 60MHz, Frequency 3300 to 5000 MHz/24250 to 29500 MHz). 
+
+<div class="col-md-4">
+<br>
+
+<img src="/assets/img/liteon.jpg" class="fit-width">
+<center>LITEON FlexFi O-RU</center>
+
+</div>
 
 </div>
 </div> <!-- row -->
