@@ -275,11 +275,11 @@ Two 5G RUs are available:
 </div>
 </div>
 
-<div class="row">
-<div class="col-md-4 col-md-offset-4">
+<div class="row" markdown="1">
+<div class="col-md-4 col-md-offset-4" markdown="1">
 <br>
 
-<div class="row">
+<div class="row" markdown="1">
     <div class="col-xs-6 text-center">
         <img src="/assets/img/jaguar.png" class="fit-width">
         <small>AW2S Jaguar RU</small>
@@ -304,11 +304,11 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 </div>
 </div>
 
-<div class="row">
-<div class="col-md-4 col-md-offset-4">
+<div class="row" markdown="1">
+<div class="col-md-4 col-md-offset-4" markdown="1">
 <br>
 
-<div class="row">
+<div class="row" markdown="1">
     <div class="col-xs-6 text-center">
         <img src="/assets/img/jaguar-antenna.png" class="fit-width">
         <small>Jaguar antenna</small>
@@ -335,11 +335,11 @@ Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a>
 </div>
 </div>
 
-<div class="row">
-<div class="col-md-4 col-md-offset-4">
+<div class="row" markdown="1">
+<div class="col-md-4 col-md-offset-4" markdown="1">
 <br>
 
-<div class="row">
+<div class="row" markdown="1">
     <div class="col-xs-6 text-center">
         <img src="/assets/img/benetel1.png" class="fit-width">
         <small>RAN550 Benetel1 RU</small>
@@ -366,8 +366,8 @@ One <a href="https://www.everythingrf.com/products/ran-radio-units/lite-on-techn
 </div>
 </div>
 
-<div class="row">
-<div class="col-md-4 col-md-offset-4">
+<div class="row" markdown="1">
+<div class="col-md-4 col-md-offset-4" markdown="1">
 <br>
 
 <img src="/assets/img/liteon.jpg" class="fit-width">
