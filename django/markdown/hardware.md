@@ -69,7 +69,7 @@ that can optionally help you efficiently orchestrate the complete experimental w
 
 ### All nodes
 
-32 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
+34 nodes based on <a href="http://nitlab.inf.uth.gr/NITlab/" target="_blank">Nitos X50</a> are currently available and feature
 
 * State-of-the-art motherboard
   * CPU Intel Core i7-2600 processor
@@ -92,9 +92,9 @@ that can optionally help you efficiently orchestrate the complete experimental w
 </div>
 </div> <!-- row -->
 
-4 miniPC nodes :
+Four miniPC nodes :
 
-* called pc01/pc02/pc03/pc04; they are installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit17, respectively.
+* called pc01/pc02/pc03/pc04 installed instead of the Nitos X50 nodes at location fit04/fit06/fit13/fit17, respectively.
 
 * connected via USB3 to either USRP B210 devices or 5G RG530F Quectel devices and  attached to the *control* wired interface.
 
@@ -104,8 +104,8 @@ that can optionally help you efficiently orchestrate the complete experimental w
 Note that the devices attached to them (i.e., usrp01/usrp02/rg530f-01/rg530f-02) are also controllable through the same *rhubarbe pdu* commands.
 
 * Hardware specifications : 
-    * pc01/pc02 are UM690 (Micro Computer (HK)) miniPC 16-core AMD Ryzen 9 6900HX with Radeon Graphics, 32 GB RAM, no WiFi.
-    * pc03/pc04 are UP-APL03 (AAEON) miniPC 4-core Intel Pentium CPU N4200 @ 1.10GHz, 8 GB RAM, no WiFi.
+    * pc01/pc02 are UM690 (Micro Computer (HK)) miniPC 16-core AMD Ryzen 9 6900HX with Radeon Graphics, 32 GB RAM.
+    * pc03/pc04 are UP-APL03 (AAEON) miniPC 4-core Intel Pentium CPU N4200 @ 1.10GHz, 8 GB RAM.
 
 <hr>
 
@@ -272,39 +272,56 @@ Two 5G RUs are available:
 * <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> JAGUAR 2T2R</a> RUs (CPRI Split 8), IBUmax 50MHz, MIMO 2x2
 * <a href="https://www.aw2s.com/electronic-engineering/engineering-services/" target="_blank"> PANTHER 4T4R</a> RUs (CPRI Split 8), IBUmax 100MHz, MIMO 4x4
 
-<div class="col-md-4">
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <br>
 
-<img src="/assets/img/jaguar.jpg" class="fit-width">
-<center>AW2S Jaguar RU</center>
+<div class="row">
+    <div class="col-xs-6 text-center">
+        <img src="/assets/img/jaguar.png" class="fit-width">
+        <small>AW2S Jaguar RU</small>
+    </div>
 
-<br><br>
-
-<img src="/assets/img/panther.jpg" class="fit-width">
-<center>AW2S Panther RU</center>
+    <div class="col-xs-6 text-center">
+        <img src="/assets/img/panther.png" class="fit-width">
+        <small>AW2S Panther RU</small>
+    </div>
+</div>
 
 </div>
+</div>
+
+<div class="row" markdown="1">
+<div class="col-md-12" markdown="1">
 
 As for USRP N3XX devices, each AW2S RU is connected through either 2x10Gbps or 2x25Gbps fibers to our <a href="https://github.com/sopnode" target="_blank"> SophiaNode cluster</a>. The same <a href="https://github.com/sopnode/oai5g-rru" target="_blank"> oai5g-rru scripts</a> can be used with e.g., `-R jaguar` option to demonstrate how to use a AW2S RU to set up a 5G demo using <a href="https://gitlab.eurecom.fr/oai/openairinterface5g" target="_blank">OAI5G</a> microfunctions on R2lab.
 
 Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 2x2</a> 5G omnidirectional antennas, while the N320 USRP device and the PANTHER RU use <a href="https://www.hubersuhner.com/en/products/radio-frequency/antennas/das-ibc/sencity-occhio" target="_blank">HUBER+SUHNER SENCITY® OCCHIO MIMO 4x4</a> 5G omnidirectional antennas.
 
-<div class="col-md-4">
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <br>
 
-<img src="/assets/img/jaguar-antenna.jpg" class="fit-width">
-<center>Jaguar antenna</center>
+<div class="row">
+    <div class="col-xs-6 text-center">
+        <img src="/assets/img/jaguar-antenna.png" class="fit-width">
+        <small>Jaguar antenna</small>
+    </div>
 
-<br><br>
-
-<img src="/assets/img/panther-antenna.jpg" class="fit-width">
-<center>Panther antenna</center>
-
+    <div class="col-xs-6 text-center">
+        <img src="/assets/img/panther-antenna.png" class="fit-width">
+        <small>Panther Antenna</small>
+    </div>
 </div>
 
 </div>
-</div> <!-- row -->
-
+</div>
 
 <hr>
 
@@ -315,21 +332,27 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 
 Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a> (4T4R, 100 MHz bandwidth, band n78). 
 
-<div class="col-md-4">
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <br>
 
-<img src="/assets/img/benetel1.jpg" class="fit-width">
-<center>RAN550 Benetel1 RU</center>
+<div class="row">
+    <div class="col-xs-6 text-center">
+        <img src="/assets/img/benetel1.png" class="fit-width">
+        <small>RAN550 Benetel1 RU</small>
+    </div>
 
-<br><br>
-
-<img src="/assets/img/benetel2.jpg" class="fit-width">
-<center>RAN550 Benetel2 RU</center>
-
+    <div class="col-xs-6 text-center">
+        <img src="/assets/img/benetel2.png" class="fit-width">
+        <small>RAN550 Benetel2 RU</small>
+    </div>
 </div>
 
 </div>
-</div> <!-- row -->
+</div>
 
 <hr>
 
@@ -340,16 +363,18 @@ Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a>
 
 One <a href="https://www.everythingrf.com/products/ran-radio-units/lite-on-technology/1052-1218-flexfi-o-ru" target="_blank">FlexFi LITEON O-RU</a> (Bandwidth 100MHz, 80MHz, 60MHz, Frequency 3300 to 5000 MHz/24250 to 29500 MHz). 
 
-<div class="col-md-4">
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <br>
 
 <img src="/assets/img/liteon.jpg" class="fit-width">
 <center>LITEON FlexFi O-RU</center>
 
 </div>
-
 </div>
-</div> <!-- row -->
 
 <hr>
 
