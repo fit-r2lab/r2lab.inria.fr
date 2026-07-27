@@ -49,9 +49,9 @@ Check out our platform in a virtual tour<br/>
 <div class="col-md-8" markdown="1">
 
 The R2lab platform is hosted inside a shielded RF enclosure of ≈ 90 m<sup>2</sup>.
-It hosts thirty-seven ceiling-mounted FIT nodes arranged on a fixed grid and includes:
+It hosts thirty-seven ceiling-mounted PC nodes arranged on a fixed grid and includes:
 
-* 15 software-defined radios (SDRs): Ettus Research USRP devices (N320, N300, X310, N210, B210, B205mini, USRP1, and USRP2), as well as one LimeSDR.
+* 16 software-defined radios (SDRs): Ettus Research USRP devices (N320, N300, X310, N210, B210, B205mini, USRP1, and USRP2), as well as two LimeSDR devices.
 
 * 15 user equipments (UEs): thirteen Quectel-based FR1 UEs, two Quectel-based FR2 UEs, and two commercial 5G smartphones (Google Pixel 7 and Huawei P40).
 
