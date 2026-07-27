@@ -87,7 +87,7 @@ that can optionally help you efficiently orchestrate the complete experimental w
 
 <div class="col-md-4">
 <br>
-<img src="/assets/img/hardware-node.png" class='fit-width'>
+<img src="/assets/img/icarus-node.png" class='fit-width'>
 <center>Icarus Nodes in the testbed</center>
 </div>
 </div> <!-- row -->
