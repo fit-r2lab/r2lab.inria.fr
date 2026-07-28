@@ -254,7 +254,7 @@ The LimeSDR devices deployed in the chamber have the following specifications: (
 
 <div class="col-md-4">
 <br>
-<img src="/assets/img/lime-sdr.png"  class='fit-width'>
+<img src="/assets/img/lime-sdr.jpg"  class='fit-width'>
 <center>Node with a Lime SDR device</center>
 
 </div>
@@ -275,22 +275,19 @@ Two 5G RUs are available:
 </div>
 </div>
 
-<div class="row" markdown="1">
-<div class="col-md-4 col-md-offset-4" markdown="1">
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <br>
-
-<div class="row" markdown="1">
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/jaguar.jpg" class="fit-width">
-        <small>AW2S Jaguar RU</small>
-    </div>
-
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/panther.jpg" class="fit-width">
-        <small>AW2S Panther RU</small>
-    </div>
+<div class="row">
+<div class="col-xs-6 text-center">
+<img src="/assets/img/jaguar.jpg" class="fit-width">
+<small>AW2S Jaguar RU</small>
 </div>
-
+<div class="col-xs-6 text-center">
+<img src="/assets/img/panther.jpg" class="fit-width">
+<small>AW2S Panther RU</small>
+</div>
+</div>
 </div>
 </div>
 
@@ -304,22 +301,19 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 </div>
 </div>
 
-<div class="row" markdown="1">
-<div class="col-md-4 col-md-offset-4" markdown="1">
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <br>
-
-<div class="row" markdown="1">
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/jaguar-antenna.jpg" class="fit-width">
-        <small>Jaguar antenna</small>
-    </div>
-
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/panther-antenna.jpg" class="fit-width">
-        <small>Panther Antenna</small>
-    </div>
+<div class="row">
+<div class="col-xs-6 text-center">
+<img src="/assets/img/jaguar-antenna.jpg" class="fit-width">
+<small>Jaguar antenna</small>
 </div>
-
+<div class="col-xs-6 text-center">
+<img src="/assets/img/panther-antenna.jpg" class="fit-width">
+<small>Panther Antenna</small>
+</div>
+</div>
 </div>
 </div>
 
@@ -335,22 +329,19 @@ Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a>
 </div>
 </div>
 
-<div class="row" markdown="1">
-<div class="col-md-4 col-md-offset-4" markdown="1">
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <br>
-
-<div class="row" markdown="1">
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/benetel1.jpg" class="fit-width">
-        <small>RAN550 Benetel1 RU</small>
-    </div>
-
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/benetel2.jpg" class="fit-width">
-        <small>RAN550 Benetel2 RU</small>
-    </div>
+<div class="row">
+<div class="col-xs-6 text-center">
+<img src="/assets/img/benetel1.jpg" class="fit-width">
+<small>RAN550 Benetel1 RU</small>
 </div>
-
+<div class="col-xs-6 text-center">
+<img src="/assets/img/benetel2.jpg" class="fit-width">
+<small>RAN550 Benetel2 RU</small>
+</div>
+</div>
 </div>
 </div>
 
