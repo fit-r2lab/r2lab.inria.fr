@@ -56,7 +56,7 @@ that can optionally help you efficiently orchestrate the complete experimental w
 <div class="col-md-4"><!--spacer--></div>
 <div class="col-md-4" markdown="1">
 <br>
-<center><img src="/assets/img/hardware-icarus.png"></center>
+<center><img src="/assets/img/hardware-icarus.jpg"></center>
 <center>Icarus node standalone</center>
 </div>
 <div class="col-md-4"><!--spacer--></div>
@@ -87,7 +87,7 @@ that can optionally help you efficiently orchestrate the complete experimental w
 
 <div class="col-md-4">
 <br>
-<img src="/assets/img/icarus-node.png" class='fit-width'>
+<img src="/assets/img/icarus-node.jpg" class='fit-width'>
 <center>Icarus Nodes in the testbed</center>
 </div>
 </div> <!-- row -->
