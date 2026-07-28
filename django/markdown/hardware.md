@@ -56,7 +56,7 @@ that can optionally help you efficiently orchestrate the complete experimental w
 <div class="col-md-4"><!--spacer--></div>
 <div class="col-md-4" markdown="1">
 <br>
-<center><img src="/assets/img/hardware-icarus.jpg"></center>
+<center><img src="/assets/img/icarus-node.jpg"></center>
 <center>Icarus node standalone</center>
 </div>
 <div class="col-md-4"><!--spacer--></div>
@@ -280,15 +280,15 @@ Two 5G RUs are available:
 <br>
 
 <div class="row" markdown="1">
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/jaguar.png" class="fit-width">
-        <small>AW2S Jaguar RU</small>
-    </div>
+<div class="col-xs-6 text-center">
+<img src="/assets/img/jaguar.png" class="fit-width">
+<small>AW2S Jaguar RU</small>
+</div>
 
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/panther.png" class="fit-width">
-        <small>AW2S Panther RU</small>
-    </div>
+<div class="col-xs-6 text-center">
+<img src="/assets/img/panther.png" class="fit-width">
+<small>AW2S Panther RU</small>
+</div>
 </div>
 
 </div>
@@ -309,15 +309,15 @@ Note that the N300 USRP device and the JAGUAR RU are connected to <a href="https
 <br>
 
 <div class="row" markdown="1">
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/jaguar-antenna.png" class="fit-width">
-        <small>Jaguar antenna</small>
-    </div>
+<div class="col-xs-6 text-center">
+<img src="/assets/img/jaguar-antenna.png" class="fit-width">
+<small>Jaguar antenna</small>
+</div>
 
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/panther-antenna.png" class="fit-width">
-        <small>Panther Antenna</small>
-    </div>
+<div class="col-xs-6 text-center">
+<img src="/assets/img/panther-antenna.png" class="fit-width">
+<small>Panther Antenna</small>
+</div>
 </div>
 
 </div>
@@ -340,15 +340,15 @@ Two <a href="https://benetel.com/ran550/" target="_blank">RAN550 Benetel RUs</a>
 <br>
 
 <div class="row" markdown="1">
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/benetel1.png" class="fit-width">
-        <small>RAN550 Benetel1 RU</small>
-    </div>
+<div class="col-xs-6 text-center">
+<img src="/assets/img/benetel1.png" class="fit-width">
+<small>RAN550 Benetel1 RU</small>
+</div>
 
-    <div class="col-xs-6 text-center">
-        <img src="/assets/img/benetel2.png" class="fit-width">
-        <small>RAN550 Benetel2 RU</small>
-    </div>
+<div class="col-xs-6 text-center">
+<img src="/assets/img/benetel2.png" class="fit-width">
+<small>RAN550 Benetel2 RU</small>
+</div>
 </div>
 
 </div>
