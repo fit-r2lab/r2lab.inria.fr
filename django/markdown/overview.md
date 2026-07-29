@@ -41,7 +41,7 @@ Check out our platform in a virtual tour<br/>
 
 <div class="col-md-3" markdown="1">
 <br>
-<img src="/assets/img/overview-node.png" class="fit-width">
+<img src="/assets/img/node-sample.jpg" class="fit-width">
 </div>
 
 <div class="col-md-1" markdown="1">
