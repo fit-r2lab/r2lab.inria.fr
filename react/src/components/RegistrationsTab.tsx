@@ -14,7 +14,10 @@ interface Registration {
   verified_at: string | null
   decided_at: string | null
   admin_comment: string | null
+  forget: string | null
 }
+
+const FORGET_REASONS = ['duplicate', 'robot', 'spam'] as const
 
 const STATUS_LABELS: Record<string, string> = {
   pending_email: 'pending email',
@@ -47,6 +50,7 @@ function RegistrationsTab() {
   const [selected, setSelected] = useState<Registration | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [includeForgotten, setIncludeForgotten] = useState(false)
 
   // editable fields for the review form
   const [email, setEmail] = useState('')
@@ -55,6 +59,7 @@ function RegistrationsTab() {
   const [sliceName, setSliceName] = useState('')
   const [country, setCountry] = useState('')
   const [family, setFamily] = useState<string>('unknown')
+  const [forgetReason, setForgetReason] = useState('')
   const [acting, setActing] = useState(false)
   const [actionError, setActionError] = useState<string | null>(null)
   const [activeSlices, setActiveSlices] = useState<string[]>([])
@@ -63,7 +68,9 @@ function RegistrationsTab() {
     setLoading(true)
     setError(null)
     try {
-      const data = await apiFetch('registrations')
+      const data = await apiFetch(
+        `registrations${includeForgotten ? '?include_forgotten=true' : ''}`,
+      )
       setRegistrations(data)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to load')
@@ -74,6 +81,9 @@ function RegistrationsTab() {
 
   useEffect(() => {
     fetchRegistrations()
+  }, [includeForgotten])
+
+  useEffect(() => {
     apiFetch('slices')
       .then((data: { name: string }[]) =>
         setActiveSlices(data.map((s) => s.name).sort()),
@@ -92,6 +102,7 @@ function RegistrationsTab() {
     )
     setCountry('')
     setFamily('unknown')
+    setForgetReason(reg.forget || '')
     setActionError(null)
   }
 
@@ -152,14 +163,51 @@ function RegistrationsTab() {
     }
   }
 
+  const handleForget = async () => {
+    if (!selected) return
+    setActing(true)
+    setActionError(null)
+    try {
+      await apiFetch(`registrations/${selected.id}/forget`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason: forgetReason || null }),
+      })
+      setSelected(null)
+      await fetchRegistrations()
+    } catch (err: unknown) {
+      setActionError(err instanceof Error ? err.message : 'Action failed')
+    } finally {
+      setActing(false)
+    }
+  }
+
+  const handleUnforget = async () => {
+    if (!selected) return
+    setActing(true)
+    setActionError(null)
+    try {
+      await apiFetch(`registrations/${selected.id}/unforget`, {
+        method: 'POST',
+      })
+      setSelected(null)
+      await fetchRegistrations()
+    } catch (err: unknown) {
+      setActionError(err instanceof Error ? err.message : 'Action failed')
+    } finally {
+      setActing(false)
+    }
+  }
+
   if (loading) return <p>Loading registrations...</p>
   if (error) return <div className="error">{error}</div>
 
+  const forgotten = registrations.filter((r) => r.forget)
   const pending = registrations.filter(
-    (r) => r.status === 'pending_email' || r.status === 'pending_admin',
+    (r) => !r.forget && (r.status === 'pending_email' || r.status === 'pending_admin'),
   )
   const decided = registrations.filter(
-    (r) => r.status === 'approved' || r.status === 'rejected',
+    (r) => !r.forget && (r.status === 'approved' || r.status === 'rejected'),
   )
 
   const isPending =
@@ -169,6 +217,15 @@ function RegistrationsTab() {
 
   return (
     <div>
+      <label style={{ fontSize: '0.85em' }}>
+        <input
+          type="checkbox"
+          checked={includeForgotten}
+          onChange={(e) => setIncludeForgotten(e.target.checked)}
+        />{' '}
+        Include forgotten
+      </label>
+
       <h2>Pending registrations ({pending.length})</h2>
       {pending.length === 0 ? (
         <p>No pending registrations.</p>
@@ -215,6 +272,33 @@ function RegistrationsTab() {
                 {reg.first_name} {reg.last_name}
                 <small style={{ marginLeft: 6 }}>
                   ({STATUS_LABELS[reg.status]})
+                </small>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
+      {includeForgotten && forgotten.length > 0 && (
+        <>
+          <h2 style={{ marginTop: '1.5em' }}>Forgotten ({forgotten.length})</h2>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {forgotten.map((reg) => (
+              <button
+                key={reg.id}
+                onClick={() => selectRegistration(reg)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '12px',
+                  border: selected?.id === reg.id ? '2px solid #333' : '1px solid #aaa',
+                  background: '#e2e3e5',
+                  cursor: 'pointer',
+                  opacity: 0.6,
+                }}
+              >
+                {reg.first_name} {reg.last_name}
+                <small style={{ marginLeft: 6 }}>
+                  ({STATUS_LABELS[reg.status]} · {reg.forget})
                 </small>
               </button>
             ))}
@@ -316,9 +400,49 @@ function RegistrationsTab() {
             {selected.decided_at && <> · Decided {formatDate(selected.decided_at)}</>}
           </div>
 
+          <div style={{ marginTop: '1em', paddingTop: '1em', borderTop: '1px solid #eee' }}>
+            {actionError && <div className="error" style={{ marginBottom: 8 }}>{actionError}</div>}
+            {selected.forget ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>
+                  Forgotten <small style={{ opacity: 0.7 }}>({selected.forget})</small>
+                </span>
+                <button
+                  onClick={handleUnforget}
+                  disabled={acting}
+                  style={{ padding: '4px 12px', cursor: 'pointer' }}
+                >
+                  {acting ? '...' : 'Unforget'}
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <input
+                  type="text"
+                  list="forget-reason-list"
+                  value={forgetReason}
+                  onChange={(e) => setForgetReason(e.target.value)}
+                  placeholder="reason (optional)"
+                  style={{ flex: 1 }}
+                />
+                <datalist id="forget-reason-list">
+                  {FORGET_REASONS.map((r) => (
+                    <option key={r} value={r} />
+                  ))}
+                </datalist>
+                <button
+                  onClick={handleForget}
+                  disabled={acting}
+                  style={{ padding: '4px 12px', cursor: 'pointer' }}
+                >
+                  {acting ? '...' : 'Forget'}
+                </button>
+              </div>
+            )}
+          </div>
+
           {isPending && (
             <div style={{ marginTop: '1em' }}>
-              {actionError && <div className="error" style={{ marginBottom: 8 }}>{actionError}</div>}
               <div style={{ display: 'flex', gap: '8px' }}>
                 <button
                   onClick={() => handleDecision('approve')}
