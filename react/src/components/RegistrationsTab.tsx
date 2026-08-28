@@ -51,6 +51,7 @@ function RegistrationsTab() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [includeForgotten, setIncludeForgotten] = useState(false)
+  const [showDecided, setShowDecided] = useState(false)
 
   // editable fields for the review form
   const [email, setEmail] = useState('')
@@ -217,16 +218,53 @@ function RegistrationsTab() {
 
   return (
     <div>
-      <label style={{ fontSize: '0.85em' }}>
-        <input
-          type="checkbox"
-          checked={includeForgotten}
-          onChange={(e) => setIncludeForgotten(e.target.checked)}
-        />{' '}
-        Include forgotten
-      </label>
+      <div style={{ display: 'flex', gap: '16px' }}>
+        <label style={{ fontSize: '0.85em' }}>
+          <input
+            type="checkbox"
+            checked={includeForgotten}
+            onChange={(e) => setIncludeForgotten(e.target.checked)}
+          />{' '}
+          Include forgotten
+        </label>
+        <label style={{ fontSize: '0.85em' }}>
+          <input
+            type="checkbox"
+            checked={showDecided}
+            onChange={(e) => setShowDecided(e.target.checked)}
+          />{' '}
+          Show decided
+        </label>
+      </div>
 
-      <h2>Pending registrations ({pending.length})</h2>
+      {includeForgotten && forgotten.length > 0 && (
+        <>
+          <h2 style={{ marginTop: '1.5em' }}>Forgotten ({forgotten.length})</h2>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {forgotten.map((reg) => (
+              <button
+                key={reg.id}
+                onClick={() => selectRegistration(reg)}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '12px',
+                  border: selected?.id === reg.id ? '2px solid #333' : '1px solid #aaa',
+                  background: '#e2e3e5',
+                  cursor: 'pointer',
+                  opacity: 0.6,
+                }}
+              >
+                {reg.first_name} {reg.last_name}
+                <small style={{ marginLeft: 6 }}>
+                  ({STATUS_LABELS[reg.status]} · {reg.forget})
+                </small>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
+      <h2 style={{ marginTop: '1.5em' }}>Pending registrations ({pending.length})</h2>
       {pending.length === 0 ? (
         <p>No pending registrations.</p>
       ) : (
@@ -252,7 +290,7 @@ function RegistrationsTab() {
         </div>
       )}
 
-      {decided.length > 0 && (
+      {showDecided && decided.length > 0 && (
         <>
           <h2 style={{ marginTop: '1.5em' }}>Decided ({decided.length})</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -272,33 +310,6 @@ function RegistrationsTab() {
                 {reg.first_name} {reg.last_name}
                 <small style={{ marginLeft: 6 }}>
                   ({STATUS_LABELS[reg.status]})
-                </small>
-              </button>
-            ))}
-          </div>
-        </>
-      )}
-
-      {includeForgotten && forgotten.length > 0 && (
-        <>
-          <h2 style={{ marginTop: '1.5em' }}>Forgotten ({forgotten.length})</h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-            {forgotten.map((reg) => (
-              <button
-                key={reg.id}
-                onClick={() => selectRegistration(reg)}
-                style={{
-                  padding: '4px 10px',
-                  borderRadius: '12px',
-                  border: selected?.id === reg.id ? '2px solid #333' : '1px solid #aaa',
-                  background: '#e2e3e5',
-                  cursor: 'pointer',
-                  opacity: 0.6,
-                }}
-              >
-                {reg.first_name} {reg.last_name}
-                <small style={{ marginLeft: 6 }}>
-                  ({STATUS_LABELS[reg.status]} · {reg.forget})
                 </small>
               </button>
             ))}
