@@ -37,8 +37,8 @@ tab: papers
 **Please:** If you are using R2lab for your publications, please add the following text in the Acknowledgment section of your papers/reports:
 
 <div class="citation text-center" markdown="1">
-We would like to thank the FIT R2lab team from Inria, Sophia Antipolis,   
-for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2lab]
+We would like to thank the R2lab team from Inria, Sophia Antipolis,   
+for their help in using the FIT R2lab testbed <https://r2lab.inria.fr/> [r2lab], within the SophiaNode SLICES-RI site.
 </div>
 
 <br>and then please add in your references the following entry
@@ -57,9 +57,15 @@ for their help in using the FIT-R2lab testbed <https://fit-r2lab.inria.fr/>[r2la
 
 ### Conferences/Workshops
 
+* Yassir Amami, Chadi Barakat, Thierry Turletti, "[On-Demand Slice-Aware Latency Decomposition in Cloud-Native 5G Systems](https://inria.hal.science/hal-05746626v1)", MSWiM 2026 – 28th International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems, Oct 2026, Paris, France
+
+* Mohammadbagher Tavassoli, Chadi Barakat, Thierry Turletti, Walid Dabbous, "[MSWiM Poster: Performance Impact of RLC Discards and PDCP Reordering in 5G: A Measurement Study](https://inria.hal.science/hal-05748846v1)", MobiWac 2026 – 23rd International Symposium on Mobility Management and Wireless Access, Oct 2026, Paris, France.
+
 * Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Toward Real-Time RAN Observability in Open-Source 5G Systems](https://inria.hal.science/hal-05448027/)", 29th Conference on Innovation in Clouds, Internet and Networks (ICIN'2026), March 2026, Athènes, Greece. **Best Paper Award**.
 
 ### Demo
+
+* Yassir Amami, Chadi Barakat, Thierry Turletti, "[MSWIM Demo: Demonstrating Slice-Aware Latency Decomposition in Cloud-Native 5G Systems](https://inria.hal.science/hal-05746641v1)", MSWiM 2026 – 28th International Conference on Modeling, Analysis and Simulation of Wireless and Mobile Systems, Oct 2026, Paris, France
 
 * Yassir Amami, Ziyad Mabrouk, Chadi Barakat, Thierry Turletti, "[Demonstrating Real-Time RAN Observability in Open-Source 5G: Controlled Interference Scenario](https://inria.hal.science/hal-05527226/)", 29th Conference on Innovation in Clouds, Internet and Networks, March 2026, Athènes, Greece. 
 
