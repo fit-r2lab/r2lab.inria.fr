@@ -19,7 +19,7 @@ set -euo pipefail
 
 cd "$(dirname "$(readlink -f "$0")")/.."
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="/root/.local/bin:$PATH"
 
 PUBLISH_PATH=/var/www/r2lab.inria.fr
 
