@@ -48,6 +48,9 @@ if PRODUCTION:
 else:
     r2labapi_url = "http://localhost:9999/"
     sidecar_url = "ws://localhost:10000/"
+# the SIDECAR env. variable, if set, overrides the sidecar url
+# e.g. SIDECAR=wss://r2lab-sidecar.inria.fr/ to use the production sidecar in devel mode
+sidecar_url = os.getenv('SIDECAR') or sidecar_url
 print(f"Using r2labapi_url={r2labapi_url}  sidecar_url={sidecar_url}")
 
 ####################

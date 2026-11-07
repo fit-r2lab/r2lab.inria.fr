@@ -6,6 +6,7 @@
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livemap.css")
 
+import { node_distro, known_distros, logo_name } from '/assets/r2lab/distros.js'
 import { Sidecar } from "/assets/r2lab/sidecar.js"
 
 // the space between nodes is the unit
@@ -117,7 +118,7 @@ function scale_options() {
 // * cmc_on_off: 'on' or 'off' - nodes that fail will be treated as 'ko', better use 'available' instead
 // * control_ping: 'on' or 'off'
 // * control_ssh: 'on' or 'off'
-// * os_release: fedora* ubuntu* with/without gnuradio, .... or 'other'
+// * image_radical, os_release: see distros.js
 
 let livemap_geometry = {
 
@@ -417,18 +418,10 @@ class MapNode {
     if (!this.fully_booted())
       return undefined
     // remember infos might be incomplete
-    if (this.os_release == undefined)
+    let distro = node_distro(this)
+    if (distro == undefined)
       return undefined
-    if (this.os_release.indexOf('other') >= 0)
-      filter_name = 'other-logo'
-    else if (this.os_release.indexOf('fedora') >= 0)
-      filter_name = 'fedora-logo'
-    else if (this.os_release.indexOf('centos') >= 0)
-      filter_name = 'centos-logo'
-    else if (this.os_release.indexOf('ubuntu') >= 0)
-      filter_name = 'ubuntu-logo'
-    else
-      return undefined
+    filter_name = logo_name(distro)
     return `url(#${filter_name})`
   }
 
@@ -686,10 +679,8 @@ export class LiveMap {
         .attr('width', 2 * pillar_radius)
         .attr('height', 2 * pillar_radius)
     })
-    this.declare_image_filter('fedora-logo', 'png')
-    this.declare_image_filter('centos-logo', 'png')
-    this.declare_image_filter('ubuntu-logo', 'png')
-    this.declare_image_filter('other-logo', 'svg')
+    Object.entries(known_distros).forEach(([distro, suffix]) =>
+      this.declare_image_filter(logo_name(distro), suffix))
     this.declare_image_filter('gnuradio-green', 'svg')
     this.declare_image_filter('gnuradio-gray-bold', 'svg')
     this.declare_image_filter('gnuradio-red', 'svg')

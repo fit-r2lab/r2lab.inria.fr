@@ -8,15 +8,14 @@
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livetable.css")
 
+import { node_distro, known_distros } from '/assets/r2lab/distros.js'
 import { LiveColumnsNode, LiveColumns, livecolumns_options, span_html } from '/assets/r2lab/livecolumns.js'
 
 ////////// configurable
 export let livetable_options = {
 
-  fedora_badge: '<img src="/assets/img/fedora-logo.png">',
-  centos_badge: '<img src="/assets/img/centos-logo.png">',
-  ubuntu_badge: '<img src="/assets/img/ubuntu-logo.png">',
-  other_badge: '<img src="/assets/img/other-logo.svg">',
+  // badges are built from known_distros in distros.js
+  badge: (distro) => `<img src="/assets/img/${distro}-logo.${known_distros[distro]}">`,
 
 }
 
@@ -95,20 +94,13 @@ export class LiveTableNode extends LiveColumnsNode {
       title += `os-release=${os_release}`
       return `<span data-toggle="tooltip" data-html="true" title="${title}">${main}</span>`
     }
-    if (this.os_release == undefined)
+    let distro = node_distro(this)
+    if (distro == undefined)
       return ["n/a", klass]
-    if (this.os_release.startsWith('fedora'))
-      return [tooltip(`${livetable_options.fedora_badge} ${this.image_radical}`), klass]
-    else if (this.os_release.startsWith('centos'))
-      return [tooltip(`${livetable_options.centos_badge} ${this.image_radical}`), klass]
-    else if (this.os_release.startsWith('ubuntu'))
-      return [tooltip(`${livetable_options.ubuntu_badge} ${this.image_radical}`), klass]
-    else if (this.os_release == 'other')
-      return [tooltip(`${livetable_options.other_badge} (ssh OK)`), klass]
-    else
-      return ['n/a', klass]
+    // always show the radical when we have it, even for unknown distros
+    let label = this.image_radical || ((distro == 'other') ? `${os_release || '?'} (ssh OK)` : os_release)
+    return [tooltip(`${livetable_options.badge(distro)} ${label}`), klass]
   }
-
 
   cell_docker_info() {
     // console.log(`${this.id} v=${this.docker_version} r=${this.container_running}`
