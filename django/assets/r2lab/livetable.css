@@ -1,5 +1,6 @@
 /* some space for the metal badges */
-.livecolumns_body td.metal img {
+.livecolumns_body td.metal img,
+.livecolumns_body td.docker img {
     height : 20px;
 }
 

@@ -15,7 +15,7 @@ import { LiveColumnsNode, LiveColumns, livecolumns_options, span_html } from '/a
 export let livetable_options = {
 
   // badges are built from known_distros in distros.js
-  badge: (distro) => `<img src="/assets/img/${distro}-logo.${known_distros[distro]}">`,
+  badge: (distro) => `<img style="height:20px" src="/assets/img/${distro}-logo.${known_distros[distro]}">`,
 
 }
 
@@ -99,7 +99,12 @@ export class LiveTableNode extends LiveColumnsNode {
       return ["n/a", klass]
     // always show the radical when we have it, even for unknown distros
     let label = this.image_radical || ((distro == 'other') ? `${os_release || '?'} (ssh OK)` : os_release)
-    return [tooltip(`${livetable_options.badge(distro)} ${label}`), klass]
+    // with docker on, the metal is shown with the docker logo;
+    // the container's distro logo goes in the docker column
+    let badge = this.docker_version
+      ? '<span class="fab fa-docker"></span>'
+      : livetable_options.badge(distro)
+    return [tooltip(`${badge} ${label}`), klass]
   }
 
   cell_docker_info() {
@@ -129,7 +134,9 @@ export class LiveTableNode extends LiveColumnsNode {
     }
     if (this.container_running)
       klass += ' running'
-    let display = this.container_image || '?'
+    let distro = node_distro(this)
+    let badge = distro ? `${livetable_options.badge(distro)} ` : ''
+    let display = `${badge}${this.container_image || '?'}`
     return [tooltip_details(display), klass]
   }
 }

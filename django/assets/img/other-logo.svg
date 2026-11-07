@@ -1,1 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="81px" height="81px" viewBox="-0.5 -0.5 81 81" content="&lt;mxfile&gt;&lt;diagram id=&quot;fZVWtXrwQRgA886l7utX&quot; name=&quot;Page-1&quot;&gt;jZPNboMwDICfhuOkQjbWHldWust26WHnCFyIFmoWQqF7+jkkgaBq0qhE48+/sU3EsmY8Kt7W71iCjJJNOUbsNUqSdPtIbwNuFuxiZkGlRGlRvICT+AEHN472ooRuZagRpRbtGhZ4uUChV4wrhcPa7IxynbXlFdyBU8HlPf0Upa4t3SbPC38DUdU+c5zurKbh3tjdpKt5iUOA2CFimULU9tSMGUjTO98X65f/oZ0LU3DR/3FIrMOVy97dLUpSSa77M1IE6g0vrCL97k1R+wx7JUCR6gOGBZu76Jtc25oYD900vhcyeNq0Y+iRVtM/y31OqtOmdRrbojlsQrXTiEnYD7XQcGptcQMtGbFaN5KkmI68a+3cz2IEuuq+0wq/IEOJagrFzJPnpkYhZcAPqfnNycNOuuZeQWkYA+Q6ewRsQKsbmXitn7Jb860Th2BnHKqDdfGMuy2t5sDLIOngZunFZWcmXfDhscMv&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><ellipse cx="40" cy="40" rx="40" ry="40" fill="#e6e6e6" stroke="#3333ff" pointer-events="all"/><g transform="translate(-0.5 -0.5)"><switch><foreignObject pointer-events="none" width="100%" height="100%" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" style="overflow: visible; text-align: left;"><div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 40px; margin-left: 1px;"><div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;"><div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;"><font face="Courier New" style="font-size: 50px">?</font></div></div></div></foreignObject><text x="40" y="44" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">?</text></switch></g></g><switch><g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"/><a transform="translate(0,-5)" xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank"><text text-anchor="middle" font-size="10px" x="50%" y="100%">Viewer does not support full SVG 1.1</text></a></switch></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <!-- feet -->
+  <ellipse cx="28" cy="73" rx="11" ry="5" fill="#f5a800"/>
+  <ellipse cx="52" cy="73" rx="11" ry="5" fill="#f5a800"/>
+  <!-- body -->
+  <path d="M40 5 C27 5 22 16 22 28 C22 36 17 42 14 52 C10 64 20 74 40 74 C60 74 70 64 66 52 C63 42 58 36 58 28 C58 16 53 5 40 5 Z" fill="#1c1c1c"/>
+  <!-- belly -->
+  <path d="M40 30 C31 30 26 42 26 54 C26 65 32 70 40 70 C48 70 54 65 54 54 C54 42 49 30 40 30 Z" fill="#f4f4f4"/>
+  <!-- face -->
+  <ellipse cx="33" cy="19" rx="5" ry="6" fill="#fff"/>
+  <ellipse cx="47" cy="19" rx="5" ry="6" fill="#fff"/>
+  <circle cx="34" cy="20" r="2.2" fill="#000"/>
+  <circle cx="46" cy="20" r="2.2" fill="#000"/>
+  <!-- beak -->
+  <path d="M32 27 C32 23 48 23 48 27 C48 32 40 35 40 35 C40 35 32 32 32 27 Z" fill="#f5a800"/>
+</svg>
