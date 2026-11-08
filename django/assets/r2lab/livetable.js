@@ -8,7 +8,7 @@
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livetable.css")
 
-import { node_distro, known_distros } from '/assets/r2lab/distros.js'
+import { node_distro, metal_distro, container_distro, metal_is_live, known_distros } from '/assets/r2lab/distros.js'
 import { LiveColumnsNode, LiveColumns, livecolumns_options, span_html } from '/assets/r2lab/livecolumns.js'
 
 ////////// configurable
@@ -82,16 +82,99 @@ export class LiveTableNode extends LiveColumnsNode {
   }
 
   cell_metal_info() {
+    // data from a monitor that sends the metal and container sub-records
+    return this.metal ? this.cell_metal_info_records() : this.cell_metal_info_flat()
+  }
+
+  cell_docker_info() {
+    return this.metal ? this.cell_docker_info_records() : this.cell_docker_info_flat()
+  }
+
+  // used for tooltips: how long ago was that, from an epoch in seconds
+  static ago(seen) {
+    if (!seen) return undefined
+    const seconds = Math.max(0, Math.round(Date.now() / 1000 - seen))
+    if (seconds < 90) return 'just now'
+    const minutes = Math.round(seconds / 60)
+    if (minutes < 90) return `${minutes} min ago`
+    const hours = Math.round(minutes / 60)
+    if (hours < 36) return `${hours} h ago`
+    return `${Math.round(hours / 24)} days ago`
+  }
+
+  // with metal / container: what is on the node, and when it was last seen
+  // when the node cannot be reached, this is what was there the last time
+  cell_metal_info_records() {
+    const { metal } = this
+    let klass = 'metal'
+    const reachable = metal_is_live(this)
+    klass += reachable ? ' ok' : ' ko'
+    const distro = metal_distro(this)
+    if (distro == undefined)
+      return ["n/a", klass]
+    let title = ""
+    if (!reachable) title += `last seen ${LiveTableNode.ago(metal.seen) || '?'}:<br>`
+    if (metal.pretty_name) title += `${metal.pretty_name}<br>`
+    title += `uname=${metal.uname}<br>`
+    title += `os-release=${metal.os_release}<br>`
+    if (metal.docker_version) title += `docker-version=${metal.docker_version}<br>`
+    title += `ssh port=${metal.ssh_port}`
+    const label = metal.image_radical
+      || ((distro == 'other') ? `${metal.os_release || '?'} (ssh OK)` : metal.os_release)
+    // with docker on, the metal is shown with the docker logo;
+    // the container's distro logo goes in the docker column
+    const badge = metal.docker_version
+      ? '<span class="fab fa-docker"></span>'
+      : livetable_options.badge(distro)
+    return [`<span data-toggle="tooltip" data-html="true" title="${title}">${badge} ${label}</span>`, klass]
+  }
+
+  cell_docker_info_records() {
+    const { metal, container } = this
+    let klass = 'docker'
+    const reachable = metal_is_live(this)
+    klass += reachable ? ' ok' : ' ko'
+    const tooltip = (main, title) =>
+      `<span data-toggle="tooltip" data-html="true" title="${title}">${main}</span>`
+    if (!metal.docker_version) {
+      klass += ' docker-ko'
+      return [tooltip('<span class="fa fa-times"></span>', "no docker found in image"), klass]
+    }
+    let title = ""
+    if (!reachable) title += `last seen ${LiveTableNode.ago((container || metal).seen) || '?'}:<br>`
+    if (!container) {
+      klass += ' docker-ko stopped'
+      title += "no container"
+      return [tooltip('no container', title), klass]
+    }
+    klass += container.running ? ' docker-ok running' : ' docker-ko stopped'
+    title += `container-running=${container.running}<br>`
+    if (container.pretty_name) title += `${container.pretty_name}<br>`
+    // docker gives e.g. 2026-11-07T09:12:01.123456789Z : drop the fraction of a second
+    if (container.started) title += `started ${container.started.replace(/\.\d+(?=Z|[+-]\d\d:?\d\d$)/, '')}`
+    // a container that is not (yet) known to us, e.g. not running, still gets a logo
+    // the container's own distro is only visible through its sshd, so unknown
+    // when it is stopped; then show what the map shows for that node
+    const distro = container_distro(this) || node_distro(this) || 'other'
+    const badge = `${livetable_options.badge(distro)} `
+    return [tooltip(`${badge}${container.image || '?'}`, title), klass]
+  }
+
+  // from the flat keys only, with data from a monitor that predates the
+  // metal and container sub-records
+  cell_metal_info_flat() {
     let klass = 'metal'
     let reachable_ssh = this.control_ssh == 'on'
     klass += reachable_ssh ? ' ok' : ' ko'
     let uname = this.uname
     let os_release = this.os_release
+    let docker_version = this.docker_version
     function tooltip(main) {
       let title = ""
       if (!reachable_ssh) title += `last seen:<br>`
       title += `uname=${uname}<br>`
       title += `os-release=${os_release}`
+      if (docker_version) title += `<br>docker-version=${docker_version}`
       return `<span data-toggle="tooltip" data-html="true" title="${title}">${main}</span>`
     }
     let distro = node_distro(this)
@@ -107,13 +190,16 @@ export class LiveTableNode extends LiveColumnsNode {
     return [tooltip(`${badge} ${label}`), klass]
   }
 
-  cell_docker_info() {
+  cell_docker_info_flat() {
     // console.log(`${this.id} v=${this.docker_version} r=${this.container_running}`
     // `i=${this.container_image} s=${this.control_ssh}`)
     let klass = 'docker'
     let reachable_ssh = this.control_ssh == 'on'
     klass += reachable_ssh ? ' ok' : ' ko'
     klass += (this.docker_version && this.container_running == 'true') ? ' docker-ok' : ' docker-ko'
+    // a container that is not running is shown half transparent
+    if (this.docker_version && this.container_running != 'true')
+      klass += ' stopped'
     let docker_version = this.docker_version
     let container_running = this.container_running
     function tooltip(main, title) {
@@ -122,7 +208,6 @@ export class LiveTableNode extends LiveColumnsNode {
     function tooltip_details(main) {
       let title = ""
       if (!reachable_ssh) title += `last seen:<br>`
-      title += `docker-version=${docker_version}<br>`
       title += `container-running=${container_running}`
       return tooltip(main, title)
     }

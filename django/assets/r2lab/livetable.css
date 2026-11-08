@@ -14,6 +14,11 @@ td.metal.ko, td.docker.ko {
     opacity: 0.5;
 }
 
+/* a container that is not running */
+td.docker.stopped {
+    opacity: 0.5;
+}
+
 thead.livecolumns_header th,
 tfoot.livecolumns_header th {
     text-align: center;

@@ -6,7 +6,8 @@
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livemap.css")
 
-import { node_distro, known_distros, logo_name } from '/assets/r2lab/distros.js'
+import { node_distro, metal_is_live, known_distros, logo_name } from '/assets/r2lab/distros.js'
+import { same_value } from '/assets/r2lab/same-value.js'
 import { Sidecar } from "/assets/r2lab/sidecar.js"
 
 // the space between nodes is the unit
@@ -315,7 +316,7 @@ function locate_by_id(list_objs, id) {
 function update_obj_from_info(obj, obj_info) {
   let modified = false
   for (let prop in obj_info) {
-    if (obj_info[prop] != obj[prop]) {
+    if (!same_value(obj_info[prop], obj[prop])) {
       obj[prop] = obj_info[prop]
       modified = true
     }
@@ -349,9 +350,10 @@ class MapNode {
   }
 
   fully_booted() {
+    // on a docker node port 22 may be down (container stopped) while the metal is fine
     return this.cmc_on_off == 'on'
       && this.control_ping == 'on'
-      && this.control_ssh != 'off'
+      && (this.control_ssh != 'off' || metal_is_live(this))
   }
 
   // shift label south-east a little
@@ -410,6 +412,15 @@ class MapNode {
         '#bbb'
   }
 
+  // a docker host whose container is not running: the metal is up but there
+  // is nothing for the user to log into
+  container_stopped() {
+    const { metal, container } = this
+    if (metal)
+      return Boolean(metal.docker_version) && !(container && container.running)
+    return Boolean(this.docker_version) && this.container_running != 'true'
+  }
+
   // showing an image (or not, if filter is undefined)
   // depending on the OS
   node_status_filter() {
@@ -417,6 +428,10 @@ class MapNode {
     // only set a filter with full-fledged nodes
     if (!this.fully_booted())
       return undefined
+    // the metal is up but the container is not: the node cannot be used yet,
+    // which the distro logo would hide, so show the docker logo instead
+    if (this.container_stopped())
+      return `url(#docker-logo)`
     // remember infos might be incomplete
     let distro = node_distro(this)
     if (distro == undefined)
@@ -681,6 +696,7 @@ export class LiveMap {
     })
     Object.entries(known_distros).forEach(([distro, suffix]) =>
       this.declare_image_filter(logo_name(distro), suffix))
+    this.declare_image_filter('docker-logo', 'svg')
     this.declare_image_filter('gnuradio-green', 'svg')
     this.declare_image_filter('gnuradio-gray-bold', 'svg')
     this.declare_image_filter('gnuradio-red', 'svg')

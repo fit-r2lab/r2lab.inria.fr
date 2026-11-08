@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- a simple whale carrying containers, used on the livemap for a docker node
+     whose container is not running; same 256x256 box as the distro logos -->
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+	<g fill="#2496ED">
+		<rect x="120" y="52" width="28" height="24"/>
+		<rect x="88" y="80" width="28" height="24"/>
+		<rect x="120" y="80" width="28" height="24"/>
+		<rect x="152" y="80" width="28" height="24"/>
+		<rect x="56" y="108" width="28" height="24"/>
+		<rect x="88" y="108" width="28" height="24"/>
+		<rect x="120" y="108" width="28" height="24"/>
+		<rect x="152" y="108" width="28" height="24"/>
+		<path d="M16,140 L188,140 C192,128 202,122 214,124 C220,118 224,112 226,104 C236,110 240,122 236,134 C246,134 252,138 252,138 C248,142 242,144 236,144 C222,196 176,226 118,226 C62,226 24,196 16,140 Z"/>
+	</g>
+	<circle cx="60" cy="172" r="7" fill="#ffffff"/>
+</svg>

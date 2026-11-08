@@ -9,6 +9,7 @@ import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livecolumns.css")
 
 import { Sidecar } from "/assets/r2lab/sidecar.js"
+import { same_value } from "/assets/r2lab/same-value.js"
 
 
 //
@@ -59,7 +60,7 @@ export class LiveColumnsNode {
   update_from_news(node_info) {
     let modified = false
     for (let prop in node_info) {
-      if (node_info[prop] != this[prop]) {
+      if (!same_value(node_info[prop], this[prop])) {
         this[prop] = node_info[prop]
         modified = true
         livecolumns_debug(`node_info[${prop}] = ${node_info[prop]}`)
@@ -265,6 +266,12 @@ export class LiveColumns {
       .enter()
       .append('td')
       .merge(cells)
+      // the tooltips of the elements that .html() is about to replace must
+      // go first: if one is showing, its element vanishes without 'hide'
+      // ever happening and the popup stays in the page, piling up
+      .each(function () {
+        $(this).find('[data-toggle="tooltip"]').tooltip('dispose')
+      })
       .html(LiveColumns.get_html)
       .attr('class', LiveColumns.get_class)
       .attr('data-toggle', 'tooltip')
