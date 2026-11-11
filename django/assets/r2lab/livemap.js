@@ -8,6 +8,7 @@ load_css("/assets/r2lab/livemap.css")
 
 import { node_distro, metal_is_live, known_distros, logo_name } from '/assets/r2lab/distros.js'
 import { same_value } from '/assets/r2lab/same-value.js'
+import { static_value, is_unavailable, unavailable_details } from '/assets/r2lab/node-static.js'
 import { Sidecar } from "/assets/r2lab/sidecar.js"
 
 // the space between nodes is the unit
@@ -115,7 +116,9 @@ function scale_options() {
 
 ////////// status details
 // fields that this widget knows about concerning each node
-// * available: missing, or 'ok' : node is expected to be usable; if 'ko' a very visible red circle shows up
+// * availability: {status, reason, since}; missing, or status 'ok' : node is expected to be usable; if 'ko' a very visible red circle shows up
+//   (older data has a flat 'available' key instead)
+// * static: free-form record from the inventory - usrp_type, usrp_logo, ... (older data has them as flat keys)
 // * cmc_on_off: 'on' or 'off' - nodes that fail will be treated as 'ko', better use 'available' instead
 // * control_ping: 'on' or 'off'
 // * control_ssh: 'on' or 'off'
@@ -346,7 +349,7 @@ class MapNode {
   }
 
   is_available() {
-    return this.available != 'ko'
+    return !is_unavailable(this)
   }
 
   fully_booted() {
@@ -440,18 +443,14 @@ class MapNode {
     return `url(#${filter_name})`
   }
 
-  // a missing 'available' means the node is OK
+  // a node with no availability record is OK
   unavailable_display() {
-    if ((this.available == undefined)
-      || (this.available == "ok"))
-      return "none"
-    else
-      return "on"
+    return is_unavailable(this) ? "on" : "none"
   }
 
   ////////// show an icon only if usrp_type is defined
   has_usrp() {
-    return (this.usrp_type || 'none') != 'none'
+    return (static_value(this, 'usrp_type') || 'none') != 'none'
   }
   usrp_status_display() {
     return (this.has_usrp()) ? "on" : "none"
@@ -461,10 +460,11 @@ class MapNode {
     if (!this.has_usrp())
       return undefined
     let filter_name
-    const prefix = (this.usrp_logo) == "antenna" ? "antenna"
-                 : (this.ursp_logo == "mobile") ? "mobile"
+    const usrp_logo = static_value(this, 'usrp_logo')
+    const prefix = (usrp_logo) == "antenna" ? "antenna"
+                 : (usrp_logo == "mobile") ? "mobile"
                  : "gnuradio"
-    if (this.usrp_logo != "antenna") {
+    if (usrp_logo != "antenna") {
       if (this.usrp_on_off == 'on')
         filter_name = 'gnuradio-green'
       else if (this.usrp_on_off == 'off')
@@ -532,10 +532,12 @@ class MapNode {
   }
 
   tooltip() {
+    const unavailable = is_unavailable(this)
+      ? ` - UNAVAILABLE ${unavailable_details(this)}` : ''
     if (this.has_usrp())
-      return `${this.id} : SDR is ${this.usrp_type}`
+      return `${this.id} : SDR is ${static_value(this, 'usrp_type')}${unavailable}`
     else
-      return `${this.id} - no SDR`
+      return `${this.id} - no SDR${unavailable}`
   }
 
 }
@@ -551,7 +553,7 @@ class MapNodePc extends MapNode {
 
     tooltip() {
       if (this.has_usrp())
-        return `pc0${this.id} : SDR is ${this.usrp_type} (${this.usrp_name})`
+        return `pc0${this.id} : SDR is ${static_value(this, 'usrp_type')} (${this.usrp_name})`
       else
         return `${this.id} - no SDR`
     }

@@ -10,6 +10,7 @@ load_css("/assets/r2lab/livecolumns.css")
 
 import { Sidecar } from "/assets/r2lab/sidecar.js"
 import { same_value } from "/assets/r2lab/same-value.js"
+import { static_value, is_unavailable, unavailable_details } from "/assets/r2lab/node-static.js"
 
 
 //
@@ -82,9 +83,12 @@ export class LiveColumnsNode {
 
 
   cell_available() {
-    return (this.available == 'ko') ?
-      [span_html('', 'fa fa-ban'), 'error', 'unavailable'] :
-      [span_html('', 'fa fa-check'), 'ok', 'node is OK for exps']
+    if (is_unavailable(this)) {
+      const details = unavailable_details(this)
+      return [span_html('', 'fa fa-ban'), 'error',
+        details ? `unavailable: ${details}` : 'unavailable']
+    }
+    return [span_html('', 'fa fa-check'), 'ok', 'node is OK for exps']
   }
 
 
@@ -95,12 +99,12 @@ export class LiveColumnsNode {
   }
 
   cell_data_interface() {
-    // the sidecar field is named 'data_interface'
+    // the 'data_interface' item of the static data
     // it can be
     // true: answer is yes
     // false: answer is no
-    // undefined: answer is yes
-    if (!this.data_interface) {
+    // undefined: answer is no
+    if (!static_value(this, 'data_interface')) {
       return [span_html('', 'far fa-hdd'), 'no-data', 'no data interface']
     } else {
       return [span_html('', 'fas fa-grip-lines'), '', 'data interface available']
@@ -113,9 +117,10 @@ export class LiveColumnsNode {
     alt_text += (this.gnuradio_release)
       ? `gnuradio_release = ${this.gnuradio_release}`
       : `no gnuradio installed`
-    let text = this.usrp_type || '-'
-    if (mention_duplexer && this.usrp_duplexer)
-      text += `/${this.usrp_duplexer}`
+    let text = static_value(this, 'usrp_type') || '-'
+    const duplexer = static_value(this, 'usrp_duplexer')
+    if (mention_duplexer && duplexer)
+      text += `/${duplexer}`
     text += ' '
     text += (this.usrp_on_off == 'on')
       ? span_html('', 'fa fa-toggle-on')
@@ -131,6 +136,9 @@ export class LiveColumnsNode {
   // when changing the filter mode - like clicking the header area
   // may be redefined on subclasses if needed
   is_filtered(filter) {
+    // availability is not a flat key any more
+    if (filter == 'available')
+      return !is_unavailable(this)
     // this is for filtering on one specific column
     if (filter in this) {
       const value = this[filter]
@@ -148,7 +156,7 @@ export class LiveColumnsNode {
           || this.usrp_on_off == 'on'
           || this.control_ping == 'on'
           || this.control_ssh == 'on')
-          && this.available != 'ko'
+          && !is_unavailable(this)
       // experimental - the idea is to start from nothing
       // and add nodes one by one from the map
       default:

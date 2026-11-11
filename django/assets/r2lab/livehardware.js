@@ -9,6 +9,7 @@ import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livehardware.css")
 
 import { LiveColumnsNode, LiveColumns, livecolumns_options, span_html } from '/assets/r2lab/livecolumns.js'
+import { static_value } from '/assets/r2lab/node-static.js'
 
 //////////////////////////////
 // nodes are dynamic
@@ -51,8 +52,8 @@ class LiveHardwareNode extends LiveColumnsNode {
   }
 
   cell_duplexer() {
-    let html = (!('usrp_duplexer' in this)) ? '-' : this.usrp_duplexer
-    return [html, ""]
+    const duplexer = static_value(this, 'usrp_duplexer')
+    return [duplexer === undefined ? '-' : duplexer, ""]
   }
 
   // images are found under node-images
@@ -71,20 +72,22 @@ class LiveHardwareNode extends LiveColumnsNode {
   }
 
   cell_images() {
-    if ((!('images' in this)) || (this.images.length == 0)) {
+    const images = static_value(this, 'images')
+    if (!images || images.length == 0) {
       return '-'
     }
-    let html = this.images.map(
+    let html = images.map(
       path => this.image_link(path)
     ).join(" / ")
     return [html, "image-links"]
   }
 
   cell_wifi_antennas() {
-    if ((!('images_wifi' in this)) || (this.images_wifi.length == 0)) {
+    const images_wifi = static_value(this, 'images_wifi')
+    if (!images_wifi || images_wifi.length == 0) {
       return '-'
     }
-    let html = this.images_wifi.map(this.image_link)
+    let html = images_wifi.map(this.image_link)
       .join(" / ")
     return [html, "image-links"]
   }
