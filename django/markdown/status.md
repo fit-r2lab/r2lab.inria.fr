@@ -37,15 +37,18 @@ Object.assign(livemap_options, {
 <h3 id="livemap:legend">Legend</h3>
 
 ##### Nodes
-* A round shape with a O.S. icon (fedora or ubuntu) informs that the node is turned on, running the
-  referenced O.S. and reachable through ssh.
 * If only a number appears, this node is turned off.
-* Smaller bullets indicate intermediate / temporary status
-  * a small gray bullet means the node is turned ON but does not answer to ping
-  (usually this means the node is being turned on or off)
-  * a slightly larger and green-ish bullet means the node answers to ping but cannot be
-  reached through ssh yet (usually this means an image is being
-  loaded).
+* A round shape with a O.S. icon informs that the node is turned on, running the
+  referenced O.S. and reachable through ssh. On a docker node, the icon is the one of the container, which is what you log into.
+* The docker whale <img height=20px src="/assets/img/docker-logo.svg"> means the node runs docker, and is ready,
+  but has no container running yet: there is nothing to log into for now;
+  see `rhubarbe docker load -k` to start a container.
+* Smaller shapes indicate intermediate / temporary status, and follow the boot sequence
+  * a small pale pink dot means the node is turned ON but does not answer to ping yet (BIOS, or the node is being turned on or off)
+  * a small green dot, ***pulsing***, means the node answers to ping and its system is starting; ssh is not available yet
+  * an orange disc <img height=20px src="/assets/img/telnet-glyph.svg"> with two arrows means an image is being ***loaded or saved*** on the node
+    (typically by `rload` or `rsave`); the node cannot be used until this completes
+  * a small ***red*** dot means the node has been starting for more than 3 minutes: it is probably stuck, and may need to be turned off and on again
 * Finally, if a node is hidden behind a large forbidden sign like <img height=40px src=assets/img/forbidden.svg>, it means it
   is out of order, and altogether unavailable.
 
@@ -82,18 +85,29 @@ Object.assign(livetable_options, {
 
 <h4 id="livetable:legend">Legend</h4>
 
+The columns, from left to right
+
 * The ***availability*** column
   tells you whether the node is usable or not. If not, this means you should not try to use that node for your experiment, as it may be physically powered off, or otherwise behave erratically.
 * The ***on/off*** column
   reports if the node is currently turned on or off.
+* The ***ping*** column
+  says whether the node currently answers a single ping at the wired network interface or not.
+* The ***ssh*** column says whether the node can currently be reached through ssh on its wired interface.
+  While an image is being loaded or saved, it shows a <span class='fa fa-terminal'></span> terminal icon instead, as the node
+  is then busy with the image loader and not reachable with ssh.
+* The ***data interface*** column tells whether the node has a data interface available.
 * The ***sdr*** column shows ([see also this page](hardware.md#gory-details))
   * the type of the USRP or other SDR companion (or `none`),
   * together with the attached duplexer if relevant,
   * and the status of the corresponding software switch.
-* The ***ping*** column
-  says whether the node currently answers a single ping at the wired network interface or not.
-* The ***ssh*** column says whether the node can currently be reached through ssh on its wired interface.
-* The ***last O.S***, ***last uname*** and ***last image*** columns shows information about the node ***the last time it was reachable***, i.e. even if the node is currently off.
+* The ***metal O.S.*** column shows the image name and the O.S. of the node itself (as opposed to a container).
+  When the node is not reachable (off, or still starting), it shows what was there ***the last time the node was reachable***;
+  this stale information is displayed ***semi-transparent***.
+  Hover for details (uname, ssh port, ...), including how long ago the node was last seen.
+* The ***docker*** column tells whether the image has docker on board. If so, it shows the image of the container and its O.S. logo
+  (the container's, which is what you log into), or `no container` if none is running.
+  It is also displayed ***semi-transparent*** when the information is stale, and when the container is stopped.
 
 Also please note that
 

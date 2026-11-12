@@ -6,7 +6,7 @@
 import { load_css } from "/assets/r2lab/load-css.js"
 load_css("/assets/r2lab/livemap.css")
 
-import { node_distro, metal_is_live, known_distros, logo_name } from '/assets/r2lab/distros.js'
+import { node_distro, known_distros, logo_name } from '/assets/r2lab/distros.js'
 import { same_value } from '/assets/r2lab/same-value.js'
 import { static_value, is_unavailable, unavailable_details } from '/assets/r2lab/node-static.js'
 import { Sidecar } from "/assets/r2lab/sidecar.js"
@@ -122,6 +122,8 @@ function scale_options() {
 // * cmc_on_off: 'on' or 'off' - nodes that fail will be treated as 'ko', better use 'available' instead
 // * control_ping: 'on' or 'off'
 // * control_ssh: 'on' or 'off'
+// * state: off | bios | booting | telnet | docker-only | container | regular | zombie | unknown;
+//   optional, drives what we show; when absent a coarse one is derived from the flags above
 // * image_radical, os_release: see distros.js
 
 let livemap_geometry = {
@@ -352,11 +354,22 @@ class MapNode {
     return !is_unavailable(this)
   }
 
-  fully_booted() {
-    // on a docker node port 22 may be down (container stopped) while the metal is fine
-    return this.cmc_on_off == 'on'
-      && this.control_ping == 'on'
-      && (this.control_ssh != 'off' || metal_is_live(this))
+  // the state of the node, as computed by the monitor
+  // when absent (older data) we derive a coarse one from the flags
+  display_state() {
+    if (this.state)
+      return this.state
+    if (this.cmc_on_off != 'on')
+      return 'off'
+    if (this.control_ping != 'on')
+      return 'bios'
+    return (this.control_ssh == 'on') ? 'regular' : 'booting'
+  }
+
+  // a node that can be logged into (or a docker host that is ready):
+  // the only ones that deserve a full-size circle and a distro logo
+  is_ready() {
+    return ['regular', 'container', 'docker-only'].includes(this.display_state())
   }
 
   // shift label south-east a little
@@ -387,18 +400,24 @@ class MapNode {
   // when ssh : full size with OS badge
   // but animate.py does show that
   node_status_radius() {
-    // completely off
-    if (this.cmc_on_off != 'on')
-      return livemap_options.radius_ko
-    // does not even ping
-    else if (this.control_ping != 'on')
-      return livemap_options.radius_warming
-    // pings but cannot get ssh
-    else if (this.control_ssh != 'on')
-      return livemap_options.radius_pinging
-    // ssh is answering
-    else
-      return livemap_options.radius_ok
+    switch (this.display_state()) {
+      case 'off':
+        return livemap_options.radius_ko
+      case 'bios':
+      case 'unknown':
+        return livemap_options.radius_warming
+      case 'booting':
+      case 'telnet':
+      case 'zombie':
+        return livemap_options.radius_pinging
+      default:
+        return livemap_options.radius_ok
+    }
+  }
+
+  // booting nodes pulse, see livemap.css
+  is_pulsing() {
+    return this.display_state() == 'booting'
   }
 
   // right now this is visible only for intermediate radius
@@ -409,10 +428,20 @@ class MapNode {
 
   // luckily this is not rendered when a filter is at work
   node_status_color() {
-    let radius = this.node_status_radius()
-    return (radius == livemap_options.radius_pinging) ? d3.rgb('#71edb0').darker() :
-      (radius == livemap_options.radius_warming) ? d3.rgb('#f7d8dd').darker() :
-        '#bbb'
+    switch (this.display_state()) {
+      case 'booting':
+        return d3.rgb('#71edb0').darker()
+      case 'bios':
+        return d3.rgb('#f7d8dd').darker()
+      case 'telnet':
+        return d3.rgb('#f5a623')
+      case 'zombie':
+        return d3.rgb('#d0021b')
+      case 'unknown':
+        return d3.rgb('#d0021b').brighter()
+      default:
+        return '#bbb'
+    }
   }
 
   // a docker host whose container is not running: the metal is up but there
@@ -427,20 +456,22 @@ class MapNode {
   // showing an image (or not, if filter is undefined)
   // depending on the OS
   node_status_filter() {
-    let filter_name
-    // only set a filter with full-fledged nodes
-    if (!this.fully_booted())
+    const state = this.display_state()
+    // an image is being loaded or saved: orange disc with a terminal prompt
+    if (state == 'telnet')
+      return 'url(#telnet-glyph)'
+    // only set a logo with full-fledged nodes
+    if (!this.is_ready())
       return undefined
     // the metal is up but the container is not: the node cannot be used yet,
     // which the distro logo would hide, so show the docker logo instead
-    if (this.container_stopped())
+    if (state == 'docker-only' || this.container_stopped())
       return `url(#docker-logo)`
     // remember infos might be incomplete
     let distro = node_distro(this)
     if (distro == undefined)
       return undefined
-    filter_name = logo_name(distro)
-    return `url(#${filter_name})`
+    return `url(#${logo_name(distro)})`
   }
 
   // a node with no availability record is OK
@@ -699,6 +730,7 @@ export class LiveMap {
     Object.entries(known_distros).forEach(([distro, suffix]) =>
       this.declare_image_filter(logo_name(distro), suffix))
     this.declare_image_filter('docker-logo', 'svg')
+    this.declare_image_filter('telnet-glyph', 'svg')
     this.declare_image_filter('gnuradio-green', 'svg')
     this.declare_image_filter('gnuradio-gray-bold', 'svg')
     this.declare_image_filter('gnuradio-red', 'svg')
@@ -780,6 +812,7 @@ export class LiveMap {
       .attr('r', node => node.node_status_radius())
       .attr('fill', node => node.node_status_color())
       .attr('filter', node => node.node_status_filter())
+      .on('end', function (node) { d3.select(this).classed('pulsing', node.is_pulsing()) })
 
     const squares = svg.selectAll('rect.nodepc-status')
       .data(this.nodepcs, obj => obj.id)

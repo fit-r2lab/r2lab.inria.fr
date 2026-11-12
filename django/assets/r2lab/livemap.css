@@ -82,3 +82,12 @@ line.location-annotation {
     stroke-width: 3px;
     stroke-linecap: round;
 }
+/* booting nodes: a pulsing dot (opacity only, cheap) */
+circle.node-status.pulsing {
+    animation: node-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+    0%, 100% { opacity: .35; }
+    50% { opacity: .95; }
+}

@@ -75,6 +75,9 @@ export class LiveTableNode extends LiveColumnsNode {
   }
 
   cell_ssh() {
+    // not an ssh matter: the node is running the image loader or saver
+    if (this.state == 'telnet')
+      return [span_html('', 'fa fa-terminal'), 'ko', 'telnet - an image is being loaded or saved']
     return this.control_ssh == 'on'
       ? [span_html('', 'fa fa-circle'), 'ok', 'ssh OK']
       : [span_html('', 'far fa-circle'), 'ko', 'no ssh']
