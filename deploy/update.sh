@@ -10,8 +10,9 @@
 # running script is unsafe.
 #
 # Notes
-# - nginx is not restarted: its configuration is not part of this repo, and
-#   it just serves the files or proxies to the django socket
+# - the nginx configuration lives in deploy/nginx/ and is installed under
+#   /etc/nginx; it is checked with nginx -t and only then reloaded; if the
+#   check fails the previous configuration is put back
 # - the raw/ subdir is published by the other repo r2lab.inria.fr-raw
 #
 
@@ -29,6 +30,20 @@ rsync -ai --exclude .git ./ $PUBLISH_PATH/
 rsync -ai nepi-ng-index.html /var/www/nepi-ng/index.html
 
 (cd $PUBLISH_PATH/django && uv sync --frozen)
+
+# nginx config: install, check, reload - or roll back
+NGINX_BACKUP=$(mktemp -d)
+cp -a /etc/nginx/nginx.conf /etc/nginx/conf.d "$NGINX_BACKUP"/
+rsync -ai deploy/nginx/ /etc/nginx/
+if nginx -t; then
+    systemctl reload nginx
+else
+    echo "update.sh: nginx -t failed, restoring previous configuration"
+    cp -a "$NGINX_BACKUP"/nginx.conf /etc/nginx/nginx.conf
+    rsync -a --delete "$NGINX_BACKUP"/conf.d/ /etc/nginx/conf.d/
+    exit 1
+fi
+rm -rf "$NGINX_BACKUP"
 
 systemctl daemon-reload
 systemctl restart r2lab-django
