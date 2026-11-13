@@ -13,6 +13,8 @@
 # - the nginx configuration lives in deploy/nginx/ and is installed under
 #   /etc/nginx; it is checked with nginx -t and only then reloaded; if the
 #   check fails the previous configuration is put back
+# - /docs/ is served statically from /var/www/r2lab-docs, which is populated
+#   by the r2lab-docs repo, not by this one
 # - the raw/ subdir is published by the other repo r2lab.inria.fr-raw
 #
 
